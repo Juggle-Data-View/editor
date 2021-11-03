@@ -1,0 +1,697 @@
+@import './function';
+@import './vars';
+@import './mixin';
+@import './animate';
+
+// .autoDV-picker
+.#{$cls} {
+  $arrow-size: 10px;
+
+  @include reset-component();
+  padding: px2em(6px) px2em(12px);
+  position: relative;
+  background: $picker-bg;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  transition: border $animation-duration-slow, box-shadow $animation-duration-slow;
+  width: 100%;
+
+  &:hover,
+  &-focused {
+    @include hover();
+  }
+
+  &-focused {
+    @include active();
+  }
+
+  &-disabled {
+    background: $disabled-bg;
+    border-color: $border-color;
+    cursor: not-allowed;
+    .#{$cls}-suffix {
+      color: $disabled-color;
+    }
+  }
+
+  // ======================== Input =========================
+  &-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+
+    > input {
+      @include input();
+      background: transparent;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &[disabled] {
+        background: transparent;
+      }
+    }
+
+    &:hover {
+      .#{$cls}-clear {
+        opacity: 1;
+      }
+    }
+
+    &-placeholder {
+      > input {
+        color: $input-placeholder-color;
+      }
+    }
+  }
+
+  &-suffix {
+    align-self: center;
+    margin-left: px2em(6px);
+    color: $disabled-color;
+    line-height: 1;
+    pointer-events: none;
+    > * {
+      vertical-align: top;
+    }
+  }
+
+  &-clear {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    color: $disabled-color;
+    line-height: 1;
+    background: $picker-bg;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $animation-duration-slow, color $animation-duration-slow;
+    > * {
+      vertical-align: top;
+    }
+    &:hover {
+      color: $font-color-secondary;
+    }
+  }
+
+  &-separator {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    color: $disabled-color;
+    vertical-align: top;
+    cursor: default;
+
+    .#{$cls}-focused & {
+      color: $font-color-secondary;
+    }
+
+    .#{$cls}-range-separator & {
+      .#{$cls}-disabled & {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // ======================== Range =========================
+  &-range {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+
+    // Clear
+    .#{$cls}-clear {
+      right: px2em(11px);
+    }
+
+    &:hover {
+      .#{$cls}-clear {
+        opacity: 1;
+      }
+    }
+
+    // Active bar
+    .#{$cls}-active-bar {
+      bottom: -1px;
+      height: 2px;
+      margin-left: px2em(11px);
+      background: $primary-6;
+      opacity: 0;
+      transition: all $animation-duration-slow ease-out;
+      pointer-events: none;
+    }
+
+    &.#{$cls}-focused {
+      .#{$cls}-active-bar {
+        opacity: 1;
+      }
+    }
+
+    &-separator {
+      align-items: center;
+      padding: 0 8px;
+      line-height: 1;
+    }
+  }
+
+  // ======================= Dropdown =======================
+  &-dropdown {
+    @include reset-component();
+    position: absolute;
+    z-index: $zindex-picker;
+    transition: transform ease 0.3s;
+    &-hidden {
+      display: none;
+    }
+    &-placement-bottomLeft {
+      .#{$cls}-range-arrow {
+        top: ($arrow-size / 2) - ($arrow-size / 3);
+        display: block;
+        transform: rotate(-45deg);
+      }
+    }
+    &-placement-topLeft {
+      .#{$cls}-range-arrow {
+        bottom: ($arrow-size / 2) - ($arrow-size / 3);
+        display: block;
+        transform: rotate(135deg);
+      }
+    }
+  }
+
+  &-dropdown-range {
+    padding: ($arrow-size * 2 / 3) 0;
+    &-hidden {
+      display: none;
+    }
+  }
+
+  // Time picker with additional style
+  &-dropdown &-panel > &-time-panel {
+    padding-top: (8px / 2);
+  }
+
+  // ======================== Ranges ========================
+  &-ranges {
+    margin-bottom: 0;
+    padding: px2em(8px);
+    overflow: hidden;
+    text-align: left;
+    list-style: none;
+    line-height: 1;
+
+    > li {
+      float: left;
+      margin-right: px2em(10px);
+      padding: px2em(6px) 0;
+    }
+
+    .#{$cls}-preset {
+      color: $primary-6;
+    }
+
+    .#{$cls}-ok {
+      float: right;
+      margin-right: 0;
+      padding: 0;
+      text-align: center;
+      box-sizing: border-box;
+
+      > button {
+        border: none;
+        padding: px2em(6px) px2em(12px);
+        background-color: $primary-6;
+        color: #fff;
+        cursor: pointer;
+        &:disabled {
+          background-color: $disabled-color;
+        }
+      }
+    }
+  }
+
+  &-range-wrapper {
+    display: flex;
+  }
+
+  &-range-arrow {
+    position: absolute;
+    z-index: 1;
+    display: none;
+    width: $arrow-size;
+    height: $arrow-size;
+    margin-left: px2em(11px) * 1.5;
+    box-shadow: 2px -2px 6px fade(#000, 6%);
+    transition: left $animation-duration-slow ease-out;
+
+    &::after {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: $arrow-size;
+      height: $arrow-size;
+      border: ($arrow-size / 2) solid $border-color;
+      border-color: $picker-bg $picker-bg transparent transparent;
+      content: '';
+    }
+  }
+
+  &-panel-container {
+    overflow: hidden;
+    vertical-align: top;
+    background: $picker-bg;
+    border-radius: $border-radius;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    transition: margin $animation-duration-slow;
+
+    .#{$cls}-panels {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      direction: ltr;
+    }
+
+    .#{$cls}-panel {
+      vertical-align: top;
+      background: transparent;
+      border-radius: 0;
+      flex-direction: column;
+
+      &-focused {
+        border-color: $border-color;
+      }
+    }
+  }
+
+  &-panel {
+    display: inline-flex;
+    text-align: center;
+    background: $picker-bg;
+    border-radius: $border-radius;
+    outline: none;
+    height: 100%;
+    &-focused {
+      border-color: $primary-6;
+    }
+  }
+
+  // ========================================================
+  // =                     Shared Panel                     =
+  // ========================================================
+  &-decade-panel,
+  &-year-panel,
+  &-quarter-panel,
+  &-month-panel,
+  &-week-panel,
+  &-date-panel,
+  &-time-panel {
+    display: flex;
+    flex-direction: column;
+    width: $picker-panel-width;
+  }
+
+  // ======================= Header =======================
+  &-header {
+    display: flex;
+    padding: 0 px2em(8px);
+    border-bottom: $border-width solid $border-color;
+    > * {
+      flex: none;
+    }
+    button {
+      padding: 0;
+      color: $disabled-color;
+      line-height: $picker-panel-header-height;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      transition: color $animation-duration-slow;
+      font-size: inherit;
+    }
+    > button {
+      min-width: 1.6em;
+
+      &:hover {
+        color: $font-color;
+      }
+    }
+    &-view {
+      flex: auto;
+      font-weight: 500;
+      line-height: $picker-panel-header-height;
+      button {
+        color: inherit;
+        font-weight: inherit;
+        &:not(:first-child) {
+          margin-left: 8px;
+        }
+        &:hover {
+          color: $primary-6;
+        }
+      }
+    }
+  }
+
+  // Arrow button
+  &-prev-icon,
+  &-next-icon,
+  &-super-prev-icon,
+  &-super-next-icon {
+    position: relative;
+    display: inline-block;
+    width: $picker-arrow-size;
+    height: $picker-arrow-size;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: $picker-arrow-size;
+      height: $picker-arrow-size;
+      border: 0 solid currentColor;
+      border-width: 1.5px 0 0 1.5px;
+      content: '';
+    }
+  }
+
+  &-super-prev-icon,
+  &-super-next-icon {
+    &::after {
+      position: absolute;
+      top: ceil(($picker-arrow-size / 2));
+      left: ceil(($picker-arrow-size / 2));
+      display: inline-block;
+      width: $picker-arrow-size;
+      height: $picker-arrow-size;
+      border: 0 solid currentColor;
+      border-width: 1.5px 0 0 1.5px;
+      content: '';
+    }
+  }
+
+  &-prev-icon,
+  &-super-prev-icon {
+    transform: rotate(-45deg);
+  }
+
+  &-next-icon,
+  &-super-next-icon {
+    transform: rotate(135deg);
+  }
+
+  // ======================== Body ========================
+  &-content {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    th,
+    td {
+      position: relative;
+      min-width: 24px;
+      font-weight: 400;
+    }
+    th {
+      height: $picker-panel-cell-height;
+      line-height: $picker-panel-cell-height;
+    }
+  }
+
+  &-cell {
+    padding: $picker-panel-cell-padding 0;
+    color: $disabled-color;
+    cursor: pointer;
+    // In view
+    &-in-view {
+      color: $font-color;
+    }
+    // Disabled
+    &-disabled {
+      cursor: not-allowed;
+    }
+    @include picker-cell-inner($cell-inner-cls);
+  }
+
+  &-decade-panel,
+  &-year-panel,
+  &-quarter-panel,
+  &-month-panel {
+    .#{$cls}-content {
+      height: $picker-panel-without-time-cell-height * 4;
+    }
+    .#{$cell-inner-cls} {
+      padding: 0 8px;
+    }
+    .#{$cls}-cell {
+      &-disabled .#{$cell-inner-cls} {
+        background: $disabled-bg;
+      }
+    }
+  }
+
+  &-quarter-panel {
+    .#{$cls}-content {
+      height: 56px;
+    }
+  }
+
+  // ======================== Footer ========================
+  &-footer {
+    position: relative;
+    width: px2em(110px);
+    text-align: center;
+    width: min-content;
+    min-width: 100%;
+    border-top: $border-width solid $border-color;
+
+    &-extra {
+      flex: 1;
+      overflow: auto;
+      &:not(:last-child) {
+        border-bottom: $border-width solid $border-color;
+      }
+    }
+  }
+
+  &-now {
+    .#{$cls}-now-btn {
+      color: $primary-6;
+    }
+  }
+
+  &-today-btn {
+    color: $primary-6;
+
+    &:hover {
+      color: $primary-5;
+    }
+
+    &:active {
+      color: $primary-7;
+    }
+
+    &-disabled {
+      color: $disabled-color;
+      cursor: not-allowed;
+    }
+  }
+
+  // ========================================================
+  // =                       Special                        =
+  // ========================================================
+
+  // ===================== Decade Panel =====================
+  &-decade-panel {
+    .#{$cell-inner-cls} {
+      padding: 0 (8px / 2);
+    }
+    .#{$cls}-cell::before {
+      display: none;
+    }
+  }
+
+  // ============= Year & Quarter & Month Panel =============
+  &-year-panel,
+  &-quarter-panel,
+  &-month-panel {
+    $hover-cell-fixed-distance: (((($picker-panel-width) / 3) - $picker-year-month-cell-width) / 2);
+    .#{$cls}-body {
+      padding: 0 $picker-body-padding;
+    }
+    .#{$cell-inner-cls} {
+      width: $picker-year-month-cell-width;
+    }
+    .#{$cls}-cell-range-hover-start::after {
+      left: $hover-cell-fixed-distance;
+      border-left: $border-width dashed $picker-date-hover-range-border-color;
+      border-radius: $border-radius 0 0 $border-radius;
+    }
+    .#{$cls}-cell-range-hover-end::after {
+      right: $hover-cell-fixed-distance;
+      border-right: $border-width dashed $picker-date-hover-range-border-color;
+      border-radius: 0 $border-radius $border-radius 0;
+    }
+  }
+
+  // ====================== Week Panel ======================
+  &-week-panel {
+    .#{$cls}-body {
+      padding: px2em(8px) px2em(12px);
+    }
+    // Clear cell style
+    .#{$cls}-cell {
+      &:hover #{$cell-inner-cls},
+      &-selected .#{$cell-inner-cls},
+      .#{$cell-inner-cls} {
+        background: transparent !important;
+      }
+    }
+    &-row {
+      td {
+        transition: background $animation-duration-slow;
+      }
+
+      &:hover td {
+        background: $picker-cell-hover-color;
+      }
+
+      &-selected td,
+      &-selected:hover td {
+        background: $primary-6;
+
+        &.#{$cls}-cell-week {
+          color: $font-color-inverse;
+          opacity: 0.5;
+        }
+
+        &.#{$cls}-cell-today .#{$cell-inner-cls}::before {
+          border-color: $font-color-inverse;
+        }
+
+        .#{$cell-inner-cls} {
+          color: $font-color-inverse;
+        }
+      }
+    }
+  }
+
+  // ====================== Date Panel ======================
+  &-date-panel {
+    .#{$cls}-body {
+      padding: $picker-body-padding;
+    }
+
+    .#{$cls}-content {
+      width: $picker-panel-cell-width * 7;
+      th {
+        width: $picker-panel-cell-width;
+      }
+    }
+  }
+
+  // ==================== Datetime Panel ====================
+  &-datetime-panel {
+    display: flex;
+    .#{$cls}-time-panel {
+      border-left: $border-width solid $border-color;
+    }
+    .#{$cls}-date-panel,
+    .#{$cls}-time-panel {
+      transition: opacity $animation-duration-slow;
+    }
+    // Keyboard
+    &-active {
+      .#{$cls}-date-panel,
+      .#{$cls}-time-panel {
+        opacity: 0.3;
+
+        &-active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  // ====================== Time Panel ======================
+  &-time-panel {
+    width: auto;
+    min-width: auto;
+
+    .#{$cls}-content {
+      display: flex;
+      flex: auto;
+      height: $picker-time-panel-column-height;
+    }
+
+    &-column {
+      flex: 1 0 auto;
+      width: $picker-time-panel-column-width;
+      margin: 0;
+      padding: 0;
+      overflow-y: hidden;
+      text-align: left;
+      list-style: none;
+      transition: background $animation-duration-slow;
+
+      &::after {
+        display: block;
+        height: $picker-time-panel-column-height - $picker-panel-cell-height;
+        content: '';
+        .#{$cls}-datetime-panel & {
+          height: $picker-time-panel-column-height - $picker-panel-cell-height + px2em(2px);
+        }
+      }
+
+      &:not(:first-child) {
+        border-left: $border-width solid $border-color;
+      }
+
+      &-active {
+        background: $primary-1;
+      }
+
+      &:hover {
+        overflow-y: auto;
+      }
+
+      > li {
+        margin: 0;
+        padding: 0;
+
+        &.#{$cls}-time-panel-cell {
+          .#{$cls}-time-panel-cell-inner {
+            display: block;
+            width: 100%;
+            height: $picker-panel-cell-height;
+            margin: 0;
+            color: $font-color;
+            line-height: $picker-panel-cell-height;
+            border-radius: 0;
+            text-align: center;
+            cursor: pointer;
+            transition: background $animation-duration-slow;
+
+            &:hover {
+              background: $picker-cell-hover-color;
+            }
+          }
+
+          &-selected {
+            .#{$cls}-time-panel-cell-inner {
+              background: $primary-1;
+            }
+          }
+
+          &-disabled {
+            .#{$cls}-time-panel-cell-inner {
+              color: $disabled-color;
+              background: transparent;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+}

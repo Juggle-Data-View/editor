@@ -1,0 +1,292 @@
+@import './vars';
+
+@mixin reset-component {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $font-color;
+  font-size: $font-size;
+  line-height: 1.5;
+  list-style: none;
+  font-variant: tabular-nums; // ?
+  font-feature-settings: 'tnum'; // ?
+}
+
+@mixin hover($color: $primary-5) {
+  border-color: $color;
+  border-right-width: 1px !important;
+}
+
+@mixin active($color: $primary-2) {
+  border-right-width: 1px !important;
+  outline: 0;
+  box-shadow: 0 0 0 2px $color;
+}
+
+@mixin disabled() {
+  color: fade-out(#000, 1- 0.25);
+  background-color: hsl(0, 0, 96%);
+  cursor: not-allowed;
+  opacity: 1;
+
+  &:hover {
+    @include hover($border-color);
+  }
+}
+
+// Placeholder text
+@mixin placeholder($color: hsl(0, 0, 75%)) {
+  // Firefox
+  &::-moz-placeholder {
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &::placeholder {
+    color: $color;
+  }
+  &:placeholder-shown {
+    text-overflow: ellipsis;
+  }
+}
+
+@mixin input() {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  background-color: #fff;
+  background-image: none;
+  border: 0;
+  border-radius: 2px;
+  transition: all 0.3s;
+  vertical-align: middle;
+  color: inherit;
+  @include placeholder();
+
+  &:hover {
+    @include hover();
+  }
+
+  &:focus,
+  &-focused {
+    @include active();
+  }
+
+  &-disabled {
+    @include disabled();
+  }
+
+  &[disabled] {
+    @include disabled();
+  }
+
+  &-borderless {
+    &,
+    &:hover,
+    &:focus,
+    &-focused,
+    &-disabled,
+    &[disabled] {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@mixin picker-cell-inner($cellClassName) {
+  &::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: $picker-panel-cell-height;
+    transform: translateY(-50%);
+    content: '';
+  }
+
+  // >>> Default
+  .#{$cellClassName} {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    min-width: $picker-panel-cell-height;
+    height: $picker-panel-cell-height;
+    line-height: $picker-panel-cell-height * 1.025;
+    border-radius: $border-radius;
+    transition: background $animation-duration-slow, border $animation-duration-slow;
+  }
+
+  // >>> Hover
+  &:hover:not(&-in-view),
+  &:hover:not(&-selected):not(&-range-start):not(&-range-end):not(&-range-hover-start):not(&-range-hover-end) {
+    .#{$cellClassName} {
+      background: $picker-cell-hover-color;
+    }
+  }
+
+  @at-root {
+    // #{&} = .autoDV-picker-cell
+    // >>> Today
+    #{&}-in-view#{&}-today .#{$cellClassName} {
+      &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        border: 1px solid $primary-6;
+        border-radius: $border-radius;
+        content: '';
+      }
+    }
+
+    // >>> In Range
+    #{&}-in-view#{&}-in-range {
+      position: relative;
+      &::before {
+        background: $primary-1;
+      }
+    }
+
+    // >>> Selected
+    #{&}-in-view#{&}-selected .#{$cellClassName},
+    #{&}-in-view#{&}-range-start .#{$cellClassName},
+    #{&}-in-view#{&}-range-end .#{$cellClassName} {
+      color: $font-color-inverse;
+      background: $primary-6;
+    }
+
+    #{&}-in-view#{&}-range-start:not(#{&}-range-start-single),
+    #{&}-in-view#{&}-range-end:not(#{&}-range-end-single) {
+      &::before {
+        background: $primary-1;
+      }
+    }
+
+    #{&}-in-view#{&}-range-start::before {
+      left: 50%;
+    }
+
+    #{&}-in-view#{&}-range-end::before {
+      right: 50%;
+    }
+
+    // >>> Range Hover
+    #{&}-in-view#{&}-range-hover-start:not(&-in-range):not(&-range-start):not(&-range-end),
+    #{&}-in-view#{&}-range-hover-end:not(&-in-range):not(&-range-start):not(&-range-end),
+    #{&}-in-view#{&}-range-hover-start#{&}-range-start-single,
+    #{&}-in-view#{&}-range-hover-start#{&}-range-start#{&}-range-end#{&}-range-end-near-hover,
+    #{&}-in-view#{&}-range-hover-end#{&}-range-start#{&}-range-end#{&}-range-start-near-hover,
+    #{&}-in-view#{&}-range-hover-end#{&}-range-end-single,
+    #{&}-in-view#{&}-range-hover:not(&-in-range) {
+      &::after {
+        position: absolute;
+        top: 50%;
+        z-index: 0;
+        height: $picker-panel-cell-height;
+        border-top: 1px dashed $picker-date-hover-range-border-color;
+        border-bottom: 1px dashed $picker-date-hover-range-border-color;
+        transform: translateY(-50%);
+        content: '';
+      }
+    }
+
+    // Add space for stash
+    #{&}-range-hover-start::after,
+    #{&}-range-hover-end::after,
+    #{&}-range-hover::after {
+      right: 0;
+      left: 2px;
+    }
+
+    // Hover with in range
+    #{&}-in-view#{&}-in-range#{&}-range-hover::before,
+    #{&}-in-view#{&}-range-start#{&}-range-hover::before,
+    #{&}-in-view#{&}-range-end#{&}-range-hover::before,
+    #{&}-in-view#{&}-range-start:not(&-range-start-single)#{&}-range-hover-start::before,
+    #{&}-in-view#{&}-range-end:not(&-range-end-single)#{&}-range-hover-end::before,
+    .#{$cls}-panel > :not(.#{$cls}-date-panel) #{&}-in-view#{&}-in-range#{&}-range-hover-start::before,
+    .#{$cls}-panel > :not(.#{$cls}-date-panel) #{&}-in-view#{&}-in-range#{&}-range-hover-end::before {
+      background: $picker-cell-hover-with-range-color;
+    }
+
+    // range start border-radius
+    #{&}-in-view#{&}-range-start:not(&-range-start-single):not(&-range-end) .#{cellClassName} {
+      border-radius: $border-radius 0 0 $border-radius;
+    }
+    // range end border-radius
+    #{&}-in-view#{&}-range-end:not(&-range-end-single):not(&-range-start) .#{cellClassName} {
+      border-radius: 0 $border-radius $border-radius 0;
+    }
+
+    // DatePanel only
+    .#{$cls}-date-panel #{&}-in-view#{&}-in-range#{&}-range-hover-start .#{$cellClassName},
+    .#{$cls}-date-panel #{&}-in-view#{&}-in-range#{&}-range-hover-end .#{$cellClassName} {
+      &::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        background: $picker-cell-hover-with-range-color;
+        content: '';
+      }
+    }
+    .#{$cls}-date-panel #{&}-in-view#{&}-in-range#{&}-range-hover-start .#{$cellClassName}::after {
+      right: -5px - 1px;
+      left: 0;
+    }
+    .#{$cls}-date-panel #{&}-in-view#{&}-in-range#{&}-range-hover-end .#{$cellClassName}::after {
+      right: 0;
+      left: -5px - 1px;
+    }
+
+    // Hover with range start & end
+    #{&}-range-hover#{&}-range-start::after {
+      right: 50%;
+    }
+    #{&}-range-hover#{&}-range-end::after {
+      left: 50%;
+    }
+
+    // Edge start
+    tr > #{&}-in-view#{&}-range-hover:first-child::after,
+    tr > #{&}-in-view#{&}-range-hover-end:first-child::after,
+    #{&}-in-view#{&}-start#{&}-range-hover-edge-start#{&}-range-hover-edge-start-near-range::after,
+    #{&}-in-view#{&}-range-hover-edge-start:not(&-range-hover-edge-start-near-range)::after,
+    #{&}-in-view#{&}-range-hover-start::after {
+      left: 6px;
+      border-left: 1px dashed $picker-date-hover-range-border-color;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+
+    // Edge end
+    tr > #{&}-in-view#{&}-range-hover:last-child::after,
+    tr > #{&}-in-view#{&}-range-hover-start:last-child::after,
+    #{&}-in-view#{&}-end#{&}-range-hover-edge-end#{&}-range-hover-edge-end-near-range::after,
+    #{&}-in-view#{&}-range-hover-edge-end:not(&-range-hover-edge-end-near-range)::after,
+    #{&}-in-view#{&}-range-hover-end::after {
+      right: 6px;
+      border-right: 1px dashed $picker-date-hover-range-border-color;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    // >>> Disabled
+    &-disabled {
+      pointer-events: none;
+      .#{cellClassName} {
+        color: $disabled-color;
+        background: transparent;
+      }
+      &::before {
+        background: $disabled-bg;
+      }
+    }
+    #{&}-disabled#{&}-today .#{cellClassName}::before {
+      border-color: $disabled-color;
+    }
+  }
+}

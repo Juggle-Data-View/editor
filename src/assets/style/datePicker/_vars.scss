@@ -1,0 +1,74 @@
+/**
+ * =====================
+ * Picker Variables
+ * =====================
+ */
+
+@import './function';
+
+$cls: 'autoDV-picker';
+$cell-inner-cls: $cls + '-cell-inner';
+
+/**
+ * 自定义配色变量
+ */
+$autoDV-primary: var(--primary-6, #1890ff); // 主色调，如：默认蓝色
+$autoDV-secondary: var(--secondary-6, #bfbfbf); // 次要色调，如：禁用状态、icon（前进、后退）色
+
+/**
+ * antd变量
+ */
+$font-size: var(--fontSize, 14px);
+$border-width: var(--borderWidth, 1px);
+$picker-bg: var(--background, #fff);
+$font-color: var(--fontColor, #333);
+$border-color: var(--borderColor, #f0f0f0);
+
+$primary-1: var(--primary-1, #e6f7ff);
+$primary-2: var(--primary-2, #bae7ff);
+$primary-3: var(--primary-3, #91d5ff);
+$primary-4: var(--primary-4, #69c0ff);
+$primary-5: var(--primary-5, #40a9ff);
+$primary-6: $autoDV-primary;
+$primary-7: var(--primary-7, #096dd9);
+$primary-8: var(--primary-8, #0050b3);
+$primary-9: var(--primary-9, #003a8c);
+$primary-10: var(--primary-10, #002766);
+
+$font-color-secondary: $autoDV-secondary;
+$font-color-inverse: var(--fontColorInverse, #fff);
+
+$disabled-color: $autoDV-secondary;
+$disabled-bg: var(--secondary-2, #f5f5f5);
+
+$border-radius: px2em(2px);
+
+// Input
+$input-placeholder-color: $autoDV-secondary;
+$input-hover-border-color: $primary-5;
+
+$picker-cell-hover-color: $disabled-bg;
+$picker-cell-hover-with-range-color: $primary-1;
+$picker-date-hover-range-border-color: $primary-5;
+$picker-panel-header-height: px2em(40px);
+$picker-panel-cell-width: px2em(36px);
+$picker-panel-cell-height: px2em(24px);
+$picker-panel-cell-padding: px2em(3px);
+$picker-panel-without-time-cell-height: px2em(54px);
+$picker-body-padding: px2em(8px);
+$picker-time-panel-column-width: px2em(56px);
+$picker-panel-cell-height-with-padding: $picker-panel-cell-height + $picker-panel-cell-padding * 2;
+$picker-time-panel-column-height: $picker-panel-cell-height + ($picker-panel-cell-height-with-padding * 6) +
+  $picker-body-padding * 2;
+
+// picker panel
+$picker-arrow-size: 7px;
+$picker-year-month-cell-width: px2em(60px);
+$picker-panel-width: $picker-panel-cell-width * 7 + $picker-body-padding * 2;
+$picker-panel-height: $picker-time-panel-column-height + $picker-panel-header-height;
+$zindex-picker: 1050;
+
+// Animation
+$animation-duration-slow: 0.3s; // Modal
+$animation-duration-base: 0.2s;
+$animation-duration-fast: 0.1s; // Tooltip
