@@ -32,18 +32,28 @@ class DB {
     console.log('init db', appId);
   }
 
-  getConfigByAPPID = async () => {
+  getConfigByAPPID = async (appId: number) => {
     try {
       const db = await this.dbIns;
-      const components = await db.getAll(COMP_STORE);
-      console.log(components);
+      // const keyrange = IDBKeyRange.only(appId);
+      // const components = await db.getAll(COMP_STORE, appId);
+      // console.log(components);
+      const tx = db.transaction(COMP_STORE);
+      const index = tx.store.index('compId');
+      console.log(index, index.iterate(appId));
+
+      const result = [];
+      for await (const item of index.iterate(appId)) {
+        console.log(item.value);
+        result.push(item.value);
+      }
+      console.log(result);
     } catch (error) {}
   };
 
   addComponents = async (payload: AutoDV.Comp[]) => {
     try {
       const db = await this.dbIns;
-      console.log(db);
       payload.forEach((item) => {
         db.add(COMP_STORE, { id: 146, ...item });
       });
