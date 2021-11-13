@@ -4,9 +4,11 @@ export const DB_NAME = 'DB_NAME';
 export const DB_VERSION = 1;
 export const COMP_STORE = 'COMP_STORE';
 export const CANVAS_STORE = 'CANVAS_STORE';
+export const APPINFO_STORE = 'APPINFO_STORE';
 
 class DB {
   dbIns: Promise<IDBPDatabase<AutoDV.AppConfig>>;
+
   constructor() {
     const db = openDB<AutoDV.AppConfig>(DB_NAME, DB_VERSION, {
       upgrade(db) {
@@ -16,12 +18,18 @@ class DB {
         });
 
         const canvasStore = db.createObjectStore(CANVAS_STORE, {
+          keyPath: 'id',
+          autoIncrement: false,
+        });
+
+        const appInfoStore = db.createObjectStore(APPINFO_STORE, {
           keyPath: ['id', 'canvasId'],
           autoIncrement: false,
         });
 
-        compStore.createIndex('compId', ['id', 'code']);
-        canvasStore.createIndex('canvasId', ['id', 'canvasId']);
+        compStore.createIndex('compId', 'id');
+        canvasStore.createIndex('canvasId', 'canvasId');
+        appInfoStore.createIndex('appId', 'id');
       },
     });
     this.dbIns = db;
@@ -32,23 +40,28 @@ class DB {
     console.log('init db', appId);
   }
 
-  getConfigByAPPID = async (appId: number) => {
+  getConfigByAPPID = async (appId: number, canvasId: number) => {
     try {
       const db = await this.dbIns;
-      // const keyrange = IDBKeyRange.only(appId);
-      // const components = await db.getAll(COMP_STORE, appId);
-      // console.log(components);
-      const tx = db.transaction(COMP_STORE);
-      const index = tx.store.index('compId');
-      console.log(index, index.iterate(appId));
 
-      const result = [];
-      for await (const item of index.iterate(appId)) {
-        console.log(item.value);
-        result.push(item.value);
-      }
-      console.log(result);
-    } catch (error) {}
+      const transaction = db.transaction([COMP_STORE], 'readonly');
+      const objectStore = transaction.objectStore(COMP_STORE);
+      const compIndex = objectStore.index('compId');
+      const canvasIndex = objectStore.index('canvasId');
+      const appIndex = objectStore.index('appId');
+      const appKeyrange = IDBKeyRange.only(appId);
+      const canvasKeyrange = IDBKeyRange.only(canvasId);
+      const components: AutoDV.Comp[] = await compIndex.getAll(appKeyrange);
+      const canvasInfo: AutoDV.Canvas = await canvasIndex.get(appKeyrange);
+      const appInfo: Omit<AutoDV.AppConfig, 'canvas'> = await appIndex.get(canvasKeyrange);
+      return {
+        compInsts: components,
+        canvas: canvasInfo,
+        app: appInfo,
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   addComponents = async (payload: AutoDV.Comp[]) => {
@@ -65,6 +78,7 @@ class DB {
       }
     }
   };
+  // setApp = async (appInfo: AutoDV.AppConfig) => {};
 }
 
 export default new DB();
