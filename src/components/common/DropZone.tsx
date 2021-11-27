@@ -122,8 +122,10 @@ const DropZone: React.FC<IDropZone> = (props) => {
 
         change(imgUrl);
       } catch (error) {
-        const errMsg = error.message || 'Error: DropZone onDrop invoke error';
-        notice.error(errMsg);
+        if (error instanceof Error) {
+          const errMsg = error.message || 'Error: DropZone onDrop invoke error';
+          notice.error(errMsg);
+        }
       } finally {
         setIsLoading(false);
       }

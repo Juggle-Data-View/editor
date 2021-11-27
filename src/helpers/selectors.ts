@@ -45,31 +45,28 @@ export interface IActionStatus {
  * @param scodes 选中组件code
  * @param compDatas 所有组件数据
  */
-export const actionStatusSelector = createSelector<
-  AutoDV.State,
-  string[],
-  string[],
-  AutoDV.State['compDatas'],
-  IActionStatus
->([getCompCodes, getSelectedCompCodes, getCompDatas], (codes, scodes, compDatas) => {
-  const sLen = scodes.length;
-  const Len = codes.length;
-  const hasGroup = scodes.every((code) => {
-    return compDatas[code].config.groupCode === undefined;
-  });
-  return {
-    disable_moveup: !sLen || scodes.includes(codes[0]),
-    disable_movedown: !sLen || scodes.includes(codes[Len - 1]),
-    disable_move2head: ((!sLen || scodes.includes(codes[0])) && sLen < 2) || !hasGroup,
-    disable_move2foot: ((!sLen || scodes.includes(codes[Len - 1])) && sLen < 2) || !hasGroup,
-    disable_del: !sLen,
-    disable_lock: !sLen,
-    disable_hide: !sLen,
-    // 如果选中的组件全是某种状态，才高亮按钮
-    highlight_lock: !!sLen && scodes.every((code) => compDatas[code].locked),
-    highlight_hide: !!sLen && scodes.every((code) => compDatas[code].hided),
-  };
-});
+export const actionStatusSelector = createSelector(
+  [getCompCodes, getSelectedCompCodes, getCompDatas],
+  (codes, scodes, compDatas) => {
+    const sLen = scodes.length;
+    const Len = codes.length;
+    const hasGroup = scodes.every((code) => {
+      return compDatas[code].config.groupCode === undefined;
+    });
+    return {
+      disable_moveup: !sLen || scodes.includes(codes[0]),
+      disable_movedown: !sLen || scodes.includes(codes[Len - 1]),
+      disable_move2head: ((!sLen || scodes.includes(codes[0])) && sLen < 2) || !hasGroup,
+      disable_move2foot: ((!sLen || scodes.includes(codes[Len - 1])) && sLen < 2) || !hasGroup,
+      disable_del: !sLen,
+      disable_lock: !sLen,
+      disable_hide: !sLen,
+      // 如果选中的组件全是某种状态，才高亮按钮
+      highlight_lock: !!sLen && scodes.every((code) => compDatas[code].locked),
+      highlight_hide: !!sLen && scodes.every((code) => compDatas[code].hided),
+    };
+  }
+);
 
 /**
  * 根据依赖项，获取选中组件的Rect

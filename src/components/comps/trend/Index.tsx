@@ -88,7 +88,7 @@ const Index: React.FC<IIndex> = ({ compData, sourceData }) => {
       result = func(result, numeral);
     }
   } catch (error) {
-    console.log('函数编写错误:', error.message);
+    if (error instanceof Error) console.log('函数编写错误:', error.message);
   }
 
   return (

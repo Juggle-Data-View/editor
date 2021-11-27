@@ -76,7 +76,7 @@ const setupWatch = () => {
         });
         await Api.updateCanvas(payload);
       }
-    } catch (error) {
+    } catch (error: any) {
       notice.error(`更新画布失败: ${error.message}`);
     }
   });
@@ -186,7 +186,7 @@ const setupWatch = () => {
           await Api.updateComp(payload as CompInstEditReqData[]);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       const errMsg = error.message ? error.message : '请求错误';
       // TODO: 数据更新失败是否需要回退到更新前的数据，待定。
@@ -203,7 +203,7 @@ const setupWatch = () => {
       if (diffs.length && oldVal.length === newVal.length) {
         await Api.resortComp(newVal);
       }
-    } catch (error) {
+    } catch (error: any) {
       const errMsg = error.message ? error.message : '请求错误';
       notice.error(`排序失败: ${errMsg}`);
     }

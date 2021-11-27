@@ -39,7 +39,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
       const filePath = parentCompCode ? compCode : compTempCode;
       const config = await asyncLoadCompConfig(dirPath, filePath);
       setConfig(config);
-    } catch (error) {
+    } catch (error: any) {
       notice.error(error.message || '加载组件配置文件失败');
     }
   };

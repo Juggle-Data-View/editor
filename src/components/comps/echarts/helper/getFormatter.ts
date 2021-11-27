@@ -14,7 +14,7 @@ const getFormatter = (formatter: string) => {
     }
     return (data: any) => formatterFunc()(data, { day, numeral });
   } catch (error) {
-    notice.error(error.message);
+    if (error instanceof Error) notice.error(error.message);
   }
 };
 

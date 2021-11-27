@@ -74,7 +74,7 @@ const DataConfig: React.FC<IDataConfig> = ({ code, dataConfig, name }) => {
           ];
           await Api.updateComp(payload);
         }
-      } catch (error) {
+      } catch (error: any) {
         notice.error(`修改静态数据失败: ${error.message}`);
       }
     },

@@ -64,7 +64,7 @@ const DataSourceCreator: React.FC<Props> = ({ dataSourceType, title }) => {
                 message: '创建成功',
                 intent: 'success',
               });
-            } catch (err) {
+            } catch (err: any) {
               setError(err.message || '');
             }
           }}

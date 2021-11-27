@@ -27,7 +27,7 @@ class DB {
           autoIncrement: false,
         });
 
-        compStore.createIndex('compId', 'id');
+        compStore.createIndex('appId', 'id');
         canvasStore.createIndex('canvasId', 'canvasId');
         appInfoStore.createIndex('appId', 'id');
       },
@@ -42,13 +42,14 @@ class DB {
 
   getConfigByAPPID = async (appId: number, canvasId: number) => {
     try {
+      console.log('trigger ddd');
       const db = await this.dbIns;
-
-      const transaction = db.transaction([COMP_STORE], 'readonly');
-      const objectStore = transaction.objectStore(COMP_STORE);
-      const compIndex = objectStore.index('compId');
-      const canvasIndex = objectStore.index('canvasId');
-      const appIndex = objectStore.index('appId');
+      const getIndex = (storeName: string, indexName: string) => {
+        return db.transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
+      };
+      const compIndex = getIndex(COMP_STORE, 'appId');
+      const canvasIndex = getIndex(CANVAS_STORE, 'canvasId');
+      const appIndex = getIndex(APPINFO_STORE, 'appId');
       const appKeyrange = IDBKeyRange.only(appId);
       const canvasKeyrange = IDBKeyRange.only(canvasId);
       const components: AutoDV.Comp[] = await compIndex.getAll(appKeyrange);

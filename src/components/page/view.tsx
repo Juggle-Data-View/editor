@@ -80,7 +80,8 @@ const View = (props: { url?: string }) => {
     try {
       await asyncCheckAuthority(url);
       await setApp();
-    } catch (error) {
+    } catch (error: any) {
+      // if (error instanceof Error)
       if (error.code && error.code === 490002) {
         setVisiblePwMask(true);
       } else {
@@ -104,7 +105,7 @@ const View = (props: { url?: string }) => {
             });
             await setApp();
             setVisiblePwMask(false);
-          } catch (error) {
+          } catch (error: any) {
             console.error(error);
             notice.error(error.message);
           }

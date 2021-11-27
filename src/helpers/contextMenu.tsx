@@ -14,7 +14,6 @@ import { getAutoDV } from 'utils';
 import store from 'store/index';
 import { actionStatusSelector, selectedRectSelector } from 'helpers/selectors';
 import { COPY_COMP, DELETE_COMP, ADD_GROUP_COMP } from 'components/base/BaseActions';
-import { createFavorites } from 'components/views/header/HeadFavorites';
 import { appAction } from 'store/features/appSlice';
 
 interface extraItem {
@@ -90,7 +89,6 @@ export const showContextMenu = (e: React.MouseEvent, extraConfig?: extraItem[]) 
         disabled={!autoDVState.selectedCompCodes.find((item) => item.includes('group'))}
         text="取消分组"
       />
-      <MenuItem icon="star" onClick={createFavorites} text="收藏" />
       <MenuDivider />
       <MenuItem icon="trash" onClick={DELETE_COMP} text="删除" />
     </Menu>,

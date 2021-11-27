@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';
+// import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';
+import { ButtonGroup, Tooltip, IconButton } from '@mui/material';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
+import HistoryIcon from '@mui/icons-material/History';
 import { HistoryStyled } from './style';
 import { editorAction } from 'store/features/editorSlice';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo } from 'store/selectors';
+import Language from 'constant/content';
 
 const History: React.FC = () => {
   // TODO: any -> RootState
@@ -14,34 +19,39 @@ const History: React.FC = () => {
   return (
     <HistoryStyled>
       <ButtonGroup>
-        <Tooltip disabled={!past.length} content="后退" position={Position.BOTTOM}>
-          <Button
-            icon="undo"
+        <Tooltip disableHoverListener={!past.length} title={Language.back} placement="bottom">
+          <IconButton
+            aria-label="back"
             disabled={!past.length}
             onClick={() => {
               dispatch(ActionCreators.undo());
             }}
-          />
+          >
+            <FastForwardIcon />
+          </IconButton>
         </Tooltip>
-        <Tooltip disabled={!future.length} content="前进" position={Position.BOTTOM}>
-          <Button
-            icon="undo"
+        <Tooltip disableHoverListener={!future.length} title="前进" placement="bottom">
+          <IconButton
+            aria-label="undo"
             disabled={!future.length}
-            style={{ transform: 'scale(-1, 1)' }}
             onClick={() => {
               dispatch(ActionCreators.redo());
             }}
-          />
+          >
+            <FastRewindIcon />
+          </IconButton>
         </Tooltip>
-        <Tooltip content="历史记录" position={Position.BOTTOM}>
-          <Button
-            intent={isActive ? 'primary' : 'none'}
-            icon="history"
+        <Tooltip title="历史记录" placement="bottom">
+          <IconButton
+            disabled={isActive}
+            aria-label="history"
             onClick={() => {
               dispatch(editorAction.togglePanel('history'));
               setIsActive(!isActive);
             }}
-          />
+          >
+            <HistoryIcon />
+          </IconButton>
         </Tooltip>
       </ButtonGroup>
     </HistoryStyled>

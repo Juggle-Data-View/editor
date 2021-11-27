@@ -70,7 +70,7 @@ const file = {
     let result;
     try {
       result = new Blob(data, { type: mime });
-    } catch (error) {
+    } catch (error: any) {
       window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
       if (error.name === 'TypeError' && window.BlobBuilder) {
         const builder = new window.BlobBuilder();

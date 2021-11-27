@@ -65,7 +65,7 @@ const UploadFile: React.FC<IProps> = (props) => {
         onUploaded(res.downloadUrl);
         setFile(file);
       } catch (error) {
-        notice.error(error.message);
+        if (error instanceof Error) notice.error(error.message);
       }
     },
     onDropRejected(files, event) {

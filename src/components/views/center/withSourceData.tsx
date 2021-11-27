@@ -117,7 +117,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
               return await fetchDataInView(_code, dynamicParams, _layerCode);
             }
           }
-        } catch (error) {
+        } catch (error: any) {
           // code=20时该请求为挂起请求，过滤掉此请求后不会导致右侧错误提示的UI快闪
           if (error.code !== 20) {
             return {

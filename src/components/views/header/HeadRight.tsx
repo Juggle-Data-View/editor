@@ -83,7 +83,7 @@ const exportComps = (isAll: boolean) => {
       message: '导出成功',
       intent: 'success',
     });
-  } catch (error) {
+  } catch (error: any) {
     notice.toast({
       message: `${error.message}`,
       intent: 'warning',
@@ -147,7 +147,7 @@ const importComps = (file: File) => {
           },
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       notice.error(`组件导入失败: ${error.message}`);
     }
   };

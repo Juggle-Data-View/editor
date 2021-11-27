@@ -4,7 +4,6 @@ import HeaderRight from './HeadRight';
 import { HeaderStyled } from './style';
 import { Button, Tooltip, Position } from '@blueprintjs/core';
 import HeadMenu from './HeadMenu';
-import HeadFavorites from './HeadFavorites';
 import { editorAction } from 'store/features/editorSlice';
 import { selectEditorPanel, selectApp } from 'store/selectors';
 
@@ -34,7 +33,6 @@ const Header: React.FC = () => {
           </div>
         </div>
         <HeadMenu />
-        <HeadFavorites />
       </div>
       <div className="page-title">
         <strong>{name}</strong>

@@ -46,7 +46,7 @@ const Editor = () => {
           }
         }
       } catch (error) {
-        notice.error(error.message);
+        if (error instanceof Error) notice.error(error.message);
       }
     });
   });

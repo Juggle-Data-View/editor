@@ -117,7 +117,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     store.dispatch(appAction.addComp({ comps: [compData] }));
     notice.success('创建成功');
   } catch (error) {
-    notice.error(`添加组件失败: ${error.message}`);
+    if (error instanceof Error) notice.error(`添加组件失败: ${error.message}`);
   }
 };
 

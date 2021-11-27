@@ -3,8 +3,8 @@
  */
 
 import React from 'react';
-import { Position, Tooltip, Icon } from '@blueprintjs/core';
-
+import Tooltip from '@mui/material/Tooltip';
+import Help from '@mui/icons-material/Help';
 export interface ITextTip {
   text: JSX.Element | string;
   tipWidth?: React.CSSProperties['width'];
@@ -13,10 +13,10 @@ export interface ITextTip {
 const TextTip: React.FC<ITextTip> = ({ text, tipWidth }) => {
   return (
     <Tooltip
-      content={typeof text === 'string' ? <div style={{ maxWidth: 200, width: tipWidth }}>{text}</div> : text}
-      position={Position.RIGHT_TOP}
+      title={typeof text === 'string' ? <div style={{ maxWidth: 200, width: tipWidth }}>{text}</div> : text}
+      placement="right-start"
     >
-      <Icon style={{ verticalAlign: 'middle', margin: '-1px 0 0 3px' }} icon="help" iconSize={12} />
+      <Help fontSize="small" />
     </Tooltip>
   );
 };

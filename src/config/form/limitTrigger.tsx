@@ -274,7 +274,7 @@ const UserList: React.FC<{
       setRenderList(res.content.slice(0, 10));
       // setPageNo(value.pageNo);
       // setPageSize(value.pageSize);
-    } catch (error) {
+    } catch (error: any) {
       notice.error(error.message);
     }
   };
@@ -286,7 +286,7 @@ const UserList: React.FC<{
         users: [loginAccount],
       });
       await getNotification();
-    } catch (error) {
+    } catch (error: any) {
       notice.error(error.message);
     }
   };
@@ -298,7 +298,7 @@ const UserList: React.FC<{
         warningUserIds: [id],
       });
       await getNotification();
-    } catch (error) {
+    } catch (error: any) {
       notice.error(error.message);
     }
   };

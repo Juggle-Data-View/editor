@@ -122,7 +122,7 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
           onSubmit && onSubmit(newValue);
         }
       } catch (error) {
-        setError(`CodeError：${error.message}`);
+        if (error instanceof Error) setError(`CodeError：${error.message}`);
       }
     };
 
