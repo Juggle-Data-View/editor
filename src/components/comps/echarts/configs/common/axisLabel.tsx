@@ -1,4 +1,3 @@
-import React from 'react';
 import * as font from 'config/form/font';
 import { INodeConfig } from 'components/recursion';
 import { NumericInput, ButtonGroup, NumericInputProps } from '@blueprintjs/core';

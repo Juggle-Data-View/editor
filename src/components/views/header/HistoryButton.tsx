@@ -19,7 +19,7 @@ const History: React.FC = () => {
   return (
     <HistoryStyled>
       <ButtonGroup>
-        <Tooltip disableHoverListener={!past.length} title={Language.back} placement="bottom">
+        <Tooltip title={Language.back} placement="bottom" arrow>
           <IconButton
             aria-label="back"
             disabled={!past.length}
@@ -27,10 +27,10 @@ const History: React.FC = () => {
               dispatch(ActionCreators.undo());
             }}
           >
-            <FastForwardIcon />
+            <FastRewindIcon fontSize="large" />
           </IconButton>
         </Tooltip>
-        <Tooltip disableHoverListener={!future.length} title="前进" placement="bottom">
+        <Tooltip title="前进" placement="bottom-start" arrow>
           <IconButton
             aria-label="undo"
             disabled={!future.length}
@@ -38,19 +38,18 @@ const History: React.FC = () => {
               dispatch(ActionCreators.redo());
             }}
           >
-            <FastRewindIcon />
+            <FastForwardIcon fontSize="large" />
           </IconButton>
         </Tooltip>
-        <Tooltip title="历史记录" placement="bottom">
+        <Tooltip title="历史记录" placement="bottom" arrow>
           <IconButton
-            disabled={isActive}
             aria-label="history"
             onClick={() => {
               dispatch(editorAction.togglePanel('history'));
               setIsActive(!isActive);
             }}
           >
-            <HistoryIcon />
+            <HistoryIcon fontSize="large" />
           </IconButton>
         </Tooltip>
       </ButtonGroup>

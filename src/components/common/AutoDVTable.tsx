@@ -2,8 +2,8 @@
  * 表格组件
  */
 
-import React from 'react';
 import styled from 'styled-components';
+import React from 'react';
 
 export interface Column<D = any> {
   /** 列头显示文字 */

@@ -7,7 +7,6 @@
  * </div>
  */
 
-import React from 'react';
 import { ContextMenu, Menu, MenuDivider, MenuItem, IconName } from '@blueprintjs/core';
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { getAutoDV } from 'utils';

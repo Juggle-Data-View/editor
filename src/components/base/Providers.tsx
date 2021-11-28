@@ -2,7 +2,6 @@
  * 合并多个 Provider，防止多层嵌套
  */
 
-import React from 'react';
 import store from 'store/index';
 import { Provider } from 'react-redux';
 

@@ -6,7 +6,6 @@
  */
 
 // 导入React，子类型可能会用到React中的类型
-import React from 'react';
 
 /**
  * Step1: 声明组件模板配置的类型

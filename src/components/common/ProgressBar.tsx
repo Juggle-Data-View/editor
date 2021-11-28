@@ -3,7 +3,6 @@
  * 使用`mask-image + mask-size + inline SVG`开发，可能会有低版本兼容问题。
  */
 
-import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`

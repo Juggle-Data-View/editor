@@ -2,7 +2,6 @@
  * 文本提示组件
  */
 
-import React from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Help from '@mui/icons-material/Help';
 export interface ITextTip {

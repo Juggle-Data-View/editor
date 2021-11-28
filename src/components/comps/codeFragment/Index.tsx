@@ -3,7 +3,6 @@
  * @创建时间 2020-05-14 15:40:36
  */
 
-import React from 'react';
 import styled from 'styled-components';
 import { IIndex } from './type';
 

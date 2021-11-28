@@ -1,10 +1,11 @@
 import { INodeConfig } from 'components/recursion';
 import { withNode } from 'components/recursion/fields';
 import { ArrayHelpers, FormikContextType, useField, useFormikContext } from 'formik';
-import React from 'react';
+
 import styled from 'styled-components';
 import { get } from 'lodash';
 import { Button, Icon, IconName } from '@blueprintjs/core';
+import React from 'react';
 
 type OperationValueTypes = 'add' | 'delete' | 'copy';
 

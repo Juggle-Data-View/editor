@@ -3,7 +3,6 @@
  * @创建时间 2020-03-18 13:05:43
  */
 
-import React from 'react';
 import { IIndex } from './type';
 
 const Index = ({ compData, sourceData }: IIndex) => {

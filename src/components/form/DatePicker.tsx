@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Icon, Colors } from '@blueprintjs/core';
 import { withField } from './withField';

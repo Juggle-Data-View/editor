@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Colors, Pre } from '@blueprintjs/core';
 import { Formik } from 'formik';

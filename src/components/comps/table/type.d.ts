@@ -6,7 +6,6 @@
  */
 
 // 导入React，子类型可能会用到React中的类型
-import React from 'react';
 
 // 引入`./templates`目录下的所有配置项
 import index from './temps/index';

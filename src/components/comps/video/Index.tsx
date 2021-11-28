@@ -3,7 +3,6 @@
  * @创建时间 2020-07-23 17:23:04
  */
 
-import React from 'react';
 import { Icon, IconName } from '@blueprintjs/core';
 import { IIndex } from './type';
 import styled from 'styled-components';

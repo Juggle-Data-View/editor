@@ -2,7 +2,6 @@
  * 封装action中的通用逻辑
  */
 
-import React from 'react';
 import { getAutoDV, nanocode } from 'utils';
 import notice from 'utils/notice';
 import { asyncLoadStaticData, asyncLoadCompConfig } from 'helpers/asyncLoad';

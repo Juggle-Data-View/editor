@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch as BPSwitch, Checkbox, ISwitchProps, ICheckboxProps } from '@blueprintjs/core';
 import { withField } from './withField';
 

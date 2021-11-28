@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Colors } from '@blueprintjs/core';
 import TextTip, { ITextTip } from 'components/common/TextTip';

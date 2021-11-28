@@ -4,7 +4,7 @@ import axisLabel from '../common/axisLabel';
 import * as font from 'config/form/font';
 // import * as echartsConfig from 'config/echarts';
 import classNames from 'classnames';
-import React from 'react';
+
 import { ReactSVG } from 'react-svg';
 import svgs, { svgItems, SVGDropDownStyled, IItem } from '../common/icons/icons';
 import DropDown from 'components/common/DropDown';

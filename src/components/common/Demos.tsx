@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tabs, Tab, Button, ControlGroup, Classes } from '@blueprintjs/core';
 import DatasetSelect from 'components/common/DatasetSelect';
 import { JSONEditor } from 'components/common/CodeEditor';

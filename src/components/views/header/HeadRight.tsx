@@ -1,4 +1,3 @@
-import React from 'react';
 import { createNextState as produce } from '@reduxjs/toolkit';
 import { saveAs } from 'file-saver';
 import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';

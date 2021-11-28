@@ -7,7 +7,7 @@
  * @FilePath: /autoDV5-react/src/components/comps/echarts/configs/common/markPoint.tsx
  * 可以输入预定的版权声明、个性签名、空行等
  */
-import React from 'react';
+
 import DropZone from 'components/common/DropZone';
 import { INodeConfig } from 'components/recursion';
 import * as style from 'config/style';

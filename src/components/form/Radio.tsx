@@ -1,4 +1,3 @@
-import React from 'react';
 import { RadioGroup, Radio as BPRadio, IRadioGroupProps, IOptionProps } from '@blueprintjs/core';
 import { children2option } from './utils';
 import { withField } from './withField';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Menu, MenuItem, Position, OptionProps, MenuItemProps, ButtonProps } from '@blueprintjs/core';
 import { Popover2, Popover2Props } from '@blueprintjs/popover2';
 import { children2option, s2o } from './utils';

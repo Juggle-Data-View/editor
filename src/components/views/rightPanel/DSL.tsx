@@ -1,4 +1,3 @@
-import React from 'react';
 import { DSLContainer } from './style';
 // import { isArray } from 'lodash';
 // import { ITreeNode } from '@blueprintjs/core';

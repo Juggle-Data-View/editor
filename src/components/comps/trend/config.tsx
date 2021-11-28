@@ -1,7 +1,7 @@
 /**
  * 组件配置信息
  */
-import React from 'react';
+
 import { Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { IConfig } from './type';

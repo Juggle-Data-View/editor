@@ -1,5 +1,4 @@
 import React from 'react';
-
 interface IState {
   hasError: boolean;
   error?: Error;

@@ -1,7 +1,7 @@
 /**
  * RightSide - 右侧面板
  */
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { RightPanelStyled } from './style';
 import { selectAutoDV, selectEditorPanel } from 'store/selectors';

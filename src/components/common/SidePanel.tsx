@@ -2,7 +2,6 @@
  * 侧边栏显示隐藏组件
  */
 
-import React from 'react';
 import styled from 'styled-components';
 
 export interface IProps {

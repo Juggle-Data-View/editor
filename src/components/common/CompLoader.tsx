@@ -2,7 +2,6 @@
  * 三个点点的动效
  */
 
-import React from 'react';
 import styled from 'styled-components';
 
 const CompLoaderStyled = styled.div`

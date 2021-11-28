@@ -2,7 +2,6 @@
  * 源代码展示组件
  */
 
-import React from 'react';
 import ReactJson, { ReactJsonViewProps } from 'react-json-view';
 
 type IProps = ReactJsonViewProps;

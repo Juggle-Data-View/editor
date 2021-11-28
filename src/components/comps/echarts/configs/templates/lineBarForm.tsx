@@ -1,4 +1,3 @@
-import React from 'react';
 import axis from '../common/axis';
 import toolip from '../common/tooltip';
 import containLabel from '../common/containLabel';

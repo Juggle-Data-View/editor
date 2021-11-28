@@ -1,4 +1,3 @@
-import React from 'react';
 import { withField } from './withField';
 import CodeEditor, { ModeName } from 'components/common/CodeEditor';
 

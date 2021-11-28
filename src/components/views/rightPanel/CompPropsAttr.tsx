@@ -1,7 +1,7 @@
 /**
  * 右侧面板-选中组件-公共配置
  */
-import React from 'react';
+
 import Alignment from 'components/common/Alignment';
 import AttrScale from 'components/common/AttrScale';
 import { Row, Col } from 'react-simple-flex-grid';

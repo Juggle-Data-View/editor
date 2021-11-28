@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@blueprintjs/core';
 import AutoDVIcon from 'components/common/AutoDVIcon';

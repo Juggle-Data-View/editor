@@ -1,7 +1,7 @@
 /**
  * 组件配置信息
  */
-import React from 'react';
+
 import * as font from 'config/form/font';
 import { IConfig } from './type';
 import DropZone from 'components/common/DropZone';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import setupWatch from 'store/watcher';
 import { EditorGlobalStyle } from 'assets/style';

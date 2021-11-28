@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Colors, Classes } from '@blueprintjs/core';
 import AutoDVTable, { ColumnsType } from 'components/common/AutoDVTable';

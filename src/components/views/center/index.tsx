@@ -1,4 +1,3 @@
-import React from 'react';
 import CanvasWrap from './CanvasWrap';
 import CentFoot from './CentFoot';
 import { CenterStyled } from './style';

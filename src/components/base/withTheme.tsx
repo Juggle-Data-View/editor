@@ -1,6 +1,5 @@
 import { ThemeProvider } from 'styled-components';
 import useTheme from 'components/base/useTheme';
-import React from 'react';
 
 const withTheme = (Comp: React.ElementType) => {
   return (props: any) => {

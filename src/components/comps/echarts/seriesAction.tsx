@@ -1,7 +1,7 @@
 import { Menu, MenuItem, Position, Button } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { ArrayHelpers } from 'formik';
-import React from 'react';
+
 import notice from 'utils/notice';
 // import { layer } from '../map/type';
 

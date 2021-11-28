@@ -1,4 +1,3 @@
-import React from 'react';
 import { TagInput, TagInputProps } from '@blueprintjs/core';
 import { withField } from './withField';
 

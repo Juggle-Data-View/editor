@@ -7,7 +7,7 @@ import multiBarSeries from '../multiBarSeries';
 import lineSeriesCommin from '../common/linesSeriesCommon';
 import { INodeConfig } from 'components/recursion';
 import SeriesAction from '../../seriesAction';
-import React from 'react';
+
 // import { resolveName } from 'components/recursion/utils';
 // import Tabs from 'components/recursion/widget/Tabs';
 

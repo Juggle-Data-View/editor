@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Pre } from '@blueprintjs/core';
 import { validator } from 'components/form/index';

@@ -4,7 +4,6 @@
  * @createTime TEMPLATE_CREATED_TIME
  */
 
-import React from 'react';
 import { IIndex } from './type';
 
 const Index: React.FC<IIndex> = ({ compData, sourceData, isInEditor }) => {

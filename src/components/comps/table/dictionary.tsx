@@ -4,7 +4,7 @@ import * as font from 'config/form/font';
 import limitTrigger from 'config/form/limitTrigger';
 import { Colors } from '@blueprintjs/core';
 import classNames from 'classnames';
-import React from 'react';
+
 import styled from 'styled-components';
 import DropDown from 'components/common/DropDown';
 import { ReactSVG } from 'react-svg';

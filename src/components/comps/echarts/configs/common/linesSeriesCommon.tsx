@@ -1,7 +1,7 @@
 import { INodeConfig } from 'components/recursion';
 import areaStyle from './areaStyle';
 import axisLabel from './axisLabel';
-import React from 'react';
+
 import classNames from 'classnames';
 import DropDown from 'components/common/DropDown';
 import { ReactSVG } from 'react-svg';

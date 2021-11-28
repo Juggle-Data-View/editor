@@ -5,7 +5,7 @@
  * 1. iconfont url依赖`longchan`在`iconfont.cn`的账号生成
  * 2. 使用`autoDV-`开头的命名规则
  */
-import React from 'react';
+
 import { Icon, IconName, IconProps } from '@blueprintjs/core';
 import styled from 'styled-components';
 

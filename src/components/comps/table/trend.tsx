@@ -1,4 +1,3 @@
-import React from 'react';
 import { Trend } from './type';
 import styled from 'styled-components';
 import { ReactSVG } from 'react-svg';

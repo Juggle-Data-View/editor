@@ -1,4 +1,3 @@
-import React from 'react';
 import { INodeConfig } from 'components/recursion';
 import axisLabel from '../common/axisLabel';
 import tooltip from '../common/tooltip';
