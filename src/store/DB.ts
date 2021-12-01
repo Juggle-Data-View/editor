@@ -42,23 +42,30 @@ class DB {
 
   getConfigByAPPID = async (appId: number, canvasId: number) => {
     try {
-      console.log('trigger ddd');
-      const db = await this.dbIns;
-      const getIndex = (storeName: string, indexName: string) => {
-        return db.transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
+      /**
+       * The function is resolved transaction finish;
+       * @param storeName
+       * @param indexName
+       * @param primaryKey
+       * @param operation
+       * @returns
+       */
+      const getConfig = async (
+        storeName: string,
+        indexName: string,
+        primaryKey: number,
+        operation: 'getAll' | 'get'
+      ) => {
+        const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
+        const keyrange = IDBKeyRange.only(primaryKey);
+        const result = index[operation](keyrange);
+        return result;
       };
-      const compIndex = getIndex(COMP_STORE, 'appId');
-      const canvasIndex = getIndex(CANVAS_STORE, 'canvasId');
-      const appIndex = getIndex(APPINFO_STORE, 'appId');
-      const appKeyrange = IDBKeyRange.only(appId);
-      const canvasKeyrange = IDBKeyRange.only(canvasId);
-      const components: AutoDV.Comp[] = await compIndex.getAll(appKeyrange);
-      const canvasInfo: AutoDV.Canvas = await canvasIndex.get(appKeyrange);
-      const appInfo: Omit<AutoDV.AppConfig, 'canvas'> = await appIndex.get(canvasKeyrange);
+
       return {
-        compInsts: components,
-        canvas: canvasInfo,
-        app: appInfo,
+        compInsts: (await getConfig(COMP_STORE, 'appId', appId, 'getAll')) as AutoDV.Comp[],
+        canvas: (await getConfig(CANVAS_STORE, 'canvasId', canvasId, 'get')) as AutoDV.Canvas,
+        app: (await getConfig(APPINFO_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig,
       };
     } catch (error) {
       console.log(error);

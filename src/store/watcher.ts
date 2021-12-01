@@ -88,7 +88,7 @@ const setupWatch = () => {
     try {
       const obj: any = {};
       const { addComponents, getConfigByAPPID } = await DB;
-      getConfigByAPPID(Number(GV.appId), Number(GV.canvasId));
+      console.log(await getConfigByAPPID(Number(GV.appId), Number(GV.canvasId)));
       diffs.forEach((diff) => {
         const { path, kind } = diff;
         if (!path) return;
