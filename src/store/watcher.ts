@@ -15,8 +15,7 @@ import * as Api from 'utils/api';
 import notice from 'utils/notice';
 import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
-import DB from './DB';
-import GV from 'utils/global';
+import components from './DB/components';
 
 const differ = require('deep-diff');
 
@@ -87,8 +86,7 @@ const setupWatch = () => {
   listen('autoDV.present.compDatas', async (newVal: any, oldVal: any, diffs: Diff<any>[]) => {
     try {
       const obj: any = {};
-      const { addComponents, getConfigByAPPID } = await DB;
-      console.log(await getConfigByAPPID(Number(GV.appId), Number(GV.canvasId)));
+      const { addComponents } = components;
       diffs.forEach((diff) => {
         const { path, kind } = diff;
         if (!path) return;

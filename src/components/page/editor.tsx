@@ -4,7 +4,6 @@ import { EditorGlobalStyle } from 'assets/style';
 import fetchAppConfig from 'helpers/fetchAppConfig';
 import withTheme from 'components/base/withTheme';
 import { appAction } from 'store/features/appSlice';
-import { useRequest, useMount } from 'ahooks';
 import Header from 'components/views/header';
 import LeftPannle from 'components/views/leftPanel';
 import CenterPannle from 'components/views/center';
@@ -13,20 +12,28 @@ import GlobalHotKeys from 'components/common/GlobalHotKeys';
 import { CANVAS_ID, COPY_KEY } from 'config/const';
 import notice from 'utils/notice';
 import { transContent } from 'helpers/importHelper';
+import DB from 'store/DB';
+import { qs } from 'utils';
+import { useCallback, useEffect } from 'react';
 
 const Editor = () => {
   const dispatch = useDispatch();
-  useRequest(fetchAppConfig, {
-    onSuccess(app) {
-      dispatch(appAction.init({ app }));
-      setupWatch(); // 监听数据变化
-    },
-    onError(err) {
-      notice.error(`fetchApp Error:`, err);
-    },
-  });
 
-  useMount(() => {
+  const initApp = useCallback(async () => {
+    const app = await fetchAppConfig();
+    if (await DB.needInitDB(app)) {
+      dispatch(appAction.init({ app }));
+      await DB.initDB(app);
+    } else {
+      const app = await DB.getConfigByAPPID(Number(qs.query.id));
+      console.log('trigger');
+      dispatch(appAction.init({ app }));
+    }
+    setupWatch();
+  }, [dispatch]);
+
+  useEffect(() => {
+    initApp();
     document.addEventListener('paste', (event: any) => {
       try {
         if (!document.getElementById(CANVAS_ID)) {
@@ -48,7 +55,7 @@ const Editor = () => {
         if (error instanceof Error) notice.error(error.message);
       }
     });
-  });
+  }, [initApp, dispatch]);
 
   return (
     <>
