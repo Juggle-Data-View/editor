@@ -21,7 +21,9 @@ const Editor = () => {
 
   const initApp = useCallback(async () => {
     const app = await fetchAppConfig();
-    if (await DB.needInitDB(app)) {
+    const isInit = await DB.needInitDB(app);
+
+    if (isInit) {
       dispatch(appAction.init({ app }));
       await DB.initDB(app);
     } else {

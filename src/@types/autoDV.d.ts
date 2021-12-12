@@ -280,6 +280,10 @@ declare global {
        */
       readonly compTempCode: string;
       /**
+       * 组件创建时间
+       */
+      readonly createTime: number;
+      /**
        * 组件实例唯一code。例如: commonTitle_e72a6d
        */
       code: string;

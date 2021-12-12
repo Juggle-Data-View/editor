@@ -11,6 +11,7 @@ export const defaultCompData: AutoDV.Comp = {
   compCode: '',
   compTempCode: '',
   title: '',
+  createTime: NaN,
   attr: {
     left: 0,
     top: 0,

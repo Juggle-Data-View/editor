@@ -126,7 +126,7 @@ export const ADD_GROUP_COMP = (attr: AutoDV.Attr, selectedCompCodes: string[]) =
   const resortSelectCodes = selectedCompCodes.slice().sort((a, b) => {
     return compCodes.indexOf(a) - compCodes.indexOf(b);
   });
-  const defaultCompTemp: AutoDV.Comp<any> = {
+  const defaultCompTemp = {
     code: nanocode('group'),
     compTempCode: 'index',
     compCode: 'group',

@@ -16,6 +16,7 @@ import notice from 'utils/notice';
 import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';
+import global from 'utils/global';
 
 const differ = require('deep-diff');
 
@@ -86,7 +87,7 @@ const setupWatch = () => {
   listen('autoDV.present.compDatas', async (newVal: any, oldVal: any, diffs: Diff<any>[]) => {
     try {
       const obj: any = {};
-      const { addComponents } = components;
+      const { addComponents, updateComponets, deleteComponet, sortComponents } = components;
       diffs.forEach((diff) => {
         const { path, kind } = diff;
         if (!path) return;
@@ -127,15 +128,14 @@ const setupWatch = () => {
             }
           });
           // 请求新增组件，返回添加成功的组件实例信息
-          await addComponents(payload as AutoDV.Comp[]);
-          const successAddedDatas = await Api.addComp(payload as AutoDV.Comp[]);
+          const successAddedDatas = await addComponents(payload as AutoDV.Comp[], Number(global.appId));
 
           // 创建分组组件和粘贴已经分组的组件需要排序
           if (
             (payload.length === 1 && (payload[0] as AutoDV.Comp).compCode === 'group') ||
             (payload[0] as AutoDV.Comp).config.groupCode
           ) {
-            await Api.resortComp(store.getState().autoDV.present.compCodes);
+            await sortComponents(store.getState().autoDV.present.compCodes, Number(global.appId));
           }
 
           const staticDataPayload: CompInstEditReqData[] = [];
@@ -164,7 +164,8 @@ const setupWatch = () => {
           // 删除组件
           codes.forEach((code) => payload.push(code));
           // 发起请求
-          await Api.deleteComp(payload as string[]);
+          // await Api.deleteComp(payload as string[]);
+          await deleteComponet(codes, Number(global.appId));
         }
 
         if (kind === 'E') {
@@ -181,7 +182,8 @@ const setupWatch = () => {
             });
           });
           // 发起请求
-          await Api.updateComp(payload as CompInstEditReqData[]);
+          // await Api.updateComp(payload as CompInstEditReqData[]);
+          await updateComponets(payload as CompInstEditReqData[], Number(global.appId));
         }
       }
     } catch (error: any) {
@@ -198,8 +200,10 @@ const setupWatch = () => {
   listen('autoDV.present.compCodes', async (newVal: string[], oldVal: string[], diffs: any) => {
     try {
       // 有diff数据，且上次和这次的数组长度一致，才会触发排序请求
+      const { sortComponents } = components;
       if (diffs.length && oldVal.length === newVal.length) {
-        await Api.resortComp(newVal);
+        // await Api.resortComp(newVal);
+        await sortComponents(newVal, Number(global.appId));
       }
     } catch (error: any) {
       const errMsg = error.message ? error.message : '请求错误';

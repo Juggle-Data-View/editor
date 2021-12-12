@@ -1,4 +1,5 @@
 import { IDBPDatabase, openDB } from 'idb';
+import components from './components';
 
 export const DB_NAME = 'DB_NAME';
 export const DB_VERSION = 1;
@@ -50,13 +51,7 @@ export class DB {
     const normalizeComps: AutoDV.Comp<AutoDV.Config>[] = initCanvas.compInsts || [];
     await db.add(APPINFO_STORE, appInfo);
     await db.add(CANVAS_STORE, canvas);
-    for await (const iterator of normalizeComps) {
-      const result = {
-        ...iterator,
-        id: config.id,
-      };
-      await db.add(COMP_STORE, result);
-    }
+    await components.addComponents(normalizeComps, Number(appInfo.id));
   };
 
   needInitDB = async (config: AutoDV.AppConfig) => {
@@ -66,8 +61,11 @@ export class DB {
       Number(config.id),
       'getAll'
     );
-    return !appInfos.every(
-      ({ modifyTime, modifyUser }) => config.modifyTime === modifyTime && modifyUser === config.modifyUser
+    return (
+      !appInfos.length ||
+      !appInfos.every(
+        ({ modifyTime, modifyUser }) => config.modifyTime === modifyTime && modifyUser === config.modifyUser
+      )
     );
   };
 
@@ -86,7 +84,9 @@ export class DB {
   getConfigByAPPID = async (appId: number): Promise<AutoDV.AppConfig | undefined> => {
     try {
       const app = (await this.getConfig(APPINFO_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig;
-      const compInsts = await this.getConfig(COMP_STORE, 'appId', appId, 'getAll');
+      const compInsts = await (
+        await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')
+      ).sort((prev, next) => -1 * (next.createTime - prev.createTime));
       return {
         ...app,
         canvas: {
