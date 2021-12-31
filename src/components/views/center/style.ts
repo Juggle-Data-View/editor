@@ -8,7 +8,6 @@ export const CenterStyled: any = styled.section`
   flex: 1;
   height: 100%;
   overflow: hidden;
-  background-color: ${(props) => props.theme.gray3};
 `;
 
 export const CanvasWrapStyled = styled.div`
@@ -29,13 +28,11 @@ export const CanvasWrapStyled = styled.div`
     &::-webkit-scrollbar {
       width: 8px;
       height: 8px;
-      background: ${(props) => props.theme.gray1};
     }
     &::-webkit-scrollbar-track {
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background: ${(props) => props.theme.gray5};
       border: none;
       border-radius: 1em;
     }
@@ -57,7 +54,6 @@ export const CentFootStyled = styled.div`
   justify-content: space-between;
   height: 32px;
   padding: 0 5px;
-  background-color: ${(props) => props.theme.gray2};
   .right {
     display: flex;
     align-items: center;

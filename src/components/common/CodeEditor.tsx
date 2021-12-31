@@ -52,7 +52,6 @@ const EditorStyled = styled.div`
       color: #fff;
       max-height: 50%;
       overflow: auto;
-      background-color: ${(props) => props.theme.danger || 'red'};
       opacity: 0.9;
       z-index: 11;
       .btn-close {

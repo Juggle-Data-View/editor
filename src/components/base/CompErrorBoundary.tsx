@@ -43,7 +43,6 @@ const ErrorMessage = styled.div`
   text-align: center;
   height: 100%;
   font-size: 14px;
-  color: ${(props) => props.theme.warning || '#fff'};
 `;
 
 interface IState {

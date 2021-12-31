@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { HTMLInputProps, InputGroup, TextArea, Colors } from '@blueprintjs/core';
+import { HTMLInputProps, InputGroup, TextArea } from '@blueprintjs/core';
 import { withField } from './withField';
 import styled from 'styled-components';
 
 const ErrorStyled = styled.p`
   margin-top: 3px;
-  color: ${(props) => props.theme.danger || Colors.RED3};
   line-height: 1.25;
 `;
 

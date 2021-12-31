@@ -19,7 +19,6 @@ const Container = styled.div`
     }
     &.--active,
     &:hover {
-      background-color: ${(props) => props.theme.gray3};
     }
   }
 `;

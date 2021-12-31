@@ -14,7 +14,6 @@ export const EditorGlobalStyle = createGlobalStyle`
   #root {
     display: flex;
     flex-direction: column; // 使主轴向下排列，上下布局
-    background-color: ${(props) => props.theme.gray3};
   }
   .autoDV-main {
     position: relative;

@@ -74,7 +74,6 @@ class Components extends DB {
         payload.map(async (item, index) => {
           const comp = { ...item, createTime: createTime + index, id: appId };
           // await db.add(COMP_STORE, );
-          console.log(appId, comp.createTime);
           const objectStore = db.transaction(COMP_STORE, 'readwrite').objectStore(COMP_STORE);
 
           objectStore.add(comp);

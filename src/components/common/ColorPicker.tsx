@@ -31,7 +31,6 @@ const Container = styled.div`
     border-radius: 3px;
     padding: 7px;
     background-color: #fff;
-    color: ${(props) => props.theme.gray3};
     .picker-head {
       display: flex;
       align-items: center;
@@ -90,7 +89,6 @@ const Container = styled.div`
           background: radial-gradient(black, white);
         }
         &.--active {
-          border: 1px solid ${(props) => props.theme.primary};
         }
       }
     }

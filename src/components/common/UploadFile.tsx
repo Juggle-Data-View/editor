@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Colors } from '@blueprintjs/core';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled, { DefaultTheme } from 'styled-components';
-import color from 'utils/color';
 import notice from 'utils/notice';
 import * as Api from 'utils/api';
 
@@ -14,23 +13,6 @@ interface IProps {
   onUploaded: (path: string) => void;
 }
 
-const getColor = (props: IContainer) => {
-  const primary = props.theme.primary;
-  if (props.isDragAccept) {
-    return '#00e676';
-  }
-  if (props.isDragReject) {
-    return color.darken(primary, 15);
-  }
-  if (props.isDragActive) {
-    return primary;
-  }
-  if (props.isFocused) {
-    return primary;
-  }
-  return color.darken(primary, 15);
-};
-
 const Container = styled.div<IContainer>`
   flex: 1;
   display: flex;
@@ -39,7 +21,6 @@ const Container = styled.div<IContainer>`
   padding: 25px 20px;
   border-width: 1px;
   border-radius: 3px;
-  border-color: ${(props) => getColor(props)};
   border-style: dashed;
   background-color: ${Colors.DARK_GRAY2};
   color: #bdbdbd;
@@ -48,7 +29,6 @@ const Container = styled.div<IContainer>`
   line-height: 1.25;
 
   &:hover {
-    border-color: ${(props) => props.theme.primary};
   }
 `;
 

@@ -14,18 +14,8 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
     padding-bottom: 45%;
     border-width: 1px;
     border-style: dashed;
-    border-color: ${(props) => {
-      const primary = props.theme.primary;
-      if (props.isDragActive) {
-        return primary;
-      }
-      if (props.hasUrl) {
-        return 'rgba(255, 255, 255, 0.2)';
-      }
-      return props.theme.hoverPrimary;
-    }};
+
     border-radius: 3px;
-    background-color: ${(props) => props.theme.gray2};
     outline: none;
     transition: border 0.24s ease-in-out;
     line-height: 1.25;
@@ -48,7 +38,6 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
       }
     }
     &:hover {
-      border-color: ${(props) => props.theme.primary};
     }
   }
 
@@ -58,7 +47,6 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: ${(props) => props.theme.gray2};
   }
 `;
 

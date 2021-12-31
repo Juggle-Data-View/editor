@@ -30,16 +30,10 @@ const Container = styled.section<IProps>`
     width: ${(props) => props.width + 'px'};
     height: 100%;
     position: relative;
-    background-color: ${(props) => props.theme.gray3};
-    ${(props) =>
-      props.direction === 'left'
-        ? `border-right: 1px solid ${props.theme.gray1}`
-        : `border-left: 1px solid ${props.theme.gray1}`};
   }
 
   .panel-head,
   .panel-foot {
-    background-color: ${(props) => props.theme.gray2};
   }
 
   // 面板顶部
@@ -50,7 +44,6 @@ const Container = styled.section<IProps>`
       justify-content: space-between;
       padding: 0 10px;
       height: 28px;
-      border-bottom: 1px solid ${(props) => props.theme.gray1};
     }
   }
 

@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import setupWatch from 'store/watcher';
 import { EditorGlobalStyle } from 'assets/style';
 import fetchAppConfig from 'helpers/fetchAppConfig';
-import withTheme from 'components/base/withTheme';
 import { appAction } from 'store/features/appSlice';
 import Header from 'components/views/header';
 import LeftPannle from 'components/views/leftPanel';
@@ -73,4 +72,5 @@ const Editor = () => {
   );
 };
 
-export default withTheme(Editor);
+// export default withTheme(Editor);
+export default Editor;
