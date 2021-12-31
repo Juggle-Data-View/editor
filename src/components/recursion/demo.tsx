@@ -313,7 +313,6 @@ const config: INodeConfig = {
 
 const Container = styled.div`
   display: flex;
-  background-color: ${(props) => props.theme.gray3};
   height: 100%;
   overflow: auto;
   > div {

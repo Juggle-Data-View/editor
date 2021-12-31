@@ -15,8 +15,6 @@ const Container = styled.div.attrs(() => {
   };
 })<{ isOpen: boolean }>`
   z-index: ${(props) => (props.isOpen ? 10000 : 0)};
-  background-color: ${(props) => (props.isOpen ? props.theme.gray2 : 'none')};
-  border: 1px solid ${(props) => props.theme.gray4};
   border-width: 1px 0;
 
   .fc-head {
@@ -34,7 +32,6 @@ const Container = styled.div.attrs(() => {
       right: 10px;
       bottom: 0;
       height: 1px;
-      background-color: ${(props) => (props.isOpen ? props.theme.gray4 : 'transparent')};
     }
 
     .lt {
@@ -78,18 +75,14 @@ const Container = styled.div.attrs(() => {
 
   /* 嵌套自身 */
   & & {
-    background-color: ${(props) => props.theme.gray3};
     border-width: 0px;
     border-radius: 2px;
   }
   & & & {
-    background-color: ${(props) => props.theme.gray2};
   }
   & & & & {
-    background-color: ${(props) => props.theme.gray3};
   }
   & & & & & {
-    background-color: ${(props) => props.theme.gray2};
   }
 `;
 

@@ -4,7 +4,6 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
   position: relative;
   z-index: 15; // 比标尺高一点
   width: 350px;
-  margin-right: ${(props) => (props.visible ? 0 : '-350px')};
   transition: margin 0.2s ease;
   will-change: transform;
 
@@ -14,18 +13,14 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: ${(props) => props.theme.gray3};
-    border-left: 1px solid ${(props) => props.theme.gray1};
   }
 
   .panel-head {
-    background-color: ${(props) => props.theme.gray2};
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
     height: 28px;
-    border-bottom: 1px solid ${(props) => props.theme.gray1};
     flex: none;
   }
 
@@ -41,7 +36,6 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
     > .bp3-tab-list {
       height: 28px;
       padding: 0 10px;
-      background-color: ${(props) => props.theme.gray2};
       /* tab 按钮样式 */
       > .bp3-tab {
         margin-right: 10px;
@@ -68,8 +62,6 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 1px;
-      background-color: ${(props) => props.theme.gray4};
     }
   }
   .comp-info {
@@ -101,11 +93,8 @@ export const HistoryPanelStyled = styled.section<{ visible: boolean }>`
   width: 200px;
   z-index: 11;
   transform: ${(props) => (props.visible ? 'translateX(-100%)' : 'none')};
-  border-left: 1px solid ${(props) => props.theme.gray1};
-  border-right: 1px solid ${(props) => props.theme.gray1};
   transition: transform 0.2s ease;
   will-change: transform;
-  background-color: ${(props) => props.theme.gray3};
 
   .panel-body {
     padding-top: 0;
@@ -168,8 +157,6 @@ export const DataConfigStyled = styled.div`
     right: 0;
     transform: translateX(100%);
     transition: transform 0.2s ease;
-    background-color: ${(props) => props.theme.gray3};
-    border-left: 1px solid ${(props) => props.theme.gray1};
     overflow-y: auto;
     margin-left: -50px;
     z-index: 5;
@@ -178,7 +165,6 @@ export const DataConfigStyled = styled.div`
       justify-content: space-between;
       align-items: center;
       padding: 7px 10px;
-      border-bottom: 1px solid ${(props) => props.theme.gray4};
       .title {
         font-size: 16px;
       }

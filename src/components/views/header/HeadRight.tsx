@@ -1,15 +1,13 @@
 import { createNextState as produce } from '@reduxjs/toolkit';
 import { saveAs } from 'file-saver';
 import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';
-import AutoDVIcon from 'components/common/AutoDVIcon';
-import { getAutoDV, getOriginDatas, isDev } from 'utils';
+import { getAutoDV, getOriginDatas } from 'utils';
 import notice from 'utils/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';
 import QS from 'query-string';
 import { ErrorObject } from 'ajv';
 import dayjs from 'dayjs';
-import history from 'helpers/history';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 import store from 'store/index';
 import { appAction } from 'store/features/appSlice';
@@ -166,8 +164,6 @@ const handlePreview = () => {
 const HeadRight: React.FC = () => {
   return (
     <div className="head-right">
-      {isDev ? <Button text="DEMO抽屉" style={{ marginRight: 10 }} onClick={() => history.push('/demo')} /> : null}
-
       <HistoryButton />
       <ButtonGroup>
         <Button icon="export" onClick={() => exportComps(true)}>
@@ -198,9 +194,9 @@ const HeadRight: React.FC = () => {
         <Tooltip content="预览" position={Position.BOTTOM}>
           <Button icon="eye-open" onClick={handlePreview} />
         </Tooltip>
-        <Tooltip content="上线" position={Position.BOTTOM}>
+        {/* <Tooltip content="上线" position={Position.BOTTOM}>
           <Button icon={<AutoDVIcon size={16} icon="autoDV-publish" />} />
-        </Tooltip>
+        </Tooltip> */}
       </ButtonGroup>
     </div>
   );

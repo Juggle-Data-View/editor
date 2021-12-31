@@ -17,7 +17,6 @@ const Container = styled.div`
     cursor: default;
     &:hover,
     &.--active {
-      border-color: ${(props) => props.theme.primary};
     }
     > .arrow {
       position: absolute;
@@ -33,7 +32,6 @@ const Container = styled.div`
     width: 100%;
     transition: height 0.3s ease;
     overflow-y: auto;
-    border: 1px solid ${(props) => props.theme.primary};
     background-color: ${Colors.DARK_GRAY1};
     &.--over {
       bottom: 100%;

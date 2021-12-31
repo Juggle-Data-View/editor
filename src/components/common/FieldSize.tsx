@@ -28,7 +28,6 @@ const AspectWrap = styled.div.attrs<IAspectWrap>((props) => {
       top: 50%;
       width: 30%;
       height: 2px;
-      background-color: ${(props) => props.theme.primary};
     }
     &:before {
       left: 0;

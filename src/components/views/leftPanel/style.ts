@@ -8,15 +8,12 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   margin-left: ${(props) => (props.visible ? 0 : '-240px')};
   height: 100%;
   transition: margin 0.2s ease;
-  border-right: 1px solid ${(props) => props.theme.gray1};
   position: relative;
   z-index: 2;
-  background-color: ${(props) => props.theme.gray3};
 
   .panel-head,
   .panel-actions {
     flex: none;
-    background-color: ${(props) => props.theme.gray2};
   }
 
   .panel-head {
@@ -25,7 +22,6 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
     justify-content: space-between;
     padding: 0 10px;
     height: 28px;
-    border-bottom: 1px solid ${(props) => props.theme.gray1};
   }
 
   .panel-actions {
@@ -42,7 +38,6 @@ export const ItemListStyled: any = styled.div<{ isDraggingOver: boolean }>`
   position: relative; // 子元素的offsetTop需要根据父元素计算，必须加上相对定位
   height: 100%;
   overflow-y: auto;
-  background: ${(props) => (props.isDraggingOver ? props.theme.gray4 : 'transparent')};
 `;
 
 interface IItemWrapProps {
@@ -55,7 +50,6 @@ interface IItemWrapProps {
 export const ItemStyled = styled.div<IItemWrapProps>`
   position: relative;
   opacity: ${(props) => (props.isGhosting ? 0.5 : 1)};
-  border-bottom: 1px solid ${(props) => props.theme.gray2};
   box-sizing: border-box;
 
   .inner {
@@ -75,8 +69,6 @@ export const ItemStyled = styled.div<IItemWrapProps>`
     justify-content: center;
     &.--img {
       position: relative;
-      border: 1px solid ${(props) => props.theme.gray1};
-      background-color: ${(props) => props.theme.gray5};
       box-sizing: content-box;
       width: 50px;
       height: 30px;
@@ -120,7 +112,6 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   }
 
   &.--hover {
-    background-color: ${(props) => props.theme.gray5};
   }
 
   &.--hided,
@@ -129,7 +120,6 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   }
 
   &.--selected {
-    background-color: ${(props) => props.theme.primary};
     color: #fff;
   }
 `;
@@ -165,7 +155,6 @@ export const GroupItem = styled.div<{
   }
 
   &.--hover {
-    background-color: ${(props) => props.theme.gray5};
   }
 `;
 

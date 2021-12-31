@@ -8,8 +8,6 @@ export const HeaderStyled = styled.section`
   justify-content: space-between;
   height: 50px;
   padding: 0 20px;
-  border-bottom: 1px solid ${(props) => props.theme.gray1};
-  background-color: ${(props) => props.theme.gray3};
 
   .head-left {
     display: flex;
@@ -55,11 +53,9 @@ export const HeadMenuStyled = styled.div<{ width: number }>`
   font-size: 12px;
 
   &:hover {
-    background: ${(props) => props.theme.gray1};
   }
 
   &.--active {
-    background: ${(props) => props.theme.gray1};
     .expander {
       display: block;
     }
@@ -100,7 +96,6 @@ export const HeadMenuStyled = styled.div<{ width: number }>`
     width: 360px; // 展开菜单宽度
     height: 420px;
     transform-origin: 0 0;
-    background: ${(props) => props.theme.gray1};
     dl {
       display: flex;
       dt {
@@ -120,12 +115,10 @@ export const HeadMenuStyled = styled.div<{ width: number }>`
 
       &.active {
         dt {
-          border-left: 2px solid ${(props) => props.theme.gray1};
           border-right: 2px solid transparent;
         }
         dt,
         dd {
-          background: ${(props) => props.theme.gray4};
         }
         dd {
           display: block;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Colors } from '@blueprintjs/core';
 import TextTip, { ITextTip } from 'components/common/TextTip';
 
 const Container = styled.div.attrs<Partial<IFieldLabel>>(({ vertical }) => {
@@ -31,7 +30,6 @@ const Container = styled.div.attrs<Partial<IFieldLabel>>(({ vertical }) => {
     // 校验错误信息样式
     .error {
       margin-top: 3px;
-      color: ${(props) => props.theme.danger || Colors.RED3};
       line-height: 1.25;
     }
 

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const StyledRuler = styled.div`
   position: absolute;
-  width: 100%; /* scrollbar width */
+  width: 100%;
   height: 100%;
-  z-index: 3; /* 需要比resizer高 */
+  z-index: 3;
   pointer-events: none;
   font-size: 12px;
   overflow: hidden;
