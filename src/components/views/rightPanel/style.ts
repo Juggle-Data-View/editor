@@ -6,13 +6,16 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
   width: 350px;
   transition: margin 0.2s ease;
   will-change: transform;
-
+  color: #222;
+  margin-right: ${(props) => (props.visible ? 0 : '-350px')};
+  box-shadow: -1px 6px 5px rgba(34, 34, 34, 0.25);
   .panel-form {
     position: relative;
     z-index: 14;
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #fff;
   }
 
   .panel-head {
@@ -95,7 +98,7 @@ export const HistoryPanelStyled = styled.section<{ visible: boolean }>`
   transform: ${(props) => (props.visible ? 'translateX(-100%)' : 'none')};
   transition: transform 0.2s ease;
   will-change: transform;
-
+  background-color: #eee;
   .panel-body {
     padding-top: 0;
     flex: 1;

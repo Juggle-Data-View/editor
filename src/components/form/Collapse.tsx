@@ -1,7 +1,3 @@
-/**
- * 表单控件展开收起组件
- */
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Icon, Collapse as BPCollapse, ICollapseProps } from '@blueprintjs/core';
@@ -83,6 +79,7 @@ const Container = styled.div.attrs(() => {
   & & & & {
   }
   & & & & & {
+    background: #fff;
   }
 `;
 

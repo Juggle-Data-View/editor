@@ -9,6 +9,7 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   height: 100%;
   transition: margin 0.2s ease;
   position: relative;
+  background-color: #fff;
   z-index: 2;
 
   .panel-head,
@@ -27,6 +28,7 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   .panel-actions {
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid #eee;
     padding: 4px 0;
     button {
       margin: 0 1px;
@@ -51,7 +53,7 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   position: relative;
   opacity: ${(props) => (props.isGhosting ? 0.5 : 1)};
   box-sizing: border-box;
-
+  border-bottom: 1px solid #eee;
   .inner {
     padding: 6px 8px;
     display: flex;
@@ -83,6 +85,7 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   .info {
     flex: 1;
     max-width: 150px;
+    color: #222;
     > p {
       white-space: nowrap;
       text-overflow: ellipsis;

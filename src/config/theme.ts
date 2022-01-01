@@ -22,13 +22,13 @@ export const darkTheme = {
   hoverPrimary: Colors.BLUE1,
 
   ruler: {
-    bgColor: '#0e1013', // ruler bg color
+    bgColor: '#CCC', // ruler bg color
     longfgColor: '#7D8694', // ruler longer mark color
     shortfgColor: '#7D8694', // ruler shorter mark color
-    fontColor: '#7D8694', // ruler font color
-    lineColor: Colors.BLUE3,
+    fontColor: '#222', // ruler font color
+    lineColor: 'Colors.BLUE3',
     borderColor: '#000',
-    cornerActiveColor: '#0e1013',
+    cornerActiveColor: '#CCC',
   },
 };
 

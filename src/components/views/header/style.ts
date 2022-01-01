@@ -8,7 +8,8 @@ export const HeaderStyled = styled.section`
   justify-content: space-between;
   height: 50px;
   padding: 0 20px;
-
+  border-bottom: 1px solid rgba(34, 34, 34, 0.25);
+  color: #222;
   .head-left {
     display: flex;
     height: 100%;
