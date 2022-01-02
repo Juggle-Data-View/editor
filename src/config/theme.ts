@@ -26,7 +26,7 @@ export const darkTheme = {
     longfgColor: '#7D8694', // ruler longer mark color
     shortfgColor: '#7D8694', // ruler shorter mark color
     fontColor: '#222', // ruler font color
-    lineColor: 'Colors.BLUE3',
+    lineColor: Colors.BLUE3,
     borderColor: '#000',
     cornerActiveColor: '#CCC',
   },

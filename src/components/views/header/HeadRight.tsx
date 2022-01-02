@@ -1,7 +1,6 @@
-import { createNextState as produce } from '@reduxjs/toolkit';
 import { saveAs } from 'file-saver';
-import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';
-import { getAutoDV, getOriginDatas } from 'utils';
+import { ButtonGroup, Tooltip, Button } from '@mui/material';
+import { getAutoDV } from 'utils';
 import notice from 'utils/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';
@@ -12,12 +11,13 @@ import { getAllSelectedComps } from 'utils/getAllChildren';
 import store from 'store/index';
 import { appAction } from 'store/features/appSlice';
 import { transContent } from 'helpers/importHelper';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-// 导出组件
 const exportComps = (isAll: boolean) => {
   try {
     const { app, canvas, compCodes, selectedCompCodes, compDatas } = getAutoDV();
-    const originDatas = getOriginDatas();
 
     if (!compCodes.length) {
       throw new Error('请先添加组件');
@@ -28,18 +28,6 @@ const exportComps = (isAll: boolean) => {
     }
 
     const codes = isAll ? compCodes : getAllSelectedComps(selectedCompCodes, compDatas, compCodes);
-    const comps = codes.map((code) => compDatas[code]);
-    const exports = produce(comps, (draft) => {
-      draft.forEach(({ code, dataConfig }) => {
-        /**
-         * 导出组件时将当前组件的数据拷贝一份到 mockData 中，原因：
-         * 不同空间的组件在导入时，需要将导入组件的数据源类型置换为静态类型
-         */
-        if (dataConfig && dataConfig.dataSourceType !== 0) {
-          dataConfig.mockData = originDatas[code] || {};
-        }
-      });
-    });
 
     const createFileName = () => {
       if (isAll) {
@@ -158,7 +146,7 @@ const importComps = (file: File) => {
 const handlePreview = () => {
   const { app } = getAutoDV();
   const openURL = QS.stringifyUrl({ url: './view', query: { id: app.id } });
-  window.open(openURL, openURL); // 打开新窗口，相同名称时不再打开新窗口
+  window.open(openURL, openURL);
 };
 
 const HeadRight: React.FC = () => {
@@ -166,37 +154,33 @@ const HeadRight: React.FC = () => {
     <div className="head-right">
       <HistoryButton />
       <ButtonGroup>
-        <Button icon="export" onClick={() => exportComps(true)}>
+        <Button color="primary" onClick={() => exportComps(true)}>
           导出全部
         </Button>
-        <Tooltip content="导入" position={Position.BOTTOM}>
-          <div className="import-btn">
-            <Button
-              icon="import"
-              onClick={() => {
-                const o: any = document.getElementById('importInput');
-                o.value = '';
-                o && o.click();
-              }}
-            />
-            <input
-              onChange={(e: any) => importComps(e.target.files[0])}
-              type="file"
-              id="importInput"
-              className="input-file"
-              accept=".json"
-            />
-          </div>
-        </Tooltip>
-        <Tooltip content="导出" position={Position.BOTTOM}>
-          <Button icon="export" onClick={() => exportComps(false)} />
-        </Tooltip>
-        <Tooltip content="预览" position={Position.BOTTOM}>
-          <Button icon="eye-open" onClick={handlePreview} />
-        </Tooltip>
-        {/* <Tooltip content="上线" position={Position.BOTTOM}>
-          <Button icon={<AutoDVIcon size={16} icon="autoDV-publish" />} />
-        </Tooltip> */}
+        <Button color="primary">
+          <Tooltip title="导入" placement="bottom">
+            <div className="import-btn">
+              <GetAppIcon />
+              <input
+                onChange={(e: any) => importComps(e.target.files[0])}
+                type="file"
+                id="importInput"
+                className="input-file"
+                accept=".json"
+              />
+            </div>
+          </Tooltip>
+        </Button>
+        <Button color="primary" onClick={() => exportComps(false)}>
+          <Tooltip title="导出" placement="bottom">
+            <FileUploadIcon />
+          </Tooltip>
+        </Button>
+        <Button color="primary" onClick={handlePreview}>
+          <Tooltip title="预览" placement="bottom">
+            <RemoveRedEyeIcon />
+          </Tooltip>
+        </Button>
       </ButtonGroup>
     </div>
   );

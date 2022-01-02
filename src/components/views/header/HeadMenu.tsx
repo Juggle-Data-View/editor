@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon, Collapse, NonIdealState } from '@blueprintjs/core';
+import { Collapse, NonIdealState } from '@blueprintjs/core';
 import { HeadMenuStyled } from './style';
 import { useClickAway, useDebounceFn } from 'ahooks';
 import AutoDVIcon from 'components/common/AutoDVIcon';
@@ -9,6 +9,8 @@ import { asyncLoadMenu } from 'store/features/dataSlice';
 import { selectMenu } from 'store/selectors';
 import type { Group } from 'config/menu';
 import { DEFAULT_THUMBNAIL } from 'config/const';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { IconButton } from '@mui/material';
 
 const HeadMenu = () => {
   const [currIndex, setCurrIndex] = useState<number>(0);
@@ -34,9 +36,9 @@ const HeadMenu = () => {
       <>
         <div className="comps-head" onClick={() => setIsOpen(!isOpen)}>
           {alias}({compIds.length})
-          <span className={['icon', isOpen ? '--active' : ''].join(' ')}>
+          {/* <span className={['icon', isOpen ? '--active' : ''].join(' ')}>
             <Icon icon="chevron-right" />
-          </span>
+          </span> */}
         </div>
         <Collapse isOpen={isOpen} keepChildrenMounted={true} transitionDuration={200}>
           <div className="comps-body clearfix">
@@ -70,8 +72,9 @@ const HeadMenu = () => {
   return (
     <HeadMenuStyled ref={ref} className={visible ? '--active' : ''} width={64}>
       <div className="block" onClick={() => setVisible(!visible)}>
-        <Icon icon="add" />
-        <p>组件菜单</p>
+        <IconButton>
+          <AddCircleOutlineIcon />
+        </IconButton>
       </div>
       <div className="expander">
         {menu ? (

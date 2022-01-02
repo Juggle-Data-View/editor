@@ -29,6 +29,9 @@ export const HeaderStyled = styled.section`
     .import-btn {
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       > button {
         position: relative;
       }
@@ -97,6 +100,7 @@ export const HeadMenuStyled = styled.div<{ width: number }>`
     width: 360px; // 展开菜单宽度
     height: 420px;
     transform-origin: 0 0;
+    background: #eee;
     dl {
       display: flex;
       dt {

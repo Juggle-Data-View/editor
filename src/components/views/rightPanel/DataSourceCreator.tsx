@@ -246,7 +246,7 @@ function MySQL({ formik }: { formik: T.SQL_Formik }) {
         <Button
           text={buttonText[status] || '连通性测试'}
           intent={status}
-          icon={loading ? <LoadingIcon size={14} /> : AutoDVStatus[status].icon}
+          icon={loading ? <LoadingIcon fontSize="small" /> : AutoDVStatus[status].icon}
           onClick={() => {
             setStatus('none');
             run(values);
@@ -449,7 +449,7 @@ function SelectEZDAPIList({ formik }: { formik: T.EZD_Formik }) {
       >
         <Button
           text={active ? active.title : 'API名称'}
-          rightIcon={loading ? <LoadingIcon size={14} /> : 'double-caret-vertical'}
+          rightIcon={loading ? <LoadingIcon fontSize="small" /> : 'double-caret-vertical'}
           onClick={() => {
             if (!data) {
               run();

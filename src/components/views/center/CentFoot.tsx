@@ -69,7 +69,7 @@ const CentFoot: React.FC = () => {
             <Button
               minimal={true}
               small={true}
-              icon={<AutoDVIcon icon="autoDV-normal" size={18} />}
+              icon={<AutoDVIcon icon="autoDV-native" size={18} />}
               onClick={() => dispatch(editorAction.zoomCanvas(1))}
             />
           </Tooltip>
@@ -77,7 +77,7 @@ const CentFoot: React.FC = () => {
             <Button
               minimal={true}
               small={true}
-              icon={<AutoDVIcon icon="autoDV-scale" size={18} />}
+              icon={<AutoDVIcon icon="autoDV-suitable" size={18} />}
               onClick={() => dispatch(editorAction.zoomCanvas('auto'))}
             />
           </Tooltip>

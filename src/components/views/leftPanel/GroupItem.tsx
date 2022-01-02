@@ -10,6 +10,7 @@ import { appAction } from 'store/features/appSlice';
 import { selectKeyPress } from 'store/selectors';
 import { editorAction } from 'store/features/editorSlice';
 import { RootState } from 'store';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface IProps {
   compCodes: string[];
@@ -98,7 +99,7 @@ const GroupDropItem: React.FC<IProps> = (props) => {
               showContextMenu(e, [
                 {
                   name: '重命名',
-                  icon: 'edit',
+                  icon: <EditIcon />,
                   handle: handleRename,
                 },
               ]);

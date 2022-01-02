@@ -262,7 +262,9 @@ const DataConfig: React.FC<IDataConfig> = ({ code, dataConfig, name }) => {
             数据响应结果（只读）
             <Tooltip content="更新组件数据" position="right">
               <Button
-                icon={<LoadingIcon duration={Boolean(customOriginData?.status === 'pendding') ? 3 : 0} size={14} />}
+                icon={
+                  <LoadingIcon duration={Boolean(customOriginData?.status === 'pendding') ? 3 : 0} fontSize="small" />
+                }
                 small={true}
                 minimal={true}
                 onClick={() => emitter.emit(eventName.updateOriginData, code)}

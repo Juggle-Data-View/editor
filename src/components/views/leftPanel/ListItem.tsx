@@ -12,6 +12,7 @@ import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
 import { DEFAULT_THUMBNAIL } from 'config/const';
 import { RootState } from 'store';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface IListItem {
   item: AutoDV.Comp;
@@ -100,7 +101,7 @@ const ListItem = (props: IListItem) => {
               showContextMenu(e, [
                 {
                   name: '重命名',
-                  icon: 'edit',
+                  icon: <EditIcon />,
                   handle: handleRename,
                   hasGroup: item.config.groupCode,
                 },

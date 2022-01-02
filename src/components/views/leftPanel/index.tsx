@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionStatusSelector, IActionStatus } from 'helpers/selectors';
+import { Button, Tooltip } from '@mui/material';
 import List from './List';
 import { DELETE_COMP } from 'components/base/BaseActions';
-import { Button, Tooltip, Position, Icon } from '@blueprintjs/core';
+// import { Button, Tooltip, Position, Icon } from '@blueprintjs/core';
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { LeftPanelStyled } from './style';
 import { selectEditorPanel } from 'store/selectors';
 import { RootState } from 'store/index';
 import { appAction } from 'store/features/appSlice';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import LockIcon from '@mui/icons-material/Lock';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const LeftPanel: React.FC = () => {
   const panel = useSelector(selectEditorPanel);
@@ -23,8 +29,8 @@ const LeftPanel: React.FC = () => {
     disable_del,
     disable_lock,
     disable_hide,
-    highlight_lock,
-    highlight_hide,
+    // highlight_lock,
+    // highlight_hide,
   } = actionStatus;
 
   return (
@@ -32,91 +38,65 @@ const LeftPanel: React.FC = () => {
       <div className="panel-head">
         <span>图层</span>
         <div className="action" style={{ marginRight: -2 }}>
-          <Button
-            small={true}
-            minimal={true}
-            icon={<Icon icon="menu" iconSize={14} />}
-            intent={small ? 'primary' : 'none'}
-            onClick={() => setSmall(true)}
-          />
-          <Button
-            small={true}
-            minimal={true}
-            icon={<Icon icon="properties" iconSize={14} />}
-            intent={small ? 'none' : 'primary'}
-            onClick={() => setSmall(false)}
-          />
+          <Button onClick={() => setSmall(true)}>
+            <FormatListBulletedIcon />
+          </Button>
+          <Button onClick={() => setSmall(false)}>
+            <ViewListIcon />
+          </Button>
         </div>
       </div>
       <div className="panel-actions">
-        <Tooltip disabled={disable_moveup} content="上移" position={Position.BOTTOM}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_moveup}
-            icon={<AutoDVIcon size={14} icon="autoDV-shangyi" />}
-            onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: false }))}
-          />
-        </Tooltip>
-        <Tooltip disabled={disable_movedown} content="下移" position={Position.BOTTOM}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_movedown}
-            icon={<AutoDVIcon size={14} icon="autoDV-shangyi" flipY={true} />}
-            onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: false }))}
-          />
-        </Tooltip>
-        <Tooltip disabled={disable_move2head} content="置顶" position={Position.BOTTOM}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_move2head}
-            icon={<AutoDVIcon size={14} icon="autoDV-zhiding" />}
-            onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: true }))}
-          />
-        </Tooltip>
-        <Tooltip disabled={disable_move2foot} content="置底" position={Position.BOTTOM}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_move2foot}
-            icon={<AutoDVIcon size={14} icon="autoDV-zhiding" flipY={true} />}
-            onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: true }))}
-          />
-        </Tooltip>
+        <Button
+          disabled={disable_moveup}
+          onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: false }))}
+        >
+          <Tooltip title="上移" placement="bottom">
+            <AutoDVIcon size={14} icon="autoDV-up" />
+          </Tooltip>
+        </Button>
+        <Button
+          disabled={disable_movedown}
+          onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: false }))}
+        >
+          <Tooltip title="下移" placement="bottom">
+            <AutoDVIcon size={14} icon="autoDV-up" flipY={true} />
+          </Tooltip>
+        </Button>
+        <Button
+          disabled={disable_move2head}
+          onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: true }))}
+        >
+          <Tooltip title="置顶" placement="bottom">
+            <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
+          </Tooltip>
+        </Button>
+        <Button
+          disabled={disable_move2foot}
+          onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: true }))}
+        >
+          <Tooltip title="置底" placement="bottom">
+            <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
+          </Tooltip>
+        </Button>
       </div>
       <List small={small} />
       <div className="panel-actions">
-        <Tooltip disabled={disable_del} content="删除" position={Position.TOP}>
-          <Button
-            disabled={disable_del}
-            small={true}
-            minimal={true}
-            icon={<Icon iconSize={14} icon="trash" />}
-            onClick={() => DELETE_COMP()}
-          />
-        </Tooltip>
-        <Tooltip disabled={disable_lock} content="锁定" position={Position.TOP}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_lock}
-            intent={highlight_lock ? 'primary' : 'none'}
-            icon={<Icon iconSize={14} icon="lock" />}
-            onClick={() => dispatch(appAction.toggleCompStatus({ status: 'locked' }))}
-          />
-        </Tooltip>
-        <Tooltip disabled={disable_hide} content="隐藏" position={Position.TOP}>
-          <Button
-            small={true}
-            minimal={true}
-            disabled={disable_hide}
-            intent={highlight_hide ? 'primary' : 'none'}
-            icon={<Icon iconSize={14} icon="eye-off" />}
-            onClick={() => dispatch(appAction.toggleCompStatus({ status: 'hided' }))}
-          />
-        </Tooltip>
+        <Button disabled={disable_del} onClick={() => DELETE_COMP()}>
+          <Tooltip title="删除" placement="top">
+            <DeleteForeverIcon />
+          </Tooltip>
+        </Button>
+        <Button disabled={disable_lock} onClick={() => dispatch(appAction.toggleCompStatus({ status: 'locked' }))}>
+          <Tooltip title="锁定" placement="top">
+            <LockIcon />
+          </Tooltip>
+        </Button>
+        <Button disabled={disable_hide} onClick={() => dispatch(appAction.toggleCompStatus({ status: 'hided' }))}>
+          <Tooltip title="隐藏" placement="top">
+            <VisibilityOffIcon />
+          </Tooltip>
+        </Button>
       </div>
     </LeftPanelStyled>
   );

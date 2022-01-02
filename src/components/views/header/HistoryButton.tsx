@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { Button, ButtonGroup, Tooltip, Position } from '@blueprintjs/core';
 import { ButtonGroup, Tooltip, IconButton } from '@mui/material';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
@@ -19,39 +18,39 @@ const History: React.FC = () => {
   return (
     <HistoryStyled>
       <ButtonGroup>
-        <Tooltip title={Language.back} placement="bottom" arrow>
-          <IconButton
-            aria-label="back"
-            disabled={!past.length}
-            onClick={() => {
-              dispatch(ActionCreators.undo());
-            }}
-          >
+        <IconButton
+          aria-label="back"
+          disabled={!past.length}
+          onClick={() => {
+            dispatch(ActionCreators.undo());
+          }}
+        >
+          <Tooltip title={Language.back} placement="bottom" arrow>
             <FastRewindIcon fontSize="large" />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="前进" placement="bottom-start" arrow>
-          <IconButton
-            aria-label="undo"
-            disabled={!future.length}
-            onClick={() => {
-              dispatch(ActionCreators.redo());
-            }}
-          >
+          </Tooltip>
+        </IconButton>
+        <IconButton
+          aria-label="undo"
+          disabled={!future.length}
+          onClick={() => {
+            dispatch(ActionCreators.redo());
+          }}
+        >
+          <Tooltip title="前进" placement="bottom-start" arrow>
             <FastForwardIcon fontSize="large" />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="历史记录" placement="bottom" arrow>
-          <IconButton
-            aria-label="history"
-            onClick={() => {
-              dispatch(editorAction.togglePanel('history'));
-              setIsActive(!isActive);
-            }}
-          >
+          </Tooltip>
+        </IconButton>
+        <IconButton
+          aria-label="history"
+          onClick={() => {
+            dispatch(editorAction.togglePanel('history'));
+            setIsActive(!isActive);
+          }}
+        >
+          <Tooltip title="历史记录" placement="bottom" arrow>
             <HistoryIcon fontSize="large" />
-          </IconButton>
-        </Tooltip>
+          </Tooltip>
+        </IconButton>
       </ButtonGroup>
     </HistoryStyled>
   );
