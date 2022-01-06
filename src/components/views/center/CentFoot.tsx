@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AutoDVIcon from 'components/common/AutoDVIcon';
-import { Slider, Tooltip, Position, NumericInput, Tag, Button } from '@blueprintjs/core';
+import { Button, Slider, Tooltip, TextField, InputAdornment } from '@mui/material';
 import { MIN_CANVAS_RATIO, MAX_CANVAS_RATIO } from 'config/const';
 import { CentFootStyled } from './style';
 import numeral from 'numeral';
@@ -14,33 +14,26 @@ const RatioInput = ({ ratio }: { ratio: number }) => {
 
   return (
     <Tooltip
-      isOpen={error}
-      content={`超出限定范围: (${MIN_CANVAS_RATIO * 100} - ${MAX_CANVAS_RATIO * 100})%`}
-      position={Position.TOP}
-      intent="danger"
+      open={error}
+      title={`超出限定范围: (${MIN_CANVAS_RATIO * 100} - ${MAX_CANVAS_RATIO * 100})%`}
+      placement="top"
+      disableInteractive={false}
     >
-      <NumericInput
-        fill={true}
-        asyncControl={true}
-        intent={error ? 'danger' : 'none'}
-        value={Math.round(ratio * 100)}
-        min={MIN_CANVAS_RATIO * 100}
-        max={MAX_CANVAS_RATIO * 100}
-        rightElement={<Tag minimal={true}>%</Tag>}
-        stepSize={1}
-        onValueChange={(value: number) => {
+      <TextField
+        type="number"
+        size="small"
+        value={numeral(ratio * 100).format('0')}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">%</InputAdornment>,
+        }}
+        onChange={(e) => {
+          const value = Number(e.target.value);
           const val = +numeral(value / 100).format('0.[00]');
           if (val < MIN_CANVAS_RATIO || val > MAX_CANVAS_RATIO) {
             setError(true);
           } else {
-            dispatch(editorAction.zoomCanvas(1));
+            dispatch(editorAction.zoomCanvas(val));
             setError(false);
-          }
-        }}
-        onBlur={(e: React.SyntheticEvent<HTMLInputElement>) => {
-          const value = +e.currentTarget.value;
-          if (!error) {
-            dispatch(editorAction.zoomCanvas(value / 100));
           }
         }}
       />
@@ -52,46 +45,31 @@ const CentFoot: React.FC = () => {
   const { canvasRatio } = useSelector(selectEditor);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const sliderHandle = document.querySelector('.foot-slider .bp3-slider-handle');
-    if (sliderHandle) {
-      // 移除焦点，解决方向键与移动组件的功能冲突
-      sliderHandle.removeAttribute('tabIndex');
-    }
-  }, []);
-
   return (
     <CentFootStyled>
       <div className="left" />
       <div className="right">
         <div className="icons">
-          <Tooltip targetClassName="btn" position={Position.TOP} content="实际大小">
-            <Button
-              minimal={true}
-              small={true}
-              icon={<AutoDVIcon icon="autoDV-native" size={18} />}
-              onClick={() => dispatch(editorAction.zoomCanvas(1))}
-            />
-          </Tooltip>
-          <Tooltip targetClassName="btn" position={Position.TOP} content="自适应">
-            <Button
-              minimal={true}
-              small={true}
-              icon={<AutoDVIcon icon="autoDV-suitable" size={18} />}
-              onClick={() => dispatch(editorAction.zoomCanvas('auto'))}
-            />
-          </Tooltip>
+          <Button onClick={() => dispatch(editorAction.zoomCanvas(1))}>
+            <Tooltip placement="top" title="实际大小">
+              <AutoDVIcon icon="autoDV-native" size={18} />
+            </Tooltip>
+          </Button>
+          <Button onClick={() => dispatch(editorAction.zoomCanvas('auto'))}>
+            <Tooltip placement="top" title="自适应">
+              <AutoDVIcon icon="autoDV-suitable" size={18} />
+            </Tooltip>
+          </Button>
         </div>
         <div className="slider">
           <Slider
-            className="foot-slider"
-            labelRenderer={false}
-            showTrackFill={true}
             value={canvasRatio}
             min={MIN_CANVAS_RATIO}
             max={MAX_CANVAS_RATIO}
-            stepSize={0.01}
-            onChange={(val) => dispatch(editorAction.zoomCanvas(val))}
+            step={0.01}
+            onChange={(event, val) => {
+              if (!Array.isArray(val)) dispatch(editorAction.zoomCanvas(val));
+            }}
           />
         </div>
         <div className="action-input">

@@ -96,7 +96,7 @@ export async function request<T>(config: ReqConfig, id?: string): Promise<T> {
   };
 
   const _config = merge({}, defaultConfig, config);
-  const timeOut = _config.timeout || 10000;
+  const timeOut = _config.timeout || 30000;
 
   _config.useNProgress && NProgress.start();
 

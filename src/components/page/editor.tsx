@@ -13,25 +13,36 @@ import notice from 'utils/notice';
 import { transContent } from 'helpers/importHelper';
 import DB from 'store/DB';
 import { qs } from 'utils';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const Editor = () => {
   const dispatch = useDispatch();
 
-  const initApp = useCallback(async () => {
-    const app = await fetchAppConfig();
-    const isInit = await DB.needInitDB(app);
+  const getConfigFromIndexedDB = async () => {
+    const app = await DB.getConfigByAPPID(Number(qs.query.id));
+    dispatch(appAction.init({ app }));
+  };
 
-    if (isInit) {
-      dispatch(appAction.init({ app }));
-      await DB.initDB(app);
-    } else {
-      const app = await DB.getConfigByAPPID(Number(qs.query.id));
-      console.log('trigger');
-      dispatch(appAction.init({ app }));
+  const initApp = async () => {
+    if (!window.navigator.onLine) {
+      await getConfigFromIndexedDB();
     }
+    try {
+      const app = await fetchAppConfig();
+      const isInit = await DB.needInitDB(app);
+      if (isInit) {
+        dispatch(appAction.init({ app }));
+        await DB.initDB(app);
+      } else {
+        await getConfigFromIndexedDB();
+      }
+    } catch (error) {
+      notice.toast({ message: 'On offline mode' });
+      await getConfigFromIndexedDB();
+    }
+
     setupWatch();
-  }, [dispatch]);
+  };
 
   useEffect(() => {
     initApp();
@@ -56,7 +67,7 @@ const Editor = () => {
         if (error instanceof Error) notice.error(error.message);
       }
     });
-  }, [initApp, dispatch]);
+  }, []); // eslint-disable-line
 
   return (
     <>

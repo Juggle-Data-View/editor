@@ -61,6 +61,7 @@ export class DB {
       Number(config.id),
       'getAll'
     );
+
     return (
       !appInfos.length ||
       !appInfos.every(
