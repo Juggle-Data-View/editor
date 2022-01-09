@@ -66,7 +66,7 @@ const equalParams = (params: string[], dataParams: AutoDV.DataParam[]) => {
 
 //   return (
 //     <Tooltip isOpen={err} content="变量未设置，请先创建再使用" intent={intent}>
-//       <Control.InputText name={name} bp={{ fill: true, intent }} useMeta={false} validate={validate} />
+//       <Control.InputText name={name} muiProps={{ fill: true, intent }} useMeta={false} validate={validate} />
 //     </Tooltip>
 //   );
 // };

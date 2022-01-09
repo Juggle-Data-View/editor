@@ -61,8 +61,7 @@ const FieldMapTable: React.FC<IProps> = (props) => {
           <div style={{ maxWidth: 100 }}>
             <Control.Select
               name={name}
-              buttonProps={{ fill: true, small: true }}
-              popoverProps={{ fill: true }}
+              buttonProps={{ fullWidth: true, size: 'small' }}
               useFastField={false} // 如果没有，会出现fieldMap下拉数据渲染不同步的bug
             >
               {options.map((field) => (

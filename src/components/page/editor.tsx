@@ -19,8 +19,13 @@ const Editor = () => {
   const dispatch = useDispatch();
 
   const getConfigFromIndexedDB = async () => {
-    const app = await DB.getConfigByAPPID(Number(qs.query.id));
-    dispatch(appAction.init({ app }));
+    try {
+      const app = await DB.getConfigByAPPID(Number(qs.query.id));
+      dispatch(appAction.init({ app }));
+    } catch (error) {
+      console.log(error);
+      notice.toast({ message: 'System load error' });
+    }
   };
 
   const initApp = async () => {

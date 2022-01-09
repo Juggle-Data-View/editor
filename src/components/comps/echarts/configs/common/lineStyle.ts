@@ -15,7 +15,7 @@ const lineStyle: INodeConfig[] = [
     type: 'number',
     label: '线条宽度',
     props: {
-      bp: {
+      muiProps: {
         min: 0,
       },
     },

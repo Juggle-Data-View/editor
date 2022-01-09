@@ -1,9 +1,9 @@
-import { RadioGroup, Radio as BPRadio, IRadioGroupProps, IOptionProps } from '@blueprintjs/core';
+import { RadioGroup, Radio as BPRadio, IRadioGroupProps } from '@blueprintjs/core';
 import { children2option } from './utils';
 import { withField } from './withField';
 
 export interface IRadio {
-  options?: IOptionProps[];
+  options?: any;
   radioGroupProps?: Omit<IRadioGroupProps, 'onChange' | 'options'>;
   children?: React.ReactNode;
 }

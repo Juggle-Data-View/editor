@@ -7,7 +7,7 @@ export const fontSize: INodeConfig = {
   label: '字号',
   props: {
     unit: 'px',
-    bp: { min: 0 },
+    muiProps: { min: 0 },
   },
 };
 
@@ -19,7 +19,7 @@ export const lineHeight: INodeConfig = {
     help: '字号的倍数，不是px单位。',
   },
   props: {
-    bp: { stepSize: 0.1, min: 0 },
+    muiProps: { stepSize: 0.1, min: 0 },
   },
 };
 

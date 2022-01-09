@@ -26,6 +26,7 @@ const Container = styled.div`
   padding: 2px;
   min-height: 200px;
   max-height: 500px;
+  background-color: #fff;
   overflow-y: auto;
   .item-label {
     width: 25%;
@@ -93,7 +94,7 @@ const DataSourceCreator: React.FC<Props> = ({ dataSourceType, title }) => {
                         ? undefined
                         : '只能包含字母、数字、下划线(_)、中文字符，且长度不超过32个字符';
                     }}
-                    bp={{ placeholder: '请输入数据源名称' }}
+                    muiProps={{ placeholder: '请输入数据源名称' }}
                   />
                   {values.type === DataSourceType.API && <API formik={formik as T.API_Formik} />}
                   {values.type === DataSourceType.MySQL && <MySQL formik={formik as T.SQL_Formik} />}
@@ -136,7 +137,12 @@ function API({ formik }: { formik: T.API_Formik }) {
   return (
     <>
       {values.apiType === API_TYPE.HTTP && (
-        <Field.Text label="URL" name="config.url" validate={validator.isURL} bp={{ placeholder: '请输入接口地址' }} />
+        <Field.Text
+          label="URL"
+          name="config.url"
+          validate={validator.isURL}
+          muiProps={{ placeholder: '请输入接口地址' }}
+        />
       )}
       <Field.Select
         label="协议"
@@ -145,7 +151,6 @@ function API({ formik }: { formik: T.API_Formik }) {
           { label: 'HTTP', value: 1 },
           { label: 'JSF', value: 2 },
         ]}
-        popoverProps={{ position: 'bottom-left', minimal: true }}
       />
       {values.apiType === API_TYPE.HTTP && (
         <>
@@ -154,7 +159,11 @@ function API({ formik }: { formik: T.API_Formik }) {
             <option value="POST">POST</option>
           </Field.Radio>
           {values.config.method === HttpMethod.GET && (
-            <Field.MultiText label="参数配置" name="config.params" bp={{ placeholder: '使用回车键添加多个参数' }} />
+            <Field.MultiText
+              label="参数配置"
+              name="config.params"
+              muiProps={{ placeholder: '使用回车键添加多个参数' }}
+            />
           )}
           {values.config.method === HttpMethod.POST && (
             <FieldLabel label="参数配置">
@@ -172,9 +181,9 @@ function API({ formik }: { formik: T.API_Formik }) {
                         const _name = `${name}.${index}`;
                         return (
                           <ControlGroup style={{ margin: '5px 0', alignItems: 'center' }} key={index} fill={true}>
-                            <Control.InputText name={`${_name}.k`} bp={{ placeholder: '参数名' }} />
+                            <Control.InputText name={`${_name}.k`} muiProps={{ placeholder: '参数名' }} />
                             <strong style={{ margin: '0 10px' }}>:</strong>
-                            <Control.InputText name={`${_name}.v`} bp={{ placeholder: '参数值' }} />
+                            <Control.InputText name={`${_name}.v`} muiProps={{ placeholder: '参数值' }} />
                             <Button disabled={arr.length <= 1} icon="trash" onClick={() => remove(index)} />
                           </ControlGroup>
                         );
@@ -230,7 +239,7 @@ function MySQL({ formik }: { formik: T.SQL_Formik }) {
   return (
     <>
       <Field.Text label="域名" name="config.host" validate={validator.required} />
-      <Field.Number label="端口号" name="config.port" bp={{ min: 0, buttonPosition: 'none' }} />
+      <Field.Number label="端口号" name="config.port" muiProps={{ min: 0, buttonPosition: 'none' }} />
       <Field.Text label="数据库名称" name="config.database" validate={validator.required} />
       <Field.Text label="用户名" name="config.user" validate={validator.required} />
       <Field.Radio
@@ -287,7 +296,6 @@ function EZD({ formik }: { formik: T.EZD_Formik }) {
           { label: 'HTTP', value: 1 },
           { label: 'JSF', value: 2 },
         ]}
-        popoverProps={{ position: 'bottom-left', minimal: true }}
       />
       {values.apiType === API_TYPE.HTTP && (
         <>
@@ -297,7 +305,11 @@ function EZD({ formik }: { formik: T.EZD_Formik }) {
             <option value="POST">POST</option>
           </Field.Radio>
           {values.config.method === HttpMethod.GET && (
-            <Field.MultiText label="参数配置" name="config.params" bp={{ placeholder: '使用回车键添加多个参数' }} />
+            <Field.MultiText
+              label="参数配置"
+              name="config.params"
+              muiProps={{ placeholder: '使用回车键添加多个参数' }}
+            />
           )}
           {values.config.method === HttpMethod.POST && (
             <FieldLabel label="参数配置">
@@ -315,9 +327,9 @@ function EZD({ formik }: { formik: T.EZD_Formik }) {
                         const _name = `${name}.${index}`;
                         return (
                           <ControlGroup style={{ margin: '5px 0', alignItems: 'center' }} key={index} fill={true}>
-                            <Control.InputText name={`${_name}.k`} bp={{ placeholder: '参数名' }} />
+                            <Control.InputText name={`${_name}.k`} muiProps={{ placeholder: '参数名' }} />
                             <strong style={{ margin: '0 10px' }}>:</strong>
-                            <Control.InputText name={`${_name}.v`} bp={{ placeholder: '参数值' }} />
+                            <Control.InputText name={`${_name}.v`} muiProps={{ placeholder: '参数值' }} />
                             <Button disabled={arr.length <= 1} icon="trash" onClick={() => remove(index)} />
                           </ControlGroup>
                         );

@@ -11,11 +11,11 @@ import store from './index';
 import watch from 'redux-watch';
 import objectPath from 'object-path';
 import { debounce } from 'lodash';
-import * as Api from 'utils/api';
 import notice from 'utils/notice';
 import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';
+import canvas from './DB/canvas';
 import global from 'utils/global';
 
 const differ = require('deep-diff');
@@ -74,7 +74,7 @@ const setupWatch = () => {
             value: newVal[key],
           });
         });
-        await Api.updateCanvas(payload);
+        await canvas.updateCanvas(payload, Number(global.appId));
       }
     } catch (error: any) {
       notice.error(`更新画布失败: ${error.message}`);
@@ -128,7 +128,7 @@ const setupWatch = () => {
             }
           });
           // 请求新增组件，返回添加成功的组件实例信息
-          const successAddedDatas = await addComponents(payload as AutoDV.Comp[], Number(global.appId));
+          await addComponents(payload as AutoDV.Comp[], Number(global.appId));
 
           // 创建分组组件和粘贴已经分组的组件需要排序
           if (
@@ -137,34 +137,12 @@ const setupWatch = () => {
           ) {
             await sortComponents(store.getState().autoDV.present.compCodes, Number(global.appId));
           }
-
-          const staticDataPayload: CompInstEditReqData[] = [];
-
-          // 遍历接口返回的新增组件实例信息
-          // eslint-disable-next-line no-loop-func
-          successAddedDatas.forEach((data: { code: string }, index: number) => {
-            const { code, dataConfig }: AutoDV.Comp = datas[index];
-            if (data.code === code && dataConfig && dataConfig.mockData && dataConfig.mockData.length) {
-              // 静态数据在 addComp 时已经放到mockData下
-              staticDataPayload.push({
-                code,
-                key: 'staticData',
-                value: dataConfig.mockData,
-              });
-            }
-          });
-
-          if (staticDataPayload.length) {
-            // 业务需求：给新增的组件添加静态数据
-            await Api.updateComp(staticDataPayload);
-          }
         }
 
         if (kind === 'D') {
           // 删除组件
           codes.forEach((code) => payload.push(code));
-          // 发起请求
-          // await Api.deleteComp(payload as string[]);
+
           await deleteComponet(codes, Number(global.appId));
         }
 
@@ -182,7 +160,6 @@ const setupWatch = () => {
             });
           });
           // 发起请求
-          // await Api.updateComp(payload as CompInstEditReqData[]);
           await updateComponets(payload as CompInstEditReqData[], Number(global.appId));
         }
       }
@@ -202,7 +179,6 @@ const setupWatch = () => {
       // 有diff数据，且上次和这次的数组长度一致，才会触发排序请求
       const { sortComponents } = components;
       if (diffs.length && oldVal.length === newVal.length) {
-        // await Api.resortComp(newVal);
         await sortComponents(newVal, Number(global.appId));
       }
     } catch (error: any) {

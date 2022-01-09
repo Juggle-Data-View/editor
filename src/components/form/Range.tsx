@@ -2,7 +2,7 @@
  * 范围选择组件，输入某个范围，选取一个数字值
  */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Slider, NumericInput, ISliderProps, INumericInputProps, HTMLInputProps } from '@blueprintjs/core';
 import { validator } from './fieldValidator';

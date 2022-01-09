@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Button, Icon, NumericInputProps } from '@blueprintjs/core';
+import { useState, useEffect, useRef } from 'react';
+import { Button, Icon } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { Row, Col } from 'react-simple-flex-grid';
 import { useField } from 'formik';
 import { withFieldLabel } from 'components/form/index';
 import { NumberStyled } from 'components/form/InputNumber';
+import { InputBaseComponentProps } from '@mui/material';
 
 interface IAspectWrap {
   lock: boolean;
@@ -69,20 +70,21 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
     }
   }, [widthField.value, heightField.value, lockName, lockField.value]);
 
-  const commonProps: NumericInputProps = {
+  const commonProps: InputBaseComponentProps = {
     asyncControl: true,
     fill: true,
-    intent: isLock ? 'primary' : 'none',
   };
 
   return (
     <Row>
       <Col span={5}>
         <NumberStyled
-          leftIcon={<span className="prefix">宽</span>}
-          {...commonProps}
+          prefix="宽"
+          inputProps={commonProps}
+          size="small"
           value={widthValue}
-          onButtonClick={(val) => {
+          onChange={(e) => {
+            const val = Number(e.target.value);
             setWidthValue(val);
             const _heightValue = Math.round(val / ratioRef.current);
             if (isLock) {
@@ -124,11 +126,11 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
       </Col>
       <Col span={5}>
         <NumberStyled
-          leftIcon={<span className="prefix">高</span>}
-          {...commonProps}
+          inputProps={commonProps}
+          size="small"
           value={heightValue}
-          onButtonClick={(val) => {
-            setHeightValue(val);
+          onChange={(e) => {
+            const val = Number(e.target.value);
             const _widthValue = Math.round(val * ratioRef.current);
             if (isLock) {
               setWidthValue(_widthValue);

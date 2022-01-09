@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Icon, Colors } from '@blueprintjs/core';
+// import { Icon, Colors } from '@blueprintjs/core';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { withField } from './withField';
 import Picker from 'rc-picker';
 import zhCN from 'rc-picker/lib/locale/zh_CN';
@@ -7,16 +8,16 @@ import generateConfig from 'rc-picker/lib/generate/dayjs';
 import 'dayjs/locale/zh-cn'; // 没有这行月份和星期就不会显示中文
 import 'assets/style/datePicker/index.scss';
 import dayjs from 'dayjs';
-import { generate } from '@ant-design/colors';
+// import { generate } from '@ant-design/colors';
 
-const getCssVar = (varName: string, mainColor: string) => {
-  return generate(mainColor)
-    .reverse()
-    .reduce((acc, cur, idx) => {
-      acc[`--${varName}-${idx + 1}`] = cur;
-      return acc;
-    }, {} as Record<string, string>);
-};
+// const getCssVar = (varName: string, mainColor: string) => {
+//   return generate(mainColor)
+//     .reverse()
+//     .reduce((acc, cur, idx) => {
+//       acc[`--${varName}-${idx + 1}`] = cur;
+//       return acc;
+//     }, {} as Record<string, string>);
+// };
 
 const Container = styled.div``;
 
@@ -31,12 +32,12 @@ export const DatePicker = withField<DataPickerProps>((props) => {
   const styleVars: any = {
     '--fontSize': '14px',
     '--borderWidth': '1px',
-    '--background': Colors.DARK_GRAY1,
+    // '--background': Colors.DARK_GRAY1,
     '--fontColor': '#f5f8fa',
-    '--fontColorInverse': Colors.WHITE,
-    '--borderColor': Colors.DARK_GRAY3,
-    ...getCssVar('primary', Colors.BLUE3),
-    ...getCssVar('secondary', Colors.DARK_GRAY5),
+    // '--fontColorInverse': Colors.WHITE,
+    // '--borderColor': Colors.DARK_GRAY3,
+    // ...getCssVar('primary', Colors.BLUE3),
+    // ...getCssVar('secondary', Colors.DARK_GRAY5),
   };
 
   return (
@@ -50,7 +51,7 @@ export const DatePicker = withField<DataPickerProps>((props) => {
         showTime
         showToday
         allowClear
-        clearIcon={<Icon icon="cross" />}
+        clearIcon={<CancelIcon />}
         popupStyle={styleVars}
         onChange={(date, dateString) => {
           const ts = date?.valueOf() || 1;

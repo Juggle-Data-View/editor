@@ -72,7 +72,7 @@ const dictionary: INodeConfig[] = [
             type: 'number',
             label: '表格行数',
             props: {
-              bp: { min: 0 },
+              muiProps: { min: 0 },
             },
           },
           {
@@ -96,7 +96,7 @@ const dictionary: INodeConfig[] = [
                 name: 'columnBorderWidth',
                 type: 'number',
                 props: {
-                  bp: { min: 0 },
+                  muiProps: { min: 0 },
                 },
                 label: '列分割线粗细',
               },
@@ -114,7 +114,7 @@ const dictionary: INodeConfig[] = [
                 name: 'rowBorderWidth',
                 type: 'number',
                 props: {
-                  bp: { min: 0 },
+                  muiProps: { min: 0 },
                 },
                 label: '行分割线粗细',
               },
@@ -330,7 +330,7 @@ const dictionary: INodeConfig[] = [
                 type: 'number',
                 label: '图标大小',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -340,7 +340,7 @@ const dictionary: INodeConfig[] = [
                 type: 'number',
                 label: '间距',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },

@@ -136,7 +136,7 @@ const pie: INodeConfig[] = [
         type: 'number',
         label: '引导线第一段长度',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },
@@ -146,7 +146,7 @@ const pie: INodeConfig[] = [
         type: 'number',
         label: '引导线第二段长度',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

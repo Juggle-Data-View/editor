@@ -9,7 +9,7 @@ const ErrorStyled = styled.p`
 `;
 
 export interface IText<T> {
-  bp?: T & HTMLInputProps;
+  muiProps?: T & HTMLInputProps;
   useMeta?: boolean;
 }
 
@@ -17,7 +17,7 @@ export interface IText<T> {
 function withInput<T>(Comp: React.ComponentType<T>) {
   // 使组件具备 formik 的能力
   return withField<IText<T>>((props) => {
-    const { bp, useMeta = true, field, form } = props;
+    const { muiProps, useMeta = true, field, form } = props;
     const meta = form.getFieldMeta(field.name);
     const [inputValue, setInputValue] = useState(field.value);
     const err = meta.touched && meta.error;
@@ -36,7 +36,7 @@ function withInput<T>(Comp: React.ComponentType<T>) {
         <Comp
           fill
           intent={err ? 'danger' : 'none'}
-          {...(bp as T)}
+          {...(muiProps as T)}
           value={inputValue}
           onChange={(e: React.FormEvent<HTMLInputElement>) => {
             setInputValue(e.currentTarget.value);

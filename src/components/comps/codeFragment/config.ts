@@ -50,7 +50,7 @@ const config: AutoDV.CompConfig<Config> = {
             type: 'number',
             label: '大小',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

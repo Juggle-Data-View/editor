@@ -150,7 +150,7 @@ const xAxisDictionary: INodeConfig[] = [
         type: 'number',
         label: '旋转角度',
         props: {
-          bp: {
+          muiProps: {
             min: -90,
             max: 90,
           },
@@ -197,7 +197,7 @@ const xAxisDictionary: INodeConfig[] = [
       width: 120,
     },
     props: {
-      bp: { min: 0 },
+      muiProps: { min: 0 },
     },
   },
   {

@@ -38,7 +38,7 @@ export const nodeMapping = {
   switch: withNode(Control.Switch),
   select: withNode(Control.Select),
   radio: withNode(Control.Radio),
-  checkbox: withNode(Control.Checkbox),
+  // checkbox: withNode(Control.Checkbox),
   range: withNode(Control.Range),
   multiRange: withNode(Control.MultiRange),
   component: CustomComponent,

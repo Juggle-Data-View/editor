@@ -82,7 +82,7 @@ const radar: INodeConfig[] = [
                 type: 'number',
                 label: '分割线宽度',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -126,7 +126,7 @@ const radar: INodeConfig[] = [
                 type: 'number',
                 label: '分割线宽度',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -159,7 +159,7 @@ const radar: INodeConfig[] = [
         type: 'number',
         label: '最大值',
         props: {
-          bp: {
+          muiProps: {
             stepSize: 1,
             min: 0,
             max: 360,
@@ -171,7 +171,7 @@ const radar: INodeConfig[] = [
         type: 'number',
         label: '最小值',
         props: {
-          bp: {
+          muiProps: {
             stepSize: 1,
             min: 0,
             max: 360,
@@ -299,7 +299,7 @@ const radar: INodeConfig[] = [
             type: 'number',
             label: '线条宽度',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -369,7 +369,7 @@ const radar: INodeConfig[] = [
             type: 'number',
             label: '数据点大小',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

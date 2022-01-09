@@ -557,7 +557,7 @@ const dictionary: INodeConfig[] = [
           help: <div style={{ width: 100 }}>单元格在推送时间间隔内多次命中阈值条件，仅推送一次咚咚信息</div>,
         },
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

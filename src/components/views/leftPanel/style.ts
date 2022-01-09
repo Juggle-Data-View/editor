@@ -11,7 +11,7 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   position: relative;
   background-color: #fff;
   z-index: 2;
-
+  color: #222;
   .panel-head,
   .panel-actions {
     flex: none;
@@ -25,14 +25,20 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
     height: 28px;
   }
 
-  .panel-actions {
+  .panel-actions,
+  .panel-bottom-actions {
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #eee;
     padding: 4px 0;
     button {
       margin: 0 1px;
     }
+    span {
+      line-height: 0;
+    }
+  }
+  .panel-bottom-actions {
+    border-right: 1px solid rgba(34, 34, 34, 0.25);
   }
 `;
 
@@ -54,6 +60,7 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   opacity: ${(props) => (props.isGhosting ? 0.5 : 1)};
   box-sizing: border-box;
   border-bottom: 1px solid #eee;
+  background-color: ${({ isSelected }) => (isSelected ? '#eee' : '')};
   .inner {
     padding: 6px 8px;
     display: flex;
@@ -97,7 +104,7 @@ export const ItemStyled = styled.div<IItemWrapProps>`
     position: absolute;
     right: 0;
     top: 0;
-    transform: translate(30%, -30%);
+    transform: translate(50%, -50%);
   }
 
   .actions {
@@ -135,7 +142,7 @@ export const GroupItem = styled.div<{
     display: flex;
     widht: 100%;
     height: 32px;
-    background-color: ${({ theme, isSelect }) => (isSelect ? theme.primary : '')};
+    background-color: ${({ theme, isSelect }) => (isSelect ? '#eee' : '')};
     border-bottom: 1px solid #222e36;
     .groupIcon {
       flex: 1;

@@ -7,7 +7,7 @@ export * from './InputNumber';
 export * from './Switch';
 export * from './Radio';
 export * from './Select';
-export * from './Checkbox';
+// export * from './Checkbox';
 export * from './Color';
 export * from './Range';
 export * from './MultiRange';

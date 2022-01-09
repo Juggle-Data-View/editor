@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NumericInput, INumericInputProps, Tag, HTMLInputProps } from '@blueprintjs/core';
+import { useState, useEffect, useRef } from 'react';
+// import { NumericInput, INumericInputProps, Tag, HTMLInputProps } from '@blueprintjs/core';
+import { TextField, Chip, InputBaseComponentProps } from '@mui/material';
 import { withField } from './withField';
 import { validator, validateMerge } from 'components/form/fieldValidator';
 import { debounce, isUndefined } from 'lodash';
 
 import styled from 'styled-components';
 
-export const NumberStyled = styled(NumericInput)`
+export const NumberStyled = styled(TextField)`
   .prefix {
     position: absolute;
     display: flex;
@@ -18,8 +19,12 @@ export const NumberStyled = styled(NumericInput)`
   }
 `;
 
+interface MuiProps extends InputBaseComponentProps {
+  placeholder?: string;
+}
+
 export interface InputNumberProps {
-  bp?: INumericInputProps & HTMLInputProps;
+  muiProps?: MuiProps;
   /** 单位 */
   unit?: string;
   /** 是否为整数 */
@@ -31,37 +36,34 @@ const CLICK_DEBOUNCE_MS = 300;
 
 export const InputNumber = withField<InputNumberProps>(
   (props) => {
-    const { field, form, unit, bp, prefix } = props;
+    const { field, form, unit, muiProps, prefix } = props;
     const [inputValue, setInputValue] = useState(field.value);
     const meta = form.getFieldMeta(field.name);
     const err = meta.touched && meta.error;
-    const intent = err ? 'danger' : 'none';
     const debounceRef = useRef(debounce((name, value) => form.setFieldValue(name, value), CLICK_DEBOUNCE_MS));
 
     useEffect(() => {
       setInputValue(field.value);
     }, [field.value]);
-
+    const inputProps = muiProps || {};
     return (
       <div>
         <NumberStyled
-          leftIcon={prefix ? <span className="prefix">{prefix}</span> : null}
-          rightElement={
-            unit ? (
-              <Tag intent={intent} minimal={true}>
-                {unit}
-              </Tag>
-            ) : undefined
-          }
-          style={{ width: bp?.fill ? '100%' : 100 }} // 100: 解决边框重渲染时突然增加的 35px 问题
-          intent={intent}
-          {...bp}
-          asyncControl
+          style={{ width: '100%' }} // 100: 解决边框重渲染时突然增加的 35px 问题
+          error={!!err}
           value={inputValue}
           name={field.name}
-          onButtonClick={(val) => {
+          size="small"
+          type="number"
+          onChange={(e) => {
+            const val = Number(e.currentTarget.value) || 0;
             setInputValue(val);
             debounceRef.current(field.name, val);
+          }}
+          inputProps={{
+            ...inputProps,
+            startAdornment: prefix ? <span className="prefix">{prefix}</span> : null,
+            endAdornment: unit ? <Chip label={unit} size="small" /> : undefined,
           }}
           onBlur={(e) => {
             const val = Number(e.currentTarget.value) || 0;
@@ -76,12 +78,12 @@ export const InputNumber = withField<InputNumberProps>(
   },
   (props) => {
     const _validator: any[] = [];
-    if (props.bp) {
-      if (!isUndefined(props.bp.min)) {
-        _validator.push(validator.min(props.bp.min));
+    if (props.muiProps) {
+      if (!isUndefined(props.muiProps.min)) {
+        _validator.push(validator.min(props.muiProps.min));
       }
-      if (!isUndefined(props.bp.max)) {
-        _validator.push(validator.max(props.bp.max));
+      if (!isUndefined(props.muiProps.max)) {
+        _validator.push(validator.max(props.muiProps.max));
       }
     }
     if (props.integer) {

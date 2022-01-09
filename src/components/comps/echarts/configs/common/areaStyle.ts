@@ -14,7 +14,7 @@ const areaStyle: INodeConfig[] = [
     type: 'number',
     label: '区域透明度',
     props: {
-      bp: {
+      muiProps: {
         minorStepSize: 0.01,
         stepSize: 0.01,
         max: 1,

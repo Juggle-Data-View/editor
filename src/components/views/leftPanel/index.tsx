@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionStatusSelector, IActionStatus } from 'helpers/selectors';
-import { Button, Tooltip } from '@mui/material';
+import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import List from './List';
 import { DELETE_COMP } from 'components/base/BaseActions';
 // import { Button, Tooltip, Position, Icon } from '@blueprintjs/core';
@@ -47,41 +47,51 @@ const LeftPanel: React.FC = () => {
         </div>
       </div>
       <div className="panel-actions">
-        <Button
-          disabled={disable_moveup}
-          onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: false }))}
-        >
-          <Tooltip title="上移" placement="bottom">
-            <AutoDVIcon size={14} icon="autoDV-up" />
-          </Tooltip>
-        </Button>
-        <Button
-          disabled={disable_movedown}
-          onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: false }))}
-        >
-          <Tooltip title="下移" placement="bottom">
-            <AutoDVIcon size={14} icon="autoDV-up" flipY={true} />
-          </Tooltip>
-        </Button>
-        <Button
-          disabled={disable_move2head}
-          onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: true }))}
-        >
-          <Tooltip title="置顶" placement="bottom">
-            <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
-          </Tooltip>
-        </Button>
-        <Button
-          disabled={disable_move2foot}
-          onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: true }))}
-        >
-          <Tooltip title="置底" placement="bottom">
-            <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
-          </Tooltip>
-        </Button>
+        <ButtonGroup fullWidth={true}>
+          <Button
+            disabled={disable_moveup}
+            onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: false }))}
+          >
+            <Tooltip title="上移" placement="bottom">
+              <span>
+                <AutoDVIcon size={14} icon="autoDV-up" />
+              </span>
+            </Tooltip>
+          </Button>
+          <Button
+            disabled={disable_movedown}
+            onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: false }))}
+          >
+            <Tooltip title="下移" placement="bottom">
+              <span>
+                <AutoDVIcon size={14} icon="autoDV-up" flipY={true} />
+              </span>
+            </Tooltip>
+          </Button>
+          <Button
+            disabled={disable_move2head}
+            onClick={() => dispatch(appAction.moveComp({ direction: 'UP', isEnd: true }))}
+          >
+            <Tooltip title="置顶" placement="bottom">
+              <span>
+                <AutoDVIcon size={14} icon="autoDV-top" />
+              </span>
+            </Tooltip>
+          </Button>
+          <Button
+            disabled={disable_move2foot}
+            onClick={() => dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: true }))}
+          >
+            <Tooltip title="置底" placement="bottom">
+              <span>
+                <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
+              </span>
+            </Tooltip>
+          </Button>
+        </ButtonGroup>
       </div>
       <List small={small} />
-      <div className="panel-actions">
+      <div className="panel-bottom-actions">
         <Button disabled={disable_del} onClick={() => DELETE_COMP()}>
           <Tooltip title="删除" placement="top">
             <DeleteForeverIcon />

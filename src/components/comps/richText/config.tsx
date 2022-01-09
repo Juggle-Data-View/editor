@@ -202,7 +202,7 @@ const config: IConfig = {
             name: 'marginLeft',
             label: '文本左间距',
             props: {
-              bp: { stepSize: 0 },
+              muiProps: { stepSize: 0 },
             },
           },
           {
@@ -210,7 +210,7 @@ const config: IConfig = {
             name: 'marginRight',
             label: '文本右间距',
             props: {
-              bp: { stepSize: 0 },
+              muiProps: { stepSize: 0 },
             },
           },
           { type: 'switch', name: 'isWrap', label: '前置换行' },
@@ -241,11 +241,11 @@ const config: IConfig = {
                   },
                 ],
               },
-              { type: 'number', name: 'marginTop', label: '上间距', props: { bp: { stepSize: 1 } } },
-              { type: 'number', name: 'marginLeft', label: '左间距', props: { bp: { stepSize: 1 } } },
-              { type: 'number', name: 'marginRight', label: '右间距', props: { bp: { stepSize: 1 } } },
-              { type: 'number', name: 'width', label: '宽', props: { bp: { min: 0, stepSize: 1 } } },
-              { type: 'number', name: 'height', label: '高', props: { bp: { min: 0, stepSize: 1 } } },
+              { type: 'number', name: 'marginTop', label: '上间距', props: { muiProps: { stepSize: 1 } } },
+              { type: 'number', name: 'marginLeft', label: '左间距', props: { muiProps: { stepSize: 1 } } },
+              { type: 'number', name: 'marginRight', label: '右间距', props: { muiProps: { stepSize: 1 } } },
+              { type: 'number', name: 'width', label: '宽', props: { muiProps: { min: 0, stepSize: 1 } } },
+              { type: 'number', name: 'height', label: '高', props: { muiProps: { min: 0, stepSize: 1 } } },
               {
                 type: 'select',
                 name: 'position',

@@ -153,6 +153,7 @@ export const DataConfigStyled = styled.div`
   }
 
   .drawer-container {
+    background-color: #fff;
     position: absolute;
     top: 0;
     left: 0;

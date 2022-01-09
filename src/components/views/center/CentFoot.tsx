@@ -52,12 +52,16 @@ const CentFoot: React.FC = () => {
         <div className="icons">
           <Button onClick={() => dispatch(editorAction.zoomCanvas(1))}>
             <Tooltip placement="top" title="实际大小">
-              <AutoDVIcon icon="autoDV-native" size={18} />
+              <span>
+                <AutoDVIcon icon="autoDV-native" size={18} />
+              </span>
             </Tooltip>
           </Button>
           <Button onClick={() => dispatch(editorAction.zoomCanvas('auto'))}>
             <Tooltip placement="top" title="自适应">
-              <AutoDVIcon icon="autoDV-suitable" size={18} />
+              <span>
+                <AutoDVIcon icon="autoDV-suitable" size={18} />
+              </span>
             </Tooltip>
           </Button>
         </div>

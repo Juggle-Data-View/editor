@@ -2,15 +2,15 @@ import { TagInput, TagInputProps } from '@blueprintjs/core';
 import { withField } from './withField';
 
 interface MultiTextProps {
-  bp?: Pick<TagInputProps, 'placeholder' | 'separator'>;
+  muiProps?: Pick<TagInputProps, 'placeholder' | 'separator'>;
 }
 
 export const MultiText = withField<MultiTextProps>((props) => {
-  const { field, form, bp } = props;
+  const { field, form, muiProps } = props;
 
   return (
     <TagInput
-      {...bp}
+      {...muiProps}
       values={field.value}
       addOnBlur
       onChange={(values) => {

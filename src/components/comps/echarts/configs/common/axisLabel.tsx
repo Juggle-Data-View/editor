@@ -143,7 +143,7 @@ const axisLabel: INodeConfig[] = [
     label: '旋转角度',
     type: 'number',
     props: {
-      bp: {
+      muiProps: {
         max: 180,
       },
     },

@@ -1,20 +1,17 @@
-import { Switch as BPSwitch, Checkbox, ISwitchProps, ICheckboxProps } from '@blueprintjs/core';
+import { Switch as MuiSwitch, SwitchProps } from '@mui/material';
 import { withField } from './withField';
 
 export interface ISwitch {
-  bp?: Omit<ISwitchProps | ICheckboxProps, 'onChange' | 'checked' | 'value'>;
+  muiProps?: Omit<SwitchProps, 'onChange' | 'checked' | 'value'>;
   /** 使用 checkbox 组件 */
-  useCheckbox?: boolean;
 }
 
 export const Switch = withField<ISwitch>((props) => {
-  const { field, form, bp, useCheckbox } = props;
-  const Comp = useCheckbox ? Checkbox : BPSwitch;
+  const { field, form, muiProps } = props;
   return (
-    <Comp
+    <MuiSwitch
       style={{ marginBottom: 0 }}
-      inline
-      {...bp}
+      {...muiProps}
       checked={field.value}
       onChange={() => form.setFieldValue(field.name, !field.value)}
     />

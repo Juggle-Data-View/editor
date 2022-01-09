@@ -126,7 +126,7 @@ const DataConfig: React.FC<IDataConfig> = ({ code, dataConfig, name }) => {
       <div style={{ width: 140, marginLeft: 10 }}>
         <Control.InputNumber
           name={getName('frequency')}
-          bp={{ min: 1, fill: true, disabled: !dataConfig.autoRefresh, stepSize: 1 }}
+          muiProps={{ min: 1, fill: true, disabled: !dataConfig.autoRefresh, stepSize: 1 }}
           unit="秒"
         />
       </div>
@@ -141,7 +141,6 @@ const DataConfig: React.FC<IDataConfig> = ({ code, dataConfig, name }) => {
           <Field.Select
             label="数据源类型"
             name={[name, 'dataSourceType'].join('.')}
-            popoverProps={{ position: 'bottom-left', minimal: true }}
             onChange={(value) => {
               // 如果切换了数据源，才会重置部分配置
               if (value !== dataSourceType) {

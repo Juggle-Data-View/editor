@@ -38,7 +38,7 @@ const funnel: INodeConfig[] = [
         type: 'number',
         label: '间距',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },
@@ -53,7 +53,7 @@ const funnel: INodeConfig[] = [
         type: 'number',
         label: '边框宽度',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

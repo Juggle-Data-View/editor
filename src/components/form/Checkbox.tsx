@@ -1,9 +1,9 @@
-import { Checkbox as BPCheckbox, ICheckboxProps, IOptionProps } from '@blueprintjs/core';
-import { children2option } from './utils';
+import { Checkbox as BPCheckbox } from '@blueprintjs/core';
+import { children2option, OptionProps } from './utils';
 import { withField } from './withField';
 
 export interface ICheckbox {
-  options?: Array<IOptionProps & Omit<ICheckboxProps, 'onChange' | 'checked'>>;
+  options?: OptionProps[];
   children?: React.ReactNode;
 }
 

@@ -53,6 +53,7 @@ export const CentFootStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 32px;
+  box-shadow: -1px 0px 5px rgba(34, 34, 34, 0.25);
   padding: 0 5px;
   .right {
     display: flex;
@@ -67,10 +68,13 @@ export const CentFootStyled = styled.div`
   }
   .action-input {
     margin-left: 15px;
-    width: 110px;
+    width: 100px;
     .bp3-control-group {
       transform: none; /** 解决inputNumber上部分被切断1px问题 */
     }
+  }
+  input {
+    padding: 5px 10px;
   }
   .slider {
     width: 260px;

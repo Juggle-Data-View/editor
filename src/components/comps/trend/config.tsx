@@ -220,7 +220,7 @@ const config: IConfig = {
             type: 'number',
             name: 'size',
             label: '图标大小',
-            props: { unit: 'px', bp: { min: 0 } },
+            props: { unit: 'px', muiProps: { min: 0 } },
           },
         ],
       },

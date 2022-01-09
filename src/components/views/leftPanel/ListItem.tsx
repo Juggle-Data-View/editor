@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { FocusEventHandler, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import { isDev } from 'utils';
-import { Button, EditableText, Tag } from '@blueprintjs/core';
+import { Chip, TextField, Button } from '@mui/material';
 import { showContextMenu, hideContextMenu } from 'helpers/contextMenu';
 import { ItemStyled } from './style';
 import classNames from 'classnames';
@@ -13,6 +13,8 @@ import { appAction } from 'store/features/appSlice';
 import { DEFAULT_THUMBNAIL } from 'config/const';
 import { RootState } from 'store';
 import EditIcon from '@mui/icons-material/Edit';
+import LockIcon from '@mui/icons-material/Lock';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface IListItem {
   item: AutoDV.Comp;
@@ -49,7 +51,8 @@ const ListItem = (props: IListItem) => {
     dispatch(appAction.toggleCompStatus({ code, status }));
   };
 
-  const handleTitle = (val: string) => {
+  const handleTitle: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
+    const val = e.target.value;
     setEditAble(false);
     if (val !== item.title) {
       dispatch(appAction.updateComp({ code: item.code, comp: { ...item, title: val } }));
@@ -129,12 +132,7 @@ const ListItem = (props: IListItem) => {
               </div>
               <div className="info">
                 {editAble ? (
-                  <EditableText
-                    className="edit-wrap"
-                    alwaysRenderInput={true}
-                    defaultValue={title || alias}
-                    onConfirm={handleTitle}
-                  />
+                  <TextField className="edit-wrap" defaultValue={title || alias} onBlur={handleTitle} />
                 ) : (
                   <p onDoubleClick={handleRename}>{title || alias}</p>
                 )}
@@ -143,19 +141,19 @@ const ListItem = (props: IListItem) => {
               {visibleAction && (
                 <div className="actions">
                   {locked && (
-                    <Button small={true} minimal={true} icon="lock" onClick={() => onToggleStatus('locked')} />
+                    <Button onClick={() => onToggleStatus('locked')}>
+                      <LockIcon />
+                    </Button>
                   )}
                   {hided && (
-                    <Button small={true} minimal={true} icon="eye-off" onClick={() => onToggleStatus('hided')} />
+                    <Button onClick={() => onToggleStatus('hided')}>
+                      <VisibilityOffIcon />
+                    </Button>
                   )}
                 </div>
               )}
             </div>
-            {snapshot.isDragging ? (
-              <Tag className="badge" round>
-                {selectedCount}
-              </Tag>
-            ) : null}
+            {snapshot.isDragging ? <Chip className="badge" label={selectedCount} /> : null}
           </ItemStyled>
         );
       }}
