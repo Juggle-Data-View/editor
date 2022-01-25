@@ -15,5 +15,4 @@ export const Select = withFieldLabel(Control.Select);
 // export const Checkbox = withFieldLabel(Control.Checkbox);
 export const Color = withFieldLabel(Control.Color);
 export const Range = withFieldLabel(Control.Range);
-export const MultiRange = withFieldLabel(Control.MultiRange);
 export const Angle = withFieldLabel(Control.Angle);

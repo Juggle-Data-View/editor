@@ -140,7 +140,7 @@ const dictionary: INodeConfig[] = [
             label: '文本行高',
             props: {
               sliderProps: {
-                stepSize: 1,
+                step: 1,
               },
               range: [0, 100],
             },
@@ -151,7 +151,7 @@ const dictionary: INodeConfig[] = [
             label: '表头行高',
             props: {
               sliderProps: {
-                stepSize: 1,
+                step: 1,
               },
               range: [0, 100],
             },
@@ -224,7 +224,7 @@ const dictionary: INodeConfig[] = [
             label: '列宽',
             props: {
               sliderProps: {
-                stepSize: 1,
+                step: 1,
               },
               range: [0, 100],
             },

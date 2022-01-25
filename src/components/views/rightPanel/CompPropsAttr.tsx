@@ -20,11 +20,11 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
         <FieldLabel label="组件位置" {...labelProps}>
           <Row>
             <Col span={5}>
-              <Control.InputNumber name="attr.left" muiProps={{ fill: true }} prefix="X" />
+              <Control.InputNumber name="attr.left" prefix="X" />
             </Col>
             <Col span={2} />
             <Col span={5}>
-              <Control.InputNumber name="attr.top" muiProps={{ fill: true }} prefix="Y" />
+              <Control.InputNumber name="attr.top" prefix="Y" />
             </Col>
           </Row>
         </FieldLabel>
@@ -38,7 +38,7 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
         <FieldLabel label="组件旋转" {...labelProps}>
           <Row style={{ height: '100%' }}>
             <Col span={5}>
-              <Control.InputNumber name="attr.angle" muiProps={{ fill: true }} />
+              <Control.InputNumber name="attr.angle" />
             </Col>
             <Col span={2} style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Control.Angle name="attr.angle" size={24} />
@@ -53,7 +53,7 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
           labelProps={labelProps}
           name="attr.opacity"
           range={[0, 1]}
-          sliderProps={{ stepSize: 0.1 }}
+          sliderProps={{ step: 0.1 }}
           format="0.[00]"
         />
       </div>

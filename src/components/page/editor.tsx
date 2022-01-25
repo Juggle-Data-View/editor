@@ -23,8 +23,10 @@ const Editor = () => {
       const app = await DB.getConfigByAPPID(Number(qs.query.id));
       dispatch(appAction.init({ app }));
     } catch (error) {
-      console.log(error);
-      notice.toast({ message: 'System load error' });
+      // console.log(error);
+      // notice.toast({ message: 'System load error' });
+      const app = await DB.getDefaultConfig();
+      dispatch(appAction.init({ app }));
     }
   };
 

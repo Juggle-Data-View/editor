@@ -74,7 +74,8 @@ const setupWatch = () => {
             value: newVal[key],
           });
         });
-        await canvas.updateCanvas(payload, Number(global.appId));
+
+        await canvas.updateCanvas(payload, Number(global.canvasId));
       }
     } catch (error: any) {
       notice.error(`更新画布失败: ${error.message}`);

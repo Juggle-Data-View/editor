@@ -126,7 +126,7 @@ const DataConfig: React.FC<IDataConfig> = ({ code, dataConfig, name }) => {
       <div style={{ width: 140, marginLeft: 10 }}>
         <Control.InputNumber
           name={getName('frequency')}
-          muiProps={{ min: 1, fill: true, disabled: !dataConfig.autoRefresh, stepSize: 1 }}
+          muiProps={{ min: 1, disabled: !dataConfig.autoRefresh, stepsize: 1 }}
           unit="秒"
         />
       </div>

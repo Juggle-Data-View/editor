@@ -1,5 +1,8 @@
 import { IDBPDatabase, openDB } from 'idb';
 import components from './components';
+import global from 'utils/global';
+import { omit } from 'lodash';
+import AppConfig from './default.conf';
 
 export const DB_NAME = 'DB_NAME';
 export const DB_VERSION = 1;
@@ -29,7 +32,7 @@ export class DB {
         });
 
         compStore.createIndex('appId', 'id');
-        canvasStore.createIndex('canvasId', 'id');
+        canvasStore.createIndex('appId', 'appId');
         appInfoStore.createIndex('appId', 'id');
       },
     });
@@ -40,14 +43,13 @@ export class DB {
   initDB = async (config: AutoDV.AppConfig) => {
     const db = await this.dbIns;
     const { canvas: initCanvas } = config;
-    const appInfo = {
-      ...config,
-      canvas: {
-        ...initCanvas,
-      },
+    const appInfo = omit(config, 'canvas');
+
+    const canvas = {
+      ...omit(initCanvas, 'compInsts'),
+      appId: appInfo.id,
     };
-    delete appInfo.canvas.compInsts;
-    const canvas = appInfo.canvas;
+
     const normalizeComps: AutoDV.Comp<AutoDV.Config>[] = initCanvas.compInsts || [];
     await db.add(APPINFO_STORE, appInfo);
     await db.add(CANVAS_STORE, canvas);
@@ -73,8 +75,8 @@ export class DB {
   getConfig = async <T = any>(
     storeName: string,
     indexName: string,
-    primaryKey: number,
-    operation: 'getAll' | 'get'
+    primaryKey?: number,
+    operation: 'getAll' | 'get' = 'get'
   ): Promise<T> => {
     const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
     const keyrange = IDBKeyRange.only(primaryKey);
@@ -85,19 +87,35 @@ export class DB {
   getConfigByAPPID = async (appId: number): Promise<AutoDV.AppConfig | undefined> => {
     try {
       const app = (await this.getConfig(APPINFO_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig;
+      const canvas = (await this.getConfig(CANVAS_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig['canvas'];
+
       const compInsts = await (
         await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')
       ).sort((prev, next) => -1 * (next.createTime - prev.createTime));
+      global.appId = appId;
+      global.canvasId = canvas.id;
       return {
         ...app,
         canvas: {
-          ...app.canvas,
+          ...canvas,
           compInsts,
         },
       };
     } catch (error) {
       console.log(error);
     }
+  };
+
+  getDefaultConfig = async (): Promise<AutoDV.AppConfig | undefined> => {
+    const app = omit(AppConfig, 'canvas');
+    const { canvas } = AppConfig;
+    global.appId = app.id;
+    global.canvasId = canvas.id;
+    await this.initDB(AppConfig);
+    return {
+      ...app,
+      canvas,
+    };
   };
 }
 

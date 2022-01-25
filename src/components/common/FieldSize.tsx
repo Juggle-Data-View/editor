@@ -5,7 +5,7 @@ import { Row, Col } from 'react-simple-flex-grid';
 import { useField } from 'formik';
 import { withFieldLabel } from 'components/form/index';
 import { NumberStyled } from 'components/form/InputNumber';
-import { InputBaseComponentProps } from '@mui/material';
+// import { InputBaseComponentProps } from '@mui/material';
 
 interface IAspectWrap {
   lock: boolean;
@@ -52,7 +52,6 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
   const [lockField, , lockHelpers] = useField(lockName || '#');
   const [widthValue, setWidthValue] = useState(widthField.value);
   const [heightValue, setHeightValue] = useState(heightField.value);
-  const debounceRef = useRef<any>(-1);
   const ratioRef = useRef(1);
 
   useEffect(() => {
@@ -70,17 +69,13 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
     }
   }, [widthField.value, heightField.value, lockName, lockField.value]);
 
-  const commonProps: InputBaseComponentProps = {
-    asyncControl: true,
-    fill: true,
-  };
-
   return (
     <Row>
       <Col span={5}>
         <NumberStyled
-          prefix="宽"
-          inputProps={commonProps}
+          inputProps={{
+            startadornment: <span className="prefix">宽</span>,
+          }}
           size="small"
           value={widthValue}
           onChange={(e) => {
@@ -90,14 +85,11 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
             if (isLock) {
               setHeightValue(_heightValue);
             }
-            // 连续点击时有200ms的延迟
-            clearTimeout(debounceRef.current);
-            debounceRef.current = setTimeout(() => {
-              widthHelpers.setValue(val);
-              if (isLock) {
-                heightHelpers.setValue(_heightValue);
-              }
-            }, 200);
+
+            widthHelpers.setValue(val);
+            if (isLock) {
+              heightHelpers.setValue(_heightValue);
+            }
           }}
           onBlur={(e) => {
             const val = +e.currentTarget.value;
@@ -126,23 +118,20 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
       </Col>
       <Col span={5}>
         <NumberStyled
-          inputProps={commonProps}
           size="small"
           value={heightValue}
+          type="number"
           onChange={(e) => {
             const val = Number(e.target.value);
             const _widthValue = Math.round(val * ratioRef.current);
             if (isLock) {
               setWidthValue(_widthValue);
             }
-            // 连续点击时有200ms的延迟
-            clearTimeout(debounceRef.current);
-            debounceRef.current = setTimeout(() => {
-              heightHelpers.setValue(val);
-              if (isLock) {
-                widthHelpers.setValue(_widthValue);
-              }
-            }, 200);
+
+            heightHelpers.setValue(val);
+            if (isLock) {
+              widthHelpers.setValue(_widthValue);
+            }
           }}
           onBlur={(e) => {
             const val = +e.currentTarget.value;

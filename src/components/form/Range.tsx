@@ -4,11 +4,12 @@
 
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Slider, NumericInput, ISliderProps, INumericInputProps, HTMLInputProps } from '@blueprintjs/core';
+// import { Slider, NumericInput, ISliderProps, INumericInputProps, HTMLInputProps } from '@blueprintjs/core';
 import { validator } from './fieldValidator';
 import numeral from 'numeral';
 import { withField } from './withField';
 import isFinite from 'lodash/isFinite';
+import { Slider, TextField, SliderProps, InputProps } from '@mui/material';
 
 const Container = styled.div<{ hasError: boolean }>`
   display: flex;
@@ -33,8 +34,8 @@ const Container = styled.div<{ hasError: boolean }>`
 interface IRange {
   /** [必填项] 滑块区间范围 */
   range: [number, number];
-  sliderProps?: Omit<ISliderProps, 'value' | 'onChange' | 'onRelease' | 'min' | 'max'>;
-  inputProps?: INumericInputProps & HTMLInputProps;
+  sliderProps?: Omit<Partial<SliderProps>, 'value' | 'onChange' | 'onRelease' | 'min' | 'max'>;
+  inputProps?: InputProps;
   format?: string; // 格式化小数点
 }
 
@@ -66,34 +67,26 @@ export const Range = withField<IRange>(
         <Container hasError={err}>
           <div className="slider-wrap">
             <Slider
-              labelRenderer={false}
               {...sliderProps}
               min={range[0]}
               max={range[1]}
-              intent={err ? 'danger' : 'none'}
+              step={sliderProps ? sliderProps.step : 1}
               value={slideValue}
               onChange={(val) => {
-                // FixBug: 滑动时会出现 0.30000002，所以引入 numeral 格式化
                 const value = Number(numeral(val).format(format));
                 setSlideValue(value);
               }}
-              onRelease={submit}
             />
           </div>
           <div className="gap" />
           <div className="input-wrap">
-            <NumericInput
-              fill={true}
-              intent={err ? 'danger' : 'none'}
-              buttonPosition="none"
-              min={range[0]}
-              max={range[1]}
-              stepSize={sliderProps ? sliderProps.stepSize : 1}
-              majorStepSize={null}
-              minorStepSize={null}
+            <TextField
+              inputProps={{
+                ...(inputProps as any),
+                min: range[0],
+                max: range[1],
+              }}
               style={{ textAlign: 'center' }}
-              {...inputProps}
-              asyncControl={true}
               value={slideValue}
               onBlur={(e) => {
                 const _value = Number(e.currentTarget.value);

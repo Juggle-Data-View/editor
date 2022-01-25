@@ -16,7 +16,7 @@ const areaStyle: INodeConfig[] = [
     props: {
       muiProps: {
         minorStepSize: 0.01,
-        stepSize: 0.01,
+        step: 0.01,
         max: 1,
         min: 0,
       },

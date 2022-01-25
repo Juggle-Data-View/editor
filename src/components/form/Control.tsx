@@ -10,7 +10,6 @@ export * from './Select';
 // export * from './Checkbox';
 export * from './Color';
 export * from './Range';
-export * from './MultiRange';
 export * from './Angle';
 export * from './Collapse';
 export * from './Formatter';

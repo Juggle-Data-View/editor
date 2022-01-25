@@ -149,7 +149,7 @@ const radar: INodeConfig[] = [
         label: '旋转角度',
         props: {
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
           range: [0, 360],
         },
@@ -160,7 +160,7 @@ const radar: INodeConfig[] = [
         label: '最大值',
         props: {
           muiProps: {
-            stepSize: 1,
+            step: 1,
             min: 0,
             max: 360,
           },
@@ -172,7 +172,7 @@ const radar: INodeConfig[] = [
         label: '最小值',
         props: {
           muiProps: {
-            stepSize: 1,
+            step: 1,
             min: 0,
             max: 360,
           },

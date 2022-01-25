@@ -20,7 +20,7 @@ const pie: INodeConfig[] = [
         props: {
           range: [0, 100],
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
         },
       },
@@ -31,7 +31,7 @@ const pie: INodeConfig[] = [
         props: {
           range: [0, 100],
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
         },
       },

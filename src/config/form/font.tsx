@@ -19,7 +19,7 @@ export const lineHeight: INodeConfig = {
     help: '字号的倍数，不是px单位。',
   },
   props: {
-    muiProps: { stepSize: 0.1, min: 0 },
+    muiProps: { stepsize: 0.1, min: 0 },
   },
 };
 

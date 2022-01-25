@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-// import { NumericInput, INumericInputProps, Tag, HTMLInputProps } from '@blueprintjs/core';
 import { TextField, Chip, InputBaseComponentProps } from '@mui/material';
 import { withField } from './withField';
 import { validator, validateMerge } from 'components/form/fieldValidator';
@@ -62,8 +61,8 @@ export const InputNumber = withField<InputNumberProps>(
           }}
           inputProps={{
             ...inputProps,
-            startAdornment: prefix ? <span className="prefix">{prefix}</span> : null,
-            endAdornment: unit ? <Chip label={unit} size="small" /> : undefined,
+            startadornment: prefix ? <span className="prefix">{prefix}</span> : null,
+            endadornment: unit ? <Chip label={unit} size="small" /> : undefined,
           }}
           onBlur={(e) => {
             const val = Number(e.currentTarget.value) || 0;

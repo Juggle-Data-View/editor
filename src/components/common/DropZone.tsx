@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled from 'styled-components';
-import { Button, Classes, Position, Spinner, ControlGroup } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
+import { Classes, Spinner, ControlGroup } from '@blueprintjs/core';
 import { FieldConfig, useField, useFormikContext } from 'formik';
-import * as Api from 'utils/api';
 import notice from 'utils/notice';
 
 const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }>`
@@ -50,20 +48,6 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
   }
 `;
 
-const PopoverContentStyled = styled.div`
-  width: 200px;
-  padding: 10px;
-  line-height: 1.5;
-  .btns {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    button {
-      margin-left: 5px;
-    }
-  }
-`;
-
 type IDropZone = FieldConfig;
 
 const DropZone: React.FC<IDropZone> = (props) => {
@@ -71,8 +55,6 @@ const DropZone: React.FC<IDropZone> = (props) => {
   const form = useFormikContext();
   const [url, setUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const _DEV_ = false; // true时使用blob地址
 
   useEffect(() => {
     setUrl(value);
@@ -100,15 +82,9 @@ const DropZone: React.FC<IDropZone> = (props) => {
         if (file.size > 1024 * 500) {
           notice.toast({ message: '图片超过500k，会导致页面加载变慢', intent: 'warning' });
         }
-
-        /**
-         * 注意：
-         * dev模式下，没有使用`URL.revokeObjectURL`释放内存，如果在组件卸载时释放内存，再次载入组件，会找不到对应的图片。
-         * 正式环境使用线上url，不存在此问题。
-         */
-        const imgUrl = _DEV_ ? URL.createObjectURL(file) : await Api.fetchImgUrl(file);
-
-        change(imgUrl);
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => change(fileReader.result as string);
       } catch (error) {
         if (error instanceof Error) {
           const errMsg = error.message || 'Error: DropZone onDrop invoke error';
@@ -142,29 +118,6 @@ const DropZone: React.FC<IDropZone> = (props) => {
             }
           }}
         />
-        <Popover2
-          position={Position.BOTTOM_RIGHT}
-          minimal={true}
-          content={
-            <PopoverContentStyled>
-              <p>确认要清空图片吗？清空后的图片不可恢复，只能重新上传哦~</p>
-              <div className="btns">
-                <Button small={true} className={Classes.POPOVER_DISMISS} text="取消" />
-                <Button
-                  small={true}
-                  intent="danger"
-                  className={Classes.POPOVER_DISMISS}
-                  text="确认"
-                  onClick={() => {
-                    change('');
-                  }}
-                />
-              </div>
-            </PopoverContentStyled>
-          }
-        >
-          <Button style={{ width: 36 }} icon="delete" disabled={!url} />
-        </Popover2>
       </ControlGroup>
     </DropZoneStyled>
   );

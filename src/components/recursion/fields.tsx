@@ -40,7 +40,6 @@ export const nodeMapping = {
   radio: withNode(Control.Radio),
   // checkbox: withNode(Control.Checkbox),
   range: withNode(Control.Range),
-  multiRange: withNode(Control.MultiRange),
   component: CustomComponent,
   array: CustomArray,
   dynamciMultiField: DynamicMultiField,
