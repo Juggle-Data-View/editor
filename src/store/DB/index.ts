@@ -89,9 +89,9 @@ export class DB {
       const app = (await this.getConfig(APPINFO_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig;
       const canvas = (await this.getConfig(CANVAS_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig['canvas'];
 
-      const compInsts = await (
-        await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')
-      ).sort((prev, next) => -1 * (next.createTime - prev.createTime));
+      const compInsts = (await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
+        (prev, next) => -1 * (next.createTime - prev.createTime)
+      );
       global.appId = appId;
       global.canvasId = canvas.id;
       return {
