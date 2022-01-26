@@ -79,20 +79,27 @@ export class DB {
     operation: 'getAll' | 'get' = 'get'
   ): Promise<T> => {
     const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
-    const keyrange = IDBKeyRange.only(primaryKey);
-    const result = index[operation](keyrange);
-    return result;
+    const existedKeys = await index.getAllKeys();
+    if (existedKeys.length > 0 || operation === 'get') {
+      const isExist = existedKeys.includes(primaryKey as any);
+      const searchKey = Array.isArray(existedKeys[0]) ? existedKeys[0][0] : existedKeys[0];
+      const keyrange = IDBKeyRange.only(isExist ? primaryKey : searchKey);
+      const result = await index[operation](keyrange);
+      return result;
+    } else {
+      return (await index.getAll()) as any;
+    }
   };
 
   getConfigByAPPID = async (appId: number): Promise<AutoDV.AppConfig | undefined> => {
     try {
-      const app = (await this.getConfig(APPINFO_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig;
-      const canvas = (await this.getConfig(CANVAS_STORE, 'appId', appId, 'get')) as AutoDV.AppConfig['canvas'];
+      const app = await this.getConfig<AutoDV.AppConfig>(APPINFO_STORE, 'appId', appId, 'get');
+      const canvas = await this.getConfig<AutoDV.AppConfig['canvas']>(CANVAS_STORE, 'appId', appId, 'get');
 
       const compInsts = (await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
         (prev, next) => -1 * (next.createTime - prev.createTime)
       );
-      global.appId = appId;
+      global.appId = app.id;
       global.canvasId = canvas.id;
       return {
         ...app,
