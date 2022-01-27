@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled from 'styled-components';
-import { Classes, Spinner, ControlGroup } from '@blueprintjs/core';
+import { TextField } from '@mui/material';
+// import { Spinner } from '@blueprintjs/core';
+import { CircularProgress } from '@mui/material';
 import { FieldConfig, useField, useFormikContext } from 'formik';
 import notice from 'utils/notice';
 
@@ -12,7 +14,7 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
     padding-bottom: 45%;
     border-width: 1px;
     border-style: dashed;
-
+    background: rgba(34, 34, 34, 0.15);
     border-radius: 3px;
     outline: none;
     transition: border 0.24s ease-in-out;
@@ -102,23 +104,25 @@ const DropZone: React.FC<IDropZone> = (props) => {
         <div className="inner">
           <input {...getInputProps()} />
           {url ? <img alt="preview" src={url} /> : <p>将文件拖到此处，或点击上传</p>}
-          {isLoading ? <Spinner className="loading" /> : null}
+          {isLoading ? <CircularProgress /> : null}
         </div>
       </div>
-      <ControlGroup fill={true} style={{ marginTop: 5 }}>
-        <input
-          style={{ width: '100%' }}
-          className={Classes.INPUT}
-          defaultValue={url}
-          onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const val = e.target.value;
-            if (val !== value) {
-              // 有值 & 值发生变化
-              change(e.target.value);
-            }
-          }}
-        />
-      </ControlGroup>
+
+      <TextField
+        fullWidth
+        size="small"
+        style={{
+          marginTop: '5px',
+        }}
+        defaultValue={url}
+        onBlur={(e) => {
+          const val = e.target.value;
+          if (val !== value) {
+            // 有值 & 值发生变化
+            change(e.target.value);
+          }
+        }}
+      />
     </DropZoneStyled>
   );
 };

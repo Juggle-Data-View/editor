@@ -60,6 +60,7 @@ export const Range = withField<IRange>(
     };
 
     const err = !!(meta.touched && meta.error);
+    console.log(sliderProps ? sliderProps.step : 'undefined');
 
     return (
       <>
@@ -85,6 +86,8 @@ export const Range = withField<IRange>(
                 min: range[0],
                 max: range[1],
               }}
+              type="number"
+              size="small"
               style={{ textAlign: 'center' }}
               value={slideValue}
               onBlur={(e) => {

@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Icon } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { Row, Col } from 'react-simple-flex-grid';
 import { useField } from 'formik';
 import { withFieldLabel } from 'components/form/index';
 import { NumberStyled } from 'components/form/InputNumber';
-// import { InputBaseComponentProps } from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Button } from '@mui/material';
 
 interface IAspectWrap {
   lock: boolean;
@@ -77,6 +78,7 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
             startadornment: <span className="prefix">宽</span>,
           }}
           size="small"
+          type="number"
           value={widthValue}
           onChange={(e) => {
             const val = Number(e.target.value);
@@ -103,17 +105,16 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
       <Col span={2}>
         <AspectWrap lock={isLock}>
           <Button
-            minimal={true}
             style={{ width: 24, height: 24, padding: 0, minWidth: 20, minHeight: 20 }}
-            icon={<Icon icon={isLock ? 'lock' : 'unlock'} iconSize={12} />}
-            intent={isLock ? 'primary' : 'none'}
             onClick={() => {
               setIsLock(!isLock);
               if (lockName) {
                 lockHelpers.setValue(!isLock);
               }
             }}
-          />
+          >
+            {isLock ? <LockIcon /> : <LockOpenIcon />}
+          </Button>
         </AspectWrap>
       </Col>
       <Col span={5}>

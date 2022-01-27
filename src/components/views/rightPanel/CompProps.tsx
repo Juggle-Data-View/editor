@@ -11,13 +11,6 @@ import { getDiffPayload } from 'helpers/diff';
 import DataConfig from './DataConfig';
 import CompErrorBoundary, { mergeCompData } from 'components/base/CompErrorBoundary';
 import { appAction } from 'store/features/appSlice';
-import CompDebug from './CompDebug';
-
-const RightAction = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-`;
 
 const Loader = styled(Spinner)`
   display: flex;
@@ -123,9 +116,6 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
                     })
                   : null}
                 <Tabs.Expander />
-                <RightAction>
-                  <CompDebug formik={formik} compData={compData} />
-                </RightAction>
               </Tabs>
             </>
           );

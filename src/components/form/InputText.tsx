@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { HTMLInputProps, InputGroup, TextArea } from '@blueprintjs/core';
+// import { HTMLInputProps, InputGroup, TextArea } from '@blueprintjs/core';
+import { TextField, TextareaAutosize, TextareaAutosizeProps, InputBaseComponentProps } from '@mui/material';
 import { withField } from './withField';
 import styled from 'styled-components';
 
@@ -9,12 +10,12 @@ const ErrorStyled = styled.p`
 `;
 
 export interface IText<T> {
-  muiProps?: T & HTMLInputProps;
+  muiProps?: T & TextareaAutosizeProps & InputBaseComponentProps;
   useMeta?: boolean;
 }
 
 // text 和 textarea 有相同的业务逻辑，所以使用 withInput 高阶包裹
-function withInput<T>(Comp: React.ComponentType<T>) {
+function withInput<T = TextareaAutosizeProps & InputBaseComponentProps>(Comp: React.ComponentType<T>) {
   // 使组件具备 formik 的能力
   return withField<IText<T>>((props) => {
     const { muiProps, useMeta = true, field, form } = props;
@@ -34,9 +35,10 @@ function withInput<T>(Comp: React.ComponentType<T>) {
     return (
       <>
         <Comp
-          fill
-          intent={err ? 'danger' : 'none'}
           {...(muiProps as T)}
+          fullWidth
+          size="small"
+          minRows={3}
           value={inputValue}
           onChange={(e: React.FormEvent<HTMLInputElement>) => {
             setInputValue(e.currentTarget.value);
@@ -54,6 +56,6 @@ function withInput<T>(Comp: React.ComponentType<T>) {
   });
 }
 
-export const InputText = withInput(InputGroup);
+export const InputText = withInput(TextField);
 
-export const Textarea = withInput(TextArea);
+export const Textarea = withInput(TextareaAutosize);

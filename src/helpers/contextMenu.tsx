@@ -1,12 +1,3 @@
-/**
- * 右键菜单 hook. 用于单个组件
- * 用法:
- * ```
- * <div onContextMenu={showContextMenu}>
- *   右键点我
- * </div>
- */
-
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { getAutoDV } from 'utils';
 import store from 'store/index';

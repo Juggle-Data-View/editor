@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Icon, Collapse as BPCollapse, ICollapseProps } from '@blueprintjs/core';
+// import { Icon, Collapse as BPCollapse, ICollapseProps } from '@blueprintjs/core';
 import TextTip from 'components/common/TextTip';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Collapse as MuiCollapse, CollapseProps } from '@mui/material';
 const CLASS_NAME = 'field-collapse';
 
 const Container = styled.div.attrs(() => {
@@ -50,16 +51,12 @@ const Container = styled.div.attrs(() => {
 
   .fc-body {
     width: 100%;
-    /* overflow: hidden;  不能设置超出隐藏，有些组件是悬浮的下拉框 */
-    .bp3-collapse-body {
-      position: relative;
-      padding: 10px;
-      > * {
-        margin-bottom: 10px;
-        margin: 0 0 10px 0;
-        &:last-child {
-          margin: 0;
-        }
+    position: relative;
+    padding-left: 5px;
+    > * {
+      margin: 0 0 10px 0;
+      &:last-child {
+        margin: 0;
       }
     }
   }
@@ -88,7 +85,7 @@ export interface ICollapse {
   help?: JSX.Element | string;
   extra?: React.ReactNode;
   isOpen?: boolean; // 是否展开
-  collapseProps?: ICollapseProps;
+  collapseProps?: CollapseProps;
 }
 
 export const Collapse: React.FC<ICollapse> = (props) => {
@@ -107,16 +104,16 @@ export const Collapse: React.FC<ICollapse> = (props) => {
           <div className="extra" onClick={(e) => e.stopPropagation()}>
             {extra}
           </div>
-          <Icon className="arrow" icon="chevron-right" style={{ transform: `rotate(${isOpen ? 90 : 0}deg)` }} />
+          <ArrowForwardIosIcon
+            fontSize="small"
+            className="arrow"
+            style={{ transform: `rotate(${isOpen ? 90 : 0}deg)` }}
+          />
         </div>
       </div>
-      {
-        // 关于 keepChildrenMounted：
-        // 当表单配置过多时，不要开启 keepChildrenMounted，否则会有严重的性能消耗。
-      }
-      <BPCollapse className="fc-body" isOpen={isOpen} {...collapseProps}>
+      <MuiCollapse className="fc-body" in={isOpen} mountOnEnter={true} unmountOnExit={true} {...collapseProps}>
         {props.children}
-      </BPCollapse>
+      </MuiCollapse>
     </Container>
   );
 };
