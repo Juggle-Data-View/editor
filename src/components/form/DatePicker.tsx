@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import { Icon, Colors } from '@blueprintjs/core';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { withField } from './withField';
 import Picker from 'rc-picker';

@@ -10,8 +10,6 @@ import DropDown from 'components/common/DropDown';
 import svgs from './icons/index';
 import { ReactSVG } from 'react-svg';
 import classNames from 'classnames';
-import { nanoid } from 'utils';
-import limitTrigger from 'config/form/limitTrigger';
 
 const SVGDropDownStyled = styled.div`
   .dropdown-item,
@@ -107,18 +105,6 @@ const config: IConfig = {
       },
       limitOption: {
         isShow: true,
-        limitTrigger: [
-          {
-            conditionCode: `trend-${nanoid(6)}`,
-            intervalType: 'close',
-            left: 1,
-            right: 3,
-            color: '#222',
-            isTrigger: false,
-            time: 10000,
-            timeUnit: 'sec',
-          },
-        ],
       },
     },
     dataConfig: {
@@ -274,11 +260,6 @@ const config: IConfig = {
             },
           },
         ],
-      },
-      {
-        name: 'limitOption',
-        type: 'fragment',
-        children: limitTrigger,
       },
     ],
   },

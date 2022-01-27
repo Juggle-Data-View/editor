@@ -4,7 +4,6 @@
 
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import { Slider, NumericInput, ISliderProps, INumericInputProps, HTMLInputProps } from '@blueprintjs/core';
 import { validator } from './fieldValidator';
 import numeral from 'numeral';
 import { withField } from './withField';

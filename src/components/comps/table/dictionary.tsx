@@ -1,7 +1,6 @@
 import * as echartsConfig from 'config/echarts';
 import { INodeConfig } from 'components/recursion';
 import * as font from 'config/form/font';
-import limitTrigger from 'config/form/limitTrigger';
 import { Colors } from '@blueprintjs/core';
 import classNames from 'classnames';
 
@@ -399,11 +398,6 @@ const dictionary: INodeConfig[] = [
                 ],
               },
             ],
-          },
-          {
-            name: 'limitOption',
-            type: 'fragment',
-            children: limitTrigger,
           },
         ],
       },
