@@ -1,9 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { UnControlled as CodeMirror, IUnControlledCodeMirror } from 'react-codemirror2';
-import { Button, Callout, Dialog, Tooltip } from '@blueprintjs/core';
+import { Button, Dialog, DialogTitle, IconButton, Tooltip } from '@mui/material';
 import styled from 'styled-components';
 import jsonlint from 'jsonlint-mod';
 import { useInViewport, useHover } from 'ahooks';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import CodeIcon from '@mui/icons-material/Code';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import CloseIcon from '@mui/icons-material/Close';
 
 (window as any).CodeMirror = require('codemirror');
 
@@ -29,6 +34,12 @@ require('codemirror/addon/fold/foldgutter.css');
 require('utils/codemirror-formatting');
 
 (window as any).jsonlint = jsonlint;
+
+const DialogContainer = styled.div`
+  .MuiDialog-container {
+    width: 100%;
+  }
+`;
 
 const EditorStyled = styled.div`
   position: relative;
@@ -68,18 +79,14 @@ const EditorStyled = styled.div`
     width: 100%;
     height: 100%;
     padding: 5px;
-    background-color: rgba(16, 22, 26, 0.3) !important;
   }
 `;
 
 export type ModeName = 'htmlmixed' | 'css' | 'javascript' | 'application/json';
 
 interface EditorProps extends IUnControlledCodeMirror {
-  /** 需要修改的代码 */
   value: string;
-  /** 失焦时触发的事件，值为变更后的新代码 */
   onSubmit?: (value: string) => void;
-  /** 编辑器高度，不传时为 100% */
   height?: number;
 }
 
@@ -88,7 +95,6 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
   const { value, options } = codemirrorProps;
   const readOnly = options && options.readOnly;
   const divRef = useRef(null);
-  const [error, setError] = useState('');
 
   const inViewPort = useInViewport(divRef);
 
@@ -99,11 +105,9 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
   useEffect(() => {
     const handleBlur = (editor: any) => {
       try {
-        setError('');
         if (readOnly) return;
         const newValue = editor.getValue();
 
-        // 这里先用`new Function`校验JS，后期换成JSHint
         if (options.mode === 'javascript') {
           try {
             new Function(`return ${newValue}`); //eslint-disable-line
@@ -121,7 +125,7 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
           onSubmit && onSubmit(newValue);
         }
       } catch (error) {
-        if (error instanceof Error) setError(`CodeError：${error.message}`);
+        if (error instanceof Error) console.log(`CodeError：${error.message}`);
       }
     };
 
@@ -134,13 +138,7 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
   }, [onSubmit, options, readOnly, ref, value]);
 
   return (
-    <div className="wrapper" ref={divRef} style={{ height: height || '100%' }}>
-      {error && (
-        <Callout className="errorMessage">
-          <Button className="btn-close" icon="cross" small minimal onClick={() => setError('')} />
-          {error}
-        </Callout>
-      )}
+    <div className="wrapper" ref={divRef} style={{ height: height || '100%', width: '100%' }}>
       <CodeMirror
         {...codemirrorProps}
         editorDidMount={(editor) => {
@@ -165,7 +163,7 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
 
   const defaultOptions = {
     mode: 'javascript' as ModeName,
-    theme: 'material',
+    theme: 'default',
     tabSize: 2,
     lineNumbers: true,
     lineWrapping: true,
@@ -195,35 +193,48 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
       editor.autoFormatRange({ line: 0, ch: 0 }, { line: totalLines });
     }
   };
-
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   return (
-    <>
+    <DialogContainer>
       <EditorStyled ref={ref}>
         <Editor ref={editorRef} {...ce_props} />
         {isHovering && zoomIn && (
           <div className="actions">
-            <Tooltip content="放大" position="auto">
-              <Button minimal icon="zoom-in" onClick={() => setOpen(true)} />
-            </Tooltip>
+            <Button size="small" onClick={() => setOpen(true)}>
+              <Tooltip title="放大">
+                <ZoomInIcon />
+              </Tooltip>
+            </Button>
           </div>
         )}
       </EditorStyled>
-      <Dialog
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        style={{ width: document.documentElement.offsetWidth * 0.8, paddingBottom: 0 }}
-        title="代码编辑区"
-      >
-        <EditorStyled>
+      <Dialog open={open} fullScreen={fullScreen} onClose={() => setOpen(false)}>
+        <DialogTitle style={{ padding: '5px 10px' }} id="responsive-dialog-title">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            代码编辑区
+            <IconButton edge="start" color="inherit" onClick={() => setOpen(false)} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+          </div>
+        </DialogTitle>
+        <EditorStyled style={{ width: '600px', paddingBottom: 0 }}>
           <Editor ref={editorRef} {...ce_props} height={document.documentElement.offsetHeight * 0.7} />
           <div className="actions">
-            <Tooltip content="格式化" position="auto">
-              <Button minimal icon="code" onClick={handleFormat} />
-            </Tooltip>
+            <Button size="small" onClick={handleFormat}>
+              <Tooltip title="格式化">
+                <CodeIcon />
+              </Tooltip>
+            </Button>
           </div>
         </EditorStyled>
       </Dialog>
-    </>
+    </DialogContainer>
   );
 };
 

@@ -2,42 +2,36 @@
  * notice 页面通知
  */
 
-import alert from 'components/common/AutoDVAlert';
-import { Position, Toaster, IToaster, IToastProps } from '@blueprintjs/core';
+import alert, { CustomAlertProps } from 'components/common/AutoDVAlert';
 
-const toaster: IToaster = Toaster.create({
-  position: Position.TOP,
-});
+const topAlert = (message: React.ReactNode, props?: CustomAlertProps) => {
+  return alert(message, {
+    ...props,
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center',
+    },
+  });
+};
 
 const notice = {
-  alert,
-  toast(props: IToastProps) {
-    toaster.show({
-      timeout: 3000,
+  alert: topAlert,
+  error(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
+      intent: 'error',
       ...props,
     });
   },
-  error(message: React.ReactNode, props?: IToastProps) {
-    toaster.show({
-      timeout: 3000,
-      intent: 'danger',
-      message,
-      ...props,
-    });
-  },
-  warn(message: React.ReactNode, props?: IToastProps) {
-    toaster.show({
-      timeout: 3000,
+  warn(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
       intent: 'warning',
-      message,
       ...props,
     });
   },
-  success(message: React.ReactNode, props?: IToastProps) {
-    toaster.show({
-      timeout: 3000,
+  success(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
       intent: 'success',
-      message,
+
       ...props,
     });
   },

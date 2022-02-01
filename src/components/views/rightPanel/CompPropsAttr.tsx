@@ -1,14 +1,9 @@
-/**
- * 右侧面板-选中组件-公共配置
- */
-
 import Alignment from 'components/common/Alignment';
 import AttrScale from 'components/common/AttrScale';
 import { Row, Col } from 'react-simple-flex-grid';
 import FieldSize from 'components/common/FieldSize';
 import { FieldLabel, Control, Field } from 'components/form/index';
 
-// 新版组件公共配置
 const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
   const labelProps = {
     width: 80,
@@ -53,7 +48,7 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
           labelProps={labelProps}
           name="attr.opacity"
           range={[0, 1]}
-          sliderProps={{ step: 0.1 }}
+          sliderProps={{ step: 0.01 }}
           format="0.[00]"
         />
       </div>

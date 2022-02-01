@@ -1,8 +1,4 @@
-/**
- * 范围选择组件，输入某个范围，选取一个数字值
- */
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { validator } from './fieldValidator';
 import numeral from 'numeral';
@@ -31,7 +27,6 @@ const Container = styled.div<{ hasError: boolean }>`
 `;
 
 interface IRange {
-  /** [必填项] 滑块区间范围 */
   range: [number, number];
   sliderProps?: Omit<Partial<SliderProps>, 'value' | 'onChange' | 'onRelease' | 'min' | 'max'>;
   inputProps?: InputProps;
@@ -48,19 +43,19 @@ export const Range = withField<IRange>(
       throw new Error('组件缺少range属性');
     }
 
-    useEffect(() => {
-      // 使数值始终保持在范围区间内
-      const val = Math.min(Math.max(field.value, range[0]), range[1]);
-      setSlideValue(!isFinite(val) ? 1 : val);
-    }, [field.value, range]);
+    const submit = useCallback(
+      (value: number = slideValue) => {
+        form.setFieldValue(field.name, value);
+        form.setFieldTouched(field.name, true);
+      },
+      [slideValue, form, field.name]
+    );
 
-    const submit = (value: number) => {
-      form.setFieldValue(field.name, value);
-      form.setFieldTouched(field.name, true);
-    };
+    useEffect(() => {
+      submit();
+    }, [submit]);
 
     const err = !!(meta.touched && meta.error);
-    console.log(sliderProps ? sliderProps.step : 'undefined');
 
     return (
       <>
@@ -71,8 +66,8 @@ export const Range = withField<IRange>(
               min={range[0]}
               max={range[1]}
               step={sliderProps ? sliderProps.step : 1}
-              value={slideValue}
-              onChange={(val) => {
+              value={field.value}
+              onChange={(event, val) => {
                 const value = Number(numeral(val).format(format));
                 setSlideValue(value);
               }}
@@ -85,12 +80,13 @@ export const Range = withField<IRange>(
                 ...(inputProps as any),
                 min: range[0],
                 max: range[1],
+                step: sliderProps ? sliderProps.step : 1,
               }}
               type="number"
               size="small"
               style={{ textAlign: 'center' }}
               value={slideValue}
-              onBlur={(e) => {
+              onChange={(e) => {
                 const _value = Number(e.currentTarget.value);
                 if (field.value !== _value) {
                   submit(_value);
@@ -105,9 +101,8 @@ export const Range = withField<IRange>(
   },
   (props) => {
     return {
-      // 给 range 组件增加一个范围校验
       validate: (val: any) => {
-        if (!isFinite(val)) return undefined; // 解决出现NaN时第一次验证失败的问题
+        if (!isFinite(val)) return undefined;
         if (props.range) return validator.range(props.range)(val);
         return undefined;
       },

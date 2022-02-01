@@ -64,15 +64,9 @@ const exportComps = (isAll: boolean) => {
       createFileName()
     );
 
-    notice.toast({
-      message: '导出成功',
-      intent: 'success',
-    });
+    notice.success('导出成功');
   } catch (error: any) {
-    notice.toast({
-      message: `${error.message}`,
-      intent: 'warning',
-    });
+    notice.warn(`${error.message}`);
   }
 };
 
@@ -92,7 +86,7 @@ const showError = (title: string, ajvError: Array<ErrorObject>) => {
     cancelButtonText: '',
     confirmButtonText: '关闭',
     icon: 'warning-sign',
-    intent: 'danger',
+    intent: 'error',
   });
 };
 

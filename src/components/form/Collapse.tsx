@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { Icon, Collapse as BPCollapse, ICollapseProps } from '@blueprintjs/core';
 import TextTip from 'components/common/TextTip';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Collapse as MuiCollapse, CollapseProps } from '@mui/material';

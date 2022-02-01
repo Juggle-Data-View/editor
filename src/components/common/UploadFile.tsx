@@ -49,10 +49,7 @@ const UploadFile: React.FC<IProps> = (props) => {
       }
     },
     onDropRejected(files, event) {
-      notice.toast({
-        message: 'Drop Error: onDropRejected',
-        intent: 'warning',
-      });
+      notice.warn('Drop Error: onDropRejected');
     },
     ...props,
   });

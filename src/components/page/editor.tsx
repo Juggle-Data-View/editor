@@ -43,7 +43,7 @@ const Editor = () => {
         await getConfigFromIndexedDB();
       }
     } catch (error) {
-      notice.toast({ message: 'On offline mode' });
+      notice.alert('On offline mode');
       await getConfigFromIndexedDB();
     }
 

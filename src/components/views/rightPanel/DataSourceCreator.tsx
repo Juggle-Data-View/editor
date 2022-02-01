@@ -61,10 +61,7 @@ const DataSourceCreator: React.FC<Props> = ({ dataSourceType, title }) => {
               const newValues = helper.filterValues(values);
               await Api.createDataSource(newValues);
               setIsOpen(false);
-              notice.toast({
-                message: '创建成功',
-                intent: 'success',
-              });
+              notice.success('创建成功');
             } catch (err: any) {
               setError(err.message || '');
             }

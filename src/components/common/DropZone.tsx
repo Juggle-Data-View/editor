@@ -82,7 +82,7 @@ const DropZone: React.FC<IDropZone> = (props) => {
           throw new Error('图片不能超过5M');
         }
         if (file.size > 1024 * 500) {
-          notice.toast({ message: '图片超过500k，会导致页面加载变慢', intent: 'warning' });
+          notice.warn('图片超过500k，会导致页面加载变慢');
         }
         const fileReader = new FileReader();
         fileReader.readAsDataURL(file);

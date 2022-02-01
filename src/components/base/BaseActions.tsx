@@ -19,7 +19,7 @@ import { getAllSelectedComps } from 'utils/getAllChildren';
 export const COPY_COMP = () => {
   const { selectedCompCodes, compDatas, app, compCodes } = getAutoDV();
   if (!selectedCompCodes.length) {
-    notice.toast({ message: '请选择组件', intent: 'warning' });
+    notice.warn('请选择组件');
     return;
   }
   const copyContent: AutoDV.ExportContent = {
@@ -42,7 +42,7 @@ export const DELETE_COMP = () => {
   const content = `是否要删除选中的<b style="color:red"> ${Len} </b>个组件？`;
   notice.alert(<div dangerouslySetInnerHTML={{ __html: content }} />, {
     icon: 'trash',
-    intent: 'danger',
+    intent: 'warning',
     canEnterKeyConfirm: true,
     onConfirm: () => {
       store.dispatch(appAction.deleteComp());

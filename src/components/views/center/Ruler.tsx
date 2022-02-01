@@ -59,7 +59,7 @@ const AuxLine: React.FC<{ lines: AutoDV.GuideLine }> = memo(({ lines }) => {
               disabled={!lines.h.length && !lines.v.length}
               onClick={() => {
                 dispatch(editorAction.setGuideLines({ visible: lines.visible, h: [], v: [] }));
-                notice.toast({ message: '已清除', intent: 'primary' });
+                notice.alert('已清除');
               }}
             />
           </Menu>

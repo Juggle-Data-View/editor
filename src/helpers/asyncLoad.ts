@@ -21,10 +21,7 @@ export const asyncLoadStaticData = async (compCode: string, compTempCode: string
       throw new Error(`请检查temps/${compTempCode}下是否导出了staticData`);
     }
   } catch (error: any) {
-    notice.toast({
-      message: `加载静态数据失败: ${error.message}`,
-      intent: 'warning',
-    });
+    notice.warn(`加载静态数据失败: ${error.message}`);
   }
 };
 
