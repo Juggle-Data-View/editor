@@ -1,7 +1,6 @@
 import * as echartsConfig from 'config/echarts';
 import { INodeConfig } from 'components/recursion';
 import * as font from 'config/form/font';
-import { Colors } from '@blueprintjs/core';
 import classNames from 'classnames';
 
 import styled from 'styled-components';
@@ -22,7 +21,7 @@ const SVGDropDownStyled = styled.div`
     padding: 0 22px 0 10px;
     &.--selected,
     &:hover {
-      background-color: ${Colors.DARK_GRAY3};
+      background-color: #eee;
     }
   }
   .icon svg {

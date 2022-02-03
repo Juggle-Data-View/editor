@@ -215,7 +215,7 @@ const radar: INodeConfig[] = [
               value: 'add',
             },
             {
-              icon: 'trash',
+              icon: 'delete',
               value: 'delete',
             },
           ],

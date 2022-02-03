@@ -1,4 +1,5 @@
-import { Checkbox as BPCheckbox } from '@blueprintjs/core';
+import MuiCheckbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { children2option, OptionProps } from './utils';
 import { withField } from './withField';
 
@@ -16,23 +17,26 @@ export const Checkbox = withField<ICheckbox>((props) => {
       {_options.map(({ label, value, ...rest }) => {
         const checked = fieldValue.includes(value);
         return (
-          <BPCheckbox
+          <FormControlLabel
             key={value}
             value={value}
             label={label}
-            inline
-            {...rest}
-            checked={checked}
-            onChange={() => {
-              let val = [...fieldValue];
-              if (checked) {
-                val = val.filter((v: any) => v !== value);
-              } else {
-                val.push(value);
-              }
-              form.setFieldValue(field.name, val);
-              form.setFieldTouched(field.name, true);
-            }}
+            control={
+              <MuiCheckbox
+                {...rest}
+                checked={checked}
+                onChange={() => {
+                  let val = [...fieldValue];
+                  if (checked) {
+                    val = val.filter((v: any) => v !== value);
+                  } else {
+                    val.push(value);
+                  }
+                  form.setFieldValue(field.name, val);
+                  form.setFieldTouched(field.name, true);
+                }}
+              />
+            }
           />
         );
       })}

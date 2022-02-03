@@ -1,9 +1,8 @@
-import { Menu, MenuItem, Position, Button } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
+import { MenuItem, MenuList, Popover, IconButton } from '@mui/material';
 import { ArrayHelpers } from 'formik';
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import notice from 'utils/notice';
-// import { layer } from '../map/type';
+import { useRef, useState } from 'react';
 
 interface SeriesItem {
   type: 'line' | 'bar';
@@ -32,7 +31,8 @@ const SeriesAction: React.FC<{
   setValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }> = (props) => {
   const { defaultValue, push, fieldMapOption, setValue } = props;
-
+  const [isOpen, setIsOpen] = useState(false);
+  const traggerRef = useRef<any>();
   const getDefaultVal = (defaultValue: any[], type: SeriesItem['type']) => {
     const result = defaultValue.find((item) => item.type === type);
     if (!result) {
@@ -57,21 +57,32 @@ const SeriesAction: React.FC<{
     ]);
     setValue(fieldMapPath, result);
     push(data);
+    setIsOpen(false);
   };
 
   return (
-    <Popover2
-      position={Position.BOTTOM_RIGHT}
-      content={
-        <Menu className="" style={{ maxHeight: 240, overflow: 'auto' }}>
+    <>
+      <IconButton ref={traggerRef} onClick={() => setIsOpen(!isOpen)}>
+        <AddCircleOutlineIcon />
+      </IconButton>
+      <Popover
+        open={isOpen}
+        anchorEl={traggerRef.current}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        onClose={() => setIsOpen(false)}
+      >
+        <MenuList className="" style={{ maxHeight: 240, overflow: 'auto' }}>
           {SeriesList.map((item, index) => (
-            <MenuItem key={index} text={item.name} onClick={() => handleClick(item.type)} />
+            <MenuItem key={index} onClick={() => handleClick(item.type)}>
+              {item.name}
+            </MenuItem>
           ))}
-        </Menu>
-      }
-    >
-      <Button alignText="left" rightIcon="double-caret-vertical" icon="add" />
-    </Popover2>
+        </MenuList>
+      </Popover>
+    </>
   );
 };
 

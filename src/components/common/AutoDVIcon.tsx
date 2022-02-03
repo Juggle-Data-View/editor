@@ -49,7 +49,6 @@ const AutoDVIcon: React.FC<IAutoDVIconProps> = (props) => {
     <SvgIcon
       style={{
         transform: `scale(${flipX ? -1 : 1}, ${flipY ? -1 : 1})`,
-        color: '#ccc',
       }}
       className={className}
       fill={color || 'currentColor'}

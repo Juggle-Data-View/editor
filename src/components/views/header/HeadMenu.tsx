@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Collapse, NonIdealState } from '@blueprintjs/core';
+import { Collapse as MuiCollapse } from '@mui/material';
 import { HeadMenuStyled } from './style';
 import { useClickAway, useDebounceFn } from 'ahooks';
 import AutoDVIcon from 'components/common/AutoDVIcon';
@@ -36,11 +36,8 @@ const HeadMenu = () => {
       <>
         <div className="comps-head" onClick={() => setIsOpen(!isOpen)}>
           {alias}({compIds.length})
-          {/* <span className={['icon', isOpen ? '--active' : ''].join(' ')}>
-            <Icon icon="chevron-right" />
-          </span> */}
         </div>
-        <Collapse isOpen={isOpen} keepChildrenMounted={true} transitionDuration={200}>
+        <MuiCollapse in={isOpen}>
           <div className="comps-body clearfix">
             {compIds.map((id) => {
               const comp = comps[id];
@@ -64,7 +61,7 @@ const HeadMenu = () => {
               );
             })}
           </div>
-        </Collapse>
+        </MuiCollapse>
       </>
     );
   };
@@ -77,26 +74,24 @@ const HeadMenu = () => {
         </IconButton>
       </div>
       <div className="expander">
-        {menu ? (
-          categoryIds.map((id, index) => {
-            const { alias, icon, groupIds, groups } = categories[id];
-            return (
-              <dl key={id} className={currIndex === index ? 'active' : ''} onMouseEnter={() => run(index)}>
-                <dt className="block">
-                  <AutoDVIcon icon={icon as any} size={16} />
-                  <p>{alias}</p>
-                </dt>
-                <dd>
-                  {groupIds.map((id) => (
-                    <Group key={id} group={groups[id]} />
-                  ))}
-                </dd>
-              </dl>
-            );
-          })
-        ) : (
-          <NonIdealState icon={'search'} title="No search results" description={'没有找到菜单信息'} />
-        )}
+        {menu
+          ? categoryIds.map((id, index) => {
+              const { alias, icon, groupIds, groups } = categories[id];
+              return (
+                <dl key={id} className={currIndex === index ? 'active' : ''} onMouseEnter={() => run(index)}>
+                  <dt className="block">
+                    <AutoDVIcon icon={icon as any} size={16} />
+                    <p>{alias}</p>
+                  </dt>
+                  <dd>
+                    {groupIds.map((id) => (
+                      <Group key={id} group={groups[id]} />
+                    ))}
+                  </dd>
+                </dl>
+              );
+            })
+          : null}
       </div>
     </HeadMenuStyled>
   );

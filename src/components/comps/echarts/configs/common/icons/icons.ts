@@ -1,4 +1,3 @@
-import { Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
 
 export interface IItem {
@@ -68,7 +67,7 @@ export const SVGDropDownStyled = styled.div`
     padding: 0 22px 0 10px;
     &.--selected,
     &:hover {
-      background-color: ${Colors.DARK_GRAY3};
+      background-color: #eee;
     }
   }
   .icon svg {

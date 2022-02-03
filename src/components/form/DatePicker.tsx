@@ -7,16 +7,6 @@ import generateConfig from 'rc-picker/lib/generate/dayjs';
 import 'dayjs/locale/zh-cn'; // 没有这行月份和星期就不会显示中文
 import 'assets/style/datePicker/index.scss';
 import dayjs from 'dayjs';
-// import { generate } from '@ant-design/colors';
-
-// const getCssVar = (varName: string, mainColor: string) => {
-//   return generate(mainColor)
-//     .reverse()
-//     .reduce((acc, cur, idx) => {
-//       acc[`--${varName}-${idx + 1}`] = cur;
-//       return acc;
-//     }, {} as Record<string, string>);
-// };
 
 const Container = styled.div``;
 

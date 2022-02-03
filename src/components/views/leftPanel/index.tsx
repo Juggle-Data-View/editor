@@ -4,7 +4,6 @@ import { actionStatusSelector, IActionStatus } from 'helpers/selectors';
 import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import List from './List';
 import { DELETE_COMP } from 'components/base/BaseActions';
-// import { Button, Tooltip, Position, Icon } from '@blueprintjs/core';
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { LeftPanelStyled } from './style';
 import { selectEditorPanel } from 'store/selectors';

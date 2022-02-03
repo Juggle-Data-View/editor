@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
-// import { Spinner } from '@blueprintjs/core';
 import { CircularProgress } from '@mui/material';
 import { FieldConfig, useField, useFormikContext } from 'formik';
 import notice from 'utils/notice';

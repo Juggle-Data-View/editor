@@ -18,7 +18,7 @@ const Container = styled.div.attrs(() => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 4px 10px;
     height: 36px;
     cursor: pointer;
 
@@ -59,7 +59,11 @@ const Container = styled.div.attrs(() => {
       }
     }
   }
-
+  .field-collapse {
+    .MuiCollapse-wrapperInner {
+      width: 98%;
+    }
+  }
   /* 相邻的下一个自身元素时，减去自身重叠的边线 */
   & + & {
     margin-top: -1px;

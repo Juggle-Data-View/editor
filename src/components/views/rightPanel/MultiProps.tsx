@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { NumericInput } from '@blueprintjs/core';
+import { TextField } from '@mui/material';
 import Alignment from 'components/common/Alignment';
 import { selectedRectSelector } from 'helpers/selectors';
 import { FieldLabel } from 'components/form';
@@ -56,12 +56,12 @@ const Input = (props: InputProps) => {
   return (
     <InputContainer>
       {prefix && <span className="prefix">{prefix}</span>}
-      <NumericInput
-        asyncControl
-        fill
-        leftIcon={prefix ? <></> : null}
+      <TextField
+        fullWidth
+        type="number"
         value={inputValue}
-        onButtonClick={(val) => {
+        onChange={(e) => {
+          const val = Number(e.target.value);
           setInputValue(val);
           clearTimeout(debounceRef.current);
           debounceRef.current = setTimeout(() => {

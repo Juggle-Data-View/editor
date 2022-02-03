@@ -16,6 +16,11 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
     flex-direction: column;
     height: 100%;
     background-color: #fff;
+    > .MuiTabPanel-root {
+      padding: 0px;
+      overflow: auto;
+      overflow-x: hidden;
+    }
   }
 
   .panel-head {

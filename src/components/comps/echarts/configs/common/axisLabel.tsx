@@ -1,7 +1,5 @@
 import * as font from 'config/form/font';
 import { INodeConfig } from 'components/recursion';
-import { NumericInput, ButtonGroup, NumericInputProps } from '@blueprintjs/core';
-import AutoDVIcon from 'components/common/AutoDVIcon';
 
 const axisLabel: INodeConfig[] = [
   {
@@ -82,62 +80,7 @@ const axisLabel: INodeConfig[] = [
       ],
     },
   },
-  {
-    name: 'padding',
-    type: 'component',
-    label: '边距',
-    props({ value, setValue, name }) {
-      return {
-        render() {
-          const commonProps: NumericInputProps = {
-            fill: true,
-            buttonPosition: 'none',
-          };
 
-          const handleChange = (index: number) => {
-            return (e: React.FocusEvent<HTMLInputElement>) => {
-              const _arr = [...value];
-              _arr[index] = +e.currentTarget.value;
-              setValue(name, _arr);
-            };
-          };
-
-          return (
-            <div>
-              <ButtonGroup>
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-top" />}
-                  defaultValue={value[0]}
-                  onBlur={handleChange(0)}
-                />
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-left" flipX />}
-                  defaultValue={value[1]}
-                  onBlur={handleChange(1)}
-                />
-              </ButtonGroup>
-              <ButtonGroup style={{ marginTop: 5 }}>
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-top" flipY />}
-                  defaultValue={value[2]}
-                  onBlur={handleChange(2)}
-                />
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-left" />}
-                  defaultValue={value[3]}
-                  onBlur={handleChange(3)}
-                />
-              </ButtonGroup>
-            </div>
-          );
-        },
-      };
-    },
-  },
   {
     name: 'rotate',
     label: '旋转角度',
@@ -148,48 +91,7 @@ const axisLabel: INodeConfig[] = [
       },
     },
   },
-  {
-    name: 'offset',
-    type: 'component',
-    label: '偏移',
-    props({ value, setValue, name }) {
-      return {
-        render() {
-          const commonProps: NumericInputProps = {
-            fill: true,
-            buttonPosition: 'none',
-          };
 
-          const handleChange = (index: number) => {
-            return (e: React.FocusEvent<HTMLInputElement>) => {
-              const _arr = [...value];
-              _arr[index] = +e.currentTarget.value;
-              setValue(name, _arr);
-            };
-          };
-
-          return (
-            <div>
-              <ButtonGroup>
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-left" />}
-                  defaultValue={value[0]}
-                  onBlur={handleChange(0)}
-                />
-                <NumericInput
-                  {...commonProps}
-                  leftIcon={<AutoDVIcon size={16} icon="autoDV-to-top" />}
-                  defaultValue={value[1]}
-                  onBlur={handleChange(1)}
-                />
-              </ButtonGroup>
-            </div>
-          );
-        },
-      };
-    },
-  },
   font.fontSize,
   font.lineHeight,
   font.color,

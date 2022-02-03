@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Menu, MenuItem } from '@blueprintjs/core';
+import { MenuList, MenuItem } from '@mui/material';
 import { HistoryPanelStyled } from './style';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo, selectEditorPanel } from 'store/selectors';
@@ -17,45 +17,37 @@ const HistoryList: React.FC = () => {
         <div className="common-title">历史记录</div>
       </div>
       <div className="panel-body">
-        <Menu style={{ background: 'transparent' }}>
-          {/* 历史操作 */}
+        <MenuList style={{ background: 'transparent' }}>
           {past.map((step: AutoDV.State, index: number) => {
             return (
               <MenuItem
                 className="undo-past"
-                shouldDismissPopover={false}
                 key={index}
-                text={step.actionAlias || DEFAULT_ACTION}
                 onClick={() => {
                   dispatch(ActionCreators.jumpToPast(index));
                 }}
-              />
+              >
+                {step.actionAlias || DEFAULT_ACTION}
+              </MenuItem>
             );
           })}
-          {/* 当前操作 */}
           {_latestUnfiltered ? (
-            <MenuItem
-              className="undo-present"
-              active={true}
-              shouldDismissPopover={false}
-              text={_latestUnfiltered.actionAlias || DEFAULT_ACTION}
-            />
+            <MenuItem className="undo-present">{_latestUnfiltered.actionAlias || DEFAULT_ACTION}</MenuItem>
           ) : null}
-          {/* 将来操作 */}
           {future.map((step: AutoDV.State, index: number) => {
             return (
               <MenuItem
                 className="undo-future"
-                shouldDismissPopover={false}
                 key={index}
-                text={step.actionAlias}
                 onClick={() => {
                   dispatch(ActionCreators.jumpToFuture(index));
                 }}
-              />
+              >
+                {step.actionAlias}
+              </MenuItem>
             );
           })}
-        </Menu>
+        </MenuList>
       </div>
     </HistoryPanelStyled>
   );

@@ -1,9 +1,13 @@
 import React, { ReactNode } from 'react';
 import { useField, ArrayHelpers } from 'formik';
-import { Button, ButtonGroup, Tooltip } from '@blueprintjs/core';
+import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { get } from 'lodash';
 import { withNode } from '../fields';
 import { Collapse } from 'components/form/Collapse';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AutoDVIcon from 'components/common/AutoDVIcon';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 interface ItemProps {
   item: any;
@@ -65,70 +69,78 @@ const CustomTabs = withNode<ICustomTabs>((node) => {
           headExtra(arrValue, push)
         ) : (
           <Button
-            minimal
-            icon="add"
             disabled={limit !== undefined && !isNaN(limit) && limit <= limitLen}
             onClick={() => {
               const item = getItem(arrValue[0], 'add');
               push(item);
               onAdd && onAdd(item);
             }}
-          />
+          >
+            <AddCircleOutlineIcon />
+          </Button>
         )
       }
     >
       {React.Children.map(node.children, (child, index) => {
         const item = fieldValue[index];
         const actionNode = (
-          <ButtonGroup minimal style={{ textAlign: 'right' }}>
+          <ButtonGroup size="small" style={{ textAlign: 'right' }}>
             {actions.includes('copy') && (
-              <Tooltip content="复制" position="bottom">
-                <Button
-                  icon="duplicate"
-                  disabled={limit !== undefined && !isNaN(limit) && limit <= limitLen}
-                  onClick={() => {
-                    const _item = getItem(item, 'copy');
-                    insert(index + 1, _item);
-                    onAdd && onAdd(_item);
-                  }}
-                />
-              </Tooltip>
+              <Button
+                disabled={limit !== undefined && !isNaN(limit) && limit <= limitLen}
+                onClick={() => {
+                  const _item = getItem(item, 'copy');
+                  insert(index + 1, _item);
+                  onAdd && onAdd(_item);
+                }}
+              >
+                <Tooltip title="复制" placement="bottom">
+                  <ContentCopyIcon />
+                </Tooltip>
+              </Button>
             )}
             {actions.includes('up') && (
-              <Tooltip content="上移" position="bottom" disabled={index === 0}>
-                <Button
-                  icon="arrow-up"
-                  disabled={index === 0}
-                  onClick={() => {
-                    swap(index, index - 1);
-                    onSwap && onSwap(index, index - 1);
-                  }}
-                />
-              </Tooltip>
+              <Button
+                disabled={index === 0}
+                onClick={() => {
+                  swap(index, index - 1);
+                  onSwap && onSwap(index, index - 1);
+                }}
+              >
+                <Tooltip title="上移" placement="bottom">
+                  <span>
+                    <AutoDVIcon size={16} icon="autoDV-up" />
+                  </span>
+                </Tooltip>
+              </Button>
             )}
             {actions.includes('down') && (
-              <Tooltip content="下移" position="bottom" disabled={index === field.value.length - 1}>
-                <Button
-                  icon="arrow-down"
-                  disabled={index === field.value.length - 1}
-                  onClick={() => {
-                    swap(index + 1, index);
-                    onSwap && onSwap(index + 1, index);
-                  }}
-                />
-              </Tooltip>
+              <Button
+                disabled={index === field.value.length - 1}
+                onClick={() => {
+                  swap(index + 1, index);
+                  onSwap && onSwap(index + 1, index);
+                }}
+              >
+                <Tooltip title="下移" placement="bottom">
+                  <span>
+                    <AutoDVIcon size={16} icon="autoDV-down" />
+                  </span>
+                </Tooltip>
+              </Button>
             )}
             {actions.includes('delete') && (
-              <Tooltip content="删除" position="bottom">
-                <Button
-                  icon="trash"
-                  disabled={needDisableDelete(item, index)}
-                  onClick={() => {
-                    remove(index);
-                    onDelete && onDelete(item, index);
-                  }}
-                />
-              </Tooltip>
+              <Button
+                disabled={needDisableDelete(item, index)}
+                onClick={() => {
+                  remove(index);
+                  onDelete && onDelete(item, index);
+                }}
+              >
+                <Tooltip title="删除" placement="bottom">
+                  <DeleteForeverIcon />
+                </Tooltip>
+              </Button>
             )}
           </ButtonGroup>
         );

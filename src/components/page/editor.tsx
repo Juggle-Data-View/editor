@@ -89,5 +89,4 @@ const Editor = () => {
   );
 };
 
-// export default withTheme(Editor);
 export default Editor;

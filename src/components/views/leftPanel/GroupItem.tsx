@@ -1,4 +1,4 @@
-import { Button, Collapse, EditableText, Icon } from '@blueprintjs/core';
+import { Button, Collapse, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { hideContextMenu, showContextMenu } from 'helpers/contextMenu';
@@ -11,6 +11,7 @@ import { selectKeyPress } from 'store/selectors';
 import { editorAction } from 'store/features/editorSlice';
 import { RootState } from 'store';
 import EditIcon from '@mui/icons-material/Edit';
+import FolderIcon from '@mui/icons-material/Folder';
 
 interface IProps {
   compCodes: string[];
@@ -56,7 +57,8 @@ const GroupDropItem: React.FC<IProps> = (props) => {
     }, 0);
   };
 
-  const handleTitle = (val: string) => {
+  const handleTitle: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
+    const val = e.target.value;
     setEditAble(false);
     if (val !== `分组${code}`) {
       dispatch(
@@ -109,17 +111,16 @@ const GroupDropItem: React.FC<IProps> = (props) => {
           >
             <div className="groupHeader" {...dragProvided.draggableProps} ref={dragProvided.innerRef}>
               <div className="groupIcon">
-                <Button minimal={true} onClick={listClick}>
-                  <Icon icon="folder-close" />
+                <Button size="small" onClick={listClick}>
+                  <FolderIcon />
                 </Button>
               </div>
               <div {...dragProvided.dragHandleProps} className="groupName">
                 {editAble ? (
-                  <EditableText
+                  <TextField
                     className="edit-wrap"
-                    alwaysRenderInput={true}
                     defaultValue={item.title || item.alias || `分组${isDev ? code : ''}`}
-                    onConfirm={handleTitle}
+                    onBlur={handleTitle}
                   />
                 ) : (
                   <p onDoubleClick={handleRename}>{`${item.title || item.alias || '分组'}${isDev ? code : ''}`}</p>
@@ -130,7 +131,7 @@ const GroupDropItem: React.FC<IProps> = (props) => {
         )}
       </Draggable>
       <CollapseList indent={indent}>
-        <Collapse className="itemList" isOpen={isOpen}>
+        <Collapse className="itemList" in={isOpen}>
           {children}
         </Collapse>
       </CollapseList>

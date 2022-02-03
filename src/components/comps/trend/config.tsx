@@ -2,7 +2,6 @@
  * 组件配置信息
  */
 
-import { Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { IConfig } from './type';
 import * as font from 'config/form/font';
@@ -24,7 +23,7 @@ const SVGDropDownStyled = styled.div`
     padding: 0 22px 0 10px;
     &.--selected,
     &:hover {
-      background-color: ${Colors.DARK_GRAY3};
+      background-color: #eee;
     }
   }
   .icon svg {
