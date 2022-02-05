@@ -1,10 +1,10 @@
 import Alignment from 'components/common/Alignment';
-import AttrScale from 'components/common/AttrScale';
+// import AttrScale from 'components/common/AttrScale';
 import { Row, Col } from 'react-simple-flex-grid';
 import FieldSize from 'components/common/FieldSize';
 import { FieldLabel, Control, Field } from 'components/form/index';
 
-const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
+const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = () => {
   const labelProps = {
     width: 80,
   };
@@ -30,7 +30,7 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
           heightName="attr.height"
           lockName="attr.lock"
         />
-        <FieldLabel label="组件旋转" {...labelProps}>
+        {/* <FieldLabel label="组件旋转" {...labelProps}>
           <Row style={{ height: '100%' }}>
             <Col span={5}>
               <Control.InputNumber name="attr.angle" />
@@ -42,12 +42,12 @@ const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = (props) => {
               <AttrScale name="attr.scale" />
             </Col>
           </Row>
-        </FieldLabel>
+        </FieldLabel> */}
         <Field.Range
           label="透明度"
           labelProps={labelProps}
           name="attr.opacity"
-          range={[0, 1]}
+          range={[0, 2]}
           sliderProps={{ step: 0.01 }}
           format="0.[00]"
         />

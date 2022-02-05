@@ -14,6 +14,7 @@ import { transContent } from 'helpers/importHelper';
 import DB from 'store/DB';
 import { qs } from 'utils';
 import { useEffect } from 'react';
+import ThemeConfig from 'config/theme';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -76,16 +77,20 @@ const Editor = () => {
   }, []); // eslint-disable-line
 
   return (
-    <>
-      <Header />
-      <section className="autoDV-main">
+    <ThemeConfig>
+      <section className="main">
         <LeftPannle />
-        <CenterPannle />
-        <RightPannle />
+        <div style={{ flex: 1, display: 'flex' }}>
+          <div style={{ width: '100%' }}>
+            <Header />
+            <CenterPannle />
+          </div>
+          <RightPannle />
+        </div>
       </section>
       <GlobalHotKeys />
       <EditorGlobalStyle />
-    </>
+    </ThemeConfig>
   );
 };
 

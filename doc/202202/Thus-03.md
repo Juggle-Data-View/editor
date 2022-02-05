@@ -11,4 +11,4 @@ remove all blueprintjs components
    + [ ] webscoket data creator
 + replace `styled-component`
 + layout update
- + [ ] new left pannel: datasource-list, interactive eventlisst
+  + [ ] new left pannel: datasource-list, interactive eventlisst

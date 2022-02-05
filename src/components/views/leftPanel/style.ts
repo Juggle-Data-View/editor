@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// 左侧面板样式
+// Components layers
 export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
@@ -15,6 +15,12 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   .panel-head,
   .panel-actions {
     flex: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    > .MuiButtonGroup-root {
+      height: 28px !important;
+    }
   }
 
   .panel-head {
@@ -22,14 +28,14 @@ export const LeftPanelStyled = styled.section<{ visible: boolean }>`
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
-    height: 28px;
+    height: 40px;
   }
 
   .panel-actions,
   .panel-bottom-actions {
     display: flex;
     justify-content: center;
-    padding: 4px 0;
+    padding: 4px 5px;
     button {
       margin: 0 1px;
     }
@@ -55,12 +61,13 @@ interface IItemWrapProps {
 }
 
 // 组件列表每项的样式
-export const ItemStyled = styled.div<IItemWrapProps>`
+export const ItemStyled = styled('div')<IItemWrapProps>`
   position: relative;
   opacity: ${(props) => (props.isGhosting ? 0.5 : 1)};
   box-sizing: border-box;
   border-bottom: 1px solid #eee;
-  background-color: ${({ isSelected }) => (isSelected ? '#eee' : '')};
+  background-color: ${({ isSelected, theme }) =>
+    isSelected ? theme.palette.action.active : theme.palette.action.disabledBackground};
   .inner {
     padding: 6px 8px;
     display: flex;
@@ -92,7 +99,7 @@ export const ItemStyled = styled.div<IItemWrapProps>`
   .info {
     flex: 1;
     max-width: 150px;
-    color: #222;
+    color: #fff;
     > p {
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -142,8 +149,9 @@ export const GroupItem = styled.div<{
     display: flex;
     widht: 100%;
     height: 32px;
-    background-color: ${({ theme, isSelect }) => (isSelect ? '#eee' : '')};
-    border-bottom: 1px solid #222e36;
+    background-color: ${({ theme, isSelect }) => {
+      return isSelect ? theme.palette.action.active : theme.palette.action.disabledBackground;
+    }};
     .groupIcon {
       flex: 1;
       padding: 0px 5px;
@@ -171,7 +179,39 @@ export const GroupItem = styled.div<{
 export const CollapseList = styled.div<{
   indent: number;
 }>`
-  padding-left: 5px;
   margin-left: ${({ indent }) => indent * 5}px;
-  border-left: 1px solid #222e36;
+`;
+
+export const LeftPannelContainer = styled.div`
+  width: 300px;
+  display: flex;
+  .MuiTabPanel-root {
+    padding: 0px;
+  }
+  .dashbroadController {
+    width: 60px !important;
+    height: 100%;
+    padding: 10px 0px;
+    box-sizing: border-box;
+    border-right: 1px solid ${({ theme }) => theme.palette.divider};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .MuiButtonBase-root {
+      padding: 9px 0px;
+      min-width: 60px;
+    }
+    .operations {
+      width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      border-radius: 8px;
+      background-color: ${({ theme }) => {
+        return theme.palette.background.paper;
+      }};
+    }
+  }
 `;

@@ -36,13 +36,13 @@ interface IProps<D = any> {
 
 const Container = styled.table`
   width: 100%;
-  background: ${(props) => props.theme.gray5};
+  background: ${(props) => props.theme.palette.background.default};
   border-radius: 5px;
   border-spacing: 5px;
   th {
     height: 26px;
     text-align: center;
-    background: ${(props) => props.theme.gray3};
+    background: ${(props) => props.theme.palette.background.default};
     border-radius: 5px;
   }
   td {

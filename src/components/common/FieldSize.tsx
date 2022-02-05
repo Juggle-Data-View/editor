@@ -74,9 +74,6 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
     <Row>
       <Col span={5}>
         <NumberStyled
-          inputProps={{
-            startadornment: <span className="prefix">宽</span>,
-          }}
           size="small"
           type="number"
           value={widthValue}

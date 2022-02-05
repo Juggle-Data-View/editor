@@ -7,13 +7,16 @@ import { debounce, isUndefined } from 'lodash';
 import styled from 'styled-components';
 
 export const NumberStyled = styled(TextField)`
+  > .MuiInputBase-root {
+    height: 34px;
+  }
   .prefix {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 24px;
-    height: calc(100% - 1px);
+
     text-align: center;
   }
 `;

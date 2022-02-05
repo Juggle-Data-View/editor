@@ -100,6 +100,7 @@ declare global {
       guideLines: GuideLine;
       adaptiveScale: number;
       isSelecto: boolean;
+      rightPannelType: 'global' | 'component' | 'multiple-select' | 'group' | 'hidden';
     }
 
     /** 数据源相关 */

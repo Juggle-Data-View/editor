@@ -38,8 +38,6 @@ const List: React.FC<IList> = ({ small }) => {
   };
 
   const handleClick = (e: React.MouseEvent) => {
-    // see: https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/guides/how-we-use-dom-events.md
-    // 有了这个判断条件，onDragEnd时就不会触发此函数了。
     if (e.defaultPrevented) {
       return;
     }
@@ -129,7 +127,6 @@ const List: React.FC<IList> = ({ small }) => {
         {(provided, snapshot) => (
           <ItemListStyled
             {...provided.droppableProps}
-            className=""
             ref={(ref: HTMLElement) => {
               provided.innerRef(ref);
               listRef.current = ref;

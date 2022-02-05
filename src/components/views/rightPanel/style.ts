@@ -3,11 +3,10 @@ import styled from 'styled-components';
 export const RightPanelStyled = styled.section<{ visible: boolean }>`
   position: relative;
   z-index: 15; // 比标尺高一点
-  width: 350px;
   transition: margin 0.2s ease;
   will-change: transform;
   color: #222;
-  margin-right: ${(props) => (props.visible ? 0 : '-350px')};
+  margin-right: ${(props) => (props.visible ? 0 : '-300px')};
   box-shadow: -1px 6px 5px rgba(34, 34, 34, 0.25);
   .panel-form {
     position: relative;

@@ -17,6 +17,7 @@ const initialState: AutoDV.Editor = {
   },
   adaptiveScale: 1,
   isSelecto: false,
+  rightPannelType: 'hidden',
 };
 
 const systemSlice = createSlice({
@@ -48,6 +49,9 @@ const systemSlice = createSlice({
     },
     setSelecto(state, action: PayloadAction<boolean>) {
       state.isSelecto = action.payload;
+    },
+    setRightPannelType(state, action: PayloadAction<AutoDV.Editor['rightPannelType']>) {
+      state.rightPannelType = action.payload;
     },
   },
 });

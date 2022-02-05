@@ -38,7 +38,7 @@ const ContextMenuItem: React.FC<ContextMenuItemProps> = ({ status, icon, onClick
   const itemText = typeof text === 'string' ? text : text(status);
   const itemIcon = typeof icon === 'function' ? icon(status) : icon;
   return (
-    <MenuItem onClick={(autoDVState) => onClick(autoDVState)}>
+    <MenuItem onClick={() => onClick(autoDVState)}>
       <ListItemIcon>{itemIcon}</ListItemIcon>
       <ListItemText>{itemText}</ListItemText>
       {shortcutkey ? (

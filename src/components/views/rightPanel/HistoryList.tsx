@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { MenuList, MenuItem } from '@mui/material';
 import { HistoryPanelStyled } from './style';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo, selectEditorPanel } from 'store/selectors';
@@ -17,26 +16,28 @@ const HistoryList: React.FC = () => {
         <div className="common-title">历史记录</div>
       </div>
       <div className="panel-body">
-        <MenuList style={{ background: 'transparent' }}>
+        <div style={{ background: 'transparent' }}>
           {past.map((step: AutoDV.State, index: number) => {
             return (
-              <MenuItem
+              <div
                 className="undo-past"
-                key={index}
                 onClick={() => {
                   dispatch(ActionCreators.jumpToPast(index));
                 }}
+                key={index}
               >
                 {step.actionAlias || DEFAULT_ACTION}
-              </MenuItem>
+              </div>
             );
           })}
           {_latestUnfiltered ? (
-            <MenuItem className="undo-present">{_latestUnfiltered.actionAlias || DEFAULT_ACTION}</MenuItem>
+            <div key="undo-present" className="undo-present">
+              {_latestUnfiltered.actionAlias || DEFAULT_ACTION}
+            </div>
           ) : null}
           {future.map((step: AutoDV.State, index: number) => {
             return (
-              <MenuItem
+              <div
                 className="undo-future"
                 key={index}
                 onClick={() => {
@@ -44,10 +45,10 @@ const HistoryList: React.FC = () => {
                 }}
               >
                 {step.actionAlias}
-              </MenuItem>
+              </div>
             );
           })}
-        </MenuList>
+        </div>
       </div>
     </HistoryPanelStyled>
   );

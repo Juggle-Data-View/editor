@@ -16,12 +16,18 @@ import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-const Loader = styled(CircularProgress)`
+const LoaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 50%;
 `;
+
+const Loader = () => (
+  <LoaderContainer>
+    <CircularProgress />
+  </LoaderContainer>
+);
 
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon, parentCompCode, parentName, parentCode } = props;

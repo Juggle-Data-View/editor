@@ -1,16 +1,11 @@
 import React from 'react';
 import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as StyleThemeProvider } from 'styled-components';
 import shape from './shape';
 import palette from './palette';
 import typography from './typography';
 import shadows from './shadows';
 import { CssBaseline } from '@mui/material';
-
-// ----------------------------------------------------------------------
-
-// ThemeConfig.propTypes = {
-//   children: PropTypes.node
-// };
 
 export const theme = createTheme({
   palette,
@@ -24,7 +19,7 @@ const ThemeConfig: React.FC = ({ children }) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children}
+        <StyleThemeProvider theme={theme}>{children}</StyleThemeProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );
