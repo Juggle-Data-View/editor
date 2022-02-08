@@ -6,7 +6,7 @@ export const CenterStyled: any = styled.section`
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: calc(100% - 60px);
+  height: calc(100% - 56px);
   overflow: hidden;
 `;
 

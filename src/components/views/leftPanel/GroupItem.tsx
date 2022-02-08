@@ -1,4 +1,4 @@
-import { Button, Collapse, TextField } from '@mui/material';
+import { IconButton, Collapse, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { hideContextMenu, showContextMenu } from 'helpers/contextMenu';
@@ -35,16 +35,17 @@ const GroupDropItem: React.FC<IProps> = (props) => {
   const hoverIndex = useSelector((state: RootState) => state.editor.hoverIndex);
 
   const listClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setOpen(!isOpen);
   };
 
   const onSelect = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
     hideContextMenu();
     const pressKey = (['meta', 'control', 'shift'] as AutoDV.ModifierKey[]).includes(key);
     if (!isSelected || selectedCount !== 1 || pressKey) {
       dispatch(appAction.selectComp({ code }));
     }
-    e.stopPropagation(); // 外层容器点击空白可以取消选中，所以这里需要阻止冒泡
   };
 
   const handleRename = () => {
@@ -76,7 +77,7 @@ const GroupDropItem: React.FC<IProps> = (props) => {
   const handleHover = (index: number, isDragging: boolean) => {
     return (e: React.MouseEvent<Element>) => {
       e.preventDefault();
-      // 当组件触发拖拽时，需要禁用鼠标移入移出操作，减少性能消耗
+      // When a component triggers a drag-and-drop, mouse-over operations need to be disabled to reduce performance consumption
       if (isSelected || isDragging) return;
       dispatch(editorAction.compHover([index]));
     };
@@ -111,9 +112,9 @@ const GroupDropItem: React.FC<IProps> = (props) => {
           >
             <div className="groupHeader" {...dragProvided.draggableProps} ref={dragProvided.innerRef}>
               <div className="groupIcon">
-                <Button size="small" onClick={listClick}>
+                <IconButton color={!isOpen || isSelected ? 'primary' : 'default'} size="small" onClick={listClick}>
                   <FolderIcon />
-                </Button>
+                </IconButton>
               </div>
               <div {...dragProvided.dragHandleProps} className="groupName">
                 {editAble ? (

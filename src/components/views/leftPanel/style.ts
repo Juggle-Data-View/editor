@@ -52,6 +52,7 @@ export const ItemListStyled: any = styled.div<{ isDraggingOver: boolean }>`
   position: relative; // 子元素的offsetTop需要根据父元素计算，必须加上相对定位
   height: 100%;
   overflow-y: auto;
+  background-color: #eee;
 `;
 
 interface IItemWrapProps {
@@ -145,6 +146,7 @@ export const GroupItem = styled.div<{
   isSelect: boolean;
 }>`
   box-sizing: border-box;
+  border-bottom: 1px solid #eee;
   .groupHeader {
     display: flex;
     widht: 100%;
@@ -154,7 +156,9 @@ export const GroupItem = styled.div<{
     }};
     .groupIcon {
       flex: 1;
+      display: flex;
       padding: 0px 5px;
+      align-items: center;
     }
     .groupName {
       flex: 7;
@@ -182,14 +186,18 @@ export const CollapseList = styled.div<{
   margin-left: ${({ indent }) => indent * 5}px;
 `;
 
-export const LeftPannelContainer = styled.div`
-  width: 300px;
+export const LeftPannelContainer = styled.div<{ visible: boolean }>`
+  width: ${({ visible }) => (visible ? '300px' : '60px')};
+  transition: width 0.2s ease;
   display: flex;
   .MuiTabPanel-root {
     padding: 0px;
   }
   .dashbroadController {
+    z-index: 4;
+    position: relative;
     width: 60px !important;
+    background: #fff;
     height: 100%;
     padding: 10px 0px;
     box-sizing: border-box;
@@ -214,4 +222,8 @@ export const LeftPannelContainer = styled.div`
       }};
     }
   }
+`;
+
+export const ComponentsStoreContainer = styled.div`
+  width: 240px;
 `;
