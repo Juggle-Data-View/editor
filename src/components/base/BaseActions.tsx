@@ -122,7 +122,6 @@ export const ADD_COMP = async (compId: string, alias: string) => {
 
 export const ADD_GROUP_COMP = (attr: AutoDV.Attr, selectedCompCodes: string[]) => {
   const { compCodes } = getAutoDV();
-  // const groupItemCode = selectedCompCodes.filter((item) => item !== item);
   const resortSelectCodes = selectedCompCodes.slice().sort((a, b) => {
     return compCodes.indexOf(a) - compCodes.indexOf(b);
   });
