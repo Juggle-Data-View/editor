@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: '14'
           cache: npm
+          cache-dependency-path: package.json
       - run: npm install yarn -g
       - run: yarn 
       - run: yarn autoDeploy:release 
@@ -28,13 +29,13 @@ jobs:
           ARGS: -avz --delete --exclude='*.pyc' # rsync参数，排除.pyc文件
           SERVER_PORT: "22" # SSH端口
           FOLDER: ./build # 要推送的文件夹，路径相对于代码仓库的根目录
-          SERVER_IP: ec2-13-52-231-26.us-west-1.compute.amazonaws.com # 引用配置，服务器的host名（IP或者域名domain.com）
+          SERVER_IP: ec2-54-151-50-254.us-west-1.compute.amazonaws.com # 引用配置，服务器的host名（IP或者域名domain.com）
           USERNAME: ubuntu # 引用配置，服务器登录名
           SERVER_DESTINATION: ~/autoDV # 部署到目标文件夹
       - name: Restart server # 第三步，重启服务
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-13-52-231-26.us-west-1.compute.amazonaws.com # 下面三个配置与上一步类似
+          host: ec2-54-151-50-254.us-west-1.compute.amazonaws.com # 下面三个配置与上一步类似
           username: ubuntu
           key: ${{ secrets.ASHES }}
           # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
