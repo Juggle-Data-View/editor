@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Button } from '@blueprintjs/core';
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { useField } from 'formik';
+import { Button } from '@mui/material';
 
 const Container = styled.div`
   height: 100%;
@@ -23,16 +23,15 @@ const AttrScale: React.FC<IProps> = ({ name }) => {
   const Icon = ({ index }: { index: 0 | 1 }) => {
     return (
       <Button
-        small
-        minimal={value[index] === -1 ? false : true}
-        intent={value[index] === -1 ? 'primary' : 'none'}
-        icon={<AutoDVIcon icon={index === 0 ? 'autoDV-flip-horizontal' : 'autoDV-flip-vertical'} size={20} />}
+        size="small"
         onClick={() => {
           const newValue = [...value];
           newValue[index] *= -1;
           helpers.setValue(newValue);
         }}
-      />
+      >
+        <AutoDVIcon icon={index === 0 ? 'autoDV-flip-horizontal' : 'autoDV-flip-vertical'} size={20} />
+      </Button>
     );
   };
 

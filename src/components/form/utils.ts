@@ -1,5 +1,9 @@
 import React from 'react';
-import { OptionProps } from '@blueprintjs/core';
+
+export interface OptionProps {
+  label: string;
+  value: any;
+}
 
 /**
  * 将React.children组件转换为option对象
@@ -18,7 +22,7 @@ export function children2option(children: React.ReactNode) {
   }) as OptionProps[];
 }
 
-export const s2o = (options: (OptionProps | string)[]): OptionProps[] => {
+export const s2o = (options: OptionProps[]): OptionProps[] => {
   return options.map((option) => {
     if (typeof option === 'string') {
       return { label: option, value: option };

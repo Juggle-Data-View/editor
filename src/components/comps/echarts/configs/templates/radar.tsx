@@ -82,7 +82,7 @@ const radar: INodeConfig[] = [
                 type: 'number',
                 label: '分割线宽度',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -126,7 +126,7 @@ const radar: INodeConfig[] = [
                 type: 'number',
                 label: '分割线宽度',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -149,7 +149,7 @@ const radar: INodeConfig[] = [
         label: '旋转角度',
         props: {
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
           range: [0, 360],
         },
@@ -159,8 +159,8 @@ const radar: INodeConfig[] = [
         type: 'number',
         label: '最大值',
         props: {
-          bp: {
-            stepSize: 1,
+          muiProps: {
+            step: 1,
             min: 0,
             max: 360,
           },
@@ -171,8 +171,8 @@ const radar: INodeConfig[] = [
         type: 'number',
         label: '最小值',
         props: {
-          bp: {
-            stepSize: 1,
+          muiProps: {
+            step: 1,
             min: 0,
             max: 360,
           },
@@ -215,7 +215,7 @@ const radar: INodeConfig[] = [
               value: 'add',
             },
             {
-              icon: 'trash',
+              icon: 'delete',
               value: 'delete',
             },
           ],
@@ -299,7 +299,7 @@ const radar: INodeConfig[] = [
             type: 'number',
             label: '线条宽度',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -369,7 +369,7 @@ const radar: INodeConfig[] = [
             type: 'number',
             label: '数据点大小',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

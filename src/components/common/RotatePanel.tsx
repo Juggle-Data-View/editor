@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, SyntheticEvent } from 'react';
-import { NumericInput } from '@blueprintjs/core';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-simple-flex-grid';
+import { TextField } from '@mui/material';
 
 const Container = styled.div`
   width: 100%;
@@ -111,14 +111,16 @@ const RotatePanel: React.FC<IRotatePanel> = ({ value, onChange }) => {
     <Container>
       <Row align="middle">
         <Col span={5}>
-          <NumericInput
+          <TextField
+            type="number"
             value={angle}
-            onValueChange={setAngle}
-            onButtonClick={onChange}
-            onBlur={(e: SyntheticEvent<HTMLInputElement>) => onChange(+e.currentTarget.value)}
-            min={0}
-            max={360}
-            fill={true}
+            onChange={(e) => setAngle(Number(e.target.value))}
+            onBlur={(e) => onChange(Number(e.target.value))}
+            inputProps={{
+              min: 0,
+              max: 360,
+            }}
+            fullWidth
           />
         </Col>
         <Col>

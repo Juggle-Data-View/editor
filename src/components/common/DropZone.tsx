@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled from 'styled-components';
-import { Button, Classes, Position, Spinner, ControlGroup } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
+import { TextField } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { FieldConfig, useField, useFormikContext } from 'formik';
-import * as Api from 'utils/api';
 import notice from 'utils/notice';
 
 const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }>`
@@ -14,7 +13,7 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
     padding-bottom: 45%;
     border-width: 1px;
     border-style: dashed;
-
+    background: rgba(34, 34, 34, 0.15);
     border-radius: 3px;
     outline: none;
     transition: border 0.24s ease-in-out;
@@ -50,20 +49,6 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
   }
 `;
 
-const PopoverContentStyled = styled.div`
-  width: 200px;
-  padding: 10px;
-  line-height: 1.5;
-  .btns {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    button {
-      margin-left: 5px;
-    }
-  }
-`;
-
 type IDropZone = FieldConfig;
 
 const DropZone: React.FC<IDropZone> = (props) => {
@@ -71,8 +56,6 @@ const DropZone: React.FC<IDropZone> = (props) => {
   const form = useFormikContext();
   const [url, setUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const _DEV_ = false; // true时使用blob地址
 
   useEffect(() => {
     setUrl(value);
@@ -98,17 +81,11 @@ const DropZone: React.FC<IDropZone> = (props) => {
           throw new Error('图片不能超过5M');
         }
         if (file.size > 1024 * 500) {
-          notice.toast({ message: '图片超过500k，会导致页面加载变慢', intent: 'warning' });
+          notice.warn('图片超过500k，会导致页面加载变慢');
         }
-
-        /**
-         * 注意：
-         * dev模式下，没有使用`URL.revokeObjectURL`释放内存，如果在组件卸载时释放内存，再次载入组件，会找不到对应的图片。
-         * 正式环境使用线上url，不存在此问题。
-         */
-        const imgUrl = _DEV_ ? URL.createObjectURL(file) : await Api.fetchImgUrl(file);
-
-        change(imgUrl);
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => change(fileReader.result as string);
       } catch (error) {
         if (error instanceof Error) {
           const errMsg = error.message || 'Error: DropZone onDrop invoke error';
@@ -126,46 +103,25 @@ const DropZone: React.FC<IDropZone> = (props) => {
         <div className="inner">
           <input {...getInputProps()} />
           {url ? <img alt="preview" src={url} /> : <p>将文件拖到此处，或点击上传</p>}
-          {isLoading ? <Spinner className="loading" /> : null}
+          {isLoading ? <CircularProgress /> : null}
         </div>
       </div>
-      <ControlGroup fill={true} style={{ marginTop: 5 }}>
-        <input
-          style={{ width: '100%' }}
-          className={Classes.INPUT}
-          defaultValue={url}
-          onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const val = e.target.value;
-            if (val !== value) {
-              // 有值 & 值发生变化
-              change(e.target.value);
-            }
-          }}
-        />
-        <Popover2
-          position={Position.BOTTOM_RIGHT}
-          minimal={true}
-          content={
-            <PopoverContentStyled>
-              <p>确认要清空图片吗？清空后的图片不可恢复，只能重新上传哦~</p>
-              <div className="btns">
-                <Button small={true} className={Classes.POPOVER_DISMISS} text="取消" />
-                <Button
-                  small={true}
-                  intent="danger"
-                  className={Classes.POPOVER_DISMISS}
-                  text="确认"
-                  onClick={() => {
-                    change('');
-                  }}
-                />
-              </div>
-            </PopoverContentStyled>
+
+      <TextField
+        fullWidth
+        size="small"
+        style={{
+          marginTop: '5px',
+        }}
+        defaultValue={url}
+        onBlur={(e) => {
+          const val = e.target.value;
+          if (val !== value) {
+            // 有值 & 值发生变化
+            change(e.target.value);
           }
-        >
-          <Button style={{ width: 36 }} icon="delete" disabled={!url} />
-        </Popover2>
-      </ControlGroup>
+        }}
+      />
     </DropZoneStyled>
   );
 };

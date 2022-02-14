@@ -132,7 +132,7 @@ const dictionary: INodeConfig<typeof widget>[] = [
                 name: 'height',
                 type: 'number',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -142,7 +142,7 @@ const dictionary: INodeConfig<typeof widget>[] = [
                 name: 'margin',
                 type: 'number',
                 props: {
-                  bp: {
+                  muiProps: {
                     min: 0,
                   },
                 },
@@ -198,7 +198,7 @@ const dictionary: INodeConfig<typeof widget>[] = [
         label: '轮播间隔',
         props: {
           unit: '毫秒',
-          bp: {
+          muiProps: {
             min: 0,
           },
         },
@@ -209,7 +209,7 @@ const dictionary: INodeConfig<typeof widget>[] = [
         label: '轮播动画时间',
         props: {
           unit: '毫秒',
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

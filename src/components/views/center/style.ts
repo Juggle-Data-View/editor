@@ -6,7 +6,7 @@ export const CenterStyled: any = styled.section`
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 100%;
+  height: calc(100% - 56px);
   overflow: hidden;
 `;
 
@@ -53,6 +53,7 @@ export const CentFootStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 32px;
+  box-shadow: -1px 0px 5px rgba(34, 34, 34, 0.25);
   padding: 0 5px;
   .right {
     display: flex;
@@ -67,10 +68,10 @@ export const CentFootStyled = styled.div`
   }
   .action-input {
     margin-left: 15px;
-    width: 110px;
-    .bp3-control-group {
-      transform: none; /** 解决inputNumber上部分被切断1px问题 */
-    }
+    width: 100px;
+  }
+  input {
+    padding: 5px 10px;
   }
   .slider {
     width: 260px;

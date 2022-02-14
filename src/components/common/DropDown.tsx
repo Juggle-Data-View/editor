@@ -1,22 +1,21 @@
-/**
- * 自定义下拉组件。
- * 用于 素材、边框、svg等 业务组件中
- */
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Colors, Icon } from '@blueprintjs/core';
 import styled from 'styled-components';
 import classNames from 'classnames';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Container = styled.div`
   position: relative;
   z-index: 10;
   > .dd-item {
     border: 1px solid transparent;
-    background-color: ${Colors.DARK_GRAY1};
-    cursor: default;
+    cursor: pointer;
+    > .item > i {
+      border-color: #222;
+      color: #222;
+    }
     &:hover,
     &.--active {
+      background-color: #eee;
     }
     > .arrow {
       position: absolute;
@@ -32,7 +31,17 @@ const Container = styled.div`
     width: 100%;
     transition: height 0.3s ease;
     overflow-y: auto;
-    background-color: ${Colors.DARK_GRAY1};
+    background-color: #eee;
+    > .inner {
+      .item > i {
+        border-color: #222;
+        color: #222;
+        &:hover,
+        &.--active {
+          background-color: #ccc;
+        }
+      }
+    }
     &.--over {
       bottom: 100%;
       top: auto;
@@ -84,7 +93,7 @@ export default function DropDown<T>(props: IDropDown<T>) {
     <Container onClick={(e) => e.stopPropagation()}>
       <div className={classNames('dd-item', { '--active': isOpen }, itemClassName)} onClick={() => setIsOpen(!isOpen)}>
         {props.children}
-        <Icon className="arrow" intent={isOpen ? 'primary' : 'none'} icon="double-caret-vertical" />
+        <ArrowForwardIosIcon className="arrow" />
       </div>
       <div
         className={classNames('dd-list', { '--active': isOpen, '--over': isOverBottom }, listClassName)}

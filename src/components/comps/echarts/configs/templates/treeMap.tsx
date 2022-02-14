@@ -16,7 +16,7 @@ const radar: INodeConfig[] = [
         type: 'number',
         label: '间距',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

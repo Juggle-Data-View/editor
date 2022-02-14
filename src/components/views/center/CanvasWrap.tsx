@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Canvas from './Canvas';
-import { Spinner } from '@blueprintjs/core';
+import { CircularProgress } from '@mui/material';
 import { CanvasWrapStyled } from './style';
 import MoveAble from './MoveAble';
 import { showContextMenu } from 'helpers/contextMenu';
@@ -103,7 +103,7 @@ const CanvasWrap: React.FC = () => {
           </div>
         ) : (
           <div style={{ position: 'absolute', left: '50%', top: 200, transform: 'translate(-50%,0)' }}>
-            <Spinner />
+            <CircularProgress />
           </div>
         )}
       </div>

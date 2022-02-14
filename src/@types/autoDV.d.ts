@@ -100,6 +100,7 @@ declare global {
       guideLines: GuideLine;
       adaptiveScale: number;
       isSelecto: boolean;
+      rightPannelType: 'global' | 'component' | 'multiple-select' | 'group' | 'hidden';
     }
 
     /** 数据源相关 */
@@ -109,6 +110,12 @@ declare global {
       compFieldName: string;
       /** 数据源映射字段值  */
       sourceFieldName: string;
+      /** source data field alias name*/
+      alias?: string;
+
+      //TODO: Declare filter type as function name
+      /** current map filter */
+      filter?: string;
     }
 
     interface DataParam {

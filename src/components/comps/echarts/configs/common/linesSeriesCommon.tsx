@@ -25,7 +25,7 @@ const lineSeriesCommon: INodeConfig[] = [
     type: 'number',
     label: '线条宽度',
     props: {
-      bp: {
+      muiProps: {
         min: 0,
       },
     },
@@ -86,7 +86,7 @@ const lineSeriesCommon: INodeConfig[] = [
     type: 'number',
     label: '数据点大小',
     props: {
-      bp: {
+      muiProps: {
         min: 0,
       },
     },

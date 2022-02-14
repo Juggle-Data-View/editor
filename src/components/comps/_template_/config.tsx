@@ -55,7 +55,7 @@ const config: IConfig = {
         name: 'placeholder',
         props: { label: '占位块设置', isOpen: true },
         children: [
-          { type: 'number', name: 'size', label: '大小', props: { bp: { min: 0 }, unit: 'px' } },
+          { type: 'number', name: 'size', label: '大小', props: { muiProps: { min: 0 }, unit: 'px' } },
           { type: 'color', name: 'color', label: '颜色' },
         ],
       },

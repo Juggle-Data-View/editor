@@ -1,12 +1,3 @@
-/**
- * 右键菜单 hook. 用于单个组件
- * 用法:
- * ```
- * <div onContextMenu={showContextMenu}>
- *   右键点我
- * </div>
- */
-
 import AutoDVIcon from 'components/common/AutoDVIcon';
 import { getAutoDV } from 'utils';
 import store from 'store/index';
@@ -47,7 +38,7 @@ const ContextMenuItem: React.FC<ContextMenuItemProps> = ({ status, icon, onClick
   const itemText = typeof text === 'string' ? text : text(status);
   const itemIcon = typeof icon === 'function' ? icon(status) : icon;
   return (
-    <MenuItem onClick={(autoDVState) => onClick(autoDVState)}>
+    <MenuItem onClick={() => onClick(autoDVState)}>
       <ListItemIcon>{itemIcon}</ListItemIcon>
       <ListItemText>{itemText}</ListItemText>
       {shortcutkey ? (

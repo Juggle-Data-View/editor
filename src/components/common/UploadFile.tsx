@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Colors } from '@blueprintjs/core';
 import { useDropzone, DropzoneState } from 'react-dropzone';
 import styled, { DefaultTheme } from 'styled-components';
 import notice from 'utils/notice';
@@ -22,7 +21,7 @@ const Container = styled.div<IContainer>`
   border-width: 1px;
   border-radius: 3px;
   border-style: dashed;
-  background-color: ${Colors.DARK_GRAY2};
+  background-color: #eee;
   color: #bdbdbd;
   outline: none;
   transition: border 0.24s ease-in-out;
@@ -49,10 +48,7 @@ const UploadFile: React.FC<IProps> = (props) => {
       }
     },
     onDropRejected(files, event) {
-      notice.toast({
-        message: 'Drop Error: onDropRejected',
-        intent: 'warning',
-      });
+      notice.warn('Drop Error: onDropRejected');
     },
     ...props,
   });

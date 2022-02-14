@@ -1,16 +1,11 @@
-/**
- * 颜色（含渐变色）拾取组件
- */
-
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
-import { Position, Switch } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
 import tinycolor from 'tinycolor2';
 import { GradientPicker, AnglePicker } from 'react-linear-gradient-picker';
 import { getGradientCSS } from 'utils/index';
 import { withField } from './withField';
+import { Popover, Switch } from '@mui/material';
 
 const Container = styled.div`
   display: flex;
@@ -19,12 +14,12 @@ const Container = styled.div`
   .trigger {
     padding: 2px;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px;
     cursor: pointer;
     > span {
       display: block;
-      width: 40px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
       background-color: black;
     }
   }
@@ -44,11 +39,6 @@ const Container = styled.div`
       .tips {
         transform: scale(0.85);
         transform-origin: right 0;
-      }
-      .bp3-switch {
-        margin: 0 -10px 0 5px !important;
-        padding-right: 0 !important;
-        min-height: auto;
       }
     }
     .sketch-picker {
@@ -171,6 +161,7 @@ export const ControlColor = (props: ColorProps) => {
   const prevColor = useRef<string | AutoDV.ColorResult>();
   const debounceRef = useRef<any>(-1);
   const gradientType = ['linear'];
+  const triggerRef = useRef<HTMLDivElement | null>(null);
 
   if (enableRadial) {
     gradientType.push('radial');
@@ -272,83 +263,81 @@ export const ControlColor = (props: ColorProps) => {
 
   return (
     <Container>
-      <Popover2
-        isOpen={isOpen}
-        usePortal={false}
-        position={Position.BOTTOM_LEFT}
-        modifiers={{ arrow: { enabled: false } }}
-        targetTagName="div"
-        minimal
-        content={
-          <div className="picker" onClick={(e) => e.stopPropagation()}>
-            {useGradient ? (
-              <div className="picker-head">
-                <div className="gradient">
-                  渐变色
-                  <Switch
-                    inline
-                    checked={colorType === 'gradient'}
-                    onChange={() => setColorType(colorType === 'solid' ? 'gradient' : 'solid')}
-                  />
-                </div>
-                <div className="tips" title="help tips" />
-              </div>
-            ) : null}
-            {colorType === 'solid' ? (
-              <SketchPicker
-                width={PickerWidth + 'px'}
-                className="sketch-picker"
-                color={solidColor}
-                onChange={({ rgb, hex }) => {
-                  const { r, g, b, a } = rgb;
-                  const color = a === 1 ? hex : `rgba(${[r, g, b, a].join(',')})`;
-                  setSolidColor(color);
-                }}
-              />
-            ) : (
-              <>
-                <GradientPicker {...gradientProps}>
-                  <WrappedSketchPicker />
-                </GradientPicker>
-                <div className="picker-foot">
-                  <div className="types">
-                    {gradientType.map((gradient) => {
-                      return (
-                        <div
-                          key={gradient}
-                          className={[gradient, gradientColor.type === gradient ? '--active' : ''].join(' ')}
-                          onClick={() => setGradientType(gradient as any)}
-                        />
-                      );
-                    })}
-                  </div>
-                  {gradientColor.type === 'linear' ? (
-                    <>
-                      <AnglePicker angle={gradientColor.angle} setAngle={setAngle} size={32} />
-                      <div className="angle-inputs">
-                        <span onClick={() => onAngleInputChange(gradientColor.angle - 1)}>&#8722;</span>
-                        <input value={`${gradientColor.angle}°`} disabled />
-                        <span onClick={() => onAngleInputChange(gradientColor.angle + 1)}>&#43;</span>
-                      </div>
-                    </>
-                  ) : null}
-                </div>
-              </>
-            )}
-          </div>
-        }
+      <div
+        className="trigger"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+          prevColor.current = value;
+        }}
+        ref={triggerRef}
       >
-        <div
-          className="trigger"
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-            prevColor.current = value;
-          }}
-        >
-          <span style={{ background: colorType === 'solid' ? solidColor : getGradientCSS(gradientColor) }} />
+        <span style={{ background: colorType === 'solid' ? solidColor : getGradientCSS(gradientColor) }} />
+      </div>
+      <Popover
+        open={isOpen}
+        anchorEl={triggerRef.current}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <div className="picker" onClick={(e) => e.stopPropagation()}>
+          {useGradient ? (
+            <div className="picker-head">
+              <div className="gradient">
+                渐变色
+                <Switch
+                  checked={colorType === 'gradient'}
+                  onChange={() => setColorType(colorType === 'solid' ? 'gradient' : 'solid')}
+                />
+              </div>
+              <div className="tips" title="help tips" />
+            </div>
+          ) : null}
+          {colorType === 'solid' ? (
+            <SketchPicker
+              width={PickerWidth + 'px'}
+              className="sketch-picker"
+              color={solidColor}
+              onChange={({ rgb, hex }) => {
+                const { r, g, b, a } = rgb;
+                const color = a === 1 ? hex : `rgba(${[r, g, b, a].join(',')})`;
+                setSolidColor(color);
+              }}
+            />
+          ) : (
+            <>
+              <GradientPicker {...gradientProps}>
+                <WrappedSketchPicker />
+              </GradientPicker>
+              <div className="picker-foot">
+                <div className="types">
+                  {gradientType.map((gradient) => {
+                    return (
+                      <div
+                        key={gradient}
+                        className={[gradient, gradientColor.type === gradient ? '--active' : ''].join(' ')}
+                        onClick={() => setGradientType(gradient as any)}
+                      />
+                    );
+                  })}
+                </div>
+                {gradientColor.type === 'linear' ? (
+                  <>
+                    <AnglePicker angle={gradientColor.angle} setAngle={setAngle} size={32} />
+                    <div className="angle-inputs">
+                      <span onClick={() => onAngleInputChange(gradientColor.angle - 1)}>&#8722;</span>
+                      <input value={`${gradientColor.angle}°`} disabled />
+                      <span onClick={() => onAngleInputChange(gradientColor.angle + 1)}>&#43;</span>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            </>
+          )}
         </div>
-      </Popover2>
+      </Popover>
     </Container>
   );
 };

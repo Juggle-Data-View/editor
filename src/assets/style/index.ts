@@ -15,10 +15,11 @@ export const EditorGlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column; // 使主轴向下排列，上下布局
   }
-  .autoDV-main {
+  .main {
     position: relative;
     display: flex;
     flex: 1;
-    height: 1px;
+    height: 100vh;
+    flex-direction: row;
   }
 `;

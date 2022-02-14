@@ -1,10 +1,6 @@
-/**
- * 京东视界 预加载动画
- */
-
-import React, { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { Spinner } from '@blueprintjs/core';
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
   position: absolute;
@@ -33,7 +29,7 @@ const AutoDVPreLoader = () => {
 
   return (
     <Container style={{ fontSize: scale }}>
-      <Spinner size={scale * 4} intent="primary" />
+      <CircularProgress size={scale * 4} />
     </Container>
   );
 };

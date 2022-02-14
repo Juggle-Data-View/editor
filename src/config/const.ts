@@ -9,8 +9,6 @@ export enum DataSourceType {
   CSV = 3,
   /** 数据源组 */
   DataSource = 4,
-  /** EazyData */
-  EZD = 5,
 }
 
 export enum ContentType {
@@ -48,7 +46,6 @@ export const DataSourceAlias: Record<DataSourceType, string> = {
   2: 'MySQL',
   3: 'CSV文件',
   4: '数据源组',
-  5: 'EZD',
 };
 
 /**

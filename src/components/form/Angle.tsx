@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { NumericInput, NumericInputProps, HTMLInputProps } from '@blueprintjs/core';
+import { TextField, InputBaseComponentProps } from '@mui/material';
 import { AnglePicker } from 'react-linear-gradient-picker';
 import { useDebounce } from 'ahooks';
 import { withField } from './withField';
@@ -16,7 +16,7 @@ const Container = styled.div`
 interface IAngle {
   size?: number;
   withInput?: boolean;
-  inputProps?: NumericInputProps & HTMLInputProps;
+  inputProps?: InputBaseComponentProps;
 }
 
 export const Angle = withField<IAngle>((props) => {
@@ -32,12 +32,11 @@ export const Angle = withField<IAngle>((props) => {
   return (
     <Container>
       {withInput ? (
-        <NumericInput
+        <TextField
           className="input"
-          {...inputProps}
-          asyncControl
+          inputProps={{ ...inputProps }}
+          type="number"
           value={angle}
-          onButtonClick={setAngle}
           onBlur={(e) => setAngle(Number(e.currentTarget.value))}
         />
       ) : null}

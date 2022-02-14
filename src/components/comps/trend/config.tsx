@@ -2,7 +2,6 @@
  * 组件配置信息
  */
 
-import { Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
 import { IConfig } from './type';
 import * as font from 'config/form/font';
@@ -10,8 +9,6 @@ import DropDown from 'components/common/DropDown';
 import svgs from './icons/index';
 import { ReactSVG } from 'react-svg';
 import classNames from 'classnames';
-import { nanoid } from 'utils';
-import limitTrigger from 'config/form/limitTrigger';
 
 const SVGDropDownStyled = styled.div`
   .dropdown-item,
@@ -26,7 +23,7 @@ const SVGDropDownStyled = styled.div`
     padding: 0 22px 0 10px;
     &.--selected,
     &:hover {
-      background-color: ${Colors.DARK_GRAY3};
+      background-color: #eee;
     }
   }
   .icon svg {
@@ -107,18 +104,6 @@ const config: IConfig = {
       },
       limitOption: {
         isShow: true,
-        limitTrigger: [
-          {
-            conditionCode: `trend-${nanoid(6)}`,
-            intervalType: 'close',
-            left: 1,
-            right: 3,
-            color: '#222',
-            isTrigger: false,
-            time: 10000,
-            timeUnit: 'sec',
-          },
-        ],
       },
     },
     dataConfig: {
@@ -220,7 +205,7 @@ const config: IConfig = {
             type: 'number',
             name: 'size',
             label: '图标大小',
-            props: { unit: 'px', bp: { min: 0 } },
+            props: { unit: 'px', muiProps: { min: 0 } },
           },
         ],
       },
@@ -274,11 +259,6 @@ const config: IConfig = {
             },
           },
         ],
-      },
-      {
-        name: 'limitOption',
-        type: 'fragment',
-        children: limitTrigger,
       },
     ],
   },

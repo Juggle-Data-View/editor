@@ -20,7 +20,7 @@ const pie: INodeConfig[] = [
         props: {
           range: [0, 100],
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
         },
       },
@@ -31,7 +31,7 @@ const pie: INodeConfig[] = [
         props: {
           range: [0, 100],
           sliderProps: {
-            stepSize: 1,
+            step: 1,
           },
         },
       },
@@ -136,7 +136,7 @@ const pie: INodeConfig[] = [
         type: 'number',
         label: '引导线第一段长度',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },
@@ -146,7 +146,7 @@ const pie: INodeConfig[] = [
         type: 'number',
         label: '引导线第二段长度',
         props: {
-          bp: {
+          muiProps: {
             min: 0,
           },
         },

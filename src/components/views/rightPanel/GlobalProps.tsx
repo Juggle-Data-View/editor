@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { FieldLabel, AutoSubmit, Field } from 'components/form/index';
 import DropZone from 'components/common/DropZone';
-import CoverImage from 'components/common/CoverImage';
 import { ZOOM_TYPE } from 'config/const';
 import FieldSize from 'components/common/FieldSize';
 import { getDiffPayload } from 'helpers/diff';
@@ -47,10 +46,6 @@ const GlobalProps: React.FC = () => {
                     </option>
                   ))}
                 </Field.Select>
-                <FieldLabel label="封面图" {...labelProps}>
-                  <CoverImage name="thumbnail" />
-                  <DropZone name="thumbnail" />
-                </FieldLabel>
               </>
             );
           }}

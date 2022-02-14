@@ -66,42 +66,20 @@ type CSV_Values = {
   };
 };
 
-type EZD_Values = {
-  type: DataSourceType.EZD;
-  name: string;
-  apiType: API_TYPE;
-  /** 是否为ezd主动缓存api 枚举 0-否，1-是  */
-  isEzdActiveTask: IsEzdActiveTask;
-  config: {
-    method: HttpMethod;
-    apiName: string;
-    apiGroupName: string;
-    transmitCookie: boolean;
-    header: Header;
-    // GET
-    params: string[];
-    // POST & JSF
-    jsonParam: string;
-    // JSF
-    alias: string;
-  };
-};
-
 type ExtendValues = {
   useHeader?: boolean;
 };
 
-export type Values = (API_Values | SQL_Values | CSV_Values | EZD_Values) & ExtendValues;
+export type Values = (API_Values | SQL_Values | CSV_Values) & ExtendValues;
 
 // 获取部分 数据源 类型
 export type LocalDataSourceType = Extract<
   AutoDV.DataSourceType,
-  DataSourceType.API | DataSourceType.MySQL | DataSourceType.CSV | DataSourceType.EZD
+  DataSourceType.API | DataSourceType.MySQL | DataSourceType.CSV
 >;
 
 export type API_Formik = FormikProps<API_Values & ExtendValues>;
 export type SQL_Formik = FormikProps<SQL_Values & ExtendValues>;
-export type EZD_Formik = FormikProps<EZD_Values & ExtendValues>;
 
 /**
  * -------------------------
@@ -190,17 +168,6 @@ export const initValues: Record<LocalDataSourceType, Values> = {
       header: [], // ['a', 'b', 'c']
     },
   },
-  5: {
-    type: DataSourceType.EZD,
-    name: '',
-    apiType: 1,
-    isEzdActiveTask: 0,
-    config: {
-      ...init_ezd_post_config,
-      ...init_ezd_get_config,
-      ...init_ezd_jsf_config,
-    },
-  },
 };
 
 const defaultConfig: any = {
@@ -211,16 +178,9 @@ const defaultConfig: any = {
     },
     [API_TYPE.JSF]: init_api_jsf_config,
   },
-  [DataSourceType.EZD]: {
-    [API_TYPE.HTTP]: {
-      [HttpMethod.GET]: init_ezd_get_config,
-      [HttpMethod.POST]: init_ezd_post_config,
-    },
-    [API_TYPE.JSF]: init_ezd_jsf_config,
-  },
 };
 
-export const getConfig = (values: API_Values | EZD_Values) => {
+export const getConfig = (values: API_Values) => {
   const config = defaultConfig[values.type];
   if (values.apiType === API_TYPE.HTTP) {
     const { method } = values.config;
@@ -248,9 +208,7 @@ export const filterValues = (values: Values) => {
     if (values.type === DataSourceType.API) {
       init_config = getConfig(values);
     }
-    if (values.type === DataSourceType.EZD) {
-      init_config = getConfig(values);
-    }
+
     return typeof init_config[k] !== 'undefined';
   });
 

@@ -1,111 +1,64 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dialog, Icon, Menu, MenuItem, Position, Checkbox, Button, Classes, MenuDivider } from '@blueprintjs/core';
-import { Popover2 } from '@blueprintjs/popover2';
+import { MenuList, MenuItem, Checkbox, Popover, IconButton } from '@mui/material';
 import { useEventListener } from 'ahooks';
 import Ruler from 'assets/lib/ruler';
-import useTheme from 'components/base/useTheme';
 import { selectEditor, selectCanvas } from 'store/selectors';
 import useResize from 'components/base/useResize';
 import { selectGuideLines } from 'store/selectors';
 import { editorAction } from 'store/features/editorSlice';
 import notice from 'utils/notice';
-import { Formik } from 'formik';
-import { Field } from 'components/form';
+import SettingsIcon from '@mui/icons-material/Settings';
+import DeleteForever from '@mui/icons-material/DeleteForever';
 
 const AuxLine: React.FC<{ lines: AutoDV.GuideLine }> = memo(({ lines }) => {
-  const [visibleModal, setVisibleModal] = useState<boolean>(false);
-  const { theme } = useTheme();
   const dispatch = useDispatch();
+  const triggerRef = useRef<any>();
 
-  const IconStyle = {
-    margin: '1px 10px 0 1px',
-  };
-
+  const [isOpen, setOpen] = useState(false);
   return (
     <>
-      <Popover2
-        position={Position.RIGHT_TOP}
-        content={
-          <Menu>
-            <MenuItem
-              shouldDismissPopover={false}
-              text={
-                <Checkbox
-                  style={{ margin: '0 0 0 1px' }}
-                  checked={lines.visible}
-                  label="显示参考线"
-                  onChange={() => {
-                    dispatch(
-                      editorAction.setGuideLines({
-                        visible: !lines.visible,
-                        h: [...lines.h],
-                        v: [...lines.v],
-                      })
-                    );
-                  }}
-                />
-              }
-            />
-            <MenuItem
-              icon={<Icon style={IconStyle} icon="add" />}
-              text="新建参考线"
-              onClick={() => setVisibleModal(!visibleModal)}
-            />
-            <MenuDivider />
-            <MenuItem
-              icon={<Icon style={IconStyle} icon="trash" />}
-              text="清除参考线"
-              disabled={!lines.h.length && !lines.v.length}
-              onClick={() => {
-                dispatch(editorAction.setGuideLines({ visible: lines.visible, h: [], v: [] }));
-                notice.toast({ message: '已清除', intent: 'primary' });
-              }}
-            />
-          </Menu>
-        }
-      >
-        <Icon iconSize={12} color={theme.iconColor} icon="cog" />
-      </Popover2>
-
-      <Dialog
-        title="新建参考线"
-        isOpen={visibleModal}
-        canOutsideClickClose={true}
-        onClose={() => {
-          setVisibleModal(!visibleModal);
+      <SettingsIcon onClick={() => setOpen(!isOpen)} ref={triggerRef} fontSize="small" />
+      <Popover
+        open={isOpen}
+        onClose={() => setOpen(false)}
+        anchorEl={triggerRef.current}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
       >
-        <Formik
-          initialValues={{ x: 0, y: 0 }}
-          onSubmit={(values) => {
-            dispatch(
-              editorAction.setGuideLines({
-                visible: lines.visible,
-                h: [...lines.h, values.x],
-                v: [...lines.v, values.y],
-              })
-            );
-            setVisibleModal(false);
-          }}
-        >
-          {({ handleSubmit }) => {
-            return (
-              <>
-                <div className={Classes.DIALOG_BODY}>
-                  <Field.Number label="横坐标" name="x" />
-                  <Field.Number label="纵坐标" name="y" />
-                </div>
-                <div className={[Classes.DIALOG_FOOTER, Classes.DIALOG_FOOTER_ACTIONS].join(' ')}>
-                  <Button intent="primary" onClick={() => handleSubmit()}>
-                    创 建
-                  </Button>
-                </div>
-              </>
-            );
-          }}
-        </Formik>
-      </Dialog>
+        <MenuList>
+          <MenuItem>
+            显示参考线
+            <Checkbox
+              style={{ margin: '0 0 0 1px' }}
+              checked={lines.visible}
+              onChange={() => {
+                dispatch(
+                  editorAction.setGuideLines({
+                    visible: !lines.visible,
+                    h: [...lines.h],
+                    v: [...lines.v],
+                  })
+                );
+              }}
+            />
+          </MenuItem>
+          <MenuItem
+            disabled={!lines.h.length && !lines.v.length}
+            onClick={() => {
+              dispatch(editorAction.setGuideLines({ visible: lines.visible, h: [], v: [] }));
+              notice.alert('已清除');
+            }}
+          >
+            清除参考线
+            <IconButton>
+              <DeleteForever />
+            </IconButton>
+          </MenuItem>
+        </MenuList>
+      </Popover>
     </>
   );
 });
@@ -130,7 +83,6 @@ const CanvasRuler: React.FC<Props> = ({ container }) => {
   const canvas = useSelector(selectCanvas);
   const [start, setStart] = useState<RulerStart>({ x: -canvasPadding, y: -canvasPadding });
   const [rulerSize, setRulerSize] = useState<RulerSize>({ width: 0, height: 0 });
-  const { theme } = useTheme();
   const thick = 16;
   const dispatch = useDispatch();
 
@@ -177,7 +129,15 @@ const CanvasRuler: React.FC<Props> = ({ container }) => {
         );
       }}
       cornerActive={true}
-      palette={theme.ruler}
+      palette={{
+        bgColor: '#eee', // ruler bg color
+        longfgColor: '#7D8694', // ruler longer mark color
+        shortfgColor: '#7D8694', // ruler shorter mark color
+        fontColor: '#7D8694', // ruler font color
+        lineColor: 'blue',
+        borderColor: '#ccc',
+        cornerActiveColor: '#eee',
+      }}
       cornerExtra={<AuxLine lines={lines} />}
     />
   );

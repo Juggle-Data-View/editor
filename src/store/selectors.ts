@@ -34,6 +34,8 @@ export const selectTheme = (state: RootState) => state.editor.theme;
 
 export const selectGuideLines = (state: RootState) => state.editor.guideLines;
 
+export const selectRightPannelType = (state: RootState) => state.editor.rightPannelType;
+
 /** data */
 
 export const selectOriginDatas = (state: RootState) => state.data.originDatas;

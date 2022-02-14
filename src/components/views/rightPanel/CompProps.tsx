@@ -1,36 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Spinner, Tabs, Tab, Button, Icon, Tooltip } from '@blueprintjs/core';
 import CompPropsAttr from 'components/views/rightPanel/CompPropsAttr';
 import { sleep } from 'utils';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import notice from 'utils/notice';
 import { Generator } from 'components/recursion';
 import { getDiffPayload } from 'helpers/diff';
-import DataConfig from './DataConfig';
 import CompErrorBoundary, { mergeCompData } from 'components/base/CompErrorBoundary';
 import { appAction } from 'store/features/appSlice';
-import CompDebug from './CompDebug';
+import { Tooltip, IconButton, Tab } from '@mui/material';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import CircularProgress from '@mui/material/CircularProgress';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DataPanel from './DataPanel';
 
-const RightAction = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-`;
-
-const Loader = styled(Spinner)`
+const LoaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 50%;
 `;
 
+const Loader = () => (
+  <LoaderContainer>
+    <CircularProgress />
+  </LoaderContainer>
+);
+
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon, parentCompCode, parentName, parentCode } = props;
-  const { code, compCode, compTempCode, alias } = compData;
+  const { code, compCode, compTempCode, alias, dataConfig } = compData;
   const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
+  const [activeTabIndex, setActiveTabIndex] = useState('config');
   const dispatch = useDispatch();
 
   const loadConfig = async () => {
@@ -85,12 +90,9 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
                 <>
                   <div className="comp-info">
                     {alias} | v{version || '0.0.1'}
-                    <Tooltip content="更新组件版本" position="right">
-                      <Button
+                    <Tooltip title="更新组件版本" placement="right">
+                      <IconButton
                         style={{ marginLeft: 5 }}
-                        icon={<Icon icon="refresh" iconSize={12} />}
-                        minimal
-                        small
                         onClick={async () => {
                           try {
                             setRefresh(true);
@@ -102,7 +104,9 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
                             setRefresh(false);
                           }
                         }}
-                      />
+                      >
+                        <RefreshIcon />
+                      </IconButton>
                     </Tooltip>
                   </div>
                   {refresh ? <Loader /> : <CompPropsAttr {...props} />}
@@ -113,21 +117,36 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
           );
 
           return (
-            <>
-              <Tabs className="panel-tabs" id={`Tabs-${code}`} defaultSelectedTabId="config">
-                {tab.config && <Tab id="config" title="配置" panel={ConfigPanel} />}
-                {tab.dataset && <Tab id="dataset" title="数据" panel={<DataConfig {...props} />} />}
+            <TabContext value={activeTabIndex}>
+              <TabList sx={{ height: '34px' }} onChange={(event, newValue) => setActiveTabIndex(newValue)}>
+                {tab.config && <Tab sx={{ height: '34px' }} label="配置" value="config" />}
+                {tab.dataset && <Tab sx={{ height: '34px' }} label="数据" value="dataset" />}
                 {extraTab
                   ? extraTab.map(({ title, component: C }) => {
-                      return <Tab key={title} id={title} title={title} panel={<C {...props} />} />;
+                      return <Tab key={title} value={title} />;
                     })
                   : null}
-                <Tabs.Expander />
-                <RightAction>
-                  <CompDebug formik={formik} compData={compData} />
-                </RightAction>
-              </Tabs>
-            </>
+              </TabList>
+              {tab.config && (
+                <TabPanel id="config" value="config">
+                  {ConfigPanel}
+                </TabPanel>
+              )}
+              {tab.dataset && dataConfig && (
+                <TabPanel id="dataset" value="dataset">
+                  <DataPanel {...dataConfig} />
+                </TabPanel>
+              )}
+              {extraTab
+                ? extraTab.map(({ title, component: C }) => {
+                    return (
+                      <TabPanel key={title} value={title} id={title}>
+                        <C {...props} />
+                      </TabPanel>
+                    );
+                  })
+                : null}
+            </TabContext>
           );
         }}
       </Generator>

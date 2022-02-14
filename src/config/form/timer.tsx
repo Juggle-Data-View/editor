@@ -1,6 +1,5 @@
 import { INodeConfig } from 'components/recursion/types';
 import * as style from 'config/style';
-import global from 'utils/global';
 
 export const type: INodeConfig = {
   type: 'select',
@@ -9,7 +8,7 @@ export const type: INodeConfig = {
   props: {
     options: [
       { label: '本地时间', value: 'local' },
-      { label: '服务器时间', value: 'server', disabled: global.wssType !== 1 },
+      { label: '服务器时间', value: 'server' },
     ],
   },
 };

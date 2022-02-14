@@ -3,11 +3,10 @@ import styled from 'styled-components';
 export const RightPanelStyled = styled.section<{ visible: boolean }>`
   position: relative;
   z-index: 15; // 比标尺高一点
-  width: 350px;
   transition: margin 0.2s ease;
   will-change: transform;
   color: #222;
-  margin-right: ${(props) => (props.visible ? 0 : '-350px')};
+  margin-right: ${(props) => (props.visible ? 0 : '-300px')};
   box-shadow: -1px 6px 5px rgba(34, 34, 34, 0.25);
   .panel-form {
     position: relative;
@@ -16,6 +15,11 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
     flex-direction: column;
     height: 100%;
     background-color: #fff;
+    > .MuiTabPanel-root {
+      padding: 0px;
+      overflow: auto;
+      overflow-x: hidden;
+    }
   }
 
   .panel-head {
@@ -35,25 +39,6 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* tab head 样式 */
-    > .bp3-tab-list {
-      height: 28px;
-      padding: 0 10px;
-      /* tab 按钮样式 */
-      > .bp3-tab {
-        margin-right: 10px;
-        padding: 0 3px;
-        font-size: 12px;
-      }
-    }
-    /* tab content 样式 */
-    > .bp3-tab-panel {
-      margin-top: 0;
-      overflow-y: auto;
-      padding-bottom: 50px; // 底部留一些空间
-      min-height: 100%;
-      box-sizing: border-box;
-    }
   }
 
   .comp-info,
@@ -110,71 +95,23 @@ export const HistoryPanelStyled = styled.section<{ visible: boolean }>`
 `;
 
 export const DataConfigStyled = styled.div`
-  .block {
-    margin-top: 10px;
-    padding: 0 10px;
+  max-width: 350px;
+  .bottomContainer {
+    padding: 0px 10px;
   }
-  .step {
-    .gap {
+  .fieldMapList {
+    > button {
+      padding: 5px 0px 0px 0px;
+    }
+    .title {
+      padding: 0px 5px;
       display: flex;
-      justify-content: flex-end;
       align-items: center;
-      position: relative;
-      &:before {
-        position: absolute;
-        content: '';
-        left: 2em;
-        top: 0;
-        bottom: 0;
-        width: 1px;
-        background-color: #fff;
-      }
-    }
-    .to {
-      pre {
-        padding: 10px;
-        height: 300px;
-        overflow-y: auto;
-      }
-    }
-    .autoDV-json-editor {
-      margin-top: 10px;
-    }
-  }
-
-  // 配置数据源 抽屉
-  .datasource-config {
-    .bp3-drawer-header {
-      padding: 0 10px;
-      h4 {
-        font-size: 14px;
-      }
-    }
-  }
-
-  .drawer-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    transform: translateX(100%);
-    transition: transform 0.2s ease;
-    overflow-y: auto;
-    margin-left: -50px;
-    z-index: 5;
-    .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 10px;
-      .title {
-        font-size: 16px;
-      }
-    }
-
-    &.--show {
-      transform: translateX(0);
+      width: 100%;
+      background: ${({ theme }) => theme.palette.background.paper};
+      border-radius: 5px;
+      height: 44px;
+      font-weight: blod;
     }
   }
 `;

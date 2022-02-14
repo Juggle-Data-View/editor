@@ -2,9 +2,9 @@
  * 全局热键组件
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dialog } from '@blueprintjs/core';
+import { Dialog, DialogTitle, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { useKeyPress } from 'ahooks';
 import { COPY_COMP, DELETE_COMP } from 'components/base/BaseActions';
 import { MIN_CANVAS_RATIO, MAX_CANVAS_RATIO } from 'config/const';
@@ -15,6 +15,7 @@ import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
 import { UNDO_RESTORE } from 'config/const';
 import { selectEditor } from 'store/selectors';
+import CloseIcon from '@mui/icons-material/Close';
 
 configure({
   /**
@@ -74,6 +75,8 @@ export default function AutoDVGlobalHotKeys() {
       events: ['keydown', 'keyup'],
     }
   );
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <GlobalHotKeys
@@ -135,7 +138,20 @@ export default function AutoDVGlobalHotKeys() {
       }}
       allowChanges={true}
     >
-      <Dialog icon="info-sign" title="快捷键展示" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Dialog open={isOpen} fullScreen={fullScreen} onClose={() => setIsOpen(false)}>
+        <DialogTitle>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            快捷键展示
+            <IconButton edge="start" color="inherit" onClick={() => setIsOpen(false)} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+          </div>
+        </DialogTitle>
         todo...
       </Dialog>
     </GlobalHotKeys>

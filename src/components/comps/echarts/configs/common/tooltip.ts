@@ -31,7 +31,7 @@ const tooltip: INodeConfig[] = [
             type: 'number',
             label: '边框宽度',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -41,7 +41,7 @@ const tooltip: INodeConfig[] = [
             type: 'number',
             label: '内边距',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

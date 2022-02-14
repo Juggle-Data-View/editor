@@ -1,117 +1,257 @@
-/**
- * 表格组件
- */
+import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import TableHead from '@mui/material/TableHead';
+import { Button, Divider, MenuItem, Popover } from '@mui/material';
 
-import styled from 'styled-components';
-import React from 'react';
-
-export interface Column<D = any> {
-  /** 列头显示文字 */
-  title: React.ReactNode;
-  /** React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 */
-  key?: string;
-  /** 列宽度 */
-  width?: string | number;
-  /** 列数据在数据项中对应的key */
-  dataIndex?: string;
-  /**
-   * 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引
-   * @param val 当前行的值
-   * @param record 当前行数 据
-   * @param index 行索引
-   */
-  render?: (val: any, record: D, index: number) => any;
-  style?: React.CSSProperties;
-  //单行展示cell
-  isSigleRow?: boolean;
+export interface Data {
+  [key: string]: string | null | number;
+}
+interface TablePaginationActionsProps {
+  count: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
 
-export type ColumnsType<D = any> = Column<D>[];
+function TablePaginationActions(props: TablePaginationActionsProps) {
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
 
-interface IProps<D = any> {
-  columns: ColumnsType<D>;
-  dataSource: any[];
-  rowKey?: string;
-}
+  const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, 0);
+  };
 
-const Container = styled.table`
-  width: 100%;
-  background: ${(props) => props.theme.gray5};
-  border-radius: 5px;
-  border-spacing: 5px;
-  th {
-    height: 26px;
-    text-align: center;
-    background: ${(props) => props.theme.gray3};
-    border-radius: 5px;
-  }
-  td {
-    padding: 3px 0;
-    text-align: center;
-    word-break: break-all;
-    line-height: 1.2;
-    vertical-align: top;
-  }
-  tr:last-child {
-    td {
-      border-bottom: none;
-    }
-  }
-`;
+  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, page - 1);
+  };
 
-function AutoDVTable<T extends unknown>(props: IProps<T>) {
-  const { columns, dataSource, rowKey } = props;
+  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, page + 1);
+  };
+
+  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
+
   return (
-    <Container>
-      <thead>
-        <tr>
-          {columns.map((column, index) => {
-            /**
-             * 如果 dataIndex 在 columns 中是唯一字符串，则可以使用 dataIndex
-             * 如果列中出现了相同的 dataIndex，则建议使用 key
-             */
-            const columnKey = column.key || column.dataIndex || index;
-            return !column.isSigleRow ? (
-              <th key={columnKey} style={{ width: column.width }}>
-                {column.title}
-              </th>
-            ) : null;
-          })}
-        </tr>
-      </thead>
-      <tbody>
-        {dataSource.map((data, index) => {
-          const _rowKey = data.key ? data.key : rowKey ? data[rowKey] : '';
-          const columnStruct = columns.filter((item) => !item.isSigleRow);
-          const rowStruct = columns.filter((item) => item.isSigleRow);
-          return (
-            <React.Fragment key={index}>
-              <tr key={_rowKey}>
-                {columnStruct.map((column, idx) => {
-                  const columnKey = column.key || column.dataIndex || idx; // 同上
-                  const record = column.dataIndex ? data[column.dataIndex] : null;
-                  return (
-                    <td key={columnKey} style={{ ...column.style, width: column.width }}>
-                      {column.render ? column.render(record, data, index) : record}
-                    </td>
-                  );
-                })}
-              </tr>
-              {rowStruct.map((row, idx) => {
-                const columnKey = row.key || row.dataIndex || idx; // 同上
-                const record = row.dataIndex ? data[row.dataIndex] : null;
-                return (
-                  <tr key={columnKey}>
-                    <td colSpan={columnStruct.length}>{row.render ? row.render(record, data, index) : record}</td>
-                  </tr>
-                );
-              })}
-            </React.Fragment>
-          );
-        })}
-      </tbody>
-    </Container>
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="first page">
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </Box>
   );
 }
 
-export default AutoDVTable;
+export type OperationFieldMap = (compFieldName: string, sourceFieldName?: string) => void;
+
+const TableHeaderCell: React.FC<{
+  content: string;
+  compFields: string[];
+  operationFieldMap: OperationFieldMap;
+  fieldMap: AutoDV.Field[];
+}> = ({ content, compFields, fieldMap, operationFieldMap }) => {
+  const triggerRef = React.useRef<any>();
+  const [isOpen, setOpen] = React.useState(false);
+
+  const handleItemClick = (compFieldName: string, sourceFieldName: string) => {
+    operationFieldMap(compFieldName, sourceFieldName);
+  };
+
+  const renderOptions = () => {
+    return compFields.map((item) => {
+      const isSelected = !!fieldMap.find(
+        ({ compFieldName, sourceFieldName }) => compFieldName === item && sourceFieldName === content
+      );
+      return (
+        <MenuItem key={item} onClick={() => handleItemClick(item, content)} selected={isSelected}>
+          {item}
+        </MenuItem>
+      );
+    });
+  };
+
+  return (
+    <TableCell align="right">
+      <Button size="small" ref={triggerRef} onClick={() => setOpen(true)}>
+        {content}
+      </Button>
+      <Popover
+        open={isOpen}
+        anchorEl={triggerRef.current}
+        anchorOrigin={{
+          horizontal: 'left',
+          vertical: 'bottom',
+        }}
+        onClose={() => setOpen(false)}
+      >
+        {renderOptions()}
+      </Popover>
+    </TableCell>
+  );
+};
+
+const CustomPaginationActionsTable: React.FC<{
+  rowsData: Data[];
+  operationFieldMap: OperationFieldMap;
+  fieldMap: AutoDV.Field[];
+}> = ({ rowsData, operationFieldMap, fieldMap }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const rows = React.useMemo<Data[]>(() => {
+    //no filter
+    return rowsData || [];
+  }, [rowsData]);
+  const colSpan = (rows && rows[0] ? Object.keys(rows[0]).length : 0) + 1;
+
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  //Get table cell content. Resolve content type is object
+  const getCellContent = (content: any) => {
+    const contentType = typeof content;
+    if (content === null || content === undefined || content === '') {
+      return 'empty data';
+    } else if (contentType === 'number' || contentType === 'string') {
+      return content;
+    } else {
+      return content + '';
+    }
+  };
+
+  const renderTableRow = (row: Data, index: number) => {
+    const column = Object.keys(row);
+    const firstKey = column[0];
+
+    return (
+      <TableRow key={row[firstKey]}>
+        <TableCell component="th" scope="row">
+          {index}
+        </TableCell>
+        {column.map((key) => {
+          return (
+            <TableCell key={key} align="right">
+              {getCellContent(row[key])}
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    );
+  };
+
+  const compField = React.useMemo(() => {
+    return Array.from(new Set(fieldMap.map(({ compFieldName }) => compFieldName)));
+  }, [fieldMap]);
+
+  const renderTableHeader = (rows: Data[]) => {
+    //Get data field union set
+    const column = Array.from(new Set(rows.reduce<string[]>((a, b) => [...a, ...Object.keys(b)], [])));
+    return (
+      <TableHead>
+        <TableRow>
+          <TableCell component="th" scope="row">
+            No.\Field
+          </TableCell>
+          {column.map((key) => {
+            return (
+              <TableHeaderCell
+                content={key}
+                key={key}
+                fieldMap={fieldMap}
+                compFields={compField}
+                operationFieldMap={operationFieldMap}
+              />
+            );
+          })}
+        </TableRow>
+      </TableHead>
+    );
+  };
+
+  return (
+    <div>
+      <Box
+        sx={{
+          typography: 'h4',
+        }}
+      >
+        预览数据
+      </Box>
+      <Divider />
+      <TableContainer
+        style={{
+          userSelect: 'none',
+          marginTop: '5px',
+        }}
+        component={Paper}
+      >
+        <Table sx={{ maxWidth: 350 }} aria-label="custom pagination table">
+          {renderTableHeader(rows)}
+          <TableBody>
+            {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map(
+              renderTableRow
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[10, 20, 50, { label: 'All', value: -1 }]}
+                colSpan={colSpan}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    'aria-label': 'rows per page',
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </div>
+  );
+};
+
+export default CustomPaginationActionsTable;

@@ -14,6 +14,10 @@ import { transContent } from 'helpers/importHelper';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Settings } from '@mui/icons-material';
+import { editorAction } from 'store/features/editorSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectRightPannelType } from 'store/selectors';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -64,15 +68,9 @@ const exportComps = (isAll: boolean) => {
       createFileName()
     );
 
-    notice.toast({
-      message: '导出成功',
-      intent: 'success',
-    });
+    notice.success('导出成功');
   } catch (error: any) {
-    notice.toast({
-      message: `${error.message}`,
-      intent: 'warning',
-    });
+    notice.warn(`${error.message}`);
   }
 };
 
@@ -92,7 +90,7 @@ const showError = (title: string, ajvError: Array<ErrorObject>) => {
     cancelButtonText: '',
     confirmButtonText: '关闭',
     icon: 'warning-sign',
-    intent: 'danger',
+    intent: 'error',
   });
 };
 
@@ -150,6 +148,15 @@ const handlePreview = () => {
 };
 
 const HeadRight: React.FC = () => {
+  const rightPannelType = useSelector(selectRightPannelType);
+  const dispatch = useDispatch();
+  const handleSetting = () => {
+    if (rightPannelType === 'global') {
+      dispatch(editorAction.setRightPannelType('hidden'));
+    } else {
+      dispatch(editorAction.setRightPannelType('global'));
+    }
+  };
   return (
     <div className="head-right">
       <HistoryButton />
@@ -179,6 +186,15 @@ const HeadRight: React.FC = () => {
         <Button color="primary" onClick={handlePreview}>
           <Tooltip title="预览" placement="bottom">
             <RemoveRedEyeIcon />
+          </Tooltip>
+        </Button>
+        <Button
+          color="primary"
+          onClick={handleSetting}
+          variant={rightPannelType === 'global' ? 'contained' : 'outlined'}
+        >
+          <Tooltip title="页面设置" placement="bottom">
+            <Settings />
           </Tooltip>
         </Button>
       </ButtonGroup>

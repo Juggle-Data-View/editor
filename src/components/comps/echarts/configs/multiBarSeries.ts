@@ -24,7 +24,7 @@ const multiBarSeries: INodeConfig = {
         }
       },
       props: {
-        bp: {
+        muiProps: {
           min: 0,
         },
       },
@@ -45,7 +45,7 @@ const multiBarSeries: INodeConfig = {
         }
       },
       props: {
-        bp: {
+        muiProps: {
           min: 0,
         },
       },
@@ -66,7 +66,7 @@ const multiBarSeries: INodeConfig = {
         }
       },
       props: {
-        bp: {
+        muiProps: {
           min: 0,
         },
       },
@@ -88,7 +88,7 @@ const multiBarSeries: INodeConfig = {
         }
       },
       props: {
-        bp: {
+        muiProps: {
           min: 0,
         },
       },
@@ -109,7 +109,7 @@ const multiBarSeries: INodeConfig = {
         }
       },
       props: {
-        bp: {
+        muiProps: {
           min: 0,
         },
       },

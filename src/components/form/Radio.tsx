@@ -1,10 +1,9 @@
-import { RadioGroup, Radio as BPRadio, IRadioGroupProps, IOptionProps } from '@blueprintjs/core';
 import { children2option } from './utils';
 import { withField } from './withField';
-
+import { Radio as MuiRadio, RadioGroup, RadioGroupProps, FormControlLabel, FormControl } from '@mui/material';
 export interface IRadio {
-  options?: IOptionProps[];
-  radioGroupProps?: Omit<IRadioGroupProps, 'onChange' | 'options'>;
+  options?: any;
+  radioGroupProps?: Omit<RadioGroupProps, 'onChange' | 'options'>;
   children?: React.ReactNode;
 }
 
@@ -12,23 +11,32 @@ export const Radio = withField<IRadio>((props) => {
   const { field, form, options, radioGroupProps, children } = props;
   const isNumber = typeof field.value === 'number';
   return (
-    <RadioGroup
-      className="radio-group"
-      inline
-      {...radioGroupProps}
-      options={options}
-      selectedValue={field.value}
-      onChange={(e) => {
-        const val = e.currentTarget.value;
-        form.setFieldValue(field.name, isNumber ? +val : val);
-        form.setFieldTouched(field.name, true);
-      }}
-    >
-      {!options
-        ? children2option(children).map(({ label, value, ...rest }) => {
-            return <BPRadio key={(label || '') + value} value={value} label={label} {...rest} />;
-          })
-        : null}
-    </RadioGroup>
+    <FormControl>
+      <RadioGroup
+        className="radio-group"
+        {...radioGroupProps}
+        row
+        value={field.value}
+        onChange={(e) => {
+          const val = e.currentTarget.value;
+          form.setFieldValue(field.name, isNumber ? +val : val);
+          form.setFieldTouched(field.name, true);
+        }}
+      >
+        {!options
+          ? children2option(children).map(({ label, value, ...rest }) => {
+              return (
+                <FormControlLabel
+                  key={(label || '') + value}
+                  label={label}
+                  value={value}
+                  control={<MuiRadio />}
+                  {...rest}
+                />
+              );
+            })
+          : null}
+      </RadioGroup>
+    </FormControl>
   );
 });

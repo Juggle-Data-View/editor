@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Button, Icon, NumericInputProps } from '@blueprintjs/core';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-simple-flex-grid';
 import { useField } from 'formik';
 import { withFieldLabel } from 'components/form/index';
 import { NumberStyled } from 'components/form/InputNumber';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Button } from '@mui/material';
 
 interface IAspectWrap {
   lock: boolean;
@@ -51,7 +53,6 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
   const [lockField, , lockHelpers] = useField(lockName || '#');
   const [widthValue, setWidthValue] = useState(widthField.value);
   const [heightValue, setHeightValue] = useState(heightField.value);
-  const debounceRef = useRef<any>(-1);
   const ratioRef = useRef(1);
 
   useEffect(() => {
@@ -69,33 +70,25 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
     }
   }, [widthField.value, heightField.value, lockName, lockField.value]);
 
-  const commonProps: NumericInputProps = {
-    asyncControl: true,
-    fill: true,
-    intent: isLock ? 'primary' : 'none',
-  };
-
   return (
     <Row>
       <Col span={5}>
         <NumberStyled
-          leftIcon={<span className="prefix">宽</span>}
-          {...commonProps}
+          size="small"
+          type="number"
           value={widthValue}
-          onButtonClick={(val) => {
+          onChange={(e) => {
+            const val = Number(e.target.value);
             setWidthValue(val);
             const _heightValue = Math.round(val / ratioRef.current);
             if (isLock) {
               setHeightValue(_heightValue);
             }
-            // 连续点击时有200ms的延迟
-            clearTimeout(debounceRef.current);
-            debounceRef.current = setTimeout(() => {
-              widthHelpers.setValue(val);
-              if (isLock) {
-                heightHelpers.setValue(_heightValue);
-              }
-            }, 200);
+
+            widthHelpers.setValue(val);
+            if (isLock) {
+              heightHelpers.setValue(_heightValue);
+            }
           }}
           onBlur={(e) => {
             const val = +e.currentTarget.value;
@@ -109,38 +102,34 @@ const Size = ({ widthName, heightName, lockName }: IFieldSize) => {
       <Col span={2}>
         <AspectWrap lock={isLock}>
           <Button
-            minimal={true}
             style={{ width: 24, height: 24, padding: 0, minWidth: 20, minHeight: 20 }}
-            icon={<Icon icon={isLock ? 'lock' : 'unlock'} iconSize={12} />}
-            intent={isLock ? 'primary' : 'none'}
             onClick={() => {
               setIsLock(!isLock);
               if (lockName) {
                 lockHelpers.setValue(!isLock);
               }
             }}
-          />
+          >
+            {isLock ? <LockIcon /> : <LockOpenIcon />}
+          </Button>
         </AspectWrap>
       </Col>
       <Col span={5}>
         <NumberStyled
-          leftIcon={<span className="prefix">高</span>}
-          {...commonProps}
+          size="small"
           value={heightValue}
-          onButtonClick={(val) => {
-            setHeightValue(val);
+          type="number"
+          onChange={(e) => {
+            const val = Number(e.target.value);
             const _widthValue = Math.round(val * ratioRef.current);
             if (isLock) {
               setWidthValue(_widthValue);
             }
-            // 连续点击时有200ms的延迟
-            clearTimeout(debounceRef.current);
-            debounceRef.current = setTimeout(() => {
-              heightHelpers.setValue(val);
-              if (isLock) {
-                widthHelpers.setValue(_widthValue);
-              }
-            }, 200);
+
+            heightHelpers.setValue(val);
+            if (isLock) {
+              widthHelpers.setValue(_widthValue);
+            }
           }}
           onBlur={(e) => {
             const val = +e.currentTarget.value;

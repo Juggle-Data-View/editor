@@ -4,8 +4,11 @@ import { ArrayHelpers, FormikContextType, useField, useFormikContext } from 'for
 
 import styled from 'styled-components';
 import { get } from 'lodash';
-import { Button, Icon, IconName } from '@blueprintjs/core';
+import { Button, ButtonGroup } from '@mui/material';
 import React from 'react';
+import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import ContentCopy from '@mui/icons-material/ContentCopy';
 
 type OperationValueTypes = 'add' | 'delete' | 'copy';
 
@@ -17,7 +20,7 @@ type Operations = {
   //操作数据的数组索引
   refIndex?: number;
   //操作项icon
-  icon?: IconName;
+  icon?: OperationValueTypes;
 };
 
 interface DynamicMultiFieldProps {
@@ -46,9 +49,6 @@ const Container = styled.div`
       flex: 3;
       display: flex;
       align-items: center;
-      .bp3-input-group {
-        margin: 0px 5px;
-      }
     }
     .operations {
       flex: 1;
@@ -109,6 +109,19 @@ const DynamicMultiField = withNode<DynamicMultiFieldProps>((props) => {
     }
   };
 
+  const getIcon = (iconName?: OperationValueTypes) => {
+    switch (iconName) {
+      case 'add':
+        return <AddCircleOutline />;
+      case 'delete':
+        return <DeleteForever />;
+      case 'copy':
+        return <ContentCopy />;
+      default:
+        return null;
+    }
+  };
+
   /**
    *
    * @param Operations 可操作的项
@@ -117,12 +130,8 @@ const DynamicMultiField = withNode<DynamicMultiFieldProps>((props) => {
   const renderOperations = (Operations: Operations[], isChild?: boolean) => {
     return Operations.map((item, index) => {
       return !canDelete && item.value === 'delete' ? null : (
-        <Button
-          style={{ marginRight: '5px' }}
-          key={index}
-          onClick={() => (isChild ? handleClick(item, index) : handleClick(item))}
-        >
-          {item.name || <Icon icon={item.icon} />}
+        <Button key={index} onClick={() => (isChild ? handleClick(item, index) : handleClick(item))}>
+          {item.name || getIcon(item.icon)}
         </Button>
       );
     });
@@ -131,12 +140,20 @@ const DynamicMultiField = withNode<DynamicMultiFieldProps>((props) => {
   return (
     <Container>
       <div>{fieldsName || ''}</div>
-      {operations ? <div className="operations">{renderOperations(operations)}</div> : null}
+      {operations ? (
+        <ButtonGroup size="small" sx={{ marginLeft: '5px' }}>
+          {renderOperations(operations)}
+        </ButtonGroup>
+      ) : null}
       {React.Children.map(children, (child, index) => {
         return (
           <div className="row" key={index}>
             <div className="content">{child}</div>
-            {childrenOperations ? <div className="operations">{renderOperations(childrenOperations)}</div> : null}
+            {childrenOperations ? (
+              <ButtonGroup size="small" sx={{ marginLeft: '5px' }}>
+                {renderOperations(childrenOperations)}
+              </ButtonGroup>
+            ) : null}
           </div>
         );
       })}

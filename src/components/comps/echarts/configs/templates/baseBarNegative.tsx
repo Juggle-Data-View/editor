@@ -75,7 +75,7 @@ const dictionary: INodeConfig[] = [
               }
             },
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -176,7 +176,7 @@ const dictionary: INodeConfig[] = [
 
             label: '柱条左上圆角',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -187,7 +187,7 @@ const dictionary: INodeConfig[] = [
 
             label: '柱条右上圆角',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -198,7 +198,7 @@ const dictionary: INodeConfig[] = [
 
             label: '柱条右下圆角',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },
@@ -209,7 +209,7 @@ const dictionary: INodeConfig[] = [
 
             label: '柱条左下圆角',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

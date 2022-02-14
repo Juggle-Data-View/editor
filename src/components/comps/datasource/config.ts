@@ -48,7 +48,7 @@ const config: IConfig = {
             name: 'size',
             label: '大小',
             props: {
-              bp: {
+              muiProps: {
                 min: 0,
               },
             },

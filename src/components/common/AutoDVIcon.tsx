@@ -49,7 +49,6 @@ const AutoDVIcon: React.FC<IAutoDVIconProps> = (props) => {
     <SvgIcon
       style={{
         transform: `scale(${flipX ? -1 : 1}, ${flipY ? -1 : 1})`,
-        color: '#ccc',
       }}
       className={className}
       fill={color || 'currentColor'}
@@ -62,8 +61,6 @@ const AutoDVIcon: React.FC<IAutoDVIconProps> = (props) => {
 };
 
 export default AutoDVIcon;
-
-/** ↓↓↓↓↓↓↓↓↓↓ LoadingIcon ↓↓↓↓↓↓↓↓↓↓ */
 
 interface LoadingIconProp extends SvgIconProps {
   duration?: number; // 动画持续时间，单位：秒

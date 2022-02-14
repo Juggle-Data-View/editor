@@ -1,11 +1,5 @@
 import { alpha, Theme } from '@mui/material/styles';
 
-// ----------------------------------------------------------------------
-
-// function createGradient(color1: string, color2: string) {
-//   return `linear-gradient(to bottom, ${color1}, ${color2})`;
-// }
-
 // SETUP COLORS
 const GREY: any = {
   A100: '#FFFFFF',
@@ -77,14 +71,6 @@ const ERROR: any = {
   contrastText: '#fff',
 };
 
-// const GRADIENTS: any = {
-//   primary: createGradient(PRIMARY.light, PRIMARY.main),
-//   info: createGradient(INFO.light, INFO.main),
-//   success: createGradient(SUCCESS.light, SUCCESS.main),
-//   warning: createGradient(WARNING.light, WARNING.main),
-//   error: createGradient(ERROR.light, ERROR.main),
-// };
-
 // const CHART_COLORS: any = {
 //   violet: ['#826AF9', '#9E86FF', '#D0AEFF', '#F7D2FF'],
 //   blue: ['#2D99FF', '#83CFFF', '#A5F3FF', '#CCFAFF'],
@@ -102,13 +88,10 @@ const palette: Theme['palette'] = {
   warning: { ...WARNING },
   error: { ...ERROR },
   grey: GREY,
-  // gradients: GRADIENTS,
-  // chart: CHART_COLORS,
   mode: 'light',
   contrastThreshold: 0,
   tonalOffset: 0,
   getContrastText: (color: string) => {
-    console.log(color);
     return color;
   },
   augmentColor: () => {
@@ -121,7 +104,7 @@ const palette: Theme['palette'] = {
   },
   divider: GREY[500_24],
   text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-  background: { paper: '#fff', default: '#fff' },
+  background: { paper: '#eee', default: '#fff' },
   action: {
     active: GREY[600],
     hover: GREY[500_8],

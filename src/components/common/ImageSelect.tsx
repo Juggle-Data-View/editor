@@ -1,4 +1,3 @@
-import { Colors } from '@blueprintjs/core';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import DropDown, { IDropDown } from 'components/common/DropDown';
@@ -48,7 +47,7 @@ const Container = styled.div`
       }
       &:hover,
       &.--active {
-        background: ${Colors.DARK_GRAY3};
+        background: #eee;
         .img {
           transform: scale(1.05);
         }

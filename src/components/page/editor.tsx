@@ -13,25 +13,43 @@ import notice from 'utils/notice';
 import { transContent } from 'helpers/importHelper';
 import DB from 'store/DB';
 import { qs } from 'utils';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+import ThemeConfig from 'config/theme';
 
 const Editor = () => {
   const dispatch = useDispatch();
 
-  const initApp = useCallback(async () => {
-    const app = await fetchAppConfig();
-    const isInit = await DB.needInitDB(app);
-
-    if (isInit) {
-      dispatch(appAction.init({ app }));
-      await DB.initDB(app);
-    } else {
+  const getConfigFromIndexedDB = async () => {
+    try {
       const app = await DB.getConfigByAPPID(Number(qs.query.id));
-      console.log('trigger');
+      dispatch(appAction.init({ app }));
+    } catch (error) {
+      console.log(error);
+      const app = await DB.getDefaultConfig();
       dispatch(appAction.init({ app }));
     }
+  };
+
+  const initApp = async () => {
+    if (!window.navigator.onLine) {
+      await getConfigFromIndexedDB();
+    }
+    try {
+      const app = await fetchAppConfig();
+      const isInit = await DB.needInitDB(app);
+      if (isInit) {
+        dispatch(appAction.init({ app }));
+        await DB.initDB(app);
+      } else {
+        await getConfigFromIndexedDB();
+      }
+    } catch (error) {
+      notice.alert('On offline mode');
+      await getConfigFromIndexedDB();
+    }
+
     setupWatch();
-  }, [dispatch]);
+  };
 
   useEffect(() => {
     initApp();
@@ -56,21 +74,24 @@ const Editor = () => {
         if (error instanceof Error) notice.error(error.message);
       }
     });
-  }, [initApp, dispatch]);
+  }, []); // eslint-disable-line
 
   return (
-    <>
-      <Header />
-      <section className="autoDV-main">
+    <ThemeConfig>
+      <section className="main">
         <LeftPannle />
-        <CenterPannle />
-        <RightPannle />
+        <div style={{ flex: 1, display: 'flex' }}>
+          <div style={{ width: '100%' }}>
+            <Header />
+            <CenterPannle />
+          </div>
+          <RightPannle />
+        </div>
       </section>
       <GlobalHotKeys />
       <EditorGlobalStyle />
-    </>
+    </ThemeConfig>
   );
 };
 
-// export default withTheme(Editor);
 export default Editor;
