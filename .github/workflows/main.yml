@@ -18,6 +18,7 @@ jobs:
         with:
           node-version: '14'
           cache: npm
+          cache-dependency-path: package.json
       - run: npm install yarn -g
       - run: yarn 
       - run: yarn autoDeploy:release 
