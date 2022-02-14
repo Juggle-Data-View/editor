@@ -10,6 +10,20 @@ import 'assets/style/index.scss';
 
 injectCDNScript();
 
+//Disable MUI error .'Cause MUI debug source map was losed
+const oldError = console.error;
+
+console.error =
+  process.env.NODE_ENV === 'development'
+    ? (message, ...optionalParams) => {
+        if (message.includes && message.includes('MUI')) {
+          return;
+        } else {
+          oldError(message, ...optionalParams);
+        }
+      }
+    : oldError;
+
 const Index = () => {
   return (
     <Providers>

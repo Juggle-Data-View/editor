@@ -110,6 +110,12 @@ declare global {
       compFieldName: string;
       /** 数据源映射字段值  */
       sourceFieldName: string;
+      /** source data field alias name*/
+      alias?: string;
+
+      //TODO: Declare filter type as function name
+      /** current map filter */
+      filter?: string;
     }
 
     interface DataParam {

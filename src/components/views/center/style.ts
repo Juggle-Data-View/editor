@@ -69,9 +69,6 @@ export const CentFootStyled = styled.div`
   .action-input {
     margin-left: 15px;
     width: 100px;
-    .bp3-control-group {
-      transform: none; /** 解决inputNumber上部分被切断1px问题 */
-    }
   }
   input {
     padding: 5px 10px;

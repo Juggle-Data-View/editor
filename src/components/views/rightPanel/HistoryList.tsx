@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HistoryPanelStyled } from './style';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo, selectEditorPanel } from 'store/selectors';
+import { Divider, MenuItem, IconButton } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { editorAction } from 'store/features/editorSlice';
 
 const DEFAULT_ACTION = 'DEFAULT_ACTION';
 
@@ -14,30 +17,35 @@ const HistoryList: React.FC = () => {
     <HistoryPanelStyled visible={panel.history}>
       <div className="panel-head">
         <div className="common-title">历史记录</div>
+        <IconButton onClick={() => dispatch(editorAction.togglePanel('history'))}>
+          <Close />
+        </IconButton>
       </div>
+      <Divider />
       <div className="panel-body">
         <div style={{ background: 'transparent' }}>
           {past.map((step: AutoDV.State, index: number) => {
             return (
-              <div
+              <MenuItem
                 className="undo-past"
                 onClick={() => {
                   dispatch(ActionCreators.jumpToPast(index));
                 }}
                 key={index}
+                color="secondary"
               >
                 {step.actionAlias || DEFAULT_ACTION}
-              </div>
+              </MenuItem>
             );
           })}
           {_latestUnfiltered ? (
-            <div key="undo-present" className="undo-present">
+            <MenuItem key="undo-present" selected className="undo-present" style={{ color: '#fff' }}>
               {_latestUnfiltered.actionAlias || DEFAULT_ACTION}
-            </div>
+            </MenuItem>
           ) : null}
           {future.map((step: AutoDV.State, index: number) => {
             return (
-              <div
+              <MenuItem
                 className="undo-future"
                 key={index}
                 onClick={() => {
@@ -45,7 +53,7 @@ const HistoryList: React.FC = () => {
                 }}
               >
                 {step.actionAlias}
-              </div>
+              </MenuItem>
             );
           })}
         </div>

@@ -15,6 +15,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import DataPanel from './DataPanel';
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ const Loader = () => (
 
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon, parentCompCode, parentName, parentCode } = props;
-  const { code, compCode, compTempCode, alias } = compData;
+  const { code, compCode, compTempCode, alias, dataConfig } = compData;
   const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState('config');
@@ -119,7 +120,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
             <TabContext value={activeTabIndex}>
               <TabList sx={{ height: '34px' }} onChange={(event, newValue) => setActiveTabIndex(newValue)}>
                 {tab.config && <Tab sx={{ height: '34px' }} label="配置" value="config" />}
-                {/* {tab.dataset && <Tab sx={{ height: '34px' }} label="数据" value="dataset" />} */}
+                {tab.dataset && <Tab sx={{ height: '34px' }} label="数据" value="dataset" />}
                 {extraTab
                   ? extraTab.map(({ title, component: C }) => {
                       return <Tab key={title} value={title} />;
@@ -131,11 +132,11 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
                   {ConfigPanel}
                 </TabPanel>
               )}
-              {/* {tab.dataset && (
+              {tab.dataset && dataConfig && (
                 <TabPanel id="dataset" value="dataset">
-                  <DataConfig {...props} />
+                  <DataPanel {...dataConfig} />
                 </TabPanel>
-              )} */}
+              )}
               {extraTab
                 ? extraTab.map(({ title, component: C }) => {
                     return (

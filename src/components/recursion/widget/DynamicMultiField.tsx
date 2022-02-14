@@ -49,9 +49,6 @@ const Container = styled.div`
       flex: 3;
       display: flex;
       align-items: center;
-      .bp3-input-group {
-        margin: 0px 5px;
-      }
     }
     .operations {
       flex: 1;

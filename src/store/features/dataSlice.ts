@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { decorateData2array } from 'utils/dataTranslate';
 import type { Menu } from 'config/menu';
+import menu from 'config/menu';
 
 export const asyncLoadMenu = createAsyncThunk('menu/load', async () => {
   try {
@@ -20,11 +21,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   originDatas: {},
-  menu: {
-    categories: {},
-    categoryIds: [],
-    comps: {},
-  },
+  menu: menu,
 };
 
 const dataSlice = createSlice({
@@ -46,18 +43,7 @@ const dataSlice = createSlice({
     builder.addCase(asyncLoadMenu.fulfilled, (state, action) => {
       if (action.payload) {
         state.menu = action.payload;
-
-        // 根据嵌套关系，给每个组件的配置里生成 groupId、categoryId
-        const { categories, categoryIds } = state.menu;
-        categoryIds.forEach((categoryId) => {
-          const { groups, groupIds, icon } = categories[categoryId];
-          groupIds.forEach((groupId) => {
-            const group = groups[groupId];
-            group.compIds.forEach((compId) => {
-              state.menu.comps[compId].categoryIcon = icon;
-            });
-          });
-        });
+        // const { categories, categoryIds } = state.menu;
       }
     });
   },

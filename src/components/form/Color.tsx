@@ -40,11 +40,6 @@ const Container = styled.div`
         transform: scale(0.85);
         transform-origin: right 0;
       }
-      .bp3-switch {
-        margin: 0 -10px 0 5px !important;
-        padding-right: 0 !important;
-        min-height: auto;
-      }
     }
     .sketch-picker {
       margin: 0 auto;

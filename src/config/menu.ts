@@ -1,15 +1,20 @@
 export type Comp = {
   alias: string;
   thumbnail: string;
-  keywords?: string[]; // 可被搜索的关键词
-
-  // 无需设置，程序自动生产
+  keywords?: string[];
   categoryIcon?: string;
+};
+
+export type GroupChildren = {
+  id: string;
+  name: string;
+  sanpShotUrl?: string;
+  publicPath?: string;
 };
 
 export type Group = {
   alias: string;
-  compIds: string[];
+  children: GroupChildren[];
 };
 
 export type Category = {
@@ -18,42 +23,51 @@ export type Category = {
   groups: Record<string, Group>;
 };
 
+export type MenuItemKey = 'echarts' | 'text';
+
 export type Menu = {
-  [key: string]: Category;
+  [key in MenuItemKey]: Category;
 };
 
 const menu: Menu = {
   echarts: {
-    alias: '图表',
+    alias: 'ECharts图表',
     icon: 'chart',
     groups: {
       bar: {
         alias: '柱状图',
-        compIds: [
-          'base_bar',
-          'multi_bar',
-          'line_bar',
-          'double_axis_line_bar',
-          'horizontal_bar',
-          'horizontal_bar_negative',
+        children: [
+          { id: 'base_bar', name: '基础柱状图' },
+          { id: 'multi_bar', name: '多系列柱状图' },
+          { id: 'line_bar', name: '折线柱状图' },
+          { id: 'double_axis_line_bar', name: '双轴折线柱状图' },
+          { id: 'horizontal_bar', name: '水平柱状图' },
+          { id: 'horizontal_bar_negative', name: '双向柱状图' },
         ],
       },
       line: {
         alias: '折线图',
-        compIds: ['base_line', 'multi_line'],
+        children: [
+          { id: 'base_line', name: '基础折线图' },
+          { id: 'multi_line', name: '多系列折线图' },
+        ],
       },
 
       list: {
         alias: '列表',
-        compIds: ['table/index'],
+        children: [{ id: 'table', name: '基础表格', publicPath: 'table' }],
       },
       pie: {
         alias: '饼图',
-        compIds: ['pie'],
+        children: [{ id: 'pie', name: '基础饼图' }],
       },
       else: {
         alias: '其他',
-        compIds: ['radar', 'funnel', 'treeMap'],
+        children: [
+          { id: 'radar', name: '雷达图' },
+          { id: 'funnel', name: '漏斗图' },
+          { id: 'treeMap', name: '矩形统计' },
+        ],
       },
     },
   },
@@ -62,8 +76,8 @@ const menu: Menu = {
     icon: 'autoDV-text',
     groups: {
       text: {
-        alias: '文本',
-        compIds: ['commonTitle/index'],
+        alias: '基础文本',
+        children: [{ id: 'index', name: '普通文本', publicPath: 'commonTitle' }],
       },
     },
   },

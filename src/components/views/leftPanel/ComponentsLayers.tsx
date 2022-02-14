@@ -9,8 +9,6 @@ import { LeftPanelStyled } from './style';
 import { selectEditorPanel } from 'store/selectors';
 import { RootState } from 'store/index';
 import { appAction } from 'store/features/appSlice';
-// import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-// import ViewListIcon from '@mui/icons-material/ViewList';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LockIcon from '@mui/icons-material/Lock';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

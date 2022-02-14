@@ -11,6 +11,7 @@ import SkipPreviousOutlinedIcon from '@mui/icons-material/SkipPreviousOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { editorAction } from 'store/features/editorSlice';
 import { selectEditorPanel } from 'store/selectors';
+import ComponentsStore from './ComponentsStore';
 
 const LeftPanel: React.FC = () => {
   const [activeKey, setActiveKey] = useState('layer');
@@ -27,7 +28,7 @@ const LeftPanel: React.FC = () => {
       <TabContext value={activeKey}>
         <div className="dashbroadController">
           <TabList orientation="vertical" onChange={handleChange}>
-            <Tab label="新建组件" icon={<AddCircle />} />
+            <Tab label="新建组件" value="create" icon={<AddCircle />} />
             <Tab label="图层列表" value="layer" icon={<LayersIcon />} />
           </TabList>
           <div className="operations" onClick={() => dispatch(editorAction.togglePanel('compList'))}>
@@ -37,6 +38,9 @@ const LeftPanel: React.FC = () => {
 
         <TabPanel value="layer">
           <ComponentsLayers />
+        </TabPanel>
+        <TabPanel value="create">
+          <ComponentsStore />
         </TabPanel>
       </TabContext>
     </LeftPannelContainer>

@@ -7,7 +7,7 @@ import { showContextMenu, hideContextMenu } from 'helpers/contextMenu';
 import { ItemStyled } from './style';
 import classNames from 'classnames';
 import AutoDVIcon from 'components/common/AutoDVIcon';
-import { selectMenu, selectKeyPress } from 'store/selectors';
+import { selectKeyPress } from 'store/selectors';
 import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
 import { DEFAULT_THUMBNAIL } from 'config/const';
@@ -29,14 +29,12 @@ interface IListItem {
 const ListItem = (props: IListItem) => {
   const [editAble, setEditAble] = useState(false);
   const { item, index, isSelected, isGhosting, selectedCount, isDraggingOver, small } = props;
-  const { code, alias, title, locked, hided, compCode, compTempCode } = item;
+  const { code, alias, title, locked, hided, compTempCode } = item;
   const visibleAction = locked || hided;
   const hoverIndex = useSelector((state: RootState) => state.editor.hoverIndex);
   const isSelecto = useSelector((state: RootState) => state.editor.isSelecto);
   const key = useSelector(selectKeyPress);
   const dispatch = useDispatch();
-  const menu = useSelector(selectMenu);
-  const comp = menu.comps[[compCode, compTempCode].join('/')];
 
   const onSelect = (e: React.SyntheticEvent) => {
     hideContextMenu();
@@ -121,13 +119,9 @@ const ListItem = (props: IListItem) => {
                 })}
               >
                 {small ? (
-                  <AutoDVIcon className="thumb-icon" icon={comp.categoryIcon as any} size={13} />
+                  <AutoDVIcon className="thumb-icon" icon="autoDV-flip-horizontal" size={13} />
                 ) : (
-                  <img
-                    src={comp ? comp.thumbnail : DEFAULT_THUMBNAIL}
-                    onError={(e) => (e.currentTarget.src = DEFAULT_THUMBNAIL)}
-                    alt=""
-                  />
+                  <img src={DEFAULT_THUMBNAIL} onError={(e) => (e.currentTarget.src = DEFAULT_THUMBNAIL)} alt="" />
                 )}
               </div>
               <div className="info">

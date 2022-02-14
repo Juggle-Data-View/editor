@@ -13,9 +13,6 @@ const Container = styled.div<{ hasError: boolean }>`
   .slider-wrap {
     flex: 1.5;
     overflow: ${(props) => (props.hasError ? 'hidden' : 'initial')};
-    .bp3-slider {
-      min-width: auto;
-    }
   }
   .gap {
     width: 15px;

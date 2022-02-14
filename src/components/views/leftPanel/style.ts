@@ -226,4 +226,29 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
 
 export const ComponentsStoreContainer = styled.div`
   width: 240px;
+  height: 100%;
+  overflow: auto;
+  background: ${({ theme }) => theme.palette.background.default};
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  .components {
+    width: 115px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+    img {
+      width: 40px;
+    }
+  }
+  .storeListRow {
+    width: 100%;
+    display: flex;
+  }
 `;

@@ -28,6 +28,7 @@ const Container = styled.div.attrs(() => {
       right: 10px;
       bottom: 0;
       height: 1px;
+      background: ${({ theme }) => theme.palette.divider};
     }
 
     .lt {

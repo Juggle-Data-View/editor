@@ -32,22 +32,6 @@ const Container = styled.div.attrs<Partial<IFieldLabel>>(({ vertical }) => {
       margin-top: 3px;
       line-height: 1.25;
     }
-
-    // 使控件与左侧文字始终保持对齐
-    .bp3-switch,
-    .bp3-checkbox,
-    .bp3-radio {
-      min-height: 30px;
-      display: flex;
-      align-items: center;
-      .bp3-control-indicator {
-        margin-top: 1px; // 解决控件与文字上下不对齐的问题
-      }
-      &.bp3-inline {
-        display: inline-flex;
-        margin: 0 10px 0 0;
-      }
-    }
   }
 
   &.--vertical {
