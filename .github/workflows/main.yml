@@ -17,9 +17,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+          cache: npm
       - run: npm install yarn -g
       - run: yarn 
-      - run: yarn build 
+      - run: yarn autoDeploy:release 
       - name: Deploy to Server # 第二步，rsync推文件
         uses: AEnterprise/rsync-deploy@v1.0 # 使用别人包装好的步骤镜像
         env:

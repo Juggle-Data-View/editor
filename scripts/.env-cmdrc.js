@@ -10,6 +10,9 @@ module.exports = {
   development: {
     REACT_APP_AutoDV_ENV: 'development',
     REACT_APP_API_BASE_URL: '//localhost:3002',
-    REACT_APP_COVER_IMAGE_API_BASE_URL: 'http://11.50.77.199',
+  },
+  production: {
+    REACT_APP_AutoDV_ENV: 'development',
+    REACT_APP_API_BASE_URL: '//localhost:3002',
   },
 };
