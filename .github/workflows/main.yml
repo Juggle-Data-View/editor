@@ -1,0 +1,43 @@
+name: Deploy site files
+
+on:
+  push:
+    branches:
+      - master # 只在master上push触发部署
+    paths-ignore: # 下列文件的变更不触发部署，可以自行添加
+      - README.md
+      - LICENSE
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # 使用ubuntu系统镜像运行自动化脚本
+
+    steps: # 自动化步骤
+      - uses: actions/checkout@v2 # 第一步，下载代码仓库
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: npm
+      - run: npm install yarn -g
+      - run: yarn 
+      - run: yarn build 
+      - name: Deploy to Server # 第二步，rsync推文件
+        uses: AEnterprise/rsync-deploy@v1.0 # 使用别人包装好的步骤镜像
+        env:
+          DEPLOY_KEY: ${{ secrets.ASHES }} # 引用配置，SSH私钥
+          ARGS: -avz --delete --exclude='*.pyc' # rsync参数，排除.pyc文件
+          SERVER_PORT: "22" # SSH端口
+          FOLDER: ./build # 要推送的文件夹，路径相对于代码仓库的根目录
+          SERVER_IP: ec2-13-52-231-26.us-west-1.compute.amazonaws.com # 引用配置，服务器的host名（IP或者域名domain.com）
+          USERNAME: ubuntu # 引用配置，服务器登录名
+          SERVER_DESTINATION: ~/autoDV # 部署到目标文件夹
+      - name: Restart server # 第三步，重启服务
+        uses: appleboy/ssh-action@master
+        with:
+          host: ec2-13-52-231-26.us-west-1.compute.amazonaws.com # 下面三个配置与上一步类似
+          username: ubuntu
+          key: ${{ secrets.ASHES }}
+          # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
+          script: |
+            cp ~/autoDV/nginx.conf /etc/nginx/conf.d/
+            nginx -s reload
