@@ -14,6 +14,8 @@ export const selectCanvas = (state: RootState) => state.autoDV.present.canvas;
 
 export const selectKeyPress = (state: RootState) => state.autoDV.present.keyPressed;
 
+export const selectDatasources = (state: RootState) => state.autoDV.present.app.datasources;
+
 /** comp */
 
 export const selectCompCodes = (state: RootState) => state.autoDV.present.compCodes;

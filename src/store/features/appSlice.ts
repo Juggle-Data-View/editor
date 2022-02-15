@@ -32,6 +32,7 @@ const initialState: AutoDV.State = {
     name: '',
     spaceId: -1,
     type: 0,
+    datasources: [],
   },
   canvas: {
     id: null,

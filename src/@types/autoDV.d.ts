@@ -25,6 +25,32 @@ declare global {
      */
     type ZoomType = 0 | 1 | 2 | 3 | 4 | 5;
 
+    interface DatasourceBase {
+      type: DataSourceType;
+      id: string;
+      name: string;
+      //Data filter function array
+      operation?: string[];
+    }
+
+    interface APIDatasourceInstance extends DatasourceBase {
+      type: 1;
+      url: string;
+      method: Const.HttpMethod;
+      header?: { [key: string]: string | number | boolean };
+    }
+
+    interface StaticDatasourceInstance<T = any> extends DatasourceBase {
+      type: 0;
+      body: T;
+    }
+
+    interface ExeclDatasourceInstance extends DatasourceBase {
+      // execl storage url
+      url: string;
+      type: 3;
+    }
+
     /**
      * 页面配置全部数据
      */
@@ -32,6 +58,7 @@ declare global {
       canvas: Canvas & {
         compInsts?: Comp[];
       };
+      datasources: (APIDatasourceInstance | StaticDatasourceInstance | ExeclDatasourceInstance)[];
       createTime?: number;
       createUser?: string;
       id: AppID;
