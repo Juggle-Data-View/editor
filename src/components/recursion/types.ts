@@ -12,7 +12,7 @@ interface IBaseNodeConfig<P = any> {
    */
   name: string;
   /** 表单左侧文本，如果不设置，表单控件组件会顶到左侧 */
-  label?: React.ReactNode | ((fieldProps: INodeParams) => React.ReactNode);
+  label?: React.ReactNode | ((fieldProps: INodeParams) => React.ReactNode) | { [key in AutoDV.Editor['lang']]: string };
   /** 左侧文本属性，有传递给子组件的功能 */
   labelProps?: Omit<IFieldLabel, 'label'>;
   /** 节点默认值，使用 utils.getDefaultValues 时需要使用 */
@@ -68,6 +68,7 @@ export type INodeConfig<T = unknown> = Expand<typeof nodeMapping & T>;
 export interface INodeProps {
   node: INodeConfig;
   parentName: string;
+  i18n?: 'zh' | 'en';
 }
 
 /**
@@ -153,9 +154,12 @@ export interface IGenerator {
   parentName?: string;
 
   children?: (props: ChildProps) => React.ReactNode;
+
+  i18n?: 'zh' | 'en';
 }
 
 export interface INodeLabel {
   node: INodeProps['node'];
   params: INodeParams;
+  i18n?: 'zh' | 'en';
 }

@@ -101,6 +101,7 @@ declare global {
       adaptiveScale: number;
       isSelecto: boolean;
       rightPannelType: 'global' | 'component' | 'multiple-select' | 'group' | 'hidden';
+      lang: 'zh' | 'en';
     }
 
     /** 数据源相关 */

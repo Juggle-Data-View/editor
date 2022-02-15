@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editorAction } from 'store/features/editorSlice';
 import { selectEditorPanel } from 'store/selectors';
 import ComponentsStore from './ComponentsStore';
+import StorageIcon from '@mui/icons-material/Storage';
+import DatasourceList from './DatasourceList';
 
 const LeftPanel: React.FC = () => {
   const [activeKey, setActiveKey] = useState('layer');
@@ -30,6 +32,7 @@ const LeftPanel: React.FC = () => {
           <TabList orientation="vertical" onChange={handleChange}>
             <Tab label="新建组件" value="create" icon={<AddCircle />} />
             <Tab label="图层列表" value="layer" icon={<LayersIcon />} />
+            <Tab label="数据源" value="datasource" icon={<StorageIcon />} />
           </TabList>
           <div className="operations" onClick={() => dispatch(editorAction.togglePanel('compList'))}>
             <SkipPreviousOutlinedIcon />
@@ -41,6 +44,9 @@ const LeftPanel: React.FC = () => {
         </TabPanel>
         <TabPanel value="create">
           <ComponentsStore />
+        </TabPanel>
+        <TabPanel value="datasource">
+          <DatasourceList />
         </TabPanel>
       </TabContext>
     </LeftPannelContainer>

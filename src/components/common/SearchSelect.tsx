@@ -25,7 +25,7 @@ const SearchSelect: React.FC<SearchSelectProps> = (props) => {
   const { activeItem, items, onItemSelect, extraRefresh, showEmpty = true, placeholder } = props;
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
       <Autocomplete
         fullWidth
         options={showEmpty ? [empty].concat(items) : items}

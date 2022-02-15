@@ -36,6 +36,8 @@ export const selectGuideLines = (state: RootState) => state.editor.guideLines;
 
 export const selectRightPannelType = (state: RootState) => state.editor.rightPannelType;
 
+export const selectLang = (state: RootState) => state.editor.lang;
+
 /** data */
 
 export const selectOriginDatas = (state: RootState) => state.data.originDatas;
