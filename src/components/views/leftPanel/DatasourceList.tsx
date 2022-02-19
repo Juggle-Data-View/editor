@@ -15,9 +15,9 @@ const DatasourceList: React.FC = () => {
 
   const datasourceList: AutoDV.AppConfig['datasources'] = [
     {
-      id: 'test1',
+      dataSourceId: 'test1',
       name: ' 测试数据',
-      type: 0,
+      dataSourceType: 0,
       body: [
         {
           test: 'test',
@@ -38,11 +38,11 @@ const DatasourceList: React.FC = () => {
   };
 
   const renderListItem = () => {
-    return datasourceList.map(({ type, name }) => {
+    return datasourceList.map(({ dataSourceType, name }) => {
       return (
         <div className="listItem">
           <IconButton>
-            <AutoDVIcon icon={getDatasourceIcon(type)} />
+            <AutoDVIcon icon={getDatasourceIcon(dataSourceType)} />
           </IconButton>
           {name}
         </div>

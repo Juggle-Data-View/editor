@@ -15,8 +15,8 @@ declare global {
     type CanvasID = number | null; // 画布ID
 
     /**
-     * 缩放方式：
-     *  0 - 原始比例
+     * scale way
+     *  0 - normal
      *  1 - 等比缩放&宽度铺满，画布宽度与浏览器可视区宽度一致，可视区高度小于画布高度时可上下滚动
      *  2 - 等比缩放&⾼度铺满，画布高度与浏览器可视区高度一致，可视区宽度小于画布宽度时可左右滚动
      *  3 - 全屏铺满，画布尺寸与可视区一致，会拉伸。
@@ -25,35 +25,34 @@ declare global {
      */
     type ZoomType = 0 | 1 | 2 | 3 | 4 | 5;
 
-    interface DatasourceBase {
-      type: DataSourceType;
-      id: string;
+    interface DataConfig {
+      dataSourceType: DataSourceType;
+      dataSourceId: DataSourceId;
+      //All components request data frequency of using the datasrouce
+      frequency?: number;
+      //request params
+      dataParams?: DataParam[];
+      //datasource operation set
+      operator?: string[];
       name: string;
-      //Data filter function array
-      operation?: string[];
     }
-
-    interface APIDatasourceInstance extends DatasourceBase {
-      type: 1;
+    interface APIDatasourceInstance extends DataConfig {
+      dataSourceType: 1;
       url: string;
       method: Const.HttpMethod;
       header?: { [key: string]: string | number | boolean };
     }
 
-    interface StaticDatasourceInstance<T = any> extends DatasourceBase {
-      type: 0;
+    interface StaticDatasourceInstance<T = any> extends DataConfig {
+      dataSourceType: 0;
       body: T;
     }
 
-    interface ExeclDatasourceInstance extends DatasourceBase {
+    interface ExeclDatasourceInstance extends DataConfig {
       // execl storage url
       url: string;
-      type: 3;
+      dataSourceType: 3;
     }
-
-    /**
-     * 页面配置全部数据
-     */
     interface AppConfig {
       canvas: Canvas & {
         compInsts?: Comp[];
@@ -232,32 +231,6 @@ declare global {
       //转换使用的辅助结构
       auxFieldMap: Field[];
     }
-
-    interface DataConfig {
-      dataSourceType: DataSourceType;
-      /** 数据源ID，不能为-1 */
-      dataSourceId: DataSourceId;
-      /** 代码⽚片段ID， 不能为-1 */
-      scriptId: number | null;
-      /** 推送频率，单位：秒 */
-      frequency: number;
-      /** 数据参数kv列列表 json格式 [{"name":"a","value":12}] */
-      dataParams: DataParam[];
-      /**
-       * mock数据，⽤于编排⻚页⾯面渲染 源⾃自组件数据或数据源数据，或⽤用户⾃自定义
-       * 不超过1000个字符 是否跟随组件模板变化? 否
-       */
-      mockData: any[];
-      /** 组件字段和数据字段名称映射 */
-      fieldMap: Field[];
-      /** 数据是否⾃动更新 */
-      autoRefresh: boolean;
-      /** 代码片段内容 */
-      specScript: string;
-      /** 数据源组结构*/
-      jsonMap?: JsonMap;
-    }
-
     interface Canvas {
       appId: AppID;
       backgroundColor: string;
@@ -288,13 +261,6 @@ declare global {
       scale: number[];
       lock: boolean;
       opacity: number;
-    }
-
-    interface SubCompTemp<T = string, C = any> {
-      dataConfig?: Partial<AutoDV.DataConfig>;
-      config: C;
-      alias: string;
-      compCode: T;
     }
 
     /**
@@ -336,8 +302,6 @@ declare global {
       hided: boolean;
       /** 组件缩略图 */
       compThumb?: string;
-      /** 子组件配置 */
-      subComponents?: SubComp[];
     }
 
     // 组件属性自带的状态
@@ -359,11 +323,6 @@ declare global {
       angle: number;
       /** 多个颜色 */
       colorStops: ColorStop[];
-    }
-
-    interface SubComp<T = string, C = any> extends SubCompTemp<T, C> {
-      code: string;
-      hided: boolean;
     }
 
     /**
@@ -418,14 +377,24 @@ declare global {
       groupId: string;
     }
 
+    interface CompDataConfig {
+      id: DataSourceId;
+      //data field map to component field
+      fieldMap: Field[];
+      //independence request data frequency
+      frequency: number;
+      autoRefresh: boolean;
+      //sub-datasource filed mapping path
+      jsonMap?: JsonMap;
+    }
+
     /**
      * 业务组件模板 类型
      * 用于约定业务组件`temps`目录下文件中的配置项类型
      */
     type CompTemp<C = any> = Pick<Comp<C>, 'title' | 'config'> & {
       attr: Partial<Attr>;
-      dataConfig?: Partial<DataConfig>;
-      subComponents?: SubCompTemp[];
+      dataConfig?: Partial<CompDataConfig>;
     };
 
     interface CompConfig<T = any> {

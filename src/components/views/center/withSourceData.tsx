@@ -6,30 +6,19 @@
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useInterval, useUnmount } from 'ahooks';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  // useSelector,
+  useDispatch,
+} from 'react-redux';
 import { fetchDataInEditor, fetchDataInView } from 'helpers/fetchData';
-import dataTranslate, { translateFromAux, decorateData2array } from 'utils/dataTranslate';
-import { getJsonMap } from 'utils';
+import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 import getDecoration from 'utils/getDecoration';
 import useDynamicParams from './useDynamicParams';
 import { DataSourceType } from 'config/const';
-import { RootState } from 'store/index';
 import { cacheOriginData } from 'store/features/dataSlice';
 import emitter, { eventName } from 'utils/events';
 import global from 'utils/global';
-
-// 取 数据源组件 的数据
-const datasourceSelector = (dataConfig: AutoDV.DataConfig | undefined) => {
-  return (state: RootState) => {
-    const { originDatas } = state.data;
-    if (dataConfig && dataConfig.dataSourceType === DataSourceType.DataSource) {
-      // 数据源类型的数据，取绑定的数据源组件数据
-      const { sourceCode } = getJsonMap(dataConfig);
-      return sourceCode ? originDatas[sourceCode] : undefined;
-    }
-    return undefined;
-  };
-};
+// import { selectDatasources } from 'store/selectors';
 
 export interface HOCProps {
   comps?: AutoDV.Comp[];
@@ -45,7 +34,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     const { code, dataConfig } = compData;
     const { io } = global;
     const [origin, setOrigin] = useState<unknown>();
-    const datasourceData = useSelector(datasourceSelector(dataConfig));
+    // const datasourceData = useSelector(selectDatasources);
     const dispatch = useDispatch();
 
     /**
@@ -87,10 +76,11 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
        * 3. 在编排系统中
        * 4. 关闭定时更新配置
        */
-      if (!dataConfig || io || isInEditor || !dataConfig.autoRefresh) {
+      if (!dataConfig || io || isInEditor) {
         return null;
       }
-      return dataConfig.frequency * 1000;
+      //TODO: use data source frequence
+      return 1000;
     }, [dataConfig, io, isInEditor]);
 
     const getOriginData = useCallback(
@@ -98,14 +88,18 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         try {
           switch (dataConfig.dataSourceType) {
             case DataSourceType.Static: {
-              return dataConfig.mockData;
+              //TODO: get static data
+              return [];
             }
-            case DataSourceType.DataSource: {
-              if (datasourceData) {
-                const { sourceCode, auxFieldMap } = getJsonMap(dataConfig);
-                return sourceCode ? translateFromAux(auxFieldMap, datasourceData) : undefined;
-              }
-              break;
+            // case DataSourceType.DataSource: {
+            //   if (datasourceData) {
+            //     const { sourceCode, auxFieldMap } = getJsonMap(dataConfig);
+            //     return sourceCode ? translateFromAux(auxFieldMap, datasourceData) : undefined;
+            //   }
+            //   break;
+            // }
+            case DataSourceType.API: {
+              return [];
             }
             default: {
               if (isInEditor) {
@@ -129,7 +123,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
           }
         }
       },
-      [datasourceData, isInEditor, isSubComp, parentCode, dispatch]
+      [isInEditor, isSubComp, parentCode, dispatch]
     );
 
     // 接口动态参数
@@ -195,8 +189,8 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         if (!origin || (origin as AutoDV.CustomOriginData).id === code) {
           return [];
         }
-        // 这么写的原因是在ws中，时间器组件没有dataConfig配置，但是仍然需要做转换
-        const data = dataConfig ? dataTranslate(origin, dataConfig.fieldMap) : decorateData2array(origin);
+        // TODO: data tranlater second parameter is missing
+        const data = dataConfig ? dataTranslate(origin, []) : decorateData2array(origin);
 
         if (decoratorObj) {
           const { decorator } = decoratorObj;

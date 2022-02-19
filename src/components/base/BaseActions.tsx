@@ -51,14 +51,14 @@ export const DELETE_COMP = () => {
   });
 };
 
-const getStaticData = async (compCode: string) => {
-  const staticDatas = await import(`../comps/staticData`);
-  if (compCode in staticDatas) {
-    return staticDatas[compCode as keyof typeof staticDatas];
-  } else {
-    return [];
-  }
-};
+// const getStaticData = async (compCode: string) => {
+//   const staticDatas = await import(`../comps/staticData`);
+//   if (compCode in staticDatas) {
+//     return staticDatas[compCode as keyof typeof staticDatas];
+//   } else {
+//     return [];
+//   }
+// };
 
 /**
  * 添加组件到画布中
@@ -89,12 +89,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);
 
     // 如果组件有`dataConfig`属性就添加静态数据
-    if (template.dataConfig) {
-      compData.dataConfig = merge({}, compData.dataConfig, {
-        // 有静态数据就获取静态数据
-        mockData: await getStaticData(compCode),
-      });
-    } else {
+    if (!template.dataConfig) {
       delete compData.dataConfig;
     }
     store.dispatch(appAction.addComp({ comps: [compData] }));

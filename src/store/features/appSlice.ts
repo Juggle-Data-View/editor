@@ -559,20 +559,7 @@ export const appSlice = createSlice({
         return { payload: { ...payload, _alias: '创建分组' } };
       },
     },
-    updateSubComp: {
-      reducer(state, action: PayloadAction<{ parentCode: string; code: string; comp: AutoDV.SubComp }>) {
-        const { code, comp, parentCode } = action.payload;
-        const compData = state.compDatas[parentCode];
-        const subComps = compData.subComponents as AutoDV.SubComp[];
-        const subCompsIndex = subComps.findIndex((item) => item.code === code);
-        if (subCompsIndex !== -1) {
-          (state.compDatas[parentCode].subComponents as any[])[subCompsIndex] = comp;
-        }
-      },
-      prepare(payload) {
-        return { payload: { ...payload, _alias: '更新子组件' } };
-      },
-    },
+
     cancelGroup: {
       reducer(state, action: PayloadAction<{ code: string }>) {
         const { compDatas, compCodes } = state;
