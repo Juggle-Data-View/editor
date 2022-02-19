@@ -4,7 +4,7 @@
 
 import { getAutoDV, nanocode } from 'utils';
 import notice from 'utils/notice';
-import { asyncLoadStaticData, asyncLoadCompConfig } from 'helpers/asyncLoad';
+import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
 import { defaultCompData } from 'config/defaults';
 import store from 'store/index';
@@ -51,6 +51,15 @@ export const DELETE_COMP = () => {
   });
 };
 
+const getStaticData = async (compCode: string) => {
+  const staticDatas = await import(`../comps/staticData`);
+  if (compCode in staticDatas) {
+    return staticDatas[compCode as keyof typeof staticDatas];
+  } else {
+    return [];
+  }
+};
+
 /**
  * 添加组件到画布中
  * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/compTempCode}
@@ -61,7 +70,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     if (!compCode || !compTempCode) {
       throw new Error('缺少组件类型或组件模板！');
     }
-    const { template, staticData } = await asyncLoadCompConfig(compCode, compTempCode);
+    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
     const selfComp = {
       code: nanocode(compCode),
       compTempCode,
@@ -77,38 +86,13 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       config: {},
     };
 
-    //拥有子组件的组件 新增时需要生成子组件的code，并记录子组件的生成顺序
-    if (template.subComponents) {
-      const codes: string[] = [];
-
-      template.subComponents.forEach((item: any) => {
-        const code = nanocode(item.compCode);
-        codes.push(code);
-        item.code = code;
-      });
-      template.config.layersSorted = codes;
-    }
-
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);
-
-    if (compData.subComponents && compData.subComponents.length) {
-      for await (const item of compData.subComponents) {
-        if (item.dataConfig) {
-          const staticData = await asyncLoadStaticData(compCode, item.compCode);
-          item.dataConfig = {
-            ...item.dataConfig,
-            // 有静态数据就获取静态数据
-            mockData: staticData ? staticData : [],
-          };
-        }
-      }
-    }
 
     // 如果组件有`dataConfig`属性就添加静态数据
     if (template.dataConfig) {
       compData.dataConfig = merge({}, compData.dataConfig, {
         // 有静态数据就获取静态数据
-        mockData: staticData ? staticData : [],
+        mockData: await getStaticData(compCode),
       });
     } else {
       delete compData.dataConfig;
