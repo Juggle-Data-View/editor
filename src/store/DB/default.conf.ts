@@ -8,7 +8,7 @@ const AppConfig: AutoDV.AppConfig = {
   name: '',
   spaceId: -1,
   type: 0,
-  datasources: [],
+  datasources: {},
   canvas: {
     id: Date.now(),
     appId: appId,

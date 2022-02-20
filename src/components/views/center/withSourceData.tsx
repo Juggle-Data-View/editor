@@ -25,11 +25,12 @@ export interface HOCProps {
   isSubComp?: boolean;
   parentCode?: string;
   dispatch?: (code: string, sourceData: any) => void;
+  datasource?: AutoDV.MixinDatasource;
 }
 
 const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>) => {
   return (props: Omit<AutoDV.CompIndex, 'sourceData'> & HOCProps) => {
-    const { comps, isSubComp, parentCode = '', ...rest } = props;
+    const { comps, isSubComp, parentCode = '', datasource, ...rest } = props;
     const { compData, isInEditor, reciver } = rest; // 包裹组件需要用到的props
     const { code, dataConfig } = compData;
     const { io } = global;
@@ -43,15 +44,15 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
      * 在预览中，为了性能考虑，只缓存需要共享数据的组件，如：数据源类型组件。
      */
     const shouldCacheOriginData = useMemo(() => {
-      const { compCode, dataConfig } = compData;
+      const { compCode } = compData;
       // 如果组件没有数据配置项，不缓存数据
-      if (!dataConfig) return false;
+      if (!datasource) return false;
       const isDatasourceComp = compCode === 'datasource';
       if (isInEditor || isDatasourceComp) {
         return true;
       }
       return false;
-    }, [compData, isInEditor]);
+    }, [compData, datasource, isInEditor]);
 
     // 装饰器信息
     const decoratorObj = useMemo(() => {
@@ -71,29 +72,29 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     const interval = useMemo(() => {
       /**
        * 以下情况不会触发http定时取数：
-       * 1. 没有dataConfig
+       * 1. 没有datasource
        * 2. 有io（说明是websocket）
        * 3. 在编排系统中
        * 4. 关闭定时更新配置
        */
-      if (!dataConfig || io || isInEditor) {
+      if (!datasource || io || isInEditor) {
         return null;
       }
       //TODO: use data source frequence
       return 1000;
-    }, [dataConfig, io, isInEditor]);
+    }, [datasource, io, isInEditor]);
 
     const getOriginData = useCallback(
-      async (code: string, dataConfig: AutoDV.DataConfig, dynamicParams: AutoDV.DataParam[]) => {
+      async (code: string, datasource: AutoDV.MixinDatasource, dynamicParams: AutoDV.DataParam[]) => {
         try {
-          switch (dataConfig.dataSourceType) {
+          switch (datasource.dataSourceType) {
             case DataSourceType.Static: {
               //TODO: get static data
-              return [];
+              return datasource.body;
             }
             // case DataSourceType.DataSource: {
             //   if (datasourceData) {
-            //     const { sourceCode, auxFieldMap } = getJsonMap(dataConfig);
+            //     const { sourceCode, auxFieldMap } = getJsonMap(datasource);
             //     return sourceCode ? translateFromAux(auxFieldMap, datasourceData) : undefined;
             //   }
             //   break;
@@ -104,7 +105,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
             default: {
               if (isInEditor) {
                 dispatch(cacheOriginData({ code, data: { id: code, status: 'pendding' } }));
-                return await fetchDataInEditor(code, dataConfig);
+                return await fetchDataInEditor(code, datasource);
               }
               const _code = isSubComp ? parentCode : code;
               const _layerCode = isSubComp ? code : undefined;
@@ -129,20 +130,22 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     // 接口动态参数
     const dynamicParams = useDynamicParams(decoratorObj, getOriginData, reciver);
 
-    // 当依赖项：dataConfig、dynamicParams发生变化时触发请求，重新dispatch数据
+    // 当依赖项：datasource、dynamicParams发生变化时触发请求，重新dispatch数据
     // 因为code、isInEditor、dispatch不会变化，所以无须放入依赖
     const setLocalData = useCallback(async () => {
       let data;
       try {
-        if (!dataConfig) return;
-        data = await getOriginData(code, dataConfig, dynamicParams);
+        console.log(datasource);
+
+        if (!datasource) return;
+        data = await getOriginData(code, datasource, dynamicParams);
       } catch (error) {
         console.log('setLocalData error', error);
       } finally {
         wsInitRef.current = true;
         setOrigin(data);
       }
-    }, [dataConfig, getOriginData, code, dynamicParams]);
+    }, [datasource, getOriginData, code, dynamicParams]);
 
     // 当数据变更时，缓存数据到store中
     useEffect(() => {
@@ -175,36 +178,25 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     // http定时取数
     useInterval(setLocalData, interval);
 
-    // websocket定时取数
-    useEffect(() => {
-      if (dataConfig?.dataSourceType === DataSourceType.DataSource || !io || isInEditor) return;
-      io.on(code, (data: unknown) => {
-        if (!wsInitRef.current) return;
-        setOrigin(data);
-      });
-    }, [io, isInEditor]); // eslint-disable-line
-
     const sourceData = useMemo<any[]>(() => {
       try {
         if (!origin || (origin as AutoDV.CustomOriginData).id === code) {
           return [];
         }
         // TODO: data tranlater second parameter is missing
-        const data = dataConfig ? dataTranslate(origin, []) : decorateData2array(origin);
-
+        const data = dataConfig ? dataTranslate(origin, dataConfig.fieldMap) : decorateData2array(origin);
         if (decoratorObj) {
           const { decorator } = decoratorObj;
           if (decoratorObj && decorator && decorator.type === 'data') {
             return decorator.handle('data')(data, reciver || []);
           }
         }
-
         return data; // sourceData的类型必须是个数组
       } catch (error) {
         console.log(error);
         return [];
       }
-    }, [dataConfig, origin, decoratorObj, reciver, code]);
+    }, [origin, code, dataConfig, decoratorObj, reciver]);
 
     return <WrappedComponent {...rest} sourceData={sourceData} updateData={setLocalData} />;
   };

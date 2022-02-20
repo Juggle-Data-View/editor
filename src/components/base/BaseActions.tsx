@@ -51,14 +51,15 @@ export const DELETE_COMP = () => {
   });
 };
 
-// const getStaticData = async (compCode: string) => {
-//   const staticDatas = await import(`../comps/staticData`);
-//   if (compCode in staticDatas) {
-//     return staticDatas[compCode as keyof typeof staticDatas];
-//   } else {
-//     return [];
-//   }
-// };
+const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['datasources']) => {
+  if (compCode in datasources) {
+    return datasources[compCode] || [];
+  } else {
+    const staticDatas = await import(`../comps/staticData`);
+    const result = staticDatas[compCode as keyof typeof staticDatas];
+    return result || [];
+  }
+};
 
 /**
  * 添加组件到画布中
@@ -71,7 +72,8 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       throw new Error('缺少组件类型或组件模板！');
     }
     const { template } = await asyncLoadCompConfig(compCode, compTempCode);
-    const selfComp = {
+
+    const selfComp: Partial<AutoDV.AddCompParams> = {
       code: nanocode(compCode),
       compTempCode,
       compCode,
@@ -81,11 +83,11 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       attr: Object.assign({}, template.attr, {
         left: random(20, 200),
         top: random(20, 200),
-      }),
+      }) as AutoDV.Attr,
       title: '',
+      staticData: await getStaticData(compCode, store.getState().autoDV.present.app.datasources),
       config: {},
     };
-
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);
 
     // 如果组件有`dataConfig`属性就添加静态数据
@@ -95,6 +97,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     store.dispatch(appAction.addComp({ comps: [compData] }));
     notice.success('创建成功');
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) notice.error(`添加组件失败: ${error.message}`);
   }
 };

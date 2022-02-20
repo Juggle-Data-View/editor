@@ -6,6 +6,7 @@
 import { TriggerType } from 'config/const';
 import { INodeConfig } from 'components/recursion';
 import * as Const from 'config/const';
+import { PayloadAction, PrepareAction } from '@reduxjs/toolkit';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -26,7 +27,6 @@ declare global {
     type ZoomType = 0 | 1 | 2 | 3 | 4 | 5;
 
     interface DataConfig {
-      dataSourceType: DataSourceType;
       dataSourceId: DataSourceId;
       //All components request data frequency of using the datasrouce
       frequency?: number;
@@ -37,27 +37,31 @@ declare global {
       name: string;
     }
     interface APIDatasourceInstance extends DataConfig {
-      dataSourceType: 1;
+      dataSourceType: Const.DataSourceType.API;
       url: string;
       method: Const.HttpMethod;
       header?: { [key: string]: string | number | boolean };
     }
 
     interface StaticDatasourceInstance<T = any> extends DataConfig {
-      dataSourceType: 0;
+      dataSourceType: Const.DataSourceType.Static;
       body: T;
     }
 
     interface ExeclDatasourceInstance extends DataConfig {
       // execl storage url
       url: string;
-      dataSourceType: 3;
+      dataSourceType: Const.DataSourceType.CSV;
     }
+
+    type MixinDatasource = APIDatasourceInstance | StaticDatasourceInstance | ExeclDatasourceInstance;
     interface AppConfig {
       canvas: Canvas & {
         compInsts?: Comp[];
       };
-      datasources: (APIDatasourceInstance | StaticDatasourceInstance | ExeclDatasourceInstance)[];
+      datasources: {
+        [key in DataSourceId]: MixinDatasource;
+      };
       createTime?: number;
       createUser?: string;
       id: AppID;
@@ -222,7 +226,7 @@ declare global {
 
     type DataSourceType = Const.DataSourceType;
 
-    type DataSourceId = number | null | string;
+    type DataSourceId = number | string;
 
     // 数据源组辅助结构
     interface JsonMap {
@@ -264,8 +268,7 @@ declare global {
     }
 
     /**
-     * 组件实例类型
-     * 注意：类型如果有变更，需与后端协商定义。否则，发起组件修改的请求时报错。
+     * Component instance
      */
     interface Comp<C = Config> {
       /**
@@ -295,13 +298,17 @@ declare global {
       /** 组件配置 */
       config: C;
       /** 组件数据配置，没有数据源功能的组件可以不加此属性 */
-      dataConfig?: DataConfig;
+      dataConfig?: CompDataConfig;
       /** 组件是否锁定，true时,无法选中,拖拽  */
       locked: boolean;
       /** 组件是否隐藏 */
       hided: boolean;
       /** 组件缩略图 */
       compThumb?: string;
+    }
+
+    interface AddCompParams extends Comp {
+      staticData: any;
     }
 
     // 组件属性自带的状态
@@ -378,7 +385,7 @@ declare global {
     }
 
     interface CompDataConfig {
-      id: DataSourceId;
+      dataSourceId: DataSourceId;
       //data field map to component field
       fieldMap: Field[];
       //independence request data frequency
@@ -443,5 +450,12 @@ declare global {
       code: number;
       message: string;
     }
+
+    interface ReducerCaseWithPrepare<Payload = any> {
+      reducer(s: State, action: PayloadAction<Payload>): void;
+      prepare: PrepareAction<Payload>;
+    }
+
+    type ReducerCase<Payload = undefined> = (s: State, action: PayloadAction<Payload>) => void;
   }
 }

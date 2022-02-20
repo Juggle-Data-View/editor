@@ -3,7 +3,7 @@ import { Field } from 'components/form';
 import { DataConfigStyled } from '../style';
 import JsonToTable from './JsonToTable';
 
-const DataPanel: React.FC<AutoDV.DataConfig> = (props) => {
+const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
   // const { fieldMap } = props;
   //TODO: table data & field mapping
   return (
