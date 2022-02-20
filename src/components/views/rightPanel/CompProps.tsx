@@ -31,7 +31,7 @@ const Loader = () => (
 );
 
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
-  const { compData, noNeedPropsCommon, parentCompCode, parentName, parentCode } = props;
+  const { compData, noNeedPropsCommon, parentName } = props;
   const { code, compCode, compTempCode, alias, dataConfig } = compData;
   const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
@@ -40,9 +40,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
 
   const loadConfig = async () => {
     try {
-      const dirPath = parentCompCode ? parentCompCode : compCode;
-      const filePath = parentCompCode ? compCode : compTempCode;
-      const config = await asyncLoadCompConfig(dirPath, filePath);
+      const config = await asyncLoadCompConfig(compCode, compTempCode);
       setConfig(config);
     } catch (error: any) {
       notice.error(error.message || '加载组件配置文件失败');
@@ -72,11 +70,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
         onSubmit={(values) => {
           const diffs = getDiffPayload(compData, values);
           if (diffs) {
-            if (!parentCode) {
-              dispatch(appAction.updateComp({ code, comp: values }));
-            } else {
-              dispatch(appAction.updateSubComp({ parentCode, code, comp: values }));
-            }
+            dispatch(appAction.updateComp({ code, comp: values }));
           }
         }}
       >

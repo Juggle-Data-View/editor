@@ -25,7 +25,7 @@ const SeriesAction: React.FC<{
   push: ArrayHelpers['push'];
   fieldMapOption: {
     fieldMapPath: string;
-    fieldMap: AutoDV.DataConfig['fieldMap'];
+    fieldMap: AutoDV.Field[];
     fieldName: string;
   };
   setValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
