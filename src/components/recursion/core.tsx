@@ -33,10 +33,13 @@ export const AutoSubmit = () => {
 };
 
 const NodeLabel: React.FC<INodeLabel> = (props) => {
-  const { node, params } = props;
+  const { node, params, i18n } = props;
   const label = isFunction(node.label) ? node.label(params) : node.label;
   if (!label) {
     return <>{props.children}</>;
+  }
+  if (typeof node === 'object' && 'en' in node && i18n) {
+    return <>{node[i18n]}</>;
   }
   return (
     <FieldLabel {...node.labelProps} label={<>{label}</>}>
@@ -169,7 +172,7 @@ const Node: React.FC<INodeProps> = (props) => {
 };
 
 export const Generator: React.FC<IGenerator> = (props) => {
-  const { autoSubmit = true, children, parentName } = props;
+  const { autoSubmit = true, children, parentName, i18n } = props;
   return (
     <Formik
       enableReinitialize
@@ -189,7 +192,7 @@ export const Generator: React.FC<IGenerator> = (props) => {
           render: () => (
             <>
               {autoSubmit ? <AutoSubmit /> : null}
-              <Node parentName={parentName || ''} node={c2n(props.config)} />
+              <Node i18n={i18n} parentName={parentName || ''} node={c2n(props.config)} />
             </>
           ),
           formik,

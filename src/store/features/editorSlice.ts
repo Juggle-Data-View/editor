@@ -18,6 +18,7 @@ const initialState: AutoDV.Editor = {
   adaptiveScale: 1,
   isSelecto: false,
   rightPannelType: 'hidden',
+  lang: 'en',
 };
 
 const systemSlice = createSlice({

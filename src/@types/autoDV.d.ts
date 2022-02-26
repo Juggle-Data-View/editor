@@ -6,6 +6,7 @@
 import { TriggerType } from 'config/const';
 import { INodeConfig } from 'components/recursion';
 import * as Const from 'config/const';
+import { PayloadAction, PrepareAction } from '@reduxjs/toolkit';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -15,8 +16,8 @@ declare global {
     type CanvasID = number | null; // 画布ID
 
     /**
-     * 缩放方式：
-     *  0 - 原始比例
+     * scale way
+     *  0 - normal
      *  1 - 等比缩放&宽度铺满，画布宽度与浏览器可视区宽度一致，可视区高度小于画布高度时可上下滚动
      *  2 - 等比缩放&⾼度铺满，画布高度与浏览器可视区高度一致，可视区宽度小于画布宽度时可左右滚动
      *  3 - 全屏铺满，画布尺寸与可视区一致，会拉伸。
@@ -25,12 +26,41 @@ declare global {
      */
     type ZoomType = 0 | 1 | 2 | 3 | 4 | 5;
 
-    /**
-     * 页面配置全部数据
-     */
+    interface DataConfig {
+      dataSourceId: DataSourceId;
+      //All components request data frequency of using the datasrouce
+      frequency?: number;
+      //request params
+      dataParams?: DataParam[];
+      //datasource operation set
+      operator?: string[];
+      name: string;
+    }
+    interface APIDatasourceInstance extends DataConfig {
+      dataSourceType: Const.DataSourceType.API;
+      url: string;
+      method: Const.HttpMethod;
+      header?: { [key: string]: string | number | boolean };
+    }
+
+    interface StaticDatasourceInstance<T = any> extends DataConfig {
+      dataSourceType: Const.DataSourceType.Static;
+      body: T;
+    }
+
+    interface ExeclDatasourceInstance extends DataConfig {
+      // execl storage url
+      url: string;
+      dataSourceType: Const.DataSourceType.CSV;
+    }
+
+    type MixinDatasource = APIDatasourceInstance | StaticDatasourceInstance | ExeclDatasourceInstance;
     interface AppConfig {
       canvas: Canvas & {
         compInsts?: Comp[];
+      };
+      datasources: {
+        [key in DataSourceId]: MixinDatasource;
       };
       createTime?: number;
       createUser?: string;
@@ -101,6 +131,7 @@ declare global {
       adaptiveScale: number;
       isSelecto: boolean;
       rightPannelType: 'global' | 'component' | 'multiple-select' | 'group' | 'hidden';
+      lang: 'zh' | 'en';
     }
 
     /** 数据源相关 */
@@ -195,7 +226,7 @@ declare global {
 
     type DataSourceType = Const.DataSourceType;
 
-    type DataSourceId = number | null | string;
+    type DataSourceId = number | string;
 
     // 数据源组辅助结构
     interface JsonMap {
@@ -204,32 +235,6 @@ declare global {
       //转换使用的辅助结构
       auxFieldMap: Field[];
     }
-
-    interface DataConfig {
-      dataSourceType: DataSourceType;
-      /** 数据源ID，不能为-1 */
-      dataSourceId: DataSourceId;
-      /** 代码⽚片段ID， 不能为-1 */
-      scriptId: number | null;
-      /** 推送频率，单位：秒 */
-      frequency: number;
-      /** 数据参数kv列列表 json格式 [{"name":"a","value":12}] */
-      dataParams: DataParam[];
-      /**
-       * mock数据，⽤于编排⻚页⾯面渲染 源⾃自组件数据或数据源数据，或⽤用户⾃自定义
-       * 不超过1000个字符 是否跟随组件模板变化? 否
-       */
-      mockData: any[];
-      /** 组件字段和数据字段名称映射 */
-      fieldMap: Field[];
-      /** 数据是否⾃动更新 */
-      autoRefresh: boolean;
-      /** 代码片段内容 */
-      specScript: string;
-      /** 数据源组结构*/
-      jsonMap?: JsonMap;
-    }
-
     interface Canvas {
       appId: AppID;
       backgroundColor: string;
@@ -262,16 +267,8 @@ declare global {
       opacity: number;
     }
 
-    interface SubCompTemp<T = string, C = any> {
-      dataConfig?: Partial<AutoDV.DataConfig>;
-      config: C;
-      alias: string;
-      compCode: T;
-    }
-
     /**
-     * 组件实例类型
-     * 注意：类型如果有变更，需与后端协商定义。否则，发起组件修改的请求时报错。
+     * Component instance
      */
     interface Comp<C = Config> {
       /**
@@ -301,15 +298,17 @@ declare global {
       /** 组件配置 */
       config: C;
       /** 组件数据配置，没有数据源功能的组件可以不加此属性 */
-      dataConfig?: DataConfig;
+      dataConfig?: CompDataConfig;
       /** 组件是否锁定，true时,无法选中,拖拽  */
       locked: boolean;
       /** 组件是否隐藏 */
       hided: boolean;
       /** 组件缩略图 */
       compThumb?: string;
-      /** 子组件配置 */
-      subComponents?: SubComp[];
+    }
+
+    interface AddCompParams extends Comp {
+      staticData: any;
     }
 
     // 组件属性自带的状态
@@ -331,11 +330,6 @@ declare global {
       angle: number;
       /** 多个颜色 */
       colorStops: ColorStop[];
-    }
-
-    interface SubComp<T = string, C = any> extends SubCompTemp<T, C> {
-      code: string;
-      hided: boolean;
     }
 
     /**
@@ -390,14 +384,24 @@ declare global {
       groupId: string;
     }
 
+    interface CompDataConfig {
+      dataSourceId: DataSourceId;
+      //data field map to component field
+      fieldMap: Field[];
+      //independence request data frequency
+      frequency: number;
+      autoRefresh: boolean;
+      //sub-datasource filed mapping path
+      jsonMap?: JsonMap;
+    }
+
     /**
      * 业务组件模板 类型
      * 用于约定业务组件`temps`目录下文件中的配置项类型
      */
     type CompTemp<C = any> = Pick<Comp<C>, 'title' | 'config'> & {
       attr: Partial<Attr>;
-      dataConfig?: Partial<DataConfig>;
-      subComponents?: SubCompTemp[];
+      dataConfig?: Partial<CompDataConfig>;
     };
 
     interface CompConfig<T = any> {
@@ -446,5 +450,12 @@ declare global {
       code: number;
       message: string;
     }
+
+    interface ReducerCaseWithPrepare<Payload = any> {
+      reducer(s: State, action: PayloadAction<Payload>): void;
+      prepare: PrepareAction<Payload>;
+    }
+
+    type ReducerCase<Payload = undefined> = (s: State, action: PayloadAction<Payload>) => void;
   }
 }

@@ -47,8 +47,7 @@ export const transContent = (content: AutoDV.ExportContent, options?: { offset: 
 
       // 如果导入的配置不是相同的空间，需要修改数据源类型为静态数据类型
       if (!isSameSpace && comp.dataConfig) {
-        comp.dataConfig.dataSourceType = 0;
-        comp.dataConfig.dataSourceId = null;
+        comp.dataConfig.dataSourceId = '';
       }
 
       if (comp.compCode === 'group') {

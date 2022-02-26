@@ -4,6 +4,8 @@ import { Control } from 'components/form';
 import { DEFAULT_THUMBNAIL } from 'config/const';
 import menu, { Category, GroupChildren, MenuItemKey } from 'config/menu';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectEditorPanel } from 'store/selectors';
 import { ComponentsStoreContainer } from './style';
 
 const ListItem: React.FC<{
@@ -31,6 +33,7 @@ const ListItem: React.FC<{
 };
 
 const ComponentsStore: React.FC = () => {
+  const panel = useSelector(selectEditorPanel);
   const renderSubCategory = (item: Category['groups'], categoryId: MenuItemKey) => {
     const subCategory = Object.keys(item);
     return subCategory.map((key) => {
@@ -65,7 +68,7 @@ const ComponentsStore: React.FC = () => {
     });
   };
 
-  return <ComponentsStoreContainer>{renderCategoryList()}</ComponentsStoreContainer>;
+  return <ComponentsStoreContainer visible={panel.compList}>{renderCategoryList()}</ComponentsStoreContainer>;
 };
 
 export default ComponentsStore;

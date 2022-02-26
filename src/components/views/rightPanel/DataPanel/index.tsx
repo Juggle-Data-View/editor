@@ -3,14 +3,14 @@ import { Field } from 'components/form';
 import { DataConfigStyled } from '../style';
 import JsonToTable from './JsonToTable';
 
-const DataPanel: React.FC<AutoDV.DataConfig> = (props) => {
-  const { mockData, fieldMap } = props;
-
+const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
+  // const { fieldMap } = props;
+  //TODO: table data & field mapping
   return (
     <DataConfigStyled>
       <Field.Select name="dataConfig.dataSourceId" label={<Box sx={{ typography: 'h5' }}>选择数据源</Box>} />
       <div className="bottomContainer">
-        <JsonToTable data={mockData} fieldMap={fieldMap} />
+        <JsonToTable data={[]} fieldMap={[]} />
       </div>
     </DataConfigStyled>
   );

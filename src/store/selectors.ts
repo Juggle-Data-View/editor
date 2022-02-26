@@ -14,6 +14,8 @@ export const selectCanvas = (state: RootState) => state.autoDV.present.canvas;
 
 export const selectKeyPress = (state: RootState) => state.autoDV.present.keyPressed;
 
+export const selectDatasources = (state: RootState) => state.autoDV.present.app.datasources;
+
 /** comp */
 
 export const selectCompCodes = (state: RootState) => state.autoDV.present.compCodes;
@@ -35,6 +37,8 @@ export const selectTheme = (state: RootState) => state.editor.theme;
 export const selectGuideLines = (state: RootState) => state.editor.guideLines;
 
 export const selectRightPannelType = (state: RootState) => state.editor.rightPannelType;
+
+export const selectLang = (state: RootState) => state.editor.lang;
 
 /** data */
 

@@ -224,7 +224,8 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
   }
 `;
 
-export const ComponentsStoreContainer = styled.div`
+export const ComponentsStoreContainer = styled.div<{ visible: boolean }>`
+  margin-left: ${(props) => (props.visible ? 0 : '-240px')};
   width: 240px;
   height: 100%;
   overflow: auto;
@@ -250,5 +251,29 @@ export const ComponentsStoreContainer = styled.div`
   .storeListRow {
     width: 100%;
     display: flex;
+  }
+`;
+
+export const DatasourceListContainer = styled.div<{ visible: boolean }>`
+  margin-left: ${(props) => (props.visible ? 0 : '-240px')};
+  width: 240px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .listTop {
+    padding: 8px 10px;
+    width: 100%;
+    display: flex;
+  }
+  .listContainer {
+    flex: 1;
+    .listItem {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: ${({ theme }) => theme.palette.action.disabledBackground};
+    }
   }
 `;

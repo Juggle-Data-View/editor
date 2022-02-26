@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import RefreshIcon from '@mui/icons-material/Refresh';
 export const injectCDNScript = () => {
-  const ICONFONT_URL = '//at.alicdn.com/t/font_1781874_q301vreb7u.js';
+  const ICONFONT_URL = '//at.alicdn.com/t/font_1781874_8luu239vdrs.js';
   const oScript = document.createElement('script');
   oScript.src = ICONFONT_URL;
   oScript.async = true; // 没有依赖关系
@@ -31,7 +31,11 @@ export type AutoDVIconName =
   | 'autoDV-flip-vertical'
   | 'autoDV-Exitfullscreen'
   | 'autoDV-to-left'
-  | 'autoDV-to-top';
+  | 'autoDV-to-top'
+  | 'autoDV-table'
+  | 'autoDV-API'
+  | 'autoDV-SQL'
+  | 'autoDV-offline';
 
 export interface IAutoDVIconProps extends Omit<SvgIconProps, 'icon'> {
   icon: AutoDVIconName;
