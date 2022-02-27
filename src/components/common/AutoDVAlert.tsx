@@ -83,7 +83,8 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
   };
 
   const handleClose = () => {
-    if (portalContainer) {
+    if (portalContainer && isOpen) {
+      // It will be run twice, if `isOpen` is not in condition
       document.body.removeChild(portalContainer);
     }
     document.removeEventListener('keydown', bindEnter);
@@ -93,7 +94,7 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
   return (
     <div onClick={(e: SyntheticEvent) => e.stopPropagation()}>
       <Snackbar open={isOpen} autoHideDuration={3000} anchorOrigin={anchorOrigin} onClose={handleClose}>
-        <Alert variant="filled" onClose={handleClose} severity={intent} action={getAction()}>
+        <Alert variant="filled" severity={intent} action={getAction()}>
           {props.children}
         </Alert>
       </Snackbar>

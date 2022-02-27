@@ -8,7 +8,6 @@ import JsonToTable from './JsonToTable';
 
 const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
   const { fieldMap, dataSourceId } = props;
-  //TODO: table data & field mapping
 
   const datasources = useSelector(selectDatasources);
 
@@ -21,8 +20,6 @@ const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
       };
     });
   }, [datasources]);
-
-  console.log(datasources[dataSourceId]);
 
   return (
     <DataConfigStyled>
