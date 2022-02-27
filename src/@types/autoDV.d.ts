@@ -35,6 +35,8 @@ declare global {
       //datasource operation set
       operator?: string[];
       name: string;
+      //datasource data cache
+      body: any;
     }
     interface APIDatasourceInstance extends DataConfig {
       dataSourceType: Const.DataSourceType.API;
@@ -43,9 +45,8 @@ declare global {
       header?: { [key: string]: string | number | boolean };
     }
 
-    interface StaticDatasourceInstance<T = any> extends DataConfig {
+    interface StaticDatasourceInstance extends DataConfig {
       dataSourceType: Const.DataSourceType.Static;
-      body: T;
     }
 
     interface ExeclDatasourceInstance extends DataConfig {
@@ -393,6 +394,8 @@ declare global {
       autoRefresh: boolean;
       //sub-datasource filed mapping path
       jsonMap?: JsonMap;
+      //component data
+      sourceData: any[];
     }
 
     /**

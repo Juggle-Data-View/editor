@@ -35,7 +35,6 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
         const { code, dataConfig } = comp;
         const isSelected = selectedCompCodes ? selectedCompCodes.includes(code) : false;
         const datasource = dataConfig ? datasources[dataConfig.dataSourceId] : undefined;
-        console.log(dataConfig && dataConfig.dataSourceId, datasources);
         return (
           <CompWrapper key={code} isInEditor={isInEditor} isSelected={isSelected} compData={comp} index={index}>
             <EnhancedComp

@@ -53,7 +53,7 @@ export const DELETE_COMP = () => {
 
 const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['datasources']) => {
   if (compCode in datasources) {
-    return datasources[compCode] || [];
+    return datasources[compCode].body || [];
   } else {
     const staticDatas = await import(`../comps/staticData`);
     const result = staticDatas[compCode as keyof typeof staticDatas];
@@ -87,6 +87,9 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       title: '',
       staticData: await getStaticData(compCode, store.getState().autoDV.present.app.datasources),
       config: {},
+      dataConfig: {
+        dataSourceId: compCode,
+      } as any,
     };
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);
 

@@ -14,6 +14,7 @@ import { selectEditorPanel } from 'store/selectors';
 import ComponentsStore from './ComponentsStore';
 import StorageIcon from '@mui/icons-material/Storage';
 import DatasourceList from './DatasourceList';
+import useLang from 'components/base/useLang';
 
 const LeftPanel: React.FC = () => {
   const [activeKey, setActiveKey] = useState('layer');
@@ -25,14 +26,16 @@ const LeftPanel: React.FC = () => {
   const dispatch = useDispatch();
   const panel = useSelector(selectEditorPanel);
 
+  const lang = useLang();
+
   return (
     <LeftPannelContainer visible={panel.compList}>
       <TabContext value={activeKey}>
         <div className="dashbroadController">
           <TabList orientation="vertical" onChange={handleChange}>
-            <Tab label="新建组件" value="create" icon={<AddCircle />} />
-            <Tab label="图层列表" value="layer" icon={<LayersIcon />} />
-            <Tab label="数据源" value="datasource" icon={<StorageIcon />} />
+            <Tab label={lang.createComp} value="create" icon={<AddCircle />} />
+            <Tab label={lang.layerList} value="layer" icon={<LayersIcon />} />
+            <Tab label={lang.datasourcesList} value="datasource" icon={<StorageIcon />} />
           </TabList>
           <div className="operations" onClick={() => dispatch(editorAction.togglePanel('compList'))}>
             <SkipPreviousOutlinedIcon />

@@ -34,10 +34,13 @@ const zh: ALang = {
   clearAuxLine: '清除参考线',
   showAuxLIne: '展示参考线',
   refreshComp: '更新组件版本',
+  layerList: '图层列表',
+  datasourcesList: '数据源',
+  import: '导入',
 };
 
 const en: ALang = {
-  createComp: 'New component',
+  createComp: 'New Comp',
   deleteComp: 'Delete component',
   updateComp: 'Update component',
   renameComp: 'Rename component',
@@ -72,6 +75,9 @@ const en: ALang = {
   clearAuxLine: 'Clear aux line',
   showAuxLIne: 'Show aux line',
   refreshComp: 'Update component version',
+  layerList: 'Layer List',
+  datasourcesList: 'data list',
+  import: 'import',
 };
 
 const getLang = (lang: AutoDV.Editor['lang']) => {

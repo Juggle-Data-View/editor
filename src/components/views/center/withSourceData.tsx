@@ -135,8 +135,6 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     const setLocalData = useCallback(async () => {
       let data;
       try {
-        console.log(datasource);
-
         if (!datasource) return;
         data = await getOriginData(code, datasource, dynamicParams);
       } catch (error) {

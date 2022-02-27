@@ -27,6 +27,7 @@ declare interface ALang {
   //system operation
   export: string;
   exportAll: string;
+  import: string;
   globalSetting: string;
   preview: string;
   scale: string;
@@ -39,4 +40,8 @@ declare interface ALang {
   redo: string;
   clearAuxLine: string;
   showAuxLIne: string;
+
+  //UI label
+  layerList: string;
+  datasourcesList: string;
 }

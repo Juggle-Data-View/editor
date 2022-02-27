@@ -28,6 +28,7 @@ export const defaultCompData: AutoDV.Comp = {
     fieldMap: [],
     frequency: 1,
     autoRefresh: false,
+    sourceData: [],
   },
   code: '',
   locked: false,
