@@ -4,7 +4,7 @@
 
 import { getAutoDV, nanocode } from 'utils';
 import notice from 'utils/notice';
-import { asyncLoadStaticData, asyncLoadCompConfig } from 'helpers/asyncLoad';
+import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
 import { defaultCompData } from 'config/defaults';
 import store from 'store/index';
@@ -51,6 +51,16 @@ export const DELETE_COMP = () => {
   });
 };
 
+const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['datasources']) => {
+  if (compCode in datasources) {
+    return datasources[compCode].body || [];
+  } else {
+    const staticDatas = await import(`../comps/staticData`);
+    const result = staticDatas[compCode as keyof typeof staticDatas];
+    return result || [];
+  }
+};
+
 /**
  * 添加组件到画布中
  * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/compTempCode}
@@ -61,8 +71,9 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     if (!compCode || !compTempCode) {
       throw new Error('缺少组件类型或组件模板！');
     }
-    const { template, staticData } = await asyncLoadCompConfig(compCode, compTempCode);
-    const selfComp = {
+    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
+
+    const selfComp: Partial<AutoDV.AddCompParams> = {
       code: nanocode(compCode),
       compTempCode,
       compCode,
@@ -72,50 +83,24 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       attr: Object.assign({}, template.attr, {
         left: random(20, 200),
         top: random(20, 200),
-      }),
+      }) as AutoDV.Attr,
       title: '',
+      staticData: await getStaticData(compCode, store.getState().autoDV.present.app.datasources),
       config: {},
+      dataConfig: {
+        dataSourceId: compCode,
+      } as any,
     };
-
-    //拥有子组件的组件 新增时需要生成子组件的code，并记录子组件的生成顺序
-    if (template.subComponents) {
-      const codes: string[] = [];
-
-      template.subComponents.forEach((item: any) => {
-        const code = nanocode(item.compCode);
-        codes.push(code);
-        item.code = code;
-      });
-      template.config.layersSorted = codes;
-    }
-
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);
 
-    if (compData.subComponents && compData.subComponents.length) {
-      for await (const item of compData.subComponents) {
-        if (item.dataConfig) {
-          const staticData = await asyncLoadStaticData(compCode, item.compCode);
-          item.dataConfig = {
-            ...item.dataConfig,
-            // 有静态数据就获取静态数据
-            mockData: staticData ? staticData : [],
-          };
-        }
-      }
-    }
-
     // 如果组件有`dataConfig`属性就添加静态数据
-    if (template.dataConfig) {
-      compData.dataConfig = merge({}, compData.dataConfig, {
-        // 有静态数据就获取静态数据
-        mockData: staticData ? staticData : [],
-      });
-    } else {
+    if (!template.dataConfig) {
       delete compData.dataConfig;
     }
     store.dispatch(appAction.addComp({ comps: [compData] }));
     notice.success('创建成功');
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) notice.error(`添加组件失败: ${error.message}`);
   }
 };

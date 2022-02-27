@@ -4,8 +4,8 @@ import styled from 'styled-components';
 export const LeftPanelStyled = styled.section<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 240px;
-  margin-left: ${(props) => (props.visible ? 0 : '-240px')};
+  width: 235px;
+  margin-left: ${(props) => (props.visible ? 0 : '-235px')};
   height: 100%;
   transition: margin 0.2s ease;
   position: relative;
@@ -67,6 +67,7 @@ export const ItemStyled = styled('div')<IItemWrapProps>`
   opacity: ${(props) => (props.isGhosting ? 0.5 : 1)};
   box-sizing: border-box;
   border-bottom: 1px solid #eee;
+  color: #222;
   background-color: ${({ isSelected, theme }) =>
     isSelected ? theme.palette.action.active : theme.palette.action.disabledBackground};
   .inner {
@@ -100,7 +101,6 @@ export const ItemStyled = styled('div')<IItemWrapProps>`
   .info {
     flex: 1;
     max-width: 150px;
-    color: #fff;
     > p {
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -187,7 +187,7 @@ export const CollapseList = styled.div<{
 `;
 
 export const LeftPannelContainer = styled.div<{ visible: boolean }>`
-  width: ${({ visible }) => (visible ? '300px' : '60px')};
+  width: ${({ visible }) => (visible ? '300px' : '65px')};
   transition: width 0.2s ease;
   display: flex;
   .MuiTabPanel-root {
@@ -196,7 +196,7 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
   .dashbroadController {
     z-index: 4;
     position: relative;
-    width: 60px !important;
+    width: 65px !important;
     background: #fff;
     height: 100%;
     padding: 10px 0px;
@@ -208,7 +208,7 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
     align-items: center;
     .MuiButtonBase-root {
       padding: 9px 0px;
-      min-width: 60px;
+      min-width: 65px;
     }
     .operations {
       width: 44px;
@@ -225,8 +225,8 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
 `;
 
 export const ComponentsStoreContainer = styled.div<{ visible: boolean }>`
-  margin-left: ${(props) => (props.visible ? 0 : '-240px')};
-  width: 240px;
+  margin-left: ${(props) => (props.visible ? 0 : '-235px')};
+  width: 235px;
   height: 100%;
   overflow: auto;
   background: ${({ theme }) => theme.palette.background.default};
@@ -255,12 +255,25 @@ export const ComponentsStoreContainer = styled.div<{ visible: boolean }>`
 `;
 
 export const DatasourceListContainer = styled.div<{ visible: boolean }>`
-  margin-left: ${(props) => (props.visible ? 0 : '-240px')};
-  width: 240px;
+  margin-left: ${(props) => (props.visible ? 0 : '-235px')};
+  width: 235px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   .listTop {
     padding: 8px 10px;
     width: 100%;
     display: flex;
+  }
+  .listContainer {
+    flex: 1;
+    .listItem {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: ${({ theme }) => theme.palette.action.disabledBackground};
+    }
   }
 `;

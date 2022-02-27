@@ -66,13 +66,9 @@ const fieldMapFormatVerify = (fieldMap: any) => {
  * @param data 服务端数据 or 静态数据
  */
 export const decorateData2array = (data: any) => {
-  /**
-   * 产品大哥大姐说要支持老系统中对象的接口格式,
-   * 先判断接口获取的数据格式，如果是对象，强制戴个帽子+穿个鞋子：👒 + 👠
-   */
-  const _data = isPlainObject(data) ? [data] : data;
+  const result = isPlainObject(data) ? [data] : data;
   // 保证输出的值一定为数组
-  return !Array.isArray(_data) ? [] : _data;
+  return !Array.isArray(result) ? [] : result;
 };
 
 /**

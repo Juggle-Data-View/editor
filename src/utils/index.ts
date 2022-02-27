@@ -178,7 +178,7 @@ export const loadScript = (url: string, callback: () => void) => {
  * 获取组件的json map
  * @param dataConfig 组件数据
  */
-export const getJsonMap = (dataConfig: AutoDV.DataConfig): AutoDV.JsonMap => {
+export const getJsonMap = (dataConfig: AutoDV.CompDataConfig): AutoDV.JsonMap => {
   if (!dataConfig) {
     return { auxFieldMap: [], sourceCode: '' };
   }

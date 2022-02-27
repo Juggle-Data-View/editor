@@ -44,7 +44,7 @@ const config: IConfig = {
     dataConfig: {
       fieldMap: [
         {
-          compFieldName: 'x',
+          compFieldName: 'value',
           sourceFieldName: 'date',
         },
       ],

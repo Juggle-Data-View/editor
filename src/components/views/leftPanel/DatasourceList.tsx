@@ -1,8 +1,9 @@
 import { AddCircle } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
+import AutoDVIcon, { AutoDVIconName } from 'components/common/AutoDVIcon';
 import SearchSelect, { Item } from 'components/common/SearchSelect';
 import { useSelector } from 'react-redux';
-import { selectEditorPanel } from 'store/selectors';
+import { selectDatasources, selectEditorPanel } from 'store/selectors';
 import { DatasourceListContainer } from './style';
 
 const DatasourceList: React.FC = () => {
@@ -11,6 +12,32 @@ const DatasourceList: React.FC = () => {
     console.log(item);
   };
   const panel = useSelector(selectEditorPanel);
+  const datasourceList = useSelector(selectDatasources) || [];
+
+  const getDatasourceIcon = (type: AutoDV.DataSourceType): AutoDVIconName => {
+    switch (type) {
+      case 1:
+        return 'autoDV-API';
+      case 3:
+        return 'autoDV-table';
+      default:
+        return 'autoDV-offline';
+    }
+  };
+
+  const renderListItem = () => {
+    return Object.keys(datasourceList).map((key) => {
+      const { dataSourceType, name } = datasourceList[key];
+      return (
+        <div className="listItem" key={key}>
+          <IconButton>
+            <AutoDVIcon icon={getDatasourceIcon(dataSourceType)} />
+          </IconButton>
+          {name || key}
+        </div>
+      );
+    });
+  };
 
   return (
     <DatasourceListContainer visible={panel.compList}>
@@ -22,6 +49,7 @@ const DatasourceList: React.FC = () => {
           </Tooltip>
         </IconButton>
       </div>
+      <div className="listContainer">{renderListItem()}</div>
     </DatasourceListContainer>
   );
 };

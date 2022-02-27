@@ -18,6 +18,7 @@ import { Settings } from '@mui/icons-material';
 import { editorAction } from 'store/features/editorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRightPannelType } from 'store/selectors';
+import useLang from 'components/base/useLang';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -157,15 +158,18 @@ const HeadRight: React.FC = () => {
       dispatch(editorAction.setRightPannelType('global'));
     }
   };
+
+  const lang = useLang();
+
   return (
     <div className="head-right">
       <HistoryButton />
       <ButtonGroup>
         <Button color="primary" onClick={() => exportComps(true)}>
-          导出全部
+          {lang.exportAll}
         </Button>
         <Button color="primary">
-          <Tooltip title="导入" placement="bottom">
+          <Tooltip title={lang.import} placement="bottom">
             <div className="import-btn">
               <GetAppIcon />
               <input
@@ -179,12 +183,12 @@ const HeadRight: React.FC = () => {
           </Tooltip>
         </Button>
         <Button color="primary" onClick={() => exportComps(false)}>
-          <Tooltip title="导出" placement="bottom">
+          <Tooltip title={lang.export} placement="bottom">
             <FileUploadIcon />
           </Tooltip>
         </Button>
         <Button color="primary" onClick={handlePreview}>
-          <Tooltip title="预览" placement="bottom">
+          <Tooltip title={lang.preview} placement="bottom">
             <RemoveRedEyeIcon />
           </Tooltip>
         </Button>
@@ -193,7 +197,7 @@ const HeadRight: React.FC = () => {
           onClick={handleSetting}
           variant={rightPannelType === 'global' ? 'contained' : 'outlined'}
         >
-          <Tooltip title="页面设置" placement="bottom">
+          <Tooltip title={lang.globalSetting} placement="bottom">
             <Settings />
           </Tooltip>
         </Button>

@@ -1,12 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/**
- * 监听redux数据变化，发起请求.
- * TODO: 完善类型声明
- *
- * 注意：
- * 针对数据变化后发起请求的逻辑，最好是将请求时机放在数据变更后。
- * 如果放在交互行为后发起请求，历史记录的回退操作将不会触发请求，数据无法同步更新。
- */
 import store from './index';
 import watch from 'redux-watch';
 import objectPath from 'object-path';
@@ -16,16 +8,11 @@ import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';
 import canvas from './DB/canvas';
+import app from './DB/appConfig';
 import global from 'utils/global';
 
 const differ = require('deep-diff');
 
-/**
- * 监听数据变化，将变化以debounce的方式收集
- * @param path 数据路径，如：'autoDV.present.compDatas'
- * @param callback 回调函数，参数依次：newVal: any, oldVal: any, diffs: any
- * @return unSubscribe Function
- */
 const listen = (path: string, callback: any) => {
   let diffs: any = [];
   const watcher = watch(store.getState, path);
@@ -44,10 +31,9 @@ const listen = (path: string, callback: any) => {
   );
 };
 
-// 创建启动函数，在loadAppcfg后开始设定监听
 const setupWatch = () => {
   /**
-   * 监听 画布 数据变化
+   * listen canvas property change
    */
   listen('autoDV.present.canvas', async (newVal: any, oldVal: any, diffs: any) => {
     try {
@@ -83,7 +69,7 @@ const setupWatch = () => {
   });
 
   /**
-   * 监听 组件 数据变化
+   * listen component property change
    */
   listen('autoDV.present.compDatas', async (newVal: any, oldVal: any, diffs: Diff<any>[]) => {
     try {
@@ -173,7 +159,7 @@ const setupWatch = () => {
   });
 
   /**
-   * 监听组件顺序变化
+   * listen canvas sorted change
    */
   listen('autoDV.present.compCodes', async (newVal: string[], oldVal: string[], diffs: any) => {
     try {
@@ -186,6 +172,10 @@ const setupWatch = () => {
       const errMsg = error.message ? error.message : '请求错误';
       notice.error(`排序失败: ${errMsg}`);
     }
+  });
+
+  listen('autoDV.present.app', async (newVal: any) => {
+    await app.updateAppConfig(newVal, Number(global.appId));
   });
 };
 

@@ -7,6 +7,8 @@ import global from 'utils/global';
 import { getViewStatus } from 'utils/index';
 import CompWrapper from './CompWrapper';
 import { CANVAS_ID } from 'config/const';
+import { useSelector } from 'react-redux';
+import { selectDatasources } from 'store/selectors';
 
 interface ICanvas {
   isInEditor: boolean;
@@ -19,6 +21,7 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
   const canvasStyle = useCanvasStyle(canvas, isInEditor);
   const recivers = useRecivers();
   const ref = useRef<HTMLDivElement>(null);
+  const datasources = useSelector(selectDatasources);
 
   useEffect(() => {
     if (global.wssType !== 1) return;
@@ -29,8 +32,9 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
   return (
     <div ref={ref} id={CANVAS_ID} className="autoDV-canvas" style={canvasStyle}>
       {comps.map((comp, index) => {
-        const { code } = comp;
+        const { code, dataConfig } = comp;
         const isSelected = selectedCompCodes ? selectedCompCodes.includes(code) : false;
+        const datasource = dataConfig ? datasources[dataConfig.dataSourceId] : undefined;
         return (
           <CompWrapper key={code} isInEditor={isInEditor} isSelected={isSelected} compData={comp} index={index}>
             <EnhancedComp
@@ -39,6 +43,7 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
               isInEditor={isInEditor}
               reciver={recivers[code]}
               comps={comps}
+              datasource={datasource}
             />
           </CompWrapper>
         );
