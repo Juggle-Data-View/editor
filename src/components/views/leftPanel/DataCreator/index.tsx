@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Formik } from 'formik';
 import getDefaultValues from './getDefaultValue';
+import CommonForm from './CommonForm';
 
 interface Props {
   containerDiv: HTMLDivElement;
@@ -31,7 +32,9 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
         {options ? lang.updateDatasource + options.name : lang.createDatasource}
       </DialogTitle>
       <DialogContent>
-        <Formik onSubmit={console.log} initialValues={defualtValues} />
+        <Formik onSubmit={console.log} initialValues={defualtValues}>
+          <CommonForm />
+        </Formik>
       </DialogContent>
     </Dialog>
   );

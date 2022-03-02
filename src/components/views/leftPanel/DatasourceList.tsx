@@ -4,6 +4,7 @@ import AutoDVIcon, { AutoDVIconName } from 'components/common/AutoDVIcon';
 import SearchSelect, { Item } from 'components/common/SearchSelect';
 import { useSelector } from 'react-redux';
 import { selectDatasources, selectEditorPanel } from 'store/selectors';
+import DataCreator from './DataCreator';
 import { DatasourceListContainer } from './style';
 
 const DatasourceList: React.FC = () => {
@@ -43,7 +44,7 @@ const DatasourceList: React.FC = () => {
     <DatasourceListContainer visible={panel.compList}>
       <div className="listTop">
         <SearchSelect activeItem={undefined} items={[]} onItemSelect={handleItemSelect} />
-        <IconButton style={{ margin: '0px 5px' }}>
+        <IconButton style={{ margin: '0px 5px' }} onClick={() => DataCreator()}>
           <Tooltip title="新增数据源" placement="bottom">
             <AddCircle />
           </Tooltip>
