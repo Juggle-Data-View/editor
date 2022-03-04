@@ -2,12 +2,7 @@ import { DataSourceType as DT } from 'config/const';
 import { Control, Field } from 'components/form';
 import { useEffect, useMemo, useState } from 'react';
 import { ISelect } from 'components/form/Select';
-import {
-  ArrayHelpers,
-  FieldArray,
-  useFormikContext,
-  // , Field as FormField
-} from 'formik';
+import { ArrayHelpers, FieldArray, useFormikContext, Field as FormField, FieldProps } from 'formik';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import CodeEditor from 'components/common/CodeEditor';
@@ -46,7 +41,7 @@ const asyncFormatter = (setState: any, value?: string) => {
   }).then((comp) => setState(comp));
 };
 
-const CommonForm: React.FC<{ params?: AutoDV.DataParam[]; onChange: any }> = ({ params, onChange }) => {
+const CommonForm: React.FC<{ params?: AutoDV.DataParam[] }> = ({ params }) => {
   const options = useMemo(() => {
     const result: ISelect['options'] = [];
     for (const item in DT) {
@@ -58,11 +53,7 @@ const CommonForm: React.FC<{ params?: AutoDV.DataParam[]; onChange: any }> = ({ 
     return result;
   }, []);
 
-  const [
-    ,
-    // EditorComp
-    setEditorComp,
-  ] = useState();
+  const [EditorComp, setEditorComp] = useState<any>();
 
   useEffect(() => {
     asyncFormatter(setEditorComp);
@@ -77,7 +68,7 @@ const CommonForm: React.FC<{ params?: AutoDV.DataParam[]; onChange: any }> = ({ 
           return params ? params.map((v, index) => <DataParamItem key={v.name} {...helper} index={index} />) : null;
         }}
       </FieldArray>
-      {/* <FormField>{({form}:FieldProps)=> <EditorComp /> }</FormField> */}
+      <FormField name="form">{({ form }: FieldProps) => <EditorComp value={form.values.body} />}</FormField>
     </>
   );
 };

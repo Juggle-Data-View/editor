@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider } from '@mui/material';
 import useLang from 'components/base/useLang';
 import React, { useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -26,16 +26,27 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     setOpen(false);
   };
 
+  const handleConfirm = () => {
+    handleClose();
+  };
+
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle id="alert-dialog-title">
         {options ? lang.updateDatasource + options.name : lang.createDatasource}
       </DialogTitle>
-      <DialogContent>
-        <Formik onSubmit={console.log} initialValues={defualtValues}>
-          <CommonForm />
-        </Formik>
-      </DialogContent>
+      <Divider />
+      <Formik onSubmit={console.log} initialValues={defualtValues}>
+        <>
+          <DialogContent>
+            <CommonForm />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleConfirm}>confirm</Button>
+            <Button onClick={handleClose}>cancel</Button>
+          </DialogActions>
+        </>
+      </Formik>
     </Dialog>
   );
 };
