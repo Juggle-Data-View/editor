@@ -15,6 +15,9 @@ import updateCanvas from './updateCanvas';
 import cancelGroup from './cancelGroup';
 import setCompAlignment from './setCompAlignment';
 import updateComp from './updateComp';
+import { addDatasource } from './addDatasource';
+import deleteDatasource from './deleteDatasource';
+import updateDatasource from './updateDatasource';
 
 const initialState: AutoDV.State = {
   app: {
@@ -66,6 +69,9 @@ export const appSlice = createSlice({
     createGroupComp,
     cancelGroup,
     setCompAlignment,
+    addDatasource,
+    deleteDatasource,
+    updateDatasource,
     setKeypress(state, action) {
       state.keyPressed = action.payload;
     },

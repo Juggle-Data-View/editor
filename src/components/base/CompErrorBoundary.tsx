@@ -1,10 +1,3 @@
-/**
- * 业务异常组件。
- * 捕获业务组件异常并尝试更新业务组件配置
- * 出现场景：当业务组件升级后，旧配置项与新业务逻辑不同步导致的组件报错。
- * 解决方法：捕获异常，将旧配置与业务组件默认模板配置进行合并，补全配置（多余配置项未做删减）
- */
-
 import React, { ErrorInfo } from 'react';
 import styled from 'styled-components';
 import merge from 'lodash/merge';
@@ -13,11 +6,6 @@ import { defaultCompData } from 'config/defaults';
 import store from 'store/index';
 import { appAction } from 'store/features/appSlice';
 
-/**
- * TODO: 重写一些合并组件配置的规则
- * 处理组件配置信息。
- * 使用模板配置补全服务端配置。防止组件因为业务升级，某个属性找不到时出现报错。
- */
 export const mergeCompData = async (compData: AutoDV.Comp) => {
   try {
     const { code, compCode, compTempCode } = compData;
@@ -45,18 +33,18 @@ const ErrorMessage = styled.div`
   font-size: 14px;
 `;
 
-interface IState {
-  hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
-}
-
 interface IProps {
   compData: AutoDV.Comp;
   isInEditor?: boolean;
 }
 
-export default class ErrorCatcher extends React.Component<IProps, IState> {
+export type HandleCatch = (error: Error, info: ErrorInfo) => void;
+
+export class CommonErrorBoundy extends React.Component<{
+  handleCatch: HandleCatch;
+  LowerComponent?: () => JSX.Element;
+  message?: string;
+}> {
   state = {
     hasError: false,
   };
@@ -66,18 +54,35 @@ export default class ErrorCatcher extends React.Component<IProps, IState> {
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // 你同样可以将错误日志上报给服务器
-    console.log(error, errorInfo);
-    mergeCompData(this.props.compData);
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    return this.props.handleCatch(error, info);
   }
 
-  render() {
-    if (this.state.hasError && this.props.isInEditor) {
+  render(): React.ReactNode {
+    const ErrorComp = (this.props.LowerComponent as any) || React.Fragment;
+    if (this.state.hasError) {
       // 你可以自定义降级后的 UI 并渲染
-      return <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。</ErrorMessage>;
+      return <ErrorComp />;
     }
 
     return this.props.children;
   }
 }
+
+const ErrorCatcher: React.FC<IProps> = ({ compData, isInEditor, children }) => {
+  const handleCatch: HandleCatch = (err, info) => {
+    console.log(err, info);
+    mergeCompData(compData);
+  };
+
+  return isInEditor ? (
+    <CommonErrorBoundy
+      handleCatch={handleCatch}
+      LowerComponent={() => <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。 </ErrorMessage>}
+    >
+      {children}
+    </CommonErrorBoundy>
+  ) : null;
+};
+
+export default ErrorCatcher;

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { UnControlled as CodeMirror, IUnControlledCodeMirror } from 'react-codemirror2';
 import { Button, Dialog, DialogTitle, IconButton, Tooltip } from '@mui/material';
 import styled from 'styled-components';
@@ -96,6 +96,30 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
   const readOnly = options && options.readOnly;
   const divRef = useRef(null);
 
+  const formatValue = useMemo(() => {
+    if (typeof value === 'string' || typeof value === 'number') {
+      return value;
+    }
+
+    if (typeof value === 'function') {
+      return (value as object).toString();
+    }
+
+    if (typeof value === 'object') {
+      return JSON.stringify(value, null, 2);
+    }
+
+    if (typeof value === 'boolean') {
+      return (value as boolean).valueOf() + '';
+    }
+    return value;
+  }, [value]);
+
+  const formatProps = {
+    options,
+    value: formatValue,
+  };
+
   const inViewPort = useInViewport(divRef);
 
   if (inViewPort) {
@@ -135,12 +159,12 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
     return () => {
       ref.current.off('blur', handleBlur);
     };
-  }, [onSubmit, options, readOnly, ref, value]);
+  }, [onSubmit, options, readOnly, ref, formatValue]);
 
   return (
     <div className="wrapper" ref={divRef} style={{ height: height || '100%', width: '100%' }}>
       <CodeMirror
-        {...codemirrorProps}
+        {...formatProps}
         editorDidMount={(editor) => {
           ref.current = editor;
           editor.refresh();

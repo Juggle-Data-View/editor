@@ -21,6 +21,17 @@ const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
     });
   }, [datasources]);
 
+  const tableData = useMemo(() => {
+    const datasource = datasources[dataSourceId];
+    if (!datasource) {
+      return [];
+    }
+    if (!Array.isArray(datasource.body)) {
+      return [datasource.body];
+    }
+    return datasource.body;
+  }, [datasources, dataSourceId]);
+
   return (
     <DataConfigStyled>
       <Field.Select
@@ -29,7 +40,7 @@ const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
         label={<Box sx={{ typography: 'h5' }}>选择数据源</Box>}
       />
       <div className="bottomContainer">
-        <JsonToTable data={datasources[dataSourceId].body} fieldMap={fieldMap} />
+        <JsonToTable data={tableData} fieldMap={fieldMap} />
       </div>
     </DataConfigStyled>
   );

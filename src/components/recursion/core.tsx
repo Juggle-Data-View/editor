@@ -11,9 +11,15 @@ import ErrorBoundary from 'components/base/ErrorBoundary';
 /**
  * 表单触发修改时自动提交表单
  */
-export const AutoSubmit = () => {
-  const { values, submitForm, setSubmitting, dirty } = useFormikContext();
+export const AutoSubmit: React.FC<{
+  onValidate?: IGenerator['onVaildate'];
+}> = ({ onValidate }) => {
+  const { values, submitForm, setSubmitting, dirty, isValid } = useFormikContext();
   const debounceValues = useDebounce(values, { wait: 300 });
+
+  useEffect(() => {
+    onValidate && onValidate(isValid);
+  }, [isValid, onValidate]);
 
   useEffect(() => {
     if (!dirty) {
@@ -172,7 +178,7 @@ const Node: React.FC<INodeProps> = (props) => {
 };
 
 export const Generator: React.FC<IGenerator> = (props) => {
-  const { autoSubmit = true, children, parentName, i18n } = props;
+  const { autoSubmit = true, children, parentName, i18n, onVaildate } = props;
   return (
     <Formik
       enableReinitialize
@@ -191,7 +197,7 @@ export const Generator: React.FC<IGenerator> = (props) => {
         const _props: ChildProps = {
           render: () => (
             <>
-              {autoSubmit ? <AutoSubmit /> : null}
+              {autoSubmit ? <AutoSubmit onValidate={onVaildate} /> : null}
               <Node i18n={i18n} parentName={parentName || ''} node={c2n(props.config)} />
             </>
           ),

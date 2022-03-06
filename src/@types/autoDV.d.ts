@@ -38,11 +38,17 @@ declare global {
       //datasource data cache
       body: any;
     }
+
+    type HttpHeadersKeys = keyof IncomingHttpHeaders;
+    interface HeadersArrayItem {
+      key: HttpHeadersKeys;
+      value?: string | boolean;
+    }
     interface APIDatasourceInstance extends DataConfig {
       dataSourceType: Const.DataSourceType.API;
       url: string;
       method: Const.HttpMethod;
-      header?: { [key: string]: string | number | boolean };
+      header?: HeadersArrayItem[];
     }
 
     interface StaticDatasourceInstance extends DataConfig {

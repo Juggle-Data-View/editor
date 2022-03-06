@@ -153,6 +153,8 @@ export interface IGenerator {
    */
   parentName?: string;
 
+  onVaildate?: (isValid: boolean) => void;
+
   children?: (props: ChildProps) => React.ReactNode;
 
   i18n?: 'zh' | 'en';

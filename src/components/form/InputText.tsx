@@ -6,6 +6,9 @@ import styled from 'styled-components';
 const ErrorStyled = styled.p`
   margin-top: 3px;
   line-height: 1.25;
+  color: ${({ theme }) => {
+    return theme.palette.error.main;
+  }};
 `;
 
 export interface IText<T> {

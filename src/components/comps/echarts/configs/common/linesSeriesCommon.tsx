@@ -12,7 +12,7 @@ const lineSeriesCommon: INodeConfig[] = [
   {
     name: 'name',
     type: 'text',
-
+    validate: (value) => (value ? undefined : 'is required'),
     label: '系列名称',
   },
   {

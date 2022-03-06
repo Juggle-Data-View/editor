@@ -61,7 +61,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
   const { version, tab, template, extraTab } = config;
 
   return (
-    <CompErrorBoundary compData={compData}>
+    <CompErrorBoundary compData={compData} isInEditor={true}>
       <Generator
         values={compData}
         config={config.forms}
