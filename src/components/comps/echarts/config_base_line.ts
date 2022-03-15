@@ -22,11 +22,11 @@ const componentConfig: AutoDV.CompConfig = {
       fieldMap: [
         {
           compFieldName: 'x',
-          sourceFieldName: 'date',
+          sourceFieldName: 'brand',
         },
         {
           compFieldName: 'y',
-          sourceFieldName: 'value',
+          sourceFieldName: 'stock',
         },
       ],
     },
@@ -36,37 +36,6 @@ const componentConfig: AutoDV.CompConfig = {
     name: 'config.option.echarts',
     children: [...baseLineForm, { name: 'notMerge', type: 'switch', label: '重绘' }],
   },
-  staticData: [
-    {
-      date: '周一',
-      value: 50,
-    },
-
-    {
-      date: '周二',
-      value: 60,
-    },
-
-    {
-      date: '周三',
-      value: 50,
-    },
-
-    {
-      date: '周四',
-      value: 90,
-    },
-
-    {
-      date: '周五',
-      value: 70,
-    },
-
-    {
-      date: '周六',
-      value: 60,
-    },
-  ],
 };
 
 export default componentConfig;

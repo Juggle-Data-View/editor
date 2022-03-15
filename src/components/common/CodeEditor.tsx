@@ -102,7 +102,7 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
     }
 
     if (typeof value === 'function') {
-      return (value as object).toString();
+      return (value as any).toString();
     }
 
     if (typeof value === 'object') {

@@ -42,11 +42,11 @@ const ComponentsStore: React.FC = () => {
       return (
         <Control.Collapse key={alias} label={alias} isOpen={true}>
           {children.map((item, index) => {
-            const nextItem = children[index + 1];
+            const prev = children[index - 1];
             return (
               <div key={item.id} className="storeListRow">
-                {<ListItem itemData={item} categoryId={categoryId} />}
-                {nextItem ? <ListItem itemData={nextItem} categoryId={categoryId} /> : null}
+                {prev ? <ListItem itemData={prev} categoryId={categoryId} /> : null}
+                <ListItem itemData={item} categoryId={categoryId} />
               </div>
             );
           })}
