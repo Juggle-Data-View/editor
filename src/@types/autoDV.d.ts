@@ -1,9 +1,3 @@
-/**
- * 定义全局 AutoDV 命名空间.
- * 防止AutoDV类型与其他声明冲突，包含命名空间、业务组件公共类型
- */
-
-import { TriggerType } from 'config/const';
 import { INodeConfig } from 'components/recursion';
 import * as Const from 'config/const';
 import { PayloadAction, PrepareAction } from '@reduxjs/toolkit';
@@ -160,69 +154,7 @@ declare global {
       name: string;
       value: string;
     }
-
-    /**
-     * 交互配置
-     */
-    interface ConfigTriggerField {
-      /** 触发者 字段名称，唯一值，不能重复 */
-      name: string;
-      varName: string;
-      defaultValue: string;
-    }
-
-    interface ConfigTrigger {
-      /** 事件类型，单个组件会出现多种事件 */
-      type: TriggerType;
-      /** 是否开启 响应 */
-      enable: boolean;
-      /** 触发型组件使用，在“交互”配置面板中匹配 */
-      fields: ConfigTriggerField[];
-    }
-
-    /**
-     * 交互变量触发者数据
-     */
-    interface Trigger {
-      /** 触发者所在组件 */
-      code: string;
-      /** 触发者事件类型 */
-      type: TriggerType;
-      /** 交互变量映射的数据字段，使用此字段可以获取数据源第0项数据 */
-      name: string;
-      /** 交互变量的值 */
-      value: string | number | null;
-      /** 交互变量的接收者（其他组件） */
-      recivers: string[];
-    }
-
-    interface Reciver {
-      /** 接收者的名称，一般为参数名 */
-      name: string;
-      /** 交互变量中触发者的值，对应`Trigger["value"]` */
-      value: any;
-      /** 触发者的映射字段名称 */
-      triggerName: string;
-      /** 触发者的交互变量名称 */
-      triggerValue: string;
-    }
-
-    interface Triggers {
-      /**
-       * varName: 交互变量的名称
-       */
-      [varName: string]: AutoDV.Trigger;
-    }
-
-    interface Recivers {
-      /**
-       * code: 接收者所在组件
-       */
-      [code: string]: AutoDV.Reciver[];
-    }
-
     interface Config {
-      triggers?: ConfigTrigger[];
       groupCode?: string;
       // 占位块
       placeholder?: {
@@ -355,8 +287,6 @@ declare global {
       sourceData: S;
       /** 数据更新函数，在组件内需要更新数据时可以调用 */
       updateData?: () => void;
-      /** 交互接受者对象 */
-      reciver?: Reciver[];
     }
 
     /**

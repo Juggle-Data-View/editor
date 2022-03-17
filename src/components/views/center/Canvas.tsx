@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useCanvasStyle from './useCanvasStyle';
 import EnhancedComp from './Comp';
-import useRecivers from 'components/base/useRecivers';
 import { createIO, SocketLinkType } from 'utils/webscoketGateway';
 import global from 'utils/global';
 import { getViewStatus } from 'utils/index';
@@ -19,7 +18,6 @@ interface ICanvas {
 
 const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
   const canvasStyle = useCanvasStyle(canvas, isInEditor);
-  const recivers = useRecivers();
   const ref = useRef<HTMLDivElement>(null);
   const datasources = useSelector(selectDatasources);
 
@@ -41,7 +39,6 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
               compData={comp}
               isSelected={isSelected}
               isInEditor={isInEditor}
-              reciver={recivers[code]}
               comps={comps}
               datasource={datasource}
             />

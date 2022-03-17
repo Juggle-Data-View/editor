@@ -44,17 +44,6 @@ export const pasteComp: AutoDV.ReducerCaseWithPrepare = {
           comp.config.groupCode = groupCodeCache[groupCodeCache.length - 1].newCode;
         }
 
-        // 复制交互组件时，重置交互组件的交互配置
-        if (comp.config.triggers && comp.config.triggers.length) {
-          comp.config.triggers.forEach((_trigger) => {
-            _trigger.enable = false;
-            _trigger.fields.forEach((field) => {
-              field.defaultValue = '';
-              field.varName = '';
-            });
-          });
-        }
-
         newCodes.push(comp.code);
 
         state.compCodes.push(comp.code);
