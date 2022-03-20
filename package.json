@@ -145,7 +145,7 @@
   },
   "lint-staged": {
     "src/**/*{.js,.jsx,.ts,.tsx}": [
-      "yarn lint",
+      "pnpm run lint",
       "prettier --write"
     ]
   }

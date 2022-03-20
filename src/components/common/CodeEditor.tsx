@@ -153,7 +153,6 @@ const Editor = React.forwardRef((props: EditorProps, ref: any) => {
       }
     };
 
-    // 不在组件上使用onBlur的原因：
     // https://github.com/scniro/react-codemirror2/issues/138
     ref.current.on('blur', handleBlur);
     return () => {
