@@ -5,17 +5,11 @@
  */
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { useInterval, useUnmount } from 'ahooks';
-import {
-  // useSelector,
-  useDispatch,
-} from 'react-redux';
+import { useInterval } from 'ahooks';
 import { fetchDataInEditor, fetchDataInView } from 'helpers/fetchData';
 import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 import getDecoration from 'utils/getDecoration';
-import useDynamicParams from './useDynamicParams';
 import { DataSourceType } from 'config/const';
-import { cacheOriginData } from 'store/features/dataSlice';
 import emitter, { eventName } from 'utils/events';
 import global from 'utils/global';
 // import { selectDatasources } from 'store/selectors';
@@ -31,28 +25,11 @@ export interface HOCProps {
 const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>) => {
   return (props: Omit<AutoDV.CompIndex, 'sourceData'> & HOCProps) => {
     const { comps, isSubComp, parentCode = '', datasource, ...rest } = props;
-    const { compData, isInEditor, reciver } = rest; // 包裹组件需要用到的props
+    const { compData, isInEditor } = rest; // 包裹组件需要用到的props
     const { code, dataConfig } = compData;
     const { io } = global;
     const [origin, setOrigin] = useState<unknown>();
     // const datasourceData = useSelector(selectDatasources);
-    const dispatch = useDispatch();
-
-    /**
-     * 是否缓存组件的服务端数据到系统中。
-     * 在编排中，数据需要在右侧数据面板中做预览展示，所以需要全部缓存。
-     * 在预览中，为了性能考虑，只缓存需要共享数据的组件，如：数据源类型组件。
-     */
-    const shouldCacheOriginData = useMemo(() => {
-      const { compCode } = compData;
-      // 如果组件没有数据配置项，不缓存数据
-      if (!datasource) return false;
-      const isDatasourceComp = compCode === 'datasource';
-      if (isInEditor || isDatasourceComp) {
-        return true;
-      }
-      return false;
-    }, [compData, datasource, isInEditor]);
 
     // 装饰器信息
     const decoratorObj = useMemo(() => {
@@ -104,7 +81,6 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
             }
             default: {
               if (isInEditor) {
-                dispatch(cacheOriginData({ code, data: { id: code, status: 'pendding' } }));
                 return await fetchDataInEditor(code, datasource);
               }
               const _code = isSubComp ? parentCode : code;
@@ -124,11 +100,12 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
           }
         }
       },
-      [isInEditor, isSubComp, parentCode, dispatch]
+      [isInEditor, isSubComp, parentCode]
     );
 
     // 接口动态参数
-    const dynamicParams = useDynamicParams(decoratorObj, getOriginData, reciver);
+    //TODO: From component interactive
+    const dynamicParams: any = useMemo(() => [], []);
 
     // 当依赖项：datasource、dynamicParams发生变化时触发请求，重新dispatch数据
     // 因为code、isInEditor、dispatch不会变化，所以无须放入依赖
@@ -145,13 +122,6 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
       }
     }, [datasource, getOriginData, code, dynamicParams]);
 
-    // 当数据变更时，缓存数据到store中
-    useEffect(() => {
-      if (shouldCacheOriginData && origin) {
-        dispatch(cacheOriginData({ code, data: origin }));
-      }
-    }, [origin, code, shouldCacheOriginData]); // eslint-disable-line
-
     useEffect(() => {
       if (isInEditor) {
         const update = (_code: string) => {
@@ -163,11 +133,6 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         };
       }
     }, [code, isInEditor, setLocalData]);
-
-    // 卸载时
-    useUnmount(() => {
-      dispatch(cacheOriginData({ code }));
-    });
 
     useEffect(() => {
       setLocalData();
@@ -186,7 +151,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         if (decoratorObj) {
           const { decorator } = decoratorObj;
           if (decoratorObj && decorator && decorator.type === 'data') {
-            return decorator.handle('data')(data, reciver || []);
+            return decorator.handle('data')(data || []);
           }
         }
         return data; // sourceData的类型必须是个数组
@@ -194,7 +159,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         console.log(error);
         return [];
       }
-    }, [origin, code, dataConfig, decoratorObj, reciver]);
+    }, [origin, code, dataConfig, decoratorObj]);
 
     return <WrappedComponent {...rest} sourceData={sourceData} updateData={setLocalData} />;
   };

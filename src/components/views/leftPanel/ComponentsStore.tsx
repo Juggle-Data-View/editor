@@ -38,18 +38,25 @@ const ComponentsStore: React.FC = () => {
     const subCategory = Object.keys(item);
     return subCategory.map((key) => {
       const { children, alias } = item[key];
+      const childrenComp = [];
+      console.log(key, children.length);
 
+      for (let index = 0; index < children.length; index += 1) {
+        if (index % 2 !== 0) {
+          continue;
+        }
+        const item = children[index];
+        const next = children[index + 1];
+        childrenComp.push(
+          <div key={item.id} className="storeListRow">
+            <ListItem itemData={item} categoryId={categoryId} />
+            {next ? <ListItem itemData={next} categoryId={categoryId} /> : null}
+          </div>
+        );
+      }
       return (
         <Control.Collapse key={alias} label={alias} isOpen={true}>
-          {children.map((item, index) => {
-            const nextItem = children[index + 1];
-            return (
-              <div key={item.id} className="storeListRow">
-                {<ListItem itemData={item} categoryId={categoryId} />}
-                {nextItem ? <ListItem itemData={nextItem} categoryId={categoryId} /> : null}
-              </div>
-            );
-          })}
+          {childrenComp}
         </Control.Collapse>
       );
     });

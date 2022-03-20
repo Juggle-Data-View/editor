@@ -118,11 +118,11 @@ const componentConfig: AutoDV.CompConfig = {
       fieldMap: [
         {
           compFieldName: 'name',
-          sourceFieldName: 'type',
+          sourceFieldName: 'brand',
         },
         {
           compFieldName: 'value',
-          sourceFieldName: 'svalue1',
+          sourceFieldName: 'stock',
         },
       ],
     },
@@ -132,122 +132,6 @@ const componentConfig: AutoDV.CompConfig = {
     name: 'config.option.echarts',
     children: [...treeMap, { name: 'notMerge', type: 'switch', label: '重绘' }],
   },
-  staticData: [
-    {
-      name: '进口商品热搜词',
-      type: '飞利浦剃须刀',
-      svalue1: '136293.0',
-      typelen: '18',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '西门子冰箱',
-      svalue1: '82602.0',
-      typelen: '15',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '索尼耳机',
-      svalue1: '52436.0',
-      typelen: '12',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '平板电脑',
-      svalue1: '128630.0',
-      typelen: '12',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '苹果耳机',
-      svalue1: '100574.0',
-      typelen: '12',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '阿迪达斯',
-      svalue1: '163543.0',
-      typelen: '12',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '耐克男鞋',
-      svalue1: '98786.0',
-      typelen: '12',
-    },
-    {
-      name: '进口商品热搜词',
-      type: 'apple watch',
-      svalue1: '54273.0',
-      typelen: '11',
-    },
-    {
-      name: '进口商品热搜词',
-      type: 'macbook pro',
-      svalue1: '74781.0',
-      typelen: '11',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '洗碗机',
-      svalue1: '73632.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '卫生巾',
-      svalue1: '59364.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: 'ipad air3',
-      svalue1: '198210.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '防晒霜',
-      svalue1: '45306.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '安德玛',
-      svalue1: '73261.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '纸尿裤',
-      svalue1: '58178.0',
-      typelen: '9',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '冰箱',
-      svalue1: '190168.0',
-      typelen: '6',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '电视',
-      svalue1: '140788.0',
-      typelen: '6',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '香水',
-      svalue1: '55015.0',
-      typelen: '6',
-    },
-    {
-      name: '进口商品热搜词',
-      type: '乐高',
-      svalue1: '101577.0',
-      typelen: '6',
-    },
-  ],
 };
 
 export default componentConfig;

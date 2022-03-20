@@ -199,28 +199,6 @@ const componentConfig: AutoDV.CompConfig = {
     name: 'config.option.echarts',
     children: [...funnel, { name: 'notMerge', type: 'switch', label: '重绘' }],
   },
-  staticData: [
-    {
-      brand: '海天',
-      order: 40,
-    },
-    {
-      brand: '王老吉',
-      order: 50,
-    },
-    {
-      brand: '恒源祥',
-      order: 60,
-    },
-    {
-      brand: '光明',
-      order: 70,
-    },
-    {
-      brand: '蒙牛',
-      order: 80,
-    },
-  ],
 };
 
 export default componentConfig;

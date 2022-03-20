@@ -274,6 +274,12 @@ export const DatasourceListContainer = styled.div<{ visible: boolean }>`
       flex-direction: row;
       align-items: center;
       background-color: ${({ theme }) => theme.palette.action.disabledBackground};
+      justify-content: space-between;
+      > .label {
+        flex: 1;
+      }
+      > .operator {
+      }
     }
   }
 `;

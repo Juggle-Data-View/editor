@@ -8,7 +8,6 @@ import JsonToTable from './JsonToTable';
 
 const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
   const { fieldMap, dataSourceId } = props;
-  //TODO: table data & field mapping
 
   const datasources = useSelector(selectDatasources);
 
@@ -22,7 +21,16 @@ const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
     });
   }, [datasources]);
 
-  console.log(datasources[dataSourceId]);
+  const tableData = useMemo(() => {
+    const datasource = datasources[dataSourceId];
+    if (!datasource) {
+      return [];
+    }
+    if (!Array.isArray(datasource.body)) {
+      return [datasource.body];
+    }
+    return datasource.body;
+  }, [datasources, dataSourceId]);
 
   return (
     <DataConfigStyled>
@@ -32,7 +40,7 @@ const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
         label={<Box sx={{ typography: 'h5' }}>选择数据源</Box>}
       />
       <div className="bottomContainer">
-        <JsonToTable data={datasources[dataSourceId].body} fieldMap={fieldMap} />
+        <JsonToTable data={tableData} fieldMap={fieldMap} />
       </div>
     </DataConfigStyled>
   );

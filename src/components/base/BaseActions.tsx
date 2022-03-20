@@ -89,6 +89,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       config: {},
       dataConfig: {
         dataSourceId: compCode,
+        name: compCode,
       } as any,
     };
     const compData = merge(cloneDeep(defaultCompData), template, selfComp);

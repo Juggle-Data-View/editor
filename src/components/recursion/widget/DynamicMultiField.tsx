@@ -49,6 +49,9 @@ const Container = styled.div`
       flex: 3;
       display: flex;
       align-items: center;
+      > div {
+        margin-right: 5px;
+      }
     }
     .operations {
       flex: 1;
@@ -131,7 +134,7 @@ const DynamicMultiField = withNode<DynamicMultiFieldProps>((props) => {
     return Operations.map((item, index) => {
       return !canDelete && item.value === 'delete' ? null : (
         <Button key={index} onClick={() => (isChild ? handleClick(item, index) : handleClick(item))}>
-          {item.name || getIcon(item.icon)}
+          {item.name || getIcon(item.icon || item.value)}
         </Button>
       );
     });

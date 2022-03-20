@@ -1,9 +1,11 @@
-import { AddCircle } from '@mui/icons-material';
+import { AddCircle, Delete, Edit } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 import AutoDVIcon, { AutoDVIconName } from 'components/common/AutoDVIcon';
 import SearchSelect, { Item } from 'components/common/SearchSelect';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { appAction } from 'store/features/appSlice';
 import { selectDatasources, selectEditorPanel } from 'store/selectors';
+import dataCreator from './DataCreator';
 import { DatasourceListContainer } from './style';
 
 const DatasourceList: React.FC = () => {
@@ -11,6 +13,9 @@ const DatasourceList: React.FC = () => {
     //TODO: trigger datesource item editor toast
     console.log(item);
   };
+
+  const dispatch = useDispatch();
+
   const panel = useSelector(selectEditorPanel);
   const datasourceList = useSelector(selectDatasources) || [];
 
@@ -27,13 +32,24 @@ const DatasourceList: React.FC = () => {
 
   const renderListItem = () => {
     return Object.keys(datasourceList).map((key) => {
-      const { dataSourceType, name } = datasourceList[key];
+      const item = datasourceList[key];
+      const { dataSourceType, name } = item;
       return (
         <div className="listItem" key={key}>
-          <IconButton>
-            <AutoDVIcon icon={getDatasourceIcon(dataSourceType)} />
-          </IconButton>
-          {name || key}
+          <div className="label">
+            <IconButton>
+              <AutoDVIcon icon={getDatasourceIcon(dataSourceType)} />
+            </IconButton>
+            {name || key}
+          </div>
+          <div className="operator">
+            <IconButton onClick={() => dataCreator(item)}>
+              <Edit />
+            </IconButton>
+            <IconButton onClick={() => dispatch(appAction.deleteDatasource(item))}>
+              <Delete />
+            </IconButton>
+          </div>
         </div>
       );
     });
@@ -43,7 +59,7 @@ const DatasourceList: React.FC = () => {
     <DatasourceListContainer visible={panel.compList}>
       <div className="listTop">
         <SearchSelect activeItem={undefined} items={[]} onItemSelect={handleItemSelect} />
-        <IconButton style={{ margin: '0px 5px' }}>
+        <IconButton style={{ margin: '0px 5px' }} onClick={() => dataCreator()}>
           <Tooltip title="新增数据源" placement="bottom">
             <AddCircle />
           </Tooltip>
