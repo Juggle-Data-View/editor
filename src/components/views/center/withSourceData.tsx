@@ -9,7 +9,6 @@ import { useInterval } from 'ahooks';
 import { fetchDataInEditor, fetchDataInView } from 'helpers/fetchData';
 import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 import getDecoration from 'utils/getDecoration';
-import useDynamicParams from './useDynamicParams';
 import { DataSourceType } from 'config/const';
 import emitter, { eventName } from 'utils/events';
 import global from 'utils/global';
@@ -26,7 +25,7 @@ export interface HOCProps {
 const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>) => {
   return (props: Omit<AutoDV.CompIndex, 'sourceData'> & HOCProps) => {
     const { comps, isSubComp, parentCode = '', datasource, ...rest } = props;
-    const { compData, isInEditor, reciver } = rest; // 包裹组件需要用到的props
+    const { compData, isInEditor } = rest; // 包裹组件需要用到的props
     const { code, dataConfig } = compData;
     const { io } = global;
     const [origin, setOrigin] = useState<unknown>();
@@ -105,7 +104,8 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
     );
 
     // 接口动态参数
-    const dynamicParams = useDynamicParams(decoratorObj, getOriginData, reciver);
+    //TODO: From component interactive
+    const dynamicParams: any = useMemo(() => [], []);
 
     // 当依赖项：datasource、dynamicParams发生变化时触发请求，重新dispatch数据
     // 因为code、isInEditor、dispatch不会变化，所以无须放入依赖
@@ -151,7 +151,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         if (decoratorObj) {
           const { decorator } = decoratorObj;
           if (decoratorObj && decorator && decorator.type === 'data') {
-            return decorator.handle('data')(data, reciver || []);
+            return decorator.handle('data')(data || []);
           }
         }
         return data; // sourceData的类型必须是个数组
@@ -159,7 +159,7 @@ const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>)
         console.log(error);
         return [];
       }
-    }, [origin, code, dataConfig, decoratorObj, reciver]);
+    }, [origin, code, dataConfig, decoratorObj]);
 
     return <WrappedComponent {...rest} sourceData={sourceData} updateData={setLocalData} />;
   };
