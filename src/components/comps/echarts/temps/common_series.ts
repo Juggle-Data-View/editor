@@ -44,7 +44,7 @@ export const barSeries = (name = 'y') => {
     FieldName: name,
     type: 'bar',
     itemStyle: {
-      color: '#21D9FF',
+      color: '#5470c6',
       borderColor: '#00000000',
       borderWidth: 2,
       barBorderRadius: [10, 10, 0, 0],
@@ -58,7 +58,7 @@ export const barSeries = (name = 'y') => {
     label: {
       show: true,
       rotate: 0,
-      color: '#D8D8D8',
+      color: '#222',
       fontSize: 12,
       fontFamily: 'FZLTTHJW',
       fontWeight: 'bold',
@@ -80,7 +80,7 @@ export const pieSeries = {
       colorStops: [
         {
           offset: 1,
-          color: '#215ae6',
+          color: '#ee6666',
         },
       ],
     },
@@ -88,7 +88,7 @@ export const pieSeries = {
       colorStops: [
         {
           offset: 1,
-          color: '#441afb',
+          color: '#5470c6',
         },
       ],
     },
@@ -96,7 +96,7 @@ export const pieSeries = {
       colorStops: [
         {
           offset: 1,
-          color: '#73c6f5',
+          color: '#91cc75',
         },
       ],
     },
@@ -104,15 +104,7 @@ export const pieSeries = {
       colorStops: [
         {
           offset: 1,
-          color: '#718eff',
-        },
-      ],
-    },
-    {
-      colorStops: [
-        {
-          offset: 1,
-          color: '#12a8fe',
+          color: '#fac858',
         },
       ],
     },
@@ -120,7 +112,7 @@ export const pieSeries = {
   label: {
     show: true,
     rotate: 0,
-    color: '#D8D8D8',
+    color: '#222',
     fontSize: 12,
     fontFamily: 'FZLTTHJW',
     fontWeight: 'bold',

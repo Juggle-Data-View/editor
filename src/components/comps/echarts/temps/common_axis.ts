@@ -81,7 +81,7 @@ export const yAxis = (name = 'y') => {
     axisLabel: {
       show: true,
       rotate: 0,
-      color: '#D8D8D8',
+      color: '#222',
       fontSize: 12,
       fontFamily: 'FZLTTHJW',
       fontWeight: 'bold',
