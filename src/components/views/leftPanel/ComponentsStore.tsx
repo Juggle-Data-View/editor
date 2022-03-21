@@ -39,7 +39,6 @@ const ComponentsStore: React.FC = () => {
     return subCategory.map((key) => {
       const { children, alias } = item[key];
       const childrenComp = [];
-      console.log(key, children.length);
 
       for (let index = 0; index < children.length; index += 1) {
         if (index % 2 !== 0) {
