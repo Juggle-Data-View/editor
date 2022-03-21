@@ -4,6 +4,7 @@
 // import * as font from 'config/form/font';
 // import Tabs from 'components/recursion/widget/Tabs';
 // import lineBarTemplate from './configs/templates/lineBarForm';
+import { AutoDV } from 'auto-dv-type';
 import multiBarForm from './configs/templates/multiBarForm';
 import horizontalBar from './temps/horizontal_bar';
 // import { Config } from './type';

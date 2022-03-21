@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AutoDV.Editor = {

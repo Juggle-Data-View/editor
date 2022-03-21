@@ -7,6 +7,7 @@
 import { nanocode } from 'utils';
 import { validComp } from 'helpers/jsonValider';
 import { getAutoDV } from 'utils';
+import { AutoDV } from 'auto-dv-type';
 
 /**
  * 给定旧的内容，返回转换后的内容

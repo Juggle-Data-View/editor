@@ -2,6 +2,7 @@
  * 常量配置
  */
 
+import { AutoDV } from 'auto-dv-type';
 export enum DataSourceType {
   Static = 0,
   API = 1,

@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { updateAllChildrenRect, updateGroupSize } from 'helpers/groupHandle';
 
 const updateCompRect: AutoDV.ReducerCaseWithPrepare<{ offset: AutoDV.Rect }> = {

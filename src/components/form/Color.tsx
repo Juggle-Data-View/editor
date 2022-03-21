@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';

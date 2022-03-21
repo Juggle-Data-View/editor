@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 const updateDatasource: AutoDV.ReducerCaseWithPrepare<{
   datasource: AutoDV.MixinDatasource;
 }> = {

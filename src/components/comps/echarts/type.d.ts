@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 /**
  * 组件属性类型
  * @创建时间 2020-06-30 9:00:00

@@ -5,6 +5,7 @@ import {
   getParentURL,
 } from 'utils';
 import { HttpMethod } from 'config/const';
+import { AutoDV } from 'auto-dv-type';
 
 // const { release } = qs.query;
 // const RELEASE_CODE = typeof release === 'string' && release ? release : '';

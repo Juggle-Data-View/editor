@@ -8,6 +8,7 @@ import CompWrapper from './CompWrapper';
 import { CANVAS_ID } from 'config/const';
 import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
+import { AutoDV } from 'auto-dv-type';
 
 interface ICanvas {
   isInEditor: boolean;

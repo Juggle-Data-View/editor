@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AutoDV } from 'auto-dv-type';
 import { useSelector } from 'react-redux';
 import global from 'utils/global';
 import { selectEditor } from 'store/selectors';

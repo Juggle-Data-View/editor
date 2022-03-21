@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 const updateCanvas: AutoDV.ReducerCaseWithPrepare<{ canvas: AutoDV.Canvas }> = {
   reducer(state, action) {
     state.canvas = action.payload.canvas;

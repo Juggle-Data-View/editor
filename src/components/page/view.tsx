@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Canvas from 'components/views/center/Canvas';
 import fetchAppConfig from 'helpers/fetchAppConfig';
 import PageLoading from 'components/common/PageLoading';
+import { AutoDV } from 'auto-dv-type';
 import { appAction } from 'store/features/appSlice';
 
 /**

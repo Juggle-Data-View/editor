@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import { withNode } from 'components/recursion/fields';
 import { ArrayHelpers, FormikContextType, useField, useFormikContext } from 'formik';
 

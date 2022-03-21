@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { createSlice } from '@reduxjs/toolkit';
 import addComp from './addComp';
 import selectComp from './selectComp';

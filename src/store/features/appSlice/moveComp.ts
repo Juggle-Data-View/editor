@@ -1,5 +1,6 @@
 import { getParentGroup } from 'helpers/groupHandle';
 import getAllChildren, { getAllSelectedComps } from 'utils/getAllChildren';
+import { AutoDV } from 'auto-dv-type';
 
 const moveComp: AutoDV.ReducerCaseWithPrepare<{ direction: 'UP' | 'DOWN'; isEnd: boolean }> = {
   reducer(state, action) {

@@ -14,6 +14,7 @@
  */
 
 import notice from './notice';
+import { AutoDV } from 'auto-dv-type';
 
 /**
  * get component decoration that is first matched

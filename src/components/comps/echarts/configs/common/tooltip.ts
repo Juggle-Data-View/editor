@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import axisLabel from './axisLabel';
 
 const tooltip: INodeConfig[] = [

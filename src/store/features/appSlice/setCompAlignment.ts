@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { updateGroupSize } from 'helpers/groupHandle';
 import { selectedRectSelector } from 'helpers/selectors';
 import { getAllSelectedComps } from 'utils/getAllChildren';

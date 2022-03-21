@@ -1,7 +1,8 @@
-// import { INodeConfig } from 'components/recursion';
+// import { INodeConfig } from 'auto-dv-type/src/form';
 
 import baseLineForm from './configs/templates/baseLineForm';
 import baseLineConfig from './temps/base_line';
+import { AutoDV } from 'auto-dv-type';
 
 const componentConfig: AutoDV.CompConfig = {
   version: '1.0.0',

@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 const deleteDatasource: AutoDV.ReducerCaseWithPrepare<{ dataSourceId: string }> = {
   reducer(state, action) {
     const { dataSourceId } = action.payload;

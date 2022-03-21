@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import getAllChildren from 'utils/getAllChildren';
 
 const cancelGroup: AutoDV.ReducerCaseWithPrepare<{ code: string }> = {

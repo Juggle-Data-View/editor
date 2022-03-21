@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
 import { DataConfigStyled } from '../style';
 import JsonToTable from './JsonToTable';
+import { AutoDV } from 'auto-dv-type';
 
 const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
   const { fieldMap, dataSourceId } = props;

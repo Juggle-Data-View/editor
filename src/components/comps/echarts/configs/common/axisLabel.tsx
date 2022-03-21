@@ -1,5 +1,5 @@
 import * as font from 'config/form/font';
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
 
 const axisLabel: INodeConfig[] = [
   {

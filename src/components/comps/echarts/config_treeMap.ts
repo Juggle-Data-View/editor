@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import treeMap from './configs/templates/treeMap';
 
 const componentConfig: AutoDV.CompConfig = {

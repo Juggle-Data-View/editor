@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 const updateComp: AutoDV.ReducerCaseWithPrepare<{ code: string; comp: AutoDV.Comp }> = {
   reducer(state, action) {
     const { code, comp } = action.payload;

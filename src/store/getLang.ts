@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 const zh: ALang = {
   createComp: '新建组件',
   deleteComp: '删除组件',

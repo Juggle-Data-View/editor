@@ -12,6 +12,7 @@ import { showContextMenu } from 'helpers/contextMenu';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
 import { RootState } from 'store';
+import { AutoDV } from 'auto-dv-type';
 
 interface Props {
   compData: AutoDV.Comp;

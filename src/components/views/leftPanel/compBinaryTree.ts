@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 export interface CompBinaryTreeNode {
   code: string;
   groupItem: CompBinaryTreeNode | null; // group item

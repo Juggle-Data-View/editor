@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import { resolveName } from 'components/recursion/utils';
 
 const multiBarSeries: INodeConfig = {

@@ -9,6 +9,7 @@ import { createNextState as produce } from '@reduxjs/toolkit';
 import { UNDO_RESTORE } from 'config/const';
 import { AnyAction } from '@reduxjs/toolkit';
 import { appAction, appSlice } from 'store/features/appSlice';
+import { AutoDV } from 'auto-dv-type';
 
 const isAlias = (action: AnyAction) => {
   return action.payload && action.payload._alias;

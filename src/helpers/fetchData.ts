@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 export const fetchDataInEditor = async (code: string, dataConfig: AutoDV.DataConfig) => {
   return [];
 };

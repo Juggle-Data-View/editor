@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 const appId = Date.now();
 const AppConfig: AutoDV.AppConfig = {
   createTime: 0,

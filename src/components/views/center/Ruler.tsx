@@ -1,6 +1,7 @@
 import React, { useState, memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MenuList, MenuItem, Checkbox, Popover, IconButton } from '@mui/material';
+import { AutoDV } from 'auto-dv-type';
 import { useEventListener } from 'ahooks';
 import Ruler from 'assets/lib/ruler';
 import { selectEditor, selectCanvas } from 'store/selectors';

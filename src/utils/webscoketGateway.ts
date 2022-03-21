@@ -1,5 +1,6 @@
 import QS from 'query-string';
 import socket from 'socket.io-client';
+import { AutoDV } from 'auto-dv-type';
 
 export type Query = {
   appId: AutoDV.AppID;

@@ -5,7 +5,8 @@ import chartTitle from '../common/chartTitle';
 import legend from '../common/legend';
 import multiBarSeries from '../multiBarSeries';
 import lineSeriesCommin from '../common/linesSeriesCommon';
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import SeriesAction from '../../seriesAction';
 // import getSeriesFieldName from '../../getSeriesFieldName';
 // import { resolveName } from 'components/recursion/utils';

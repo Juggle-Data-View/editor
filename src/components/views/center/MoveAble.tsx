@@ -10,6 +10,7 @@ import getAllChildren, { getAllParentGroup } from 'utils/getAllChildren';
 import { selectAutoDV, selectEditor, selectGuideLines, selectKeyPress, selectIsSelecto } from 'store/selectors';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
+import { AutoDV } from 'auto-dv-type';
 
 const MoveableStyled = styled(Moveable)<DimensionViewableProps>`
   &.--move {

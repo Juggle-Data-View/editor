@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import axis from '../common/axis';
 import toolip from '../common/tooltip';
 import axisLabel from '../common/axisLabel';

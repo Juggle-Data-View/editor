@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { actionStatusSelector } from 'helpers/selectors';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 

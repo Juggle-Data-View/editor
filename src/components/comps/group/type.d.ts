@@ -6,6 +6,7 @@
  */
 
 // 引入`./templates`目录下的所有配置项
+import { AutoDV } from 'auto-dv-type';
 import index from './temps/index';
 
 // 将所有配置项合并为基础配置类型

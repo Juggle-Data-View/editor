@@ -1,4 +1,5 @@
 import multiLineForm from './configs/templates/multiLineForm';
+import { AutoDV } from 'auto-dv-type';
 import multiLineConfig from './temps/multi_line';
 
 const componentConfig: AutoDV.CompConfig = {

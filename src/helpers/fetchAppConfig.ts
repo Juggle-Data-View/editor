@@ -1,6 +1,7 @@
 import { qs, getViewStatus, qsDynamic } from 'utils/index';
 import * as Api from 'utils/api';
 import global, { fakeIFrameVars } from 'utils/global';
+import { AutoDV } from 'auto-dv-type';
 
 // 请求页面配置
 const fetchAppConfig = async (url?: string) => {

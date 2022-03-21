@@ -1,4 +1,5 @@
 import pie from './configs/templates/pie';
+import { AutoDV } from 'auto-dv-type';
 import pieConfig from './temps/pie';
 
 const componentConfig: AutoDV.CompConfig = {

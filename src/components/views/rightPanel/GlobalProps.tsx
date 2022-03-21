@@ -8,6 +8,7 @@ import { getDiffPayload } from 'helpers/diff';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
 import { selectCanvas, selectEditor } from 'store/selectors';
+import { AutoDV } from 'auto-dv-type';
 
 const GlobalProps: React.FC = () => {
   const canvas = useSelector(selectCanvas);

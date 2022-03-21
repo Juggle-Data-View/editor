@@ -1,4 +1,5 @@
 import multiBarForm from './configs/templates/multiBarForm';
+import { AutoDV } from 'auto-dv-type';
 import multiBarConfig from './temps/multi_bar';
 
 const componentConfig: AutoDV.CompConfig = {

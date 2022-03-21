@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RightPanelStyled } from './style';
 import { selectAutoDV, selectRightPannelType } from 'store/selectors';
+import { AutoDV } from 'auto-dv-type';
 
 import CompProps from './CompProps';
 import GlobalProps from './GlobalProps';

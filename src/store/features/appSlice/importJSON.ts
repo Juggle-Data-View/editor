@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 const importJSON: AutoDV.ReducerCaseWithPrepare<{ content: AutoDV.ExportContent }> = {
   reducer(state, action) {
     const { content } = action.payload;

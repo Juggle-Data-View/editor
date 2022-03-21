@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 export interface AssistStruct {
   code: string;
   children?: AssistStruct[];

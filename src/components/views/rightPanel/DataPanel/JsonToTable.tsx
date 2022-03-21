@@ -4,6 +4,7 @@ import { useState } from 'react';
 import LinkIcon from '@mui/icons-material/Link';
 import { useFormikContext } from 'formik';
 import { AutoSubmit } from 'components/form';
+import { AutoDV } from 'auto-dv-type';
 
 interface Props {
   data: Data[];

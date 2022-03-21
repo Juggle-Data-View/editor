@@ -9,7 +9,8 @@
  */
 
 import DropZone from 'components/common/DropZone';
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import * as style from 'config/style';
 const markPoint: INodeConfig[] = [
   {

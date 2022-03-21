@@ -3,6 +3,7 @@ import components from './components';
 import global from 'utils/global';
 import { omit } from 'lodash';
 import AppConfig from './default.conf';
+import { AutoDV } from 'auto-dv-type';
 
 export const DB_NAME = 'DB_NAME';
 export const DB_VERSION = 1;

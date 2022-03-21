@@ -1,4 +1,5 @@
 import radar from './configs/templates/radar';
+import { AutoDV } from 'auto-dv-type';
 import radarConfig from './temps/radar';
 
 const componentConfig: AutoDV.CompConfig = {

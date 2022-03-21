@@ -1,4 +1,6 @@
 import { DB, COMP_STORE } from '.';
+import { AutoDV } from 'auto-dv-type';
+import { CompInstEditReqData } from 'utils/request';
 
 class Components extends DB {
   constructor() {

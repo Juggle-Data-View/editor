@@ -3,6 +3,7 @@
  */
 // import * as font from 'config/form/font';
 // import Tabs from 'components/recursion/widget/Tabs';
+import { AutoDV } from 'auto-dv-type';
 import lineBarTemplate from './configs/templates/lineBarForm';
 import lineBarConfig from './temps/line_bar';
 // import { Config } from './type';

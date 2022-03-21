@@ -1,4 +1,6 @@
-// import { INodeConfig } from 'components/recursion';
+// import { INodeConfig } from 'auto-dv-type/src/form';
+
+import { AutoDV } from 'auto-dv-type';
 
 import baseBarForm from './configs/templates/baseBarForm';
 import baseBarConfig from './temps/base_bar';

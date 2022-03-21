@@ -2,6 +2,7 @@
  * 封装action中的通用逻辑
  */
 
+import { AutoDV } from 'auto-dv-type';
 import { getAutoDV, nanocode } from 'utils';
 import notice from 'utils/notice';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';

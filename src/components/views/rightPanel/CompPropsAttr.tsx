@@ -3,6 +3,7 @@ import Alignment from 'components/common/Alignment';
 import { Row, Col } from 'react-simple-flex-grid';
 import FieldSize from 'components/common/FieldSize';
 import { FieldLabel, Control, Field } from 'components/form/index';
+import { AutoDV } from 'auto-dv-type';
 
 const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = () => {
   const labelProps = {

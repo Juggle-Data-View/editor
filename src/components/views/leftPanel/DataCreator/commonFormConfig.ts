@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import { DataSourceType } from 'config/const';
 
 const APIFormConfig: INodeConfig[] = [

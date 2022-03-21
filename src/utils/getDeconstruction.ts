@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { omit } from 'lodash';
 
 const getDeconstruction = (config: AutoDV.AppConfig, id: number) => {

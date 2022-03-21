@@ -11,6 +11,7 @@ import { appAction } from 'store/features/appSlice';
 import { selectEditor, selectAutoDV } from 'store/selectors';
 import MyRuler from './Ruler';
 import useResize from 'components/base/useResize';
+import { AutoDV } from 'auto-dv-type';
 
 const CanvasWrap: React.FC = () => {
   const { canvasRatio, canvasPadding: padding } = useSelector(selectEditor);

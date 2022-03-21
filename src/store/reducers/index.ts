@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { Reducer, AnyAction, combineReducers } from '@reduxjs/toolkit';
 import editorReducer from '../features/editorSlice';
 import appReducer from '../features/appSlice';

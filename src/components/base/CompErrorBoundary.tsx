@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import React, { ErrorInfo } from 'react';
 import styled from 'styled-components';
 import merge from 'lodash/merge';

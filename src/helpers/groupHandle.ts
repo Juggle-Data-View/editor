@@ -1,5 +1,6 @@
 import { groupRectSelector } from 'helpers/selectors';
 import getAllChildren from 'utils/getAllChildren';
+import { AutoDV } from 'auto-dv-type';
 
 interface Result {
   [code: string]: { oldGroup?: string; newGroup?: string };

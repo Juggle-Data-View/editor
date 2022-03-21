@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { Config } from './type';
 
 const config: AutoDV.CompConfig<Config> = {

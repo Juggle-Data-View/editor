@@ -5,6 +5,7 @@ import { selectUndo, selectEditorPanel } from 'store/selectors';
 import { Divider, MenuItem, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { editorAction } from 'store/features/editorSlice';
+import { AutoDV } from 'auto-dv-type';
 
 const DEFAULT_ACTION = 'DEFAULT_ACTION';
 

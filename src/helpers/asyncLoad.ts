@@ -2,6 +2,7 @@
  * 异步加载组件or数据
  */
 import notice from 'utils/notice';
+import { AutoDV } from 'auto-dv-type';
 
 /**
  * 异步加载本地静态数据

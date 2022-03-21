@@ -1,4 +1,4 @@
-import { INodeConfig } from 'components/recursion/types';
+import { INodeConfig } from 'auto-dv-type/src/form';
 import { borderStyle } from 'config/form/style';
 
 const lineStyle: INodeConfig[] = [

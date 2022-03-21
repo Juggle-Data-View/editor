@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import funnel from './configs/templates/funnel';
 
 const componentConfig: AutoDV.CompConfig = {

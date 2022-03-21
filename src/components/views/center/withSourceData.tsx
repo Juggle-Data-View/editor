@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useInterval } from 'ahooks';
+import { AutoDV } from 'auto-dv-type';
 import { fetchDataInEditor, fetchDataInView } from 'helpers/fetchData';
 import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 import getDecoration from 'utils/getDecoration';

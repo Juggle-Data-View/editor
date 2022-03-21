@@ -2,6 +2,7 @@ import QS from 'query-string';
 import store from 'store/index';
 import numeral from 'numeral';
 import { nanoid as _nanoid } from '@reduxjs/toolkit';
+import { AutoDV } from 'auto-dv-type';
 
 export const qs = QS.parseUrl(window.location.href);
 

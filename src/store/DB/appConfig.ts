@@ -1,4 +1,5 @@
 import { APPINFO_STORE, DB } from '.';
+import { AutoDV } from 'auto-dv-type';
 
 class AppConfig extends DB {
   updateAppConfig = async (payload: AutoDV.AppConfig, appId: number) => {

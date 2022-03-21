@@ -5,6 +5,7 @@
 // import Tabs from 'components/recursion/widget/Tabs';
 import doubleAxisLineBarForm from './configs/templates/doubleAxisLineBarForm';
 import doubleAxisLineBar from './temps/double_axis_line_bar';
+import { AutoDV } from 'auto-dv-type';
 // import { Config } from './type';
 
 const componentConfig: AutoDV.CompConfig = {

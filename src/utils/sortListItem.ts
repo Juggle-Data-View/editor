@@ -1,3 +1,5 @@
+import { AutoDV } from 'auto-dv-type';
+
 export interface GroupConfigStruct {
   groupItemCode: string[];
 }

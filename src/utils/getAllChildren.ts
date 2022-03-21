@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 /**
  * 获取所有分组子组件的code
  * @param groupCode 要查找的分组code

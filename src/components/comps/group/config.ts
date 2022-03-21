@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 const config: AutoDV.CompConfig<any> = {
   version: '1.0.0',
   tab: {

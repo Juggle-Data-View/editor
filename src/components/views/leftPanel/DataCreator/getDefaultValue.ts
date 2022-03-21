@@ -1,5 +1,6 @@
 import { DataSourceType as DT, HttpMethod } from 'config/const';
 import { nanocode } from 'utils';
+import { AutoDV } from 'auto-dv-type';
 
 const getDefaultValues = (options?: AutoDV.MixinDatasource) => {
   if (!options) {

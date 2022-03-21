@@ -9,6 +9,7 @@
 
 import { createSelector } from '@reduxjs/toolkit';
 import { getAutoDV } from 'utils';
+import { AutoDV } from 'auto-dv-type';
 
 const getCompCodes = (state: AutoDV.State) => state.compCodes;
 const getCompDatas = (state: AutoDV.State) => state.compDatas;

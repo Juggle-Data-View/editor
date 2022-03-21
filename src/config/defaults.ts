@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 /**
  * 默认数据
  */

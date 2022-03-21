@@ -7,6 +7,7 @@ import React, { Suspense, lazy, memo, useMemo } from 'react';
 import CompErrorBoundary from 'components/base/CompErrorBoundary';
 import CompLoader from 'components/common/CompLoader';
 import withSourceData from './withSourceData';
+import { AutoDV } from 'auto-dv-type';
 
 /**
  * memo: 阻止上层hoc组件withSourceData内部触发的一些rerender

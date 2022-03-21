@@ -1,5 +1,4 @@
-import { INodeConfig } from 'components/recursion/types';
-
+import { INodeConfig } from 'auto-dv-type/src/form';
 export const dateFormatOptions = [
   { value: 'YYYY-MM-DD', label: 'YYYY-MM-DD' },
   { value: 'YYYY.M.D', label: 'YYYY.M.D' },

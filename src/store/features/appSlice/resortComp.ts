@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { groupResort, updateGroupSize } from 'helpers/groupHandle';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 import sortListItem from 'utils/sortListItem';

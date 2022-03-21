@@ -3,6 +3,7 @@
  */
 
 import * as React from 'react';
+import { AutoDV } from 'auto-dv-type';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { appAction } from 'store/features/appSlice';

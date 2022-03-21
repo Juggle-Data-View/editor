@@ -16,6 +16,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DataPanel from './DataPanel';
+import { AutoDV } from 'auto-dv-type';
 
 const LoaderContainer = styled.div`
   display: flex;

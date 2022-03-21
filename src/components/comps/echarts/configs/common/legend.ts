@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from 'auto-dv-type/src/form';
+
 import * as font from 'config/form/font';
 
 const legend: INodeConfig = {

@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 /**
  * 组件类型定义
  * @author TEMPLATE_AUTHOR

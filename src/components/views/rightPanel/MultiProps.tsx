@@ -7,6 +7,7 @@ import { selectedRectSelector } from 'helpers/selectors';
 import { FieldLabel } from 'components/form';
 import { appAction } from 'store/features/appSlice';
 import { selectAutoDV } from 'store/selectors';
+import { AutoDV } from 'auto-dv-type';
 
 const InputContainer = styled.div`
   position: relative;

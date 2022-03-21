@@ -1,6 +1,7 @@
 import { saveAs } from 'file-saver';
 import { ButtonGroup, Tooltip, Button } from '@mui/material';
 import { getAutoDV } from 'utils';
+import { AutoDV } from 'auto-dv-type';
 import notice from 'utils/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';

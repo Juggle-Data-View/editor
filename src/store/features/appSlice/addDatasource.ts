@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 export const handleAdd = (datasources: AutoDV.AppConfig['datasources'], datasource: AutoDV.MixinDatasource) => {
   const { dataSourceId } = datasource;
   if (dataSourceId in datasource) {

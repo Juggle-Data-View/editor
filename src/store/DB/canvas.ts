@@ -1,3 +1,4 @@
+import { UpdateCanvasPayload } from 'utils/request';
 import { DB, CANVAS_STORE } from '.';
 
 class Canvas extends DB {

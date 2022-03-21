@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { DataSourceType } from 'config/const';
 import { handleAdd } from './addDatasource';
 

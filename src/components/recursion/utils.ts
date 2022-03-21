@@ -1,4 +1,4 @@
-import { INodeConfig } from './types';
+import { INodeConfig } from 'auto-dv-type/src/form';
 import { set, toPath } from 'lodash';
 
 /**

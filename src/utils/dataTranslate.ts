@@ -3,6 +3,7 @@
  * 将服务端下发数据通过`fieldMap`加工后生成新的数据供业务组件使用。
  * 转换公式：`sourceData = fn(originData, fieldMap)`
  */
+import { AutoDV } from 'auto-dv-type';
 
 import { get, isPlainObject } from 'lodash';
 

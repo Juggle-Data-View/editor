@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 
 const deleteComp: AutoDV.ReducerCaseWithPrepare = {

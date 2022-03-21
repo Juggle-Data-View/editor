@@ -7,6 +7,57 @@ import history from 'helpers/history';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'; // 兼容守护工具(chrome v61)
 import { HttpMethod, ContentType } from 'config/const';
 import { merge } from 'lodash';
+import { AutoDV } from 'auto-dv-type';
+
+export interface AutoDVErrorInfo {
+  /** 请求状态码 */
+  code: number;
+  /** 错误信息 */
+  message: string;
+}
+
+export interface AutoDVRes<T> {
+  code: number;
+  message: string;
+  data?: T;
+}
+
+export interface UpdateCanvasPayload {
+  key: keyof AutoDV.Canvas;
+  value: unknown;
+}
+
+/**
+ * ---------------------------------
+ * 组件实例接口 相关
+ * ---------------------------------
+ */
+
+export interface CompInstEditReqData {
+  code: string;
+  key: keyof AutoDV.Comp | 'staticData';
+  value: any;
+}
+
+/** 增、删、改的集合 */
+export type CompInstReqData = (AutoDV.Comp | string | CompInstEditReqData)[];
+
+/**
+ * ---------------------------------
+ * 数据源
+ * ---------------------------------
+ */
+export interface DataSourceParam {
+  name: string;
+  value: string;
+}
+
+/** 请求数据源数据的接口参数 */
+export interface DataSourceDataReqData {
+  scriptId?: string | number;
+  specScript?: string;
+  params?: DataSourceParam[];
+}
 
 export const baseURL = process.env.REACT_APP_API_BASE_URL;
 

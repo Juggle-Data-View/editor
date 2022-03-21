@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AutoDV } from 'auto-dv-type';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';

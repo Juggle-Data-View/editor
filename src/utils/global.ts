@@ -1,6 +1,4 @@
-/**
- * 全局变量、常量.
- */
+import { AutoDV } from 'auto-dv-type';
 
 interface GlobalVarsType {
   canvasId: AutoDV.Canvas['id'];

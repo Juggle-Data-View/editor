@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 import { omit, pick } from 'lodash';
 
 const init: AutoDV.ReducerCaseWithPrepare<{ app: AutoDV.AppConfig }> = {

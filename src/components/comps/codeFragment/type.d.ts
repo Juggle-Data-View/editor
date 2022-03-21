@@ -1,3 +1,4 @@
+import { AutoDV } from 'auto-dv-type';
 /**
  * 组件属性类型
  * 1. 定义所有模板配置的类型

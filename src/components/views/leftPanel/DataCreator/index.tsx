@@ -13,6 +13,7 @@ import ThemeConfig from 'config/theme';
 import getFormatBody from './getFormatBody';
 import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from 'config/const';
+import { AutoDV } from 'auto-dv-type';
 
 interface Props {
   containerDiv: HTMLDivElement;

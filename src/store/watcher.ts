@@ -10,6 +10,8 @@ import components from './DB/components';
 import canvas from './DB/canvas';
 import app from './DB/appConfig';
 import global from 'utils/global';
+import { AutoDV } from 'auto-dv-type';
+import { CompInstEditReqData, CompInstReqData } from 'utils/request';
 
 const differ = require('deep-diff');
 

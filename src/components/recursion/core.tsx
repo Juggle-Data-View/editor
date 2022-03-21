@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useCallback, Fragment, useRef } from 'react';
 import { Formik, useFormikContext, FieldArray } from 'formik';
 import { FieldLabel, validateMerge } from 'components/form';
-import { INodeProps, INodeCompProps, INodeParams, IFormikStatus, IGenerator, INodeLabel, ChildProps } from './types';
+import { INodeProps, IFormikStatus, IGenerator, INodeLabel, ChildProps } from './types';
 import { c2n, resolveName } from './utils';
 import { get, has, isFunction } from 'lodash';
 import { nodeMapping } from './fields';
 import { useDebounce } from 'ahooks';
 import ErrorBoundary from 'components/base/ErrorBoundary';
+import { INodeParams } from 'auto-dv-type/src/form';
+import { FormComps } from 'auto-dv-type/src/fieldComponents';
 
 /**
  * 表单触发修改时自动提交表单
@@ -121,7 +123,7 @@ const Node: React.FC<INodeProps> = (props) => {
   }, [fullyName, getValue, nodeValue, parentName, setFieldValue]);
 
   const nodeProps = useMemo(() => {
-    const _props: INodeCompProps = {
+    const _props: FormComps.INodeCompProps = {
       name: fullyName,
       defaultValues: status.defaultValues,
       ...(isFunction(node.props) ? node.props(params) : node.props),

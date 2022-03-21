@@ -2,6 +2,7 @@
  * 全局热键组件
  */
 
+import { AutoDV } from 'auto-dv-type';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, DialogTitle, IconButton, useMediaQuery, useTheme } from '@mui/material';
