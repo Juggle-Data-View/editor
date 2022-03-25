@@ -64,19 +64,19 @@ const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['da
 
 /**
  * 添加组件到画布中
- * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/compTempCode}
+ * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/version}
  */
 export const ADD_COMP = async (compId: string, alias: string) => {
   try {
-    const [compCode, compTempCode] = compId.split('/');
-    if (!compCode || !compTempCode) {
+    const [compCode, version] = compId.split('/');
+    if (!compCode || !version) {
       throw new Error('缺少组件类型或组件模板！');
     }
-    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
+    const { template } = await asyncLoadCompConfig(compCode, version);
 
     const selfComp: Partial<AutoDV.AddCompParams> = {
       code: nanocode(compCode),
-      compTempCode,
+      version,
       compCode,
       alias,
       locked: false,
@@ -114,7 +114,7 @@ export const ADD_GROUP_COMP = (attr: AutoDV.Attr, selectedCompCodes: string[]) =
   });
   const defaultCompTemp = {
     code: nanocode('group'),
-    compTempCode: 'index',
+    version: 'index',
     compCode: 'group',
     alias: '分组',
     locked: false,

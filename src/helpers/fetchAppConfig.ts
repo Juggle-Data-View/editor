@@ -11,7 +11,7 @@ const fetchAppConfig = async (url?: string) => {
 
     const { id, release } = url ? qsDynamic(url).query : qs.query;
 
-    let appConfig;
+    let appConfig: any;
 
     if (isRelease) {
       appConfig = await Api.fetchReleaseAppConfig(release as string);

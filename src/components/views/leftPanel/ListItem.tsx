@@ -30,7 +30,7 @@ interface IListItem {
 const ListItem = (props: IListItem) => {
   const [editAble, setEditAble] = useState(false);
   const { item, index, isSelected, isGhosting, selectedCount, isDraggingOver, small } = props;
-  const { code, alias, title, locked, hided, compTempCode } = item;
+  const { code, alias, title, locked, hided, version } = item;
   const visibleAction = locked || hided;
   const hoverIndex = useSelector((state: RootState) => state.editor.hoverIndex);
   const isSelecto = useSelector((state: RootState) => state.editor.isSelecto);
@@ -112,7 +112,7 @@ const ListItem = (props: IListItem) => {
             onMouseEnter={handleHover(index, snapshot.isDragging)}
             onMouseLeave={handleHover(-1, snapshot.isDragging)}
           >
-            <div className="inner" data-debug={['debug', code, compTempCode].join('-')}>
+            <div className="inner" data-debug={['debug', code, version].join('-')}>
               <div
                 className={classNames({
                   thumb: true,

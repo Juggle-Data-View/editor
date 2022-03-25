@@ -29,7 +29,6 @@ const initialState: AutoDV.State = {
     modifyUser: '',
     name: '',
     spaceId: -1,
-    type: 0,
     datasources: {},
   },
   canvas: {

@@ -10,7 +10,7 @@ import { AutoDV } from 'auto-dv-type';
 export const defaultCompData: AutoDV.Comp = {
   alias: '',
   compCode: '',
-  compTempCode: '',
+  version: '',
   title: '',
   createTime: NaN,
   attr: {

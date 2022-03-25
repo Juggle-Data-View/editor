@@ -33,7 +33,7 @@ const Loader = () => (
 
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon, parentName } = props;
-  const { code, compCode, compTempCode, alias, dataConfig } = compData;
+  const { code, compCode, version, alias, dataConfig } = compData;
   const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState('config');
@@ -41,7 +41,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
 
   const loadConfig = async () => {
     try {
-      const config = await asyncLoadCompConfig(compCode, compTempCode);
+      const config = await asyncLoadCompConfig(compCode, version);
       setConfig(config);
     } catch (error: any) {
       notice.error(error.message || '加载组件配置文件失败');
@@ -59,7 +59,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
     return <Loader />;
   }
 
-  const { version, tab, template, extraTab } = config;
+  const { tab, template, extraTab } = config;
 
   return (
     <CompErrorBoundary compData={compData} isInEditor={true}>

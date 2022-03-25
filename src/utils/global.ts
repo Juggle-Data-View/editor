@@ -5,7 +5,7 @@ interface GlobalVarsType {
   appId: AutoDV.AppID;
   spaceId: AutoDV.SpaceID;
   zoomStyle: any;
-  wssType: AutoDV.AppConfig['type'];
+  wssType: any;
   io: SocketIOClient.Socket | null;
 }
 

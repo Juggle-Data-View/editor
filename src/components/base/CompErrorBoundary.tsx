@@ -9,8 +9,8 @@ import { appAction } from 'store/features/appSlice';
 
 export const mergeCompData = async (compData: AutoDV.Comp) => {
   try {
-    const { code, compCode, compTempCode } = compData;
-    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
+    const { code, compCode, version } = compData;
+    const { template } = await asyncLoadCompConfig(compCode, version);
     const newCompData: AutoDV.Comp = {
       ...compData,
       attr: merge({}, defaultCompData.attr, template.attr, compData.attr),
