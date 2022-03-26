@@ -1,13 +1,8 @@
-import { DB, COMP_STORE } from '.';
 import { AutoDV } from 'auto-dv-type';
 import { CompInstEditReqData } from 'utils/request';
+import Database, { COMP_STORE } from './databaseInit';
 
-class Components extends DB {
-  constructor() {
-    super();
-    console.log('init components store ');
-  }
-
+class Components extends Database {
   updateComponets = async (payload: CompInstEditReqData[], appId: number) => {
     // console.log('update');
     try {

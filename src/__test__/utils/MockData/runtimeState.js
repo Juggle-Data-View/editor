@@ -6,7 +6,7 @@ export const state = {
     modifyTime: 1599553167000,
     modifyUser: 'dushihua2',
     name: 'efgsrfv',
-    spaceId: 149,
+    userId: 149,
   },
   canvas: {
     appId: 559,

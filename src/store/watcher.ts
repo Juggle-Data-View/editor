@@ -53,7 +53,8 @@ const setupWatch = () => {
       // for of每次迭代都会触发一种请求
       for (const kind of Object.keys(obj)) {
         const payload: any = []; // request data
-        if (kind !== 'E') {
+        const newValKey = Object.keys(obj[kind]);
+        if (kind !== 'E' && !newValKey.includes('mountComp')) {
           throw new Error(`listener error: ${kind}`);
         }
         Object.keys(obj[kind]).forEach((key) => {

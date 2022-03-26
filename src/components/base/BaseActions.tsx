@@ -26,7 +26,7 @@ export const COPY_COMP = () => {
   const copyContent: AutoDV.ExportContent = {
     name: app.name,
     exportTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-    spaceId: app.spaceId,
+    userId: app.userId,
     components: getAllSelectedComps(selectedCompCodes, compDatas, compCodes).map((code) => compDatas[code]),
   };
   copy(`${COPY_KEY}${JSON.stringify(copyContent)}`);

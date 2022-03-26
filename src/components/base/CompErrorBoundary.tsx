@@ -70,20 +70,20 @@ export class CommonErrorBoundy extends React.Component<{
   }
 }
 
-const ErrorCatcher: React.FC<IProps> = ({ compData, isInEditor, children }) => {
+const ErrorCatcher: React.FC<IProps> = ({ compData, children }) => {
   const handleCatch: HandleCatch = (err, info) => {
     console.log(err, info);
     mergeCompData(compData);
   };
 
-  return isInEditor ? (
+  return (
     <CommonErrorBoundy
       handleCatch={handleCatch}
       LowerComponent={() => <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。 </ErrorMessage>}
     >
       {children}
     </CommonErrorBoundy>
-  ) : null;
+  );
 };
 
 export default ErrorCatcher;

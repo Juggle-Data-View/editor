@@ -1,8 +1,8 @@
 import { AutoDV } from 'auto-dv-type';
-export const fetchDataInEditor = async (code: string, dataConfig: AutoDV.DataConfig) => {
+export const fetchCSVData = async (code: string, dataConfig: AutoDV.CompDataConfig) => {
   return [];
 };
 
-export const fetchDataInView = (code: string, dynamicParams: AutoDV.DataParam[], layerCode?: string) => {
+export const fetchAPIData = async (code: string, dataConfig: AutoDV.CompDataConfig) => {
   return [];
 };

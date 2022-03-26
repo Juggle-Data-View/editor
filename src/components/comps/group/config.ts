@@ -29,12 +29,6 @@ const config: AutoDV.CompConfig<any> = {
     name: 'config',
     type: 'fragment',
   },
-
-  staticData: [
-    {
-      url: '',
-    },
-  ],
 };
 
 export default config;

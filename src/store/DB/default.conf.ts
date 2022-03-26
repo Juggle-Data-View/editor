@@ -7,7 +7,7 @@ const AppConfig: AutoDV.AppConfig = {
   modifyTime: 0,
   modifyUser: '',
   name: '',
-  spaceId: -1,
+  userId: -1,
   datasources: {},
   canvas: {
     id: Date.now(),

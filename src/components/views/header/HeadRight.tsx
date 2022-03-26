@@ -47,7 +47,7 @@ const exportComps = (isAll: boolean) => {
 
     const exportContent: AutoDV.ExportContent = {
       name: app.name,
-      spaceId: app.spaceId,
+      userId: app.userId,
       components: exports,
       exportTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     };
@@ -114,7 +114,7 @@ const importComps = (file: File) => {
         throw new Error('没有找到组件配置');
       }
 
-      const isSameSpace = !!(content.spaceId === state.app.spaceId);
+      const isSameSpace = !!(content.userId === state.app.userId);
 
       const doImport = (content: AutoDV.ExportContent) => {
         store.dispatch(appAction.importJSON({ content: transContent(content) }));

@@ -36,13 +36,7 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
         const datasource = dataConfig ? datasources[dataConfig.dataSourceId] : undefined;
         return (
           <CompWrapper key={code} isInEditor={isInEditor} isSelected={isSelected} compData={comp} index={index}>
-            <EnhancedComp
-              compData={comp}
-              isSelected={isSelected}
-              isInEditor={isInEditor}
-              comps={comps}
-              datasource={datasource}
-            />
+            <EnhancedComp compData={comp} isSelected={isSelected} isInEditor={isInEditor} datasource={datasource} />
           </CompWrapper>
         );
       })}

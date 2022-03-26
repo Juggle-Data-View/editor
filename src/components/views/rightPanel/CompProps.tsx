@@ -32,7 +32,7 @@ const Loader = () => (
 );
 
 const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
-  const { compData, noNeedPropsCommon, parentName } = props;
+  const { compData, noNeedPropsCommon } = props;
   const { code, compCode, version, alias, dataConfig } = compData;
   const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
@@ -67,7 +67,6 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
         values={compData}
         config={config.forms}
         defaultValues={template}
-        parentName={parentName}
         onSubmit={(values) => {
           const diffs = getDiffPayload(compData, values);
           if (diffs) {

@@ -93,6 +93,8 @@ const WrapperInEditor = (props: Props & CommonProps) => {
 
 const WrapperInView = (props: Props & CommonProps) => {
   const { compData, commonProps } = props;
+  console.log(props.children);
+
   return (
     <CompStyled className={compData.compCode} {...commonProps}>
       {props.children}

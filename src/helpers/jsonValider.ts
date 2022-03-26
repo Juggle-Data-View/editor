@@ -75,14 +75,14 @@ const COMP_JSON_SCHEMA = {
 };
 
 const APP_JSON_SCHEMA = {
-  required: ['name', 'spaceId', 'components', 'exportTime'],
+  required: ['name', 'userId', 'components', 'exportTime'],
   properties: {
     name: {
       $id: '#/properties/name',
       type: 'string',
     },
-    spaceId: {
-      $id: '#/properties/spaceId',
+    userId: {
+      $id: '#/properties/userId',
       type: 'integer',
     },
     components: {

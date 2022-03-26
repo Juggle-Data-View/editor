@@ -16,7 +16,7 @@ import { AutoDV } from 'auto-dv-type';
 export const transContent = (content: AutoDV.ExportContent, options?: { offset: number }) => {
   try {
     const state = getAutoDV();
-    const isSameSpace = !!(content.spaceId === state.app.spaceId);
+    const isSameSpace = !!(content.userId === state.app.userId);
 
     let groupCache: { oldCode: string; newCode: string }[] = [];
     const updateGroupMap = (comp: AutoDV.Comp<AutoDV.Config>, hasGroup?: string) => {

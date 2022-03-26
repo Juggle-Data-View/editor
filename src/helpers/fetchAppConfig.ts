@@ -55,7 +55,7 @@ const fetchAppConfig = async (url?: string) => {
       // 存储全局状态，方便后续使用
       global.appId = appConfig.id;
       global.canvasId = appConfig.canvas.id;
-      global.spaceId = appConfig.spaceId;
+      global.userId = appConfig.userId;
       global.wssType = appConfig.type;
     }
 
@@ -64,7 +64,7 @@ const fetchAppConfig = async (url?: string) => {
       fakeIFrameVars.set(`${appConfig.name}`, {
         appId: appConfig.id,
         canvasId: appConfig.canvas.id,
-        spaceId: appConfig.spaceId,
+        userId: appConfig.userId,
       });
     }
 

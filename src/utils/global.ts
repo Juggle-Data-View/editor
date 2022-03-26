@@ -3,7 +3,7 @@ import { AutoDV } from 'auto-dv-type';
 interface GlobalVarsType {
   canvasId: AutoDV.Canvas['id'];
   appId: AutoDV.AppID;
-  spaceId: AutoDV.SpaceID;
+  userId: AutoDV.UserID;
   zoomStyle: any;
   wssType: any;
   io: SocketIOClient.Socket | null;
@@ -12,7 +12,7 @@ interface GlobalVarsType {
 const global: GlobalVarsType = {
   canvasId: null,
   appId: null,
-  spaceId: null,
+  userId: null,
   zoomStyle: {},
   wssType: undefined, // webSocket 类型 为1时表示 实验室大屏
   io: null,

@@ -28,7 +28,7 @@ const initialState: AutoDV.State = {
     modifyTime: 0,
     modifyUser: '',
     name: '',
-    spaceId: -1,
+    userId: -1,
     datasources: {},
   },
   canvas: {
@@ -40,6 +40,7 @@ const initialState: AutoDV.State = {
     width: 1920,
     height: 1080,
     zoomType: 0,
+    mountComp: {},
   },
   compCodes: [],
   compDatas: {},

@@ -72,7 +72,6 @@ const subList = (compCodes: string[], compDatas: AutoDV.State['compDatas']): Ass
         });
 
         //如果当前分组有父分组,此时分组栈一定不为空，分组索引为父分组长度-1
-        // debugger;
         groupStack.push({
           groupCode: item,
           index: groupStack.length ? groupStack[groupStack.length - 1].offsetNumber - 1 : index,
