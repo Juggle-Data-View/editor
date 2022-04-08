@@ -11,7 +11,7 @@ import Ajv, { ErrorObject } from 'ajv';
  *  - jsonToSchema工具: https://techbrij.com/brijpad/#json
  */
 const COMP_JSON_SCHEMA = {
-  required: ['title', 'attr', 'config', 'code', 'compTempCode', 'compCode', 'alias'],
+  required: ['title', 'attr', 'config', 'code', 'version', 'compCode', 'alias'],
   properties: {
     title: {
       $id: '#/properties/title',
@@ -55,8 +55,8 @@ const COMP_JSON_SCHEMA = {
       $id: '#/properties/code',
       type: 'string',
     },
-    compTempCode: {
-      $id: '#/properties/compTempCode',
+    version: {
+      $id: '#/properties/version',
       type: 'string',
     },
     compCode: {
@@ -75,14 +75,14 @@ const COMP_JSON_SCHEMA = {
 };
 
 const APP_JSON_SCHEMA = {
-  required: ['name', 'spaceId', 'components', 'exportTime'],
+  required: ['name', 'userId', 'components', 'exportTime'],
   properties: {
     name: {
       $id: '#/properties/name',
       type: 'string',
     },
-    spaceId: {
-      $id: '#/properties/spaceId',
+    userId: {
+      $id: '#/properties/userId',
       type: 'integer',
     },
     components: {

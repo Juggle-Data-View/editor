@@ -1,3 +1,4 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { Reducer, AnyAction, combineReducers } from '@reduxjs/toolkit';
 import editorReducer from '../features/editorSlice';
 import appReducer from '../features/appSlice';
@@ -12,7 +13,7 @@ const compWithUndoReducer = undoReducer(
     ignoreInitialState: true,
     filter: undoFilter,
   })
-) as Reducer<AutoDV.UndoState, AnyAction>;
+) as Reducer<JuggleDV.UndoState, AnyAction>;
 
 export default combineReducers({
   autoDV: compWithUndoReducer,

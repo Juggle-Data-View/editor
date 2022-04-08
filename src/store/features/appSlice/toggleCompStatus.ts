@@ -1,7 +1,8 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { actionStatusSelector } from 'helpers/selectors';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 
-const toggleCompStatus: AutoDV.ReducerCaseWithPrepare<{ code?: string; status: keyof AutoDV.ICompOwnStatus }> = {
+const toggleCompStatus: JuggleDV.ReducerCaseWithPrepare<{ code?: string; status: keyof JuggleDV.ICompOwnStatus }> = {
   reducer(state, action) {
     const { compDatas, selectedCompCodes, compCodes } = state;
     const { code, status } = action.payload;
@@ -19,7 +20,7 @@ const toggleCompStatus: AutoDV.ReducerCaseWithPrepare<{ code?: string; status: k
       codes.forEach((scode) => (compDatas[scode][status] = !highlight[status]));
     }
   },
-  prepare(payload: { code?: string; status: keyof AutoDV.ICompOwnStatus }) {
+  prepare(payload: { code?: string; status: keyof JuggleDV.ICompOwnStatus }) {
     return {
       payload: { ...payload, _alias: payload.status === 'hided' ? '隐藏' : '锁定' },
     };

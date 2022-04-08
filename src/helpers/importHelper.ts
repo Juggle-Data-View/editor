@@ -6,19 +6,20 @@
 
 import { nanocode } from 'utils';
 import { validComp } from 'helpers/jsonValider';
-import { getAutoDV } from 'utils';
+import { getJuggleDV } from 'utils';
+import { JuggleDV } from '@juggle-data-view/types';
 
 /**
  * 给定旧的内容，返回转换后的内容
  * 该函数会在导入、粘贴被调用
  */
-export const transContent = (content: AutoDV.ExportContent, options?: { offset: number }) => {
+export const transContent = (content: JuggleDV.ExportContent, options?: { offset: number }) => {
   try {
-    const state = getAutoDV();
-    const isSameSpace = !!(content.spaceId === state.app.spaceId);
+    const state = getJuggleDV();
+    const isSameSpace = !!(content.userId === state.app.userId);
 
     let groupCache: { oldCode: string; newCode: string }[] = [];
-    const updateGroupMap = (comp: AutoDV.Comp<AutoDV.Config>, hasGroup?: string) => {
+    const updateGroupMap = (comp: JuggleDV.Comp<JuggleDV.Config>, hasGroup?: string) => {
       if (groupCache.length && hasGroup === groupCache[groupCache.length - 1].oldCode) {
         comp.config.groupCode = groupCache[groupCache.length - 1].newCode;
       } else {

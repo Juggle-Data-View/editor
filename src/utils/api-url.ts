@@ -58,7 +58,7 @@ export const UPLOAD = '/file/upload';
 /**
  * 数据源
  * Request Method:
- *  - GET 数据源列表  URL: //admin/data/source/?space={spaceId}
+ *  - GET 数据源列表  URL: //admin/data/source/?space={userId}
  *  - GET 数据源详情  URL: //admin/data/source/{dataSourceId}
  *  - POST 新建数据源
  */

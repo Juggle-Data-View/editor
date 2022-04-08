@@ -6,7 +6,7 @@ import { withNode } from '../fields';
 import { Collapse } from 'components/form/Collapse';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import AutoDVIcon from 'components/common/AutoDVIcon';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 interface ItemProps {
@@ -109,7 +109,7 @@ const CustomTabs = withNode<ICustomTabs>((node) => {
               >
                 <Tooltip title="上移" placement="bottom">
                   <span>
-                    <AutoDVIcon size={16} icon="autoDV-up" />
+                    <JuggleDVIcon size={16} icon="autoDV-up" />
                   </span>
                 </Tooltip>
               </Button>
@@ -124,7 +124,7 @@ const CustomTabs = withNode<ICustomTabs>((node) => {
               >
                 <Tooltip title="下移" placement="bottom">
                   <span>
-                    <AutoDVIcon size={16} icon="autoDV-down" />
+                    <JuggleDVIcon size={16} icon="autoDV-down" />
                   </span>
                 </Tooltip>
               </Button>

@@ -13,10 +13,11 @@ import ThemeConfig from 'config/theme';
 import getFormatBody from './getFormatBody';
 import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from 'config/const';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface Props {
   containerDiv: HTMLDivElement;
-  options?: AutoDV.MixinDatasource;
+  options?: JuggleDV.MixinDatasource;
 }
 
 const defaultDatasourceConfig = {
@@ -49,7 +50,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
 
   const defualtValues = useMemo(() => options || (defaultDatasourceConfig as any), [options]);
 
-  const [sourceContent, setSourceContent] = useState(defualtValues);
+  const [, setSourceContent] = useState(defualtValues);
 
   const dispatch = useDispatch();
 
@@ -63,16 +64,16 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     setOpen(false);
   };
 
-  const handleSubmit = () => {
-    const { dataSourceId, body } = sourceContent;
+  const handleSubmit = (values: JuggleDV.MixinDatasource) => {
     if (!isVaild) {
       return;
     }
+    const { dataSourceId, body } = values;
 
     if (dataSourceId in datasources) {
-      dispatch(appAction.updateDatasource({ datasource: { ...sourceContent, body: getFormatBody(body) } }));
+      dispatch(appAction.updateDatasource({ datasource: { ...values, body: getFormatBody(body) } }));
     } else {
-      dispatch(appAction.addDatasource({ datasource: { ...sourceContent, body: getFormatBody(body) } }));
+      dispatch(appAction.addDatasource({ datasource: { ...values, body: getFormatBody(body) } }));
     }
     handleClose();
   };
@@ -101,23 +102,27 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
               setSourceContent(value);
             }}
           >
-            {({ render }) => {
-              return <>{render()}</>;
+            {({ render, formik }) => {
+              return (
+                <>
+                  {render()}
+                  <DialogActions>
+                    <Button onClick={() => handleSubmit(formik.values)} type="submit">
+                      confirm
+                    </Button>
+                    <Button onClick={handleClose}>cancel</Button>
+                  </DialogActions>
+                </>
+              );
             }}
           </Generator>
         </CommonErrorBoundy>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleSubmit} type="submit">
-          confirm
-        </Button>
-        <Button onClick={handleClose}>cancel</Button>
-      </DialogActions>
     </Dialog>
   );
 };
 
-const dataCreator = (options?: AutoDV.MixinDatasource) => {
+const dataCreator = (options?: JuggleDV.MixinDatasource) => {
   const tempDiv = document.createElement('div');
   ReactDOM.render(
     <Providers>

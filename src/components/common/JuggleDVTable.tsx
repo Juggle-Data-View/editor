@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -79,7 +80,7 @@ const TableHeaderCell: React.FC<{
   content: string;
   compFields: string[];
   operationFieldMap: OperationFieldMap;
-  fieldMap: AutoDV.Field[];
+  fieldMap: JuggleDV.Field[];
 }> = ({ content, compFields, fieldMap, operationFieldMap }) => {
   const triggerRef = React.useRef<any>();
   const [isOpen, setOpen] = React.useState(false);
@@ -124,7 +125,7 @@ const TableHeaderCell: React.FC<{
 const CustomPaginationActionsTable: React.FC<{
   rowsData: Data[];
   operationFieldMap: OperationFieldMap;
-  fieldMap: AutoDV.Field[];
+  fieldMap: JuggleDV.Field[];
 }> = ({ rowsData, operationFieldMap, fieldMap }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

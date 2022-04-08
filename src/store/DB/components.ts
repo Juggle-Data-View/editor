@@ -1,11 +1,8 @@
-import { DB, COMP_STORE } from '.';
+import { JuggleDV } from '@juggle-data-view/types';
+import { CompInstEditReqData } from 'utils/request';
+import Database, { COMP_STORE } from './databaseInit';
 
-class Components extends DB {
-  constructor() {
-    super();
-    console.log('init components store ');
-  }
-
+class Components extends Database {
   updateComponets = async (payload: CompInstEditReqData[], appId: number) => {
     // console.log('update');
     try {
@@ -66,7 +63,7 @@ class Components extends DB {
     } catch (error) {}
   };
 
-  addComponents = async (payload: AutoDV.Comp[], appId: number) => {
+  addComponents = async (payload: JuggleDV.Comp[], appId: number) => {
     try {
       const db = await this.dbIns;
       const createTime = Date.now();

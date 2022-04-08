@@ -1,13 +1,13 @@
+import { JuggleDV } from '@juggle-data-view/types';
 const appId = Date.now();
-const AppConfig: AutoDV.AppConfig = {
+const AppConfig: JuggleDV.AppConfig = {
   createTime: 0,
   createUser: '',
   id: appId,
   modifyTime: 0,
   modifyUser: '',
   name: '',
-  spaceId: -1,
-  type: 0,
+  userId: -1,
   datasources: {},
   canvas: {
     id: Date.now(),

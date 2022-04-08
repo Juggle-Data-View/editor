@@ -1,20 +1,18 @@
-/**
- * 全局变量、常量.
- */
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface GlobalVarsType {
-  canvasId: AutoDV.Canvas['id'];
-  appId: AutoDV.AppID;
-  spaceId: AutoDV.SpaceID;
+  canvasId: JuggleDV.Canvas['id'];
+  appId: JuggleDV.AppID;
+  userId: JuggleDV.UserID;
   zoomStyle: any;
-  wssType: AutoDV.AppConfig['type'];
+  wssType: any;
   io: SocketIOClient.Socket | null;
 }
 
 const global: GlobalVarsType = {
   canvasId: null,
   appId: null,
-  spaceId: null,
+  userId: null,
   zoomStyle: {},
   wssType: undefined, // webSocket 类型 为1时表示 实验室大屏
   io: null,

@@ -1,9 +1,10 @@
-// import { INodeConfig } from 'components/recursion';
+// import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import baseLineForm from './configs/templates/baseLineForm';
 import baseLineConfig from './temps/base_line';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

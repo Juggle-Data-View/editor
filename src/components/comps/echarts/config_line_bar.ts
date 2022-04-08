@@ -3,11 +3,12 @@
  */
 // import * as font from 'config/form/font';
 // import Tabs from 'components/recursion/widget/Tabs';
+import { JuggleDV } from '@juggle-data-view/types';
 import lineBarTemplate from './configs/templates/lineBarForm';
 import lineBarConfig from './temps/line_bar';
 // import { Config } from './type';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

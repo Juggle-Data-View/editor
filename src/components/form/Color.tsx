@@ -1,3 +1,4 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
@@ -110,7 +111,7 @@ const Container = styled.div`
 `;
 
 const PickerWidth = 200;
-const DefaultGradient: AutoDV.ColorResult = {
+const DefaultGradient: JuggleDV.ColorResult = {
   type: 'linear',
   colorStops: [
     { offset: 0, color: 'rgb(238, 241, 11)' },
@@ -148,8 +149,8 @@ export interface IColor {
 }
 
 interface ColorProps extends IColor {
-  value: string | AutoDV.ColorResult;
-  onChange: (color: string | AutoDV.ColorResult) => void;
+  value: string | JuggleDV.ColorResult;
+  onChange: (color: string | JuggleDV.ColorResult) => void;
 }
 
 export const ControlColor = (props: ColorProps) => {
@@ -157,8 +158,8 @@ export const ControlColor = (props: ColorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [colorType, setColorType] = useState<'solid' | 'gradient'>('solid'); // 纯色 or 渐变色选项状态
   const [solidColor, setSolidColor] = useState<string>(); // 纯色色值状态
-  const [gradientColor, setGradientColor] = useState<AutoDV.ColorResult>(DefaultGradient); // 渐变色状态
-  const prevColor = useRef<string | AutoDV.ColorResult>();
+  const [gradientColor, setGradientColor] = useState<JuggleDV.ColorResult>(DefaultGradient); // 渐变色状态
+  const prevColor = useRef<string | JuggleDV.ColorResult>();
   const debounceRef = useRef<any>(-1);
   const gradientType = ['linear'];
   const triggerRef = useRef<HTMLDivElement | null>(null);
@@ -167,12 +168,12 @@ export const ControlColor = (props: ColorProps) => {
     gradientType.push('radial');
   }
 
-  const setPalette = (_palette: AutoDV.ColorStop[]) => {
+  const setPalette = (_palette: JuggleDV.ColorStop[]) => {
     setGradientColor({
       ...gradientColor,
       colorStops: _palette.map(({ offset, color, opacity }) => {
         const tc = tinycolor(color);
-        const step: AutoDV.ColorStop = {
+        const step: JuggleDV.ColorStop = {
           offset: Number(offset), // 渐变色调色盘返回的是字符串类型
           color: tc.toHexString(), // 转换成hex，争取字段长度存少一点
         };
@@ -193,7 +194,7 @@ export const ControlColor = (props: ColorProps) => {
     });
   };
 
-  const setGradientType = (_gradientType: AutoDV.ColorResult['type']) => {
+  const setGradientType = (_gradientType: JuggleDV.ColorResult['type']) => {
     setGradientColor({
       ...gradientColor,
       type: _gradientType,

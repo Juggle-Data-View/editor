@@ -3,6 +3,7 @@
  * 将服务端下发数据通过`fieldMap`加工后生成新的数据供业务组件使用。
  * 转换公式：`sourceData = fn(originData, fieldMap)`
  */
+import { JuggleDV } from '@juggle-data-view/types';
 
 import { get, isPlainObject } from 'lodash';
 
@@ -19,7 +20,7 @@ Array.prototype.getSourceDataValue = function (key, defaultValue) {
   return defaultValue;
 };
 
-const fieldMap2Obj = (fieldMap: AutoDV.Field[]) => {
+const fieldMap2Obj = (fieldMap: JuggleDV.Field[]) => {
   return fieldMap.reduce((acc: any, cur) => {
     acc[cur.compFieldName] = cur.sourceFieldName;
     return acc;
@@ -77,7 +78,7 @@ export const decorateData2array = (data: any) => {
  * @param fieldMap 数据源字段映射关系
  * @return {any[]}
  */
-const dataTranslater = (data: any, fieldMap: AutoDV.Field[]) => {
+const dataTranslater = (data: any, fieldMap: JuggleDV.Field[]) => {
   if (!fieldMapFormatVerify(fieldMap)) {
     return [];
   }
@@ -91,7 +92,7 @@ const dataTranslater = (data: any, fieldMap: AutoDV.Field[]) => {
  * @param jsonMap json源转换的辅助结构
  * @param originData 数据源组组件的原始数据
  */
-export const translateFromAux = (jsonMap: AutoDV.Field[], originData: any) => {
+export const translateFromAux = (jsonMap: JuggleDV.Field[], originData: any) => {
   const restult: any = {};
   for (const item of jsonMap) {
     const { sourceFieldName, compFieldName } = item;

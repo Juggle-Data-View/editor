@@ -1,4 +1,4 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 export const placeholder: INodeConfig = {
   type: 'collapse',

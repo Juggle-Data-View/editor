@@ -6,7 +6,8 @@ import Alignment from 'components/common/Alignment';
 import { selectedRectSelector } from 'helpers/selectors';
 import { FieldLabel } from 'components/form';
 import { appAction } from 'store/features/appSlice';
-import { selectAutoDV } from 'store/selectors';
+import { selectJuggleDV } from 'store/selectors';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const InputContainer = styled.div`
   position: relative;
@@ -26,8 +27,8 @@ const InputContainer = styled.div`
 `;
 
 interface InputProps {
-  rectKey: keyof Omit<AutoDV.Rect, 'rotation'>;
-  selectedRect: AutoDV.Rect;
+  rectKey: keyof Omit<JuggleDV.Rect, 'rotation'>;
+  selectedRect: JuggleDV.Rect;
   prefix?: string;
 }
 
@@ -38,7 +39,7 @@ const Input = (props: InputProps) => {
   const debounceRef = useRef<any>(-1);
   const dispatch = useDispatch();
 
-  const handleChange = (key: keyof AutoDV.Rect, val: number) => {
+  const handleChange = (key: keyof JuggleDV.Rect, val: number) => {
     const offset = {
       left: 0,
       top: 0,
@@ -75,7 +76,7 @@ const Input = (props: InputProps) => {
 };
 
 const MultiProps = () => {
-  const state = useSelector(selectAutoDV);
+  const state = useSelector(selectJuggleDV);
   const selectedRect = selectedRectSelector(state);
   return (
     <>

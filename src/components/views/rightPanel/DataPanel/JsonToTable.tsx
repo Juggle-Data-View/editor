@@ -1,16 +1,17 @@
 import { Button, Collapse, Box, Divider } from '@mui/material';
-import CustomPaginationActionsTable, { Data, OperationFieldMap } from 'components/common/AutoDVTable';
+import CustomPaginationActionsTable, { Data, OperationFieldMap } from 'components/common/JuggleDVTable';
 import { useState } from 'react';
 import LinkIcon from '@mui/icons-material/Link';
 import { useFormikContext } from 'formik';
 import { AutoSubmit } from 'components/form';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface Props {
   data: Data[];
-  fieldMap: AutoDV.Field[];
+  fieldMap: JuggleDV.Field[];
 }
 
-const FieldMapItem: React.FC<AutoDV.Field> = ({ alias, sourceFieldName, compFieldName, filter }) => {
+const FieldMapItem: React.FC<JuggleDV.Field> = ({ alias, sourceFieldName, compFieldName, filter }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const FieldMapItem: React.FC<AutoDV.Field> = ({ alias, sourceFieldName, compFiel
 };
 
 const JsonToTable: React.FC<Props> = ({ data, fieldMap }) => {
-  const { setFieldValue } = useFormikContext<AutoDV.Comp>();
+  const { setFieldValue } = useFormikContext<JuggleDV.Comp>();
   const operationFieldMap: OperationFieldMap = (compFieldName, sourceFieldName) => {
     const hasFieldMapIndex = fieldMap.findIndex((item) => item.compFieldName === compFieldName);
     const isExisted = hasFieldMapIndex !== -1;

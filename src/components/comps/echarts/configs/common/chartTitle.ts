@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
+
 import * as font from 'config/form/font';
 
 const chartTitle: INodeConfig = {

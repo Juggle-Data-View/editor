@@ -1,9 +1,7 @@
 import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router';
-import { Switch, Route } from 'react-router-dom';
-import history from 'helpers/history';
-import { injectCDNScript } from 'components/common/AutoDVIcon';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { injectCDNScript } from 'components/common/JuggleDVIcon';
 import PageLoading from 'components/common/PageLoading';
 import Providers from 'components/base/Providers';
 import 'assets/style/index.scss';
@@ -27,7 +25,7 @@ console.error =
 const Index = () => {
   return (
     <Providers>
-      <Router history={history}>
+      <BrowserRouter>
         <Suspense fallback={<PageLoading />}>
           <Switch>
             <Route exact path="/" component={lazy(() => import('components/page/editor'))} />
@@ -37,7 +35,7 @@ const Index = () => {
             <Route component={lazy(() => import('components/page/404'))} />
           </Switch>
         </Suspense>
-      </Router>
+      </BrowserRouter>
     </Providers>
   );
 };

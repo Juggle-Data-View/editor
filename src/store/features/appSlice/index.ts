@@ -1,3 +1,4 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { createSlice } from '@reduxjs/toolkit';
 import addComp from './addComp';
 import selectComp from './selectComp';
@@ -19,7 +20,7 @@ import { addDatasource } from './addDatasource';
 import deleteDatasource from './deleteDatasource';
 import updateDatasource from './updateDatasource';
 
-const initialState: AutoDV.State = {
+const initialState: JuggleDV.State = {
   app: {
     createTime: 0,
     createUser: '',
@@ -27,8 +28,7 @@ const initialState: AutoDV.State = {
     modifyTime: 0,
     modifyUser: '',
     name: '',
-    spaceId: -1,
-    type: 0,
+    userId: -1,
     datasources: {},
   },
   canvas: {
@@ -40,6 +40,7 @@ const initialState: AutoDV.State = {
     width: 1920,
     height: 1080,
     zoomType: 0,
+    mountComp: {},
   },
   compCodes: [],
   compDatas: {},

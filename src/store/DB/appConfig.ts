@@ -1,7 +1,8 @@
-import { APPINFO_STORE, DB } from '.';
+import { JuggleDV } from '@juggle-data-view/types';
+import Database, { APPINFO_STORE } from './databaseInit';
 
-class AppConfig extends DB {
-  updateAppConfig = async (payload: AutoDV.AppConfig, appId: number) => {
+class AppConfig extends Database {
+  updateAppConfig = async (payload: JuggleDV.AppConfig, appId: number) => {
     try {
       const db = await this.dbIns;
       const keyRange = IDBKeyRange.only(appId);

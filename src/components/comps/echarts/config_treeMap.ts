@@ -1,6 +1,7 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import treeMap from './configs/templates/treeMap';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,
@@ -83,7 +84,7 @@ const componentConfig: AutoDV.CompConfig = {
           },
           series: [
             {
-              name: 'AutoDV',
+              name: 'JuggleDV',
               FieldName: 'value',
               type: 'treemap',
               width: '100%',

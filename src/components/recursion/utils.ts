@@ -1,4 +1,4 @@
-import { INodeConfig } from './types';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import { set, toPath } from 'lodash';
 
 /**

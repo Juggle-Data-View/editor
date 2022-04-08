@@ -1,7 +1,8 @@
 import multiBarForm from './configs/templates/multiBarForm';
+import { JuggleDV } from '@juggle-data-view/types';
 import multiBarConfig from './temps/multi_bar';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

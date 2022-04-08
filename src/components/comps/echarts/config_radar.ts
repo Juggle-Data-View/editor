@@ -1,7 +1,8 @@
 import radar from './configs/templates/radar';
+import { JuggleDV } from '@juggle-data-view/types';
 import radarConfig from './temps/radar';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,
