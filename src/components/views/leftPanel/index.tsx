@@ -17,7 +17,7 @@ import DatasourceList from './DatasourceList';
 import useLang from 'components/base/useLang';
 
 const LeftPanel: React.FC = () => {
-  const [activeKey, setActiveKey] = useState('layer');
+  const [activeKey, setActiveKey] = useState('create');
 
   const handleChange = (event: React.SyntheticEvent, val: string) => {
     setActiveKey(val);
