@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Composer = ({ providers, children }: Props) => {
-  return providers.reduceRight((children, Parent) => <Parent>{children}</Parent>, children);
+  return providers.reduceRight((children, Parent: any) => <Parent>{children}</Parent>, children);
 };
 
 const ReduxProvider: React.FC = (props) => {
