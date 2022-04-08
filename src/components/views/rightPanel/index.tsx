@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RightPanelStyled } from './style';
-import { selectAutoDV, selectRightPannelType } from 'store/selectors';
+import { selectJuggleDV, selectRightPannelType } from 'store/selectors';
+import { JuggleDV } from '@juggle-data-view/types';
 
 import CompProps from './CompProps';
 import GlobalProps from './GlobalProps';
@@ -10,7 +11,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { editorAction } from 'store/features/editorSlice';
 
 const RightPanel: React.FC = () => {
-  const { selectedCompCodes, compDatas } = useSelector(selectAutoDV);
+  const { selectedCompCodes, compDatas } = useSelector(selectJuggleDV);
   const rightPannelType = useSelector(selectRightPannelType);
   const dispatch = useDispatch();
   const [isVisible, setVisible] = useState(false);
@@ -19,7 +20,7 @@ const RightPanel: React.FC = () => {
   }, [rightPannelType]);
 
   const getRightPannelType = useCallback(
-    (codes: string[]): AutoDV.Editor['rightPannelType'] => {
+    (codes: string[]): JuggleDV.Editor['rightPannelType'] => {
       const len = codes.length;
       if (len > 1) {
         return 'multiple-select';

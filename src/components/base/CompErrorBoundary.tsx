@@ -1,3 +1,4 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import React, { ErrorInfo } from 'react';
 import styled from 'styled-components';
 import merge from 'lodash/merge';
@@ -6,11 +7,11 @@ import { defaultCompData } from 'config/defaults';
 import store from 'store/index';
 import { appAction } from 'store/features/appSlice';
 
-export const mergeCompData = async (compData: AutoDV.Comp) => {
+export const mergeCompData = async (compData: JuggleDV.Comp) => {
   try {
-    const { code, compCode, compTempCode } = compData;
-    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
-    const newCompData: AutoDV.Comp = {
+    const { code, compCode, version } = compData;
+    const { template } = await asyncLoadCompConfig(compCode, version);
+    const newCompData: JuggleDV.Comp = {
       ...compData,
       attr: merge({}, defaultCompData.attr, template.attr, compData.attr),
       config: merge({}, template.config, compData.config),
@@ -34,7 +35,7 @@ const ErrorMessage = styled.div`
 `;
 
 interface IProps {
-  compData: AutoDV.Comp;
+  compData: JuggleDV.Comp;
   isInEditor?: boolean;
 }
 
@@ -69,20 +70,20 @@ export class CommonErrorBoundy extends React.Component<{
   }
 }
 
-const ErrorCatcher: React.FC<IProps> = ({ compData, isInEditor, children }) => {
+const ErrorCatcher: React.FC<IProps> = ({ compData, children }) => {
   const handleCatch: HandleCatch = (err, info) => {
     console.log(err, info);
     mergeCompData(compData);
   };
 
-  return isInEditor ? (
+  return (
     <CommonErrorBoundy
       handleCatch={handleCatch}
       LowerComponent={() => <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。 </ErrorMessage>}
     >
       {children}
     </CommonErrorBoundy>
-  ) : null;
+  );
 };
 
 export default ErrorCatcher;

@@ -2,6 +2,7 @@
  * 常量配置
  */
 
+import { JuggleDV } from '@juggle-data-view/types';
 export enum DataSourceType {
   Static = 0,
   API = 1,
@@ -30,7 +31,7 @@ export enum API_TYPE {
 }
 
 // 缩放方式配置
-export const ZOOM_TYPE: Record<AutoDV.ZoomType, string> = {
+export const ZOOM_TYPE: Record<JuggleDV.ZoomType, string> = {
   0: '原始比例',
   1: '等比宽度铺满',
   2: '等比高度铺满',
@@ -76,4 +77,4 @@ export const MIN_CANVAS_RATIO = 0.1;
 /** 画布缩放最大值 */
 export const MAX_CANVAS_RATIO = 2;
 
-export const COPY_KEY = '_AutoDV_COPYCODE_|';
+export const COPY_KEY = '_JuggleDV_COPYCODE_|';

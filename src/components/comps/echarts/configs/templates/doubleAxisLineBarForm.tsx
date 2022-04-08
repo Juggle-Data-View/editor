@@ -5,7 +5,8 @@ import chartTitle from '../common/chartTitle';
 import legend from '../common/legend';
 import multiBarSeries from '../multiBarSeries';
 import lineSeriesCommin from '../common/linesSeriesCommon';
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
+
 import SeriesAction from '../../seriesAction';
 
 // import { resolveName } from 'components/recursion/utils';

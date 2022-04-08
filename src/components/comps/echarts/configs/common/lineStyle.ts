@@ -1,4 +1,4 @@
-import { INodeConfig } from 'components/recursion/types';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import { borderStyle } from 'config/form/style';
 
 const lineStyle: INodeConfig[] = [

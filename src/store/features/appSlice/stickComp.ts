@@ -1,10 +1,11 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { cloneDeep } from 'lodash';
 import { nanocode } from 'utils';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 import sortListItem from 'utils/sortListItem';
 import subList from 'utils/SubList';
 
-export const pasteComp: AutoDV.ReducerCaseWithPrepare = {
+export const pasteComp: JuggleDV.ReducerCaseWithPrepare = {
   reducer(state) {
     const { compDatas, selectedCompCodes, compCodes } = state;
     // 获取选中组件的原始顺序
@@ -61,7 +62,7 @@ export const pasteComp: AutoDV.ReducerCaseWithPrepare = {
   },
 };
 
-export const copyComp: AutoDV.ReducerCaseWithPrepare = {
+export const copyComp: JuggleDV.ReducerCaseWithPrepare = {
   reducer(state) {
     const { compDatas, selectedCompCodes } = state;
     state.copyComps = selectedCompCodes.map((sid) => compDatas[sid]);

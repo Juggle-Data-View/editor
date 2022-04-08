@@ -5,9 +5,10 @@
 // import Tabs from 'components/recursion/widget/Tabs';
 import doubleAxisLineBarForm from './configs/templates/doubleAxisLineBarForm';
 import doubleAxisLineBar from './temps/double_axis_line_bar';
+import { JuggleDV } from '@juggle-data-view/types';
 // import { Config } from './type';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

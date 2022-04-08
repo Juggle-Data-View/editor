@@ -1,6 +1,7 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { omit, pick } from 'lodash';
 
-const init: AutoDV.ReducerCaseWithPrepare<{ app: AutoDV.AppConfig }> = {
+const init: JuggleDV.ReducerCaseWithPrepare<{ app: JuggleDV.AppConfig }> = {
   reducer(state, action) {
     const { app } = action.payload;
     const { compInsts } = app.canvas;

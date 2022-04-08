@@ -1,6 +1,7 @@
 import React, { useState, memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MenuList, MenuItem, Checkbox, Popover, IconButton } from '@mui/material';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useEventListener } from 'ahooks';
 import Ruler from 'assets/lib/ruler';
 import { selectEditor, selectCanvas } from 'store/selectors';
@@ -11,7 +12,7 @@ import notice from 'utils/notice';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 
-const AuxLine: React.FC<{ lines: AutoDV.GuideLine }> = memo(({ lines }) => {
+const AuxLine: React.FC<{ lines: JuggleDV.GuideLine }> = memo(({ lines }) => {
   const dispatch = useDispatch();
   const triggerRef = useRef<any>();
 
@@ -120,7 +121,7 @@ const CanvasRuler: React.FC<Props> = ({ container }) => {
       visibleLine={lines.visible}
       horLineArr={[...lines.h]}
       verLineArr={[...lines.v]}
-      handleLine={(_lines: Omit<AutoDV.GuideLine, 'visible'>) => {
+      handleLine={(_lines: Omit<JuggleDV.GuideLine, 'visible'>) => {
         dispatch(
           editorAction.setGuideLines({
             visible: _lines.h.length || _lines.v.length ? true : lines.visible,

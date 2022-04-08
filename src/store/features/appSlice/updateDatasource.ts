@@ -1,5 +1,7 @@
-const updateDatasource: AutoDV.ReducerCaseWithPrepare<{
-  datasource: AutoDV.MixinDatasource;
+import { JuggleDV } from '@juggle-data-view/types';
+
+const updateDatasource: JuggleDV.ReducerCaseWithPrepare<{
+  datasource: JuggleDV.MixinDatasource;
 }> = {
   reducer(state, action) {
     const { dataSourceId } = action.payload.datasource;

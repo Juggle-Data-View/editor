@@ -6,7 +6,7 @@ export const selectUndo = (state: RootState) => state.autoDV;
 
 /** app */
 
-export const selectAutoDV = (state: RootState) => state.autoDV.present;
+export const selectJuggleDV = (state: RootState) => state.autoDV.present;
 
 export const selectApp = (state: RootState) => state.autoDV.present.app;
 

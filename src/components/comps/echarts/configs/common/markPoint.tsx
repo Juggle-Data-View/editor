@@ -9,7 +9,8 @@
  */
 
 import DropZone from 'components/common/DropZone';
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
+
 import * as style from 'config/style';
 const markPoint: INodeConfig[] = [
   {

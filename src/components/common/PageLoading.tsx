@@ -17,7 +17,7 @@ const Container = styled.div`
   font-weight: bold;
 `;
 
-const AutoDVPreLoader = () => {
+const JuggleDVPreLoader = () => {
   const BASE = 28;
   const [scale, setScale] = useState<number>(1);
 
@@ -34,4 +34,4 @@ const AutoDVPreLoader = () => {
   );
 };
 
-export default AutoDVPreLoader;
+export default JuggleDVPreLoader;

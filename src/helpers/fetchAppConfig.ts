@@ -1,6 +1,7 @@
 import { qs, getViewStatus, qsDynamic } from 'utils/index';
 import * as Api from 'utils/api';
 import global, { fakeIFrameVars } from 'utils/global';
+import { JuggleDV } from '@juggle-data-view/types';
 
 // 请求页面配置
 const fetchAppConfig = async (url?: string) => {
@@ -10,7 +11,7 @@ const fetchAppConfig = async (url?: string) => {
 
     const { id, release } = url ? qsDynamic(url).query : qs.query;
 
-    let appConfig;
+    let appConfig: any;
 
     if (isRelease) {
       appConfig = await Api.fetchReleaseAppConfig(release as string);
@@ -30,7 +31,7 @@ const fetchAppConfig = async (url?: string) => {
 
     // 第一次创建的大屏页面时是没有画布信息的，需要初始化画布
     if (!isRelease && !appConfig.canvas) {
-      const canvas: AutoDV.Canvas = {
+      const canvas: JuggleDV.Canvas = {
         id: null,
         appId: appConfig.id,
         backgroundColor: '#0D2A41',
@@ -54,7 +55,7 @@ const fetchAppConfig = async (url?: string) => {
       // 存储全局状态，方便后续使用
       global.appId = appConfig.id;
       global.canvasId = appConfig.canvas.id;
-      global.spaceId = appConfig.spaceId;
+      global.userId = appConfig.userId;
       global.wssType = appConfig.type;
     }
 
@@ -63,7 +64,7 @@ const fetchAppConfig = async (url?: string) => {
       fakeIFrameVars.set(`${appConfig.name}`, {
         appId: appConfig.id,
         canvasId: appConfig.canvas.id,
-        spaceId: appConfig.spaceId,
+        userId: appConfig.userId,
       });
     }
 

@@ -2,21 +2,22 @@ import QS from 'query-string';
 import store from 'store/index';
 import numeral from 'numeral';
 import { nanoid as _nanoid } from '@reduxjs/toolkit';
+import { JuggleDV } from '@juggle-data-view/types';
 
 export const qs = QS.parseUrl(window.location.href);
 
 export const qsDynamic = (url: string) => QS.parseUrl(url);
 
-const { REACT_APP_AutoDV_ENV } = process.env;
+const { REACT_APP_JuggleDV_ENV } = process.env;
 
 // dev/test 环境
-export const isDev = REACT_APP_AutoDV_ENV === 'development';
+export const isDev = REACT_APP_JuggleDV_ENV === 'development';
 
 // 预发环境
-export const isPre = REACT_APP_AutoDV_ENV === 'prerelease';
+export const isPre = REACT_APP_JuggleDV_ENV === 'prerelease';
 
 // 线上环境
-export const isRelease = REACT_APP_AutoDV_ENV === 'production';
+export const isRelease = REACT_APP_JuggleDV_ENV === 'production';
 
 export const nanoid = _nanoid;
 
@@ -26,7 +27,7 @@ export const nanocode = (prefix: string) => [prefix, nanoid(6)].join('_');
  * 从store中获取app state
  * 一般用于异步操作，如：点击某个按钮时需要获取数据
  */
-export const getAutoDV = () => store.getState().autoDV.present;
+export const getJuggleDV = () => store.getState().autoDV.present;
 
 export const getApp = () => store.getState().autoDV.present.app;
 
@@ -89,7 +90,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
  * 将渐变色组件的值转换为 background
  * @param gradient 渐变色组件向外输出的值
  */
-export const getGradientCSS = (color: string | AutoDV.ColorResult): string => {
+export const getGradientCSS = (color: string | JuggleDV.ColorResult): string => {
   if (typeof color === 'string') {
     return color;
   }
@@ -178,7 +179,7 @@ export const loadScript = (url: string, callback: () => void) => {
  * 获取组件的json map
  * @param dataConfig 组件数据
  */
-export const getJsonMap = (dataConfig: AutoDV.CompDataConfig): AutoDV.JsonMap => {
+export const getJsonMap = (dataConfig: JuggleDV.CompDataConfig): JuggleDV.JsonMap => {
   if (!dataConfig) {
     return { auxFieldMap: [], sourceCode: '' };
   }

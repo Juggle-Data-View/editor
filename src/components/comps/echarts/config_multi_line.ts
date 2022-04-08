@@ -1,7 +1,8 @@
 import multiLineForm from './configs/templates/multiLineForm';
+import { JuggleDV } from '@juggle-data-view/types';
 import multiLineConfig from './temps/multi_line';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

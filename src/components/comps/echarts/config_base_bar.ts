@@ -1,9 +1,11 @@
-// import { INodeConfig } from 'components/recursion';
+// import { INodeConfig } from '@juggle-data-view/types/src/form';
+
+import { JuggleDV } from '@juggle-data-view/types';
 
 import baseBarForm from './configs/templates/baseBarForm';
 import baseBarConfig from './temps/base_bar';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

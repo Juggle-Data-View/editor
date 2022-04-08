@@ -1,4 +1,6 @@
-const importJSON: AutoDV.ReducerCaseWithPrepare<{ content: AutoDV.ExportContent }> = {
+import { JuggleDV } from '@juggle-data-view/types';
+
+const importJSON: JuggleDV.ReducerCaseWithPrepare<{ content: JuggleDV.ExportContent }> = {
   reducer(state, action) {
     const { content } = action.payload;
     state.selectedCompCodes = [];

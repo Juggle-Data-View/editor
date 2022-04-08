@@ -74,7 +74,6 @@ const config: IConfig = {
       },
     ],
   },
-  staticData: [{ str: 'template static data' }],
 };
 
 export default config;

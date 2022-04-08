@@ -7,14 +7,14 @@ import { ItemListStyled } from './style';
 import subList, { AssistStruct } from 'utils/SubList';
 import GroupDropItem from './GroupItem';
 import { appAction } from 'store/features/appSlice';
-import { selectAutoDV } from 'store/selectors';
+import { selectJuggleDV } from 'store/selectors';
 
 interface IList {
   small: boolean;
 }
 
 const List: React.FC<IList> = ({ small }) => {
-  const { compCodes, compDatas, selectedCompCodes } = useSelector(selectAutoDV);
+  const { compCodes, compDatas, selectedCompCodes } = useSelector(selectJuggleDV);
   const selectedCount = selectedCompCodes.length;
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const listRef = useRef<any>(null);

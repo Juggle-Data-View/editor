@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AutoDVIcon from 'components/common/AutoDVIcon';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
 import { useField } from 'formik';
 import { Button } from '@mui/material';
 
@@ -30,7 +30,7 @@ const AttrScale: React.FC<IProps> = ({ name }) => {
           helpers.setValue(newValue);
         }}
       >
-        <AutoDVIcon icon={index === 0 ? 'autoDV-flip-horizontal' : 'autoDV-flip-vertical'} size={20} />
+        <JuggleDVIcon icon={index === 0 ? 'autoDV-flip-horizontal' : 'autoDV-flip-vertical'} size={20} />
       </Button>
     );
   };

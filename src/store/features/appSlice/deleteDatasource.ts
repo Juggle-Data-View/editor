@@ -1,4 +1,6 @@
-const deleteDatasource: AutoDV.ReducerCaseWithPrepare<{ dataSourceId: string }> = {
+import { JuggleDV } from '@juggle-data-view/types';
+
+const deleteDatasource: JuggleDV.ReducerCaseWithPrepare<{ dataSourceId: string }> = {
   reducer(state, action) {
     const { dataSourceId } = action.payload;
     // const dataSourceIndex = state.app.datasources

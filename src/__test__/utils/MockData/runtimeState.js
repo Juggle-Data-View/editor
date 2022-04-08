@@ -6,7 +6,7 @@ export const state = {
     modifyTime: 1599553167000,
     modifyUser: 'dushihua2',
     name: 'efgsrfv',
-    spaceId: 149,
+    userId: 149,
   },
   canvas: {
     appId: 559,
@@ -57,7 +57,7 @@ export const state = {
       },
       code: 'commonTitle_9157df',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -101,7 +101,7 @@ export const state = {
       },
       code: 'commonTitle_3d6872',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -145,7 +145,7 @@ export const state = {
       },
       code: 'commonTitle_7a3c3d',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -180,7 +180,7 @@ export const state = {
       attr: { top: 115, left: 478, width: 1364, angle: 0, scale: [1, 1], height: 697 },
       code: 'group_70b806',
       compCode: 'group',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         groupItemCode: [
           'commonTitle_075924',
@@ -211,7 +211,7 @@ export const state = {
       },
       code: 'commonTitle_25d4b1',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -256,7 +256,7 @@ export const state = {
       },
       code: 'commonTitle_b7c173',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -301,7 +301,7 @@ export const state = {
       },
       code: 'commonTitle_6f7972',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -346,7 +346,7 @@ export const state = {
       },
       code: 'commonTitle_075924',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -382,7 +382,7 @@ export const state = {
       attr: { top: 700, left: 1502, width: 340, angle: 0, scale: [1, 1], height: 112 },
       code: 'group_d245cd',
       compCode: 'group',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         groupItemCode: ['commonTitle_75db0d', 'commonTitle_6ffc63', 'commonTitle_2dbb9f'],
         groupCode: 'group_70b806',
@@ -406,7 +406,7 @@ export const state = {
       },
       code: 'commonTitle_75db0d',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -451,7 +451,7 @@ export const state = {
       },
       code: 'commonTitle_6ffc63',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -496,7 +496,7 @@ export const state = {
       },
       code: 'commonTitle_2dbb9f',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -541,7 +541,7 @@ export const state = {
       },
       code: 'commonTitle_4f0acb',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -576,7 +576,7 @@ export const state = {
       attr: { top: 248, left: 322, width: 320, angle: 0, scale: [1, 1], height: 92 },
       code: 'group_2b918d',
       compCode: 'group',
-      compTempCode: 'index',
+      version: 'index',
       config: { groupItemCode: ['commonTitle_358d2d', 'commonTitle_4836c3'] },
       hided: false,
       id: 22673,
@@ -597,7 +597,7 @@ export const state = {
       },
       code: 'commonTitle_358d2d',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -642,7 +642,7 @@ export const state = {
       },
       code: 'commonTitle_4836c3',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -687,7 +687,7 @@ export const state = {
       },
       code: 'commonTitle_5ad21d',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {
@@ -731,7 +731,7 @@ export const state = {
       },
       code: 'commonTitle_fd092b',
       compCode: 'commonTitle',
-      compTempCode: 'index',
+      version: 'index',
       config: {
         link: { isBlank: false, url: '' },
         style: {

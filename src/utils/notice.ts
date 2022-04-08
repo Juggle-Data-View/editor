@@ -2,7 +2,7 @@
  * notice 页面通知
  */
 
-import alert, { CustomAlertProps } from 'components/common/AutoDVAlert';
+import alert, { CustomAlertProps } from 'components/common/JuggleDVAlert';
 
 const topAlert = (message: React.ReactNode, props?: CustomAlertProps) => {
   return alert(message, {

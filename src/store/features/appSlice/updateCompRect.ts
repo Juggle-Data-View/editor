@@ -1,11 +1,12 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { updateAllChildrenRect, updateGroupSize } from 'helpers/groupHandle';
 
-const updateCompRect: AutoDV.ReducerCaseWithPrepare<{ offset: AutoDV.Rect }> = {
+const updateCompRect: JuggleDV.ReducerCaseWithPrepare<{ offset: JuggleDV.Rect }> = {
   reducer(state, action) {
     const { compDatas, selectedCompCodes, compCodes } = state;
     const { offset } = action.payload;
     selectedCompCodes.forEach((scode) => {
-      (Object.keys(offset) as []).forEach((k: keyof Omit<AutoDV.Rect, 'rotation'>) => {
+      (Object.keys(offset) as []).forEach((k: keyof Omit<JuggleDV.Rect, 'rotation'>) => {
         compDatas[scode].attr[k] += Math.round(offset[k]);
       });
     });

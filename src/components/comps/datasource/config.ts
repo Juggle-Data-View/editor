@@ -58,45 +58,6 @@ const config: IConfig = {
       },
     ],
   },
-  staticData: [
-    {
-      content: {
-        series: [
-          {
-            name: 'y1',
-            type: 'bar',
-            FieldName: 'y1',
-            itemStyle: {
-              color: '#50e3c1',
-              borderColor: '#00000000',
-              borderWidth: 2,
-              barBorderRadius: [10, 10, 0, 0],
-
-              // barBorderRadius: 10
-            },
-            showBackground: false,
-            backgroundStyle: {
-              color: 'rgba(180, 180, 180, 0.2)',
-            },
-            barWidth: '15',
-            barGap: '30%',
-            label: {
-              show: true,
-              rotate: 0,
-              color: '#D8D8D8',
-              fontSize: 12,
-              fontFamily: 'FZLTTHJW',
-              fontWeight: 'bold',
-              position: 'top',
-              formatter: `function(data) {
-                return data.value;
-}`,
-            },
-          },
-        ],
-      },
-    },
-  ],
 };
 
 export default config;
