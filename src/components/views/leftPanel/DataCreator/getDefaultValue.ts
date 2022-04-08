@@ -25,7 +25,7 @@ const getDefaultValues = (options?: JuggleDV.MixinDatasource) => {
           },
         ],
         dataSourceType: DT.API,
-      } as JuggleDV.APIDatasourceInstance;
+      } as unknown as JuggleDV.APIDatasourceInstance;
 
     case DT.CSV:
       return {

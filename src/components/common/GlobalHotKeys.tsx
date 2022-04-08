@@ -9,7 +9,7 @@ import { Dialog, DialogTitle, IconButton, useMediaQuery, useTheme } from '@mui/m
 import { useKeyPress } from 'ahooks';
 import { COPY_COMP, DELETE_COMP } from 'components/base/BaseActions';
 import { MIN_CANVAS_RATIO, MAX_CANVAS_RATIO } from 'config/const';
-import { GlobalHotKeys, configure } from 'react-hotkeys';
+import { GlobalHotKeys as TypesGlobalHotKeys, configure, GlobalHotKeysProps } from 'react-hotkeys';
 import { getJuggleDV } from 'utils';
 import { defaultRect } from 'config/defaults';
 import { editorAction } from 'store/features/editorSlice';
@@ -17,6 +17,8 @@ import { appAction } from 'store/features/appSlice';
 import { UNDO_RESTORE } from 'config/const';
 import { selectEditor } from 'store/selectors';
 import CloseIcon from '@mui/icons-material/Close';
+
+const GlobalHotKeys = TypesGlobalHotKeys as unknown as React.FC<GlobalHotKeysProps>;
 
 configure({
   /**

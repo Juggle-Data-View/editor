@@ -20,7 +20,7 @@ export interface HOCProps {
   datasource?: JuggleDV.MixinDatasource;
 }
 
-const withSourceData = (WrappedComponent: React.ComponentType<JuggleDV.CompIndex>) => {
+const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
   return (props: Omit<JuggleDV.CompIndex, 'sourceData'> & HOCProps) => {
     const { comps, isSubComp, datasource, ...rest } = props;
     const { compData } = rest; // 包裹组件需要用到的props

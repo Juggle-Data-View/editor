@@ -59,14 +59,14 @@ export class CommonErrorBoundy extends React.Component<{
     return this.props.handleCatch(error, info);
   }
 
-  render(): React.ReactNode {
+  render() {
     const ErrorComp = (this.props.LowerComponent as any) || React.Fragment;
     if (this.state.hasError) {
       // 你可以自定义降级后的 UI 并渲染
       return <ErrorComp />;
     }
 
-    return this.props.children;
+    return <> this.props.children</>;
   }
 }
 //fix ts

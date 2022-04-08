@@ -132,7 +132,7 @@ const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
                 </TabPanel>
               )}
               {extraTab
-                ? extraTab.map(({ title, component: C }) => {
+                ? extraTab.map(({ title, component: C }: any) => {
                     return (
                       <TabPanel key={title} value={title} id={title}>
                         <C {...props} />

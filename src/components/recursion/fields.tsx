@@ -1,4 +1,4 @@
-import React, { FC, ComponentType } from 'react';
+import React, { FC } from 'react';
 import { INodeCompProps } from './types';
 import { Control } from 'components/form/index';
 import CustomArray from 'components/recursion/widget/CustomArray';
@@ -9,7 +9,7 @@ import DropZone from 'components/common/DropZone';
  * 使用高阶函数包裹自定义组件
  * T：自定义组件的props
  */
-export function withNode<T>(Comp: ComponentType<T & INodeCompProps>): FC<INodeCompProps & T> {
+export function withNode<T>(Comp: FC<T & INodeCompProps>): FC<INodeCompProps & T> {
   /** 此时，node的类型为 INodeCompProps & T */
   return (node) => <Comp {...node} />;
 }

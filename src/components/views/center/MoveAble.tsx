@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Moveable, { MoveableManagerInterface, OnEndEvent, Able } from 'react-moveable';
+import TypeMoveable, { MoveableManagerInterface, OnEndEvent, Able, MoveableProps } from 'react-moveable';
 import styled from 'styled-components';
 import cx from 'classnames';
 import Selecto from 'react-selecto';
@@ -11,6 +11,11 @@ import { selectJuggleDV, selectEditor, selectGuideLines, selectKeyPress, selectI
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
 import { JuggleDV } from '@juggle-data-view/types';
+interface DimensionViewableProps {
+  dimensionViewable?: boolean;
+}
+
+const Moveable = TypeMoveable as unknown as React.FC<MoveableProps & { ref: any }>;
 
 const MoveableStyled = styled(Moveable)<DimensionViewableProps>`
   &.--move {
@@ -21,10 +26,6 @@ const MoveableStyled = styled(Moveable)<DimensionViewableProps>`
 `;
 
 type AbleEndEvent = 'DragEnd' | 'DragGroupEnd' | 'ResizeEnd';
-
-interface DimensionViewableProps {
-  dimensionViewable?: boolean;
-}
 
 const DimensionViewable: Able = {
   name: 'dimensionViewable',

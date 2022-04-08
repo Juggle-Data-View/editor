@@ -5,17 +5,24 @@
 import store from 'store/index';
 import { Provider } from 'react-redux';
 
-interface Props {
-  providers: Array<React.JSXElementConstructor<React.PropsWithChildren<any>>>;
-  children: any;
-}
-
-const Composer = ({ providers, children }: Props) => {
-  return providers.reduceRight((children, Parent: any) => <Parent>{children}</Parent>, children);
+const Composer: React.FC<{ providers: Array<React.JSXElementConstructor<React.PropsWithChildren<any>>> }> = ({
+  providers,
+  children,
+}) => {
+  return (
+    <>
+      {providers.reduceRight(
+        (children, Parent: any) => (
+          <Parent>{children}</Parent>
+        ),
+        children
+      )}
+    </>
+  );
 };
 
 const ReduxProvider: React.FC = (props) => {
-  return <Provider store={store}>{props.children}</Provider>;
+  return <Provider store={store}>{props.children as any}</Provider>;
 };
 
 const Providers: React.FC = (props) => {

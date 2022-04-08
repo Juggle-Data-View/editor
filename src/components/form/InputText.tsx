@@ -16,10 +16,7 @@ export interface IText<T> {
   useMeta?: boolean;
 }
 
-function withInput<T = TextareaAutosizeProps & InputBaseComponentProps>(
-  Comp: React.ComponentType<T>,
-  type: 'text' | 'textarea'
-) {
+function withInput<T = TextareaAutosizeProps & InputBaseComponentProps>(Comp: React.FC<T>, type: 'text' | 'textarea') {
   return withField<IText<T>>((props) => {
     const { muiProps, useMeta = true, field, form } = props;
     const meta = form.getFieldMeta(field.name);

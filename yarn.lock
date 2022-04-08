@@ -1543,15 +1543,15 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@juggle-data-view/types@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@juggle-data-view/types/-/types-1.0.0.tgz#659c2f7b4b3ae75d0d651f20afdd4b59363510ce"
-  integrity sha512-yAwMvoIyBcIInclwDv1oo5ODGfQoUK/X+eoy8M6o/Xs6Zd7w/f1ffFNS+jSnzo3KQtkEGo0a2ni2Hyu10nkeTw==
+"@juggle-data-view/types@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@juggle-data-view/types/-/types-1.0.2.tgz#8ff6078a78d46dca67c969008ee22039265b16cb"
+  integrity sha512-OR8o443Bviqs9ivJeTtjahuujdhmkje98aaWHIUpq9tOMLRl0+mPmnYfWEchJLaxdeze767XInmZt7OntbeO7w==
   dependencies:
-    "@mui/material" "^5.5.1"
-    "@reduxjs/toolkit" "^1.8.0"
-    "@types/react" "^17.0.40"
-    formik "^2.2.9"
+    "@mui/material" "*"
+    "@reduxjs/toolkit" "*"
+    "@types/react" "*"
+    formik "*"
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.3"
@@ -1595,7 +1595,7 @@
     react-transition-group "^4.4.2"
     rifm "^0.12.1"
 
-"@mui/material@^5.2.1", "@mui/material@^5.5.1":
+"@mui/material@*", "@mui/material@^5.2.1":
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.6.0.tgz#284270f5e48d379a9b9bc4db412a807b807965b5"
   integrity sha512-yh4FoRRPTgJWjv1oIu3YuvfYGD/WOEnyGizQ9fKs+hlMjIc0rzFpyUCo++P/3BUd0/hRKcI8D8mrpJK9OiOy1g==
@@ -1717,7 +1717,7 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@reduxjs/toolkit@^1.6.1", "@reduxjs/toolkit@^1.8.0":
+"@reduxjs/toolkit@*", "@reduxjs/toolkit@^1.6.1":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.1.tgz#94ee1981b8cf9227cda40163a04704a9544c9a9f"
   integrity sha512-Q6mzbTpO9nOYRnkwpDlFOAbQnd3g7zj7CtHAZWz5SzE5lcV97Tf8f3SzOO8BoPOMYBFgfZaqTUZqgGu+a0+Fng==
@@ -2544,7 +2544,7 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router@*", "@types/react-router@^5.1.8":
+"@types/react-router@*":
   version "5.1.18"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.18.tgz#c8851884b60bc23733500d86c1266e1cfbbd9ef3"
   integrity sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g==
@@ -2584,7 +2584,7 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^17.0.1", "@types/react@^17.0.40":
+"@types/react@^17.0.1":
   version "17.0.44"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.44.tgz#c3714bd34dd551ab20b8015d9d0dbec812a51ec7"
   integrity sha512-Ye0nlw09GeMp2Suh8qoOv0odfgCoowfM/9MG6WeRD60Gq9wS90bdkdRtYbRkNhXOpG4H+YXGvj4wOWhAC0LJ1g==
@@ -5781,7 +5781,7 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-formik@^2.2.6, formik@^2.2.9:
+formik@*, formik@^2.2.6:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.9.tgz#8594ba9c5e2e5cf1f42c5704128e119fc46232d0"
   integrity sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==
@@ -9226,7 +9226,7 @@ react-router-dom@^5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router@5.2.1, react-router@^5.2.0:
+react-router@5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-5.2.1.tgz#4d2e4e9d5ae9425091845b8dbc6d9d276239774d"
   integrity sha512-lIboRiOtDLFdg1VTemMwud9vRVuOCZmUIT/7lUoZiSpPODiiH1UQlfXy+vPLC/7IWdFYnhRwAyNqA/+I7wnvKQ==

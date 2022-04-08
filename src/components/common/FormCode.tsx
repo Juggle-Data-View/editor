@@ -2,7 +2,9 @@
  * 源代码展示组件
  */
 
-import ReactJson, { ReactJsonViewProps } from 'react-json-view';
+import JsonComp, { ReactJsonViewProps } from 'react-json-view';
+
+const ReactJson = JsonComp as React.FC<ReactJsonViewProps>;
 
 type IProps = ReactJsonViewProps;
 

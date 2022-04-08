@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import REcharts from 'echarts-for-react';
+import ReactEcharts, { ReactEchartsPropsTypes } from 'echarts-for-react';
 import { createNextState as produce } from '@reduxjs/toolkit';
 import { IIndex } from './type';
 import universalAxis from './helper/universalAxis';
@@ -9,6 +9,8 @@ import universalGrid from './helper/universalGrid';
 import getAxisData from './helper/getAxisData';
 import { getMarkPoints, MarkPointType } from './helper/markpoint';
 import { cloneDeep } from 'lodash';
+
+const REcharts = ReactEcharts as unknown as React.FC<ReactEchartsPropsTypes & { ref: any }>;
 
 /**
  * 处理补充零值的逻辑

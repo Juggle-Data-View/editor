@@ -79,7 +79,7 @@ interface IField {
  * @param P `Comp`组件的`props`
  * @param IField `FieldLabelProps`
  */
-export function withFieldLabel<P>(Comp: React.ComponentType<P>): React.FC<P & IField> {
+export function withFieldLabel<P>(Comp: React.FC<P>): React.FC<P & IField> {
   return (props) => {
     const { label, labelProps, ...controlProps } = props;
     return (

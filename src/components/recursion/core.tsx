@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useCallback, Fragment, useRef } from 'react';
-import { Formik, useFormikContext, FieldArray } from 'formik';
+import { Formik, useFormikContext, FieldArray as TypeFieldArray, FieldArrayConfig } from 'formik';
 import { FieldLabel, validateMerge } from 'components/form';
 import { INodeProps, IFormikStatus, IGenerator, INodeLabel, ChildProps } from './types';
 import { c2n, resolveName } from './utils';
@@ -9,6 +9,8 @@ import { useDebounce } from 'ahooks';
 import ErrorBoundary from 'components/base/ErrorBoundary';
 import { INodeParams } from '@juggle-data-view/types/src/form';
 import { FormComps } from '@juggle-data-view/types/src/fieldComponents';
+
+const FieldArray = TypeFieldArray as React.FC<FieldArrayConfig>;
 
 /**
  * 表单触发修改时自动提交表单

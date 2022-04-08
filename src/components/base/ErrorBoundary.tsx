@@ -31,6 +31,6 @@ export default class ErrorBoundary extends React.Component<IProps, IState> {
       return <div>{errorMessage ? errorMessage : '组件发生错误'} </div>;
     }
 
-    return this.props.children;
+    return <>this.props.children</>;
   }
 }

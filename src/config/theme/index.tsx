@@ -14,7 +14,7 @@ export const theme = createTheme({
   shadows,
 });
 
-const ThemeConfig: React.FC = ({ children }) => {
+const ThemeConfig: React.FC<any> = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>

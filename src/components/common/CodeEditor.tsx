@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { UnControlled as CodeMirror, IUnControlledCodeMirror } from 'react-codemirror2';
+import { UnControlled, IUnControlledCodeMirror } from 'react-codemirror2';
 import { Button, Dialog, DialogTitle, IconButton, Tooltip } from '@mui/material';
 import styled from 'styled-components';
 import jsonlint from 'jsonlint-mod';
@@ -81,6 +81,8 @@ const EditorStyled = styled.div`
     padding: 5px;
   }
 `;
+
+const CodeMirror = UnControlled as unknown as React.FC<IUnControlledCodeMirror>;
 
 export type ModeName = 'htmlmixed' | 'css' | 'javascript' | 'application/json';
 
