@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { MenuItem, MenuList, Popover, IconButton } from '@mui/material';
 import { ArrayHelpers } from 'formik';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -26,7 +26,7 @@ const SeriesAction: React.FC<{
   push: ArrayHelpers['push'];
   fieldMapOption: {
     fieldMapPath: string;
-    fieldMap: AutoDV.Field[];
+    fieldMap: JuggleDV.Field[];
     fieldName: string;
   };
   setValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;

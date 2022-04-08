@@ -1,9 +1,9 @@
 import QS from 'query-string';
 import socket from 'socket.io-client';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 export type Query = {
-  appId: AutoDV.AppID;
+  appId: JuggleDV.AppID;
   type: SocketLinkType;
 };
 

@@ -2,8 +2,8 @@
  * 封装action中的通用逻辑
  */
 
-import { AutoDV } from 'auto-dv-type';
-import { getAutoDV, nanocode } from 'utils';
+import { JuggleDV } from '@juggle-data-view/types';
+import { getJuggleDV, nanocode } from 'utils';
 import notice from 'utils/notice';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
@@ -18,12 +18,12 @@ import { getAllSelectedComps } from 'utils/getAllChildren';
 // 复制组件
 // undo会影响复制后的数据，如果触发了undo，需在undo后重新执行复制操作。
 export const COPY_COMP = () => {
-  const { selectedCompCodes, compDatas, app, compCodes } = getAutoDV();
+  const { selectedCompCodes, compDatas, app, compCodes } = getJuggleDV();
   if (!selectedCompCodes.length) {
     notice.warn('请选择组件');
     return;
   }
-  const copyContent: AutoDV.ExportContent = {
+  const copyContent: JuggleDV.ExportContent = {
     name: app.name,
     exportTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     userId: app.userId,
@@ -35,7 +35,7 @@ export const COPY_COMP = () => {
 
 // 删除组件
 export const DELETE_COMP = () => {
-  const { selectedCompCodes } = getAutoDV();
+  const { selectedCompCodes } = getJuggleDV();
   const Len = selectedCompCodes.length;
   if (!Len) {
     return;
@@ -52,7 +52,7 @@ export const DELETE_COMP = () => {
   });
 };
 
-const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['datasources']) => {
+const getStaticData = async (compCode: string, datasources: JuggleDV.AppConfig['datasources']) => {
   if (compCode in datasources) {
     return datasources[compCode].body || [];
   } else {
@@ -74,7 +74,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
     }
     const { template } = await asyncLoadCompConfig(compCode, version);
 
-    const selfComp: Partial<AutoDV.AddCompParams> = {
+    const selfComp: Partial<JuggleDV.AddCompParams> = {
       code: nanocode(compCode),
       version,
       compCode,
@@ -84,7 +84,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       attr: Object.assign({}, template.attr, {
         left: random(20, 200),
         top: random(20, 200),
-      }) as AutoDV.Attr,
+      }) as JuggleDV.Attr,
       title: '',
       staticData: await getStaticData(compCode, store.getState().autoDV.present.app.datasources),
       config: {},
@@ -107,8 +107,8 @@ export const ADD_COMP = async (compId: string, alias: string) => {
   }
 };
 
-export const ADD_GROUP_COMP = (attr: AutoDV.Attr, selectedCompCodes: string[]) => {
-  const { compCodes } = getAutoDV();
+export const ADD_GROUP_COMP = (attr: JuggleDV.Attr, selectedCompCodes: string[]) => {
+  const { compCodes } = getJuggleDV();
   const resortSelectCodes = selectedCompCodes.slice().sort((a, b) => {
     return compCodes.indexOf(a) - compCodes.indexOf(b);
   });

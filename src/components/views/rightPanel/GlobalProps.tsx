@@ -8,7 +8,7 @@ import { getDiffPayload } from 'helpers/diff';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
 import { selectCanvas, selectEditor } from 'store/selectors';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const GlobalProps: React.FC = () => {
   const canvas = useSelector(selectCanvas);
@@ -41,7 +41,7 @@ const GlobalProps: React.FC = () => {
                   <DropZone name="backgroundImg" />
                 </FieldLabel>
                 <Field.Select label="缩放方式" name="zoomType" labelProps={labelProps}>
-                  {(Object.keys(ZOOM_TYPE) as []).map((index: AutoDV.ZoomType) => (
+                  {(Object.keys(ZOOM_TYPE) as []).map((index: JuggleDV.ZoomType) => (
                     <option key={index} value={Number(index)}>
                       {ZOOM_TYPE[index]}
                     </option>

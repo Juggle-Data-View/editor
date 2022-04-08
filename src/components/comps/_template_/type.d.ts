@@ -1,11 +1,11 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 /**
  * 组件类型定义
  * @author TEMPLATE_AUTHOR
  * @createTime TEMPLATE_CREATED_TIME
  */
 
-interface Config extends AutoDV.Config {
+interface Config extends JuggleDV.Config {
   placeholder: {
     size: number;
     color: string;
@@ -22,7 +22,7 @@ type SourceData = Array<{
 }>;
 
 // for Index.tsx
-export type IIndex = AutoDV.CompIndex<Config, SourceData>;
+export type IIndex = JuggleDV.CompIndex<Config, SourceData>;
 
 // for
-export type IConfig = AutoDV.CompConfig<Config>;
+export type IConfig = JuggleDV.CompConfig<Config>;

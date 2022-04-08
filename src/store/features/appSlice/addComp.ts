@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { DataSourceType } from 'config/const';
 import { handleAdd as handleSourceDataAdd } from './addDatasource';
 
@@ -8,7 +8,7 @@ import { handleAdd as handleSourceDataAdd } from './addDatasource';
  * @param comp new components
  * @returns void
  */
-const handleDataConfig = (state: AutoDV.State, comp: AutoDV.AddCompParams) => {
+const handleDataConfig = (state: JuggleDV.State, comp: JuggleDV.AddCompParams) => {
   const { dataConfig, compCode, staticData } = comp;
   console.log(comp);
 
@@ -40,7 +40,7 @@ const handleDataConfig = (state: AutoDV.State, comp: AutoDV.AddCompParams) => {
  * @param comp new components
  * @returns void
  */
-const handleComponentVersionMount = (state: AutoDV.State, comp: AutoDV.AddCompParams) => {
+const handleComponentVersionMount = (state: JuggleDV.State, comp: JuggleDV.AddCompParams) => {
   const { compCode, version } = comp;
   if (!state.canvas.mountComp) {
     state.canvas.mountComp = {
@@ -58,7 +58,7 @@ const handleComponentVersionMount = (state: AutoDV.State, comp: AutoDV.AddCompPa
   }
 };
 
-const addComp: AutoDV.ReducerCaseWithPrepare<{ comps: AutoDV.AddCompParams[] }> = {
+const addComp: JuggleDV.ReducerCaseWithPrepare<{ comps: JuggleDV.AddCompParams[] }> = {
   reducer: (state, action) => {
     const { comps } = action.payload;
     state.selectedCompCodes = [];

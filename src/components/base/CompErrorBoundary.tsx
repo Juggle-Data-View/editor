@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import React, { ErrorInfo } from 'react';
 import styled from 'styled-components';
 import merge from 'lodash/merge';
@@ -7,11 +7,11 @@ import { defaultCompData } from 'config/defaults';
 import store from 'store/index';
 import { appAction } from 'store/features/appSlice';
 
-export const mergeCompData = async (compData: AutoDV.Comp) => {
+export const mergeCompData = async (compData: JuggleDV.Comp) => {
   try {
     const { code, compCode, version } = compData;
     const { template } = await asyncLoadCompConfig(compCode, version);
-    const newCompData: AutoDV.Comp = {
+    const newCompData: JuggleDV.Comp = {
       ...compData,
       attr: merge({}, defaultCompData.attr, template.attr, compData.attr),
       config: merge({}, template.config, compData.config),
@@ -35,7 +35,7 @@ const ErrorMessage = styled.div`
 `;
 
 interface IProps {
-  compData: AutoDV.Comp;
+  compData: JuggleDV.Comp;
   isInEditor?: boolean;
 }
 

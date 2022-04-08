@@ -4,7 +4,7 @@ import { actionStatusSelector, IActionStatus } from 'helpers/selectors';
 import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import List from './List';
 import { DELETE_COMP } from 'components/base/BaseActions';
-import AutoDVIcon from 'components/common/AutoDVIcon';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
 import { LeftPanelStyled } from './style';
 import { selectEditorPanel } from 'store/selectors';
 import { RootState } from 'store/index';
@@ -52,7 +52,7 @@ const ComponentsLayers: React.FC = () => {
           >
             <Tooltip title="上移" placement="bottom">
               <span>
-                <AutoDVIcon size={14} icon="autoDV-up" />
+                <JuggleDVIcon size={14} icon="autoDV-up" />
               </span>
             </Tooltip>
           </Button>
@@ -62,7 +62,7 @@ const ComponentsLayers: React.FC = () => {
           >
             <Tooltip title="下移" placement="bottom">
               <span>
-                <AutoDVIcon size={14} icon="autoDV-up" flipY={true} />
+                <JuggleDVIcon size={14} icon="autoDV-up" flipY={true} />
               </span>
             </Tooltip>
           </Button>
@@ -72,7 +72,7 @@ const ComponentsLayers: React.FC = () => {
           >
             <Tooltip title="置顶" placement="bottom">
               <span>
-                <AutoDVIcon size={14} icon="autoDV-top" />
+                <JuggleDVIcon size={14} icon="autoDV-top" />
               </span>
             </Tooltip>
           </Button>
@@ -82,7 +82,7 @@ const ComponentsLayers: React.FC = () => {
           >
             <Tooltip title="置底" placement="bottom">
               <span>
-                <AutoDVIcon size={14} icon="autoDV-top" flipY={true} />
+                <JuggleDVIcon size={14} icon="autoDV-top" flipY={true} />
               </span>
             </Tooltip>
           </Button>

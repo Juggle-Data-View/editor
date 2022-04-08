@@ -13,11 +13,11 @@ import ThemeConfig from 'config/theme';
 import getFormatBody from './getFormatBody';
 import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from 'config/const';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface Props {
   containerDiv: HTMLDivElement;
-  options?: AutoDV.MixinDatasource;
+  options?: JuggleDV.MixinDatasource;
 }
 
 const defaultDatasourceConfig = {
@@ -64,7 +64,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     setOpen(false);
   };
 
-  const handleSubmit = (values: AutoDV.MixinDatasource) => {
+  const handleSubmit = (values: JuggleDV.MixinDatasource) => {
     if (!isVaild) {
       return;
     }
@@ -122,7 +122,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
   );
 };
 
-const dataCreator = (options?: AutoDV.MixinDatasource) => {
+const dataCreator = (options?: JuggleDV.MixinDatasource) => {
   const tempDiv = document.createElement('div');
   ReactDOM.render(
     <Providers>

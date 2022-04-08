@@ -1,5 +1,5 @@
 import * as font from 'config/form/font';
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 const axisLabel: INodeConfig[] = [
   {

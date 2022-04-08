@@ -4,7 +4,7 @@ import chartTitle from '../common/chartTitle';
 import containLabel from '../common/containLabel';
 import legend from '../common/legend';
 import lineSeriesCommin from '../common/linesSeriesCommon';
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 const baseLineForm: INodeConfig[] = [
   ...toolip,

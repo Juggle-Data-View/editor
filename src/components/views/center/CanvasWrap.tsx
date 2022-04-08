@@ -8,14 +8,14 @@ import { showContextMenu } from 'helpers/contextMenu';
 import { CANVAS_ID } from 'config/const';
 import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
-import { selectEditor, selectAutoDV } from 'store/selectors';
+import { selectEditor, selectJuggleDV } from 'store/selectors';
 import MyRuler from './Ruler';
 import useResize from 'components/base/useResize';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const CanvasWrap: React.FC = () => {
   const { canvasRatio, canvasPadding: padding } = useSelector(selectEditor);
-  const { app, canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectAutoDV);
+  const { app, canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectJuggleDV);
   const { id } = app;
   const comps = useMemo(() => compCodes.map((code) => compDatas[code]), [compCodes, compDatas]);
   const isAppLoaded = !!id;
@@ -33,7 +33,7 @@ const CanvasWrap: React.FC = () => {
   };
 
   // 获取canvas自适应比例
-  const getAdaptiveScale = (canvas: AutoDV.Canvas) => {
+  const getAdaptiveScale = (canvas: JuggleDV.Canvas) => {
     if (!screenRef.current) return 1;
     const screen = screenRef.current.getBoundingClientRect();
     const screenInner = {

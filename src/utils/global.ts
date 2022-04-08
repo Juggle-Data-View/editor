@@ -1,9 +1,9 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface GlobalVarsType {
-  canvasId: AutoDV.Canvas['id'];
-  appId: AutoDV.AppID;
-  userId: AutoDV.UserID;
+  canvasId: JuggleDV.Canvas['id'];
+  appId: JuggleDV.AppID;
+  userId: JuggleDV.UserID;
   zoomStyle: any;
   wssType: any;
   io: SocketIOClient.Socket | null;

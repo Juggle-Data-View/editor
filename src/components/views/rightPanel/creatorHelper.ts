@@ -5,7 +5,7 @@ import { DataSourceType, HttpMethod, API_TYPE } from 'config/const';
 import { pickBy } from 'lodash';
 import { FormikProps } from 'formik';
 import { createNextState as produce } from '@reduxjs/toolkit';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 type Header = Array<{ k: string; v: string }>;
 
@@ -75,7 +75,7 @@ export type Values = (API_Values | SQL_Values | CSV_Values) & ExtendValues;
 
 // 获取部分 数据源 类型
 export type LocalDataSourceType = Extract<
-  AutoDV.DataSourceType,
+  JuggleDV.DataSourceType,
   DataSourceType.API | DataSourceType.MySQL | DataSourceType.CSV
 >;
 

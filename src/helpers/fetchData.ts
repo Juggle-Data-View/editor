@@ -1,8 +1,8 @@
-import { AutoDV } from 'auto-dv-type';
-export const fetchCSVData = async (code: string, dataConfig: AutoDV.CompDataConfig) => {
+import { JuggleDV } from '@juggle-data-view/types';
+export const fetchCSVData = async (code: string, dataConfig: JuggleDV.CompDataConfig) => {
   return [];
 };
 
-export const fetchAPIData = async (code: string, dataConfig: AutoDV.CompDataConfig) => {
+export const fetchAPIData = async (code: string, dataConfig: JuggleDV.CompDataConfig) => {
   return [];
 };

@@ -1,7 +1,7 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import getAllChildren from 'utils/getAllChildren';
 
-const cancelGroup: AutoDV.ReducerCaseWithPrepare<{ code: string }> = {
+const cancelGroup: JuggleDV.ReducerCaseWithPrepare<{ code: string }> = {
   reducer(state, action) {
     const { compDatas, compCodes } = state;
     const { code } = action.payload;

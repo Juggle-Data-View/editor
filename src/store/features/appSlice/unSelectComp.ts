@@ -1,6 +1,6 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const unSelectComp: AutoDV.ReducerCase = (state) => {
+const unSelectComp: JuggleDV.ReducerCase = (state) => {
   const { selectedCompCodes } = state;
   if (selectedCompCodes.length) {
     state.selectedCompCodes = [];

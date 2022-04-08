@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { injectCDNScript } from 'components/common/AutoDVIcon';
+import { injectCDNScript } from 'components/common/JuggleDVIcon';
 import PageLoading from 'components/common/PageLoading';
 import Providers from 'components/base/Providers';
 import 'assets/style/index.scss';

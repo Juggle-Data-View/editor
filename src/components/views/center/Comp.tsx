@@ -2,12 +2,12 @@ import React, { Suspense, lazy, memo, useMemo } from 'react';
 import CompErrorBoundary from 'components/base/CompErrorBoundary';
 import CompLoader from 'components/common/CompLoader';
 import withSourceData from './withSourceData';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 /**
  * memo: Optimizing components by reducing `withSourceData` props pass
  */
-const Comp: React.FC<AutoDV.CompIndex> = memo((props) => {
+const Comp: React.FC<JuggleDV.CompIndex> = memo((props) => {
   const { compData } = props;
   const { compCode } = compData;
   const LazyIndex = useMemo(() => {

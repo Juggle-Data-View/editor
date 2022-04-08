@@ -1,6 +1,6 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const updateCanvas: AutoDV.ReducerCaseWithPrepare<{ canvas: AutoDV.Canvas }> = {
+const updateCanvas: JuggleDV.ReducerCaseWithPrepare<{ canvas: JuggleDV.Canvas }> = {
   reducer(state, action) {
     state.canvas = action.payload.canvas;
   },

@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { createSlice } from '@reduxjs/toolkit';
 import addComp from './addComp';
 import selectComp from './selectComp';
@@ -20,7 +20,7 @@ import { addDatasource } from './addDatasource';
 import deleteDatasource from './deleteDatasource';
 import updateDatasource from './updateDatasource';
 
-const initialState: AutoDV.State = {
+const initialState: JuggleDV.State = {
   app: {
     createTime: 0,
     createUser: '',

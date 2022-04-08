@@ -1,7 +1,7 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: AutoDV.Editor = {
+const initialState: JuggleDV.Editor = {
   canvasRatio: 1,
   canvasPadding: 50,
   panel: {
@@ -33,17 +33,17 @@ const systemSlice = createSlice({
         state.canvasRatio = action.payload;
       }
     },
-    togglePanel(state, action: PayloadAction<keyof AutoDV.Editor['panel']>) {
+    togglePanel(state, action: PayloadAction<keyof JuggleDV.Editor['panel']>) {
       const name = action.payload; // 面板名称
       state.panel[name] = !state.panel[name];
     },
     compHover(state, action: PayloadAction<number[]>) {
       state.hoverIndex = action.payload;
     },
-    updateEditor(state, action: PayloadAction<AutoDV.Editor>) {
+    updateEditor(state, action: PayloadAction<JuggleDV.Editor>) {
       return action.payload;
     },
-    setGuideLines(state, action: PayloadAction<AutoDV.Editor['guideLines']>) {
+    setGuideLines(state, action: PayloadAction<JuggleDV.Editor['guideLines']>) {
       state.guideLines = action.payload;
     },
     setAdaptiveScale(state, action: PayloadAction<number>) {
@@ -52,7 +52,7 @@ const systemSlice = createSlice({
     setSelecto(state, action: PayloadAction<boolean>) {
       state.isSelecto = action.payload;
     },
-    setRightPannelType(state, action: PayloadAction<AutoDV.Editor['rightPannelType']>) {
+    setRightPannelType(state, action: PayloadAction<JuggleDV.Editor['rightPannelType']>) {
       state.rightPannelType = action.payload;
     },
   },

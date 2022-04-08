@@ -1,7 +1,7 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { omit } from 'lodash';
 
-const getDeconstruction = (config: AutoDV.AppConfig, id: number) => {
+const getDeconstruction = (config: JuggleDV.AppConfig, id: number) => {
   const canvas = omit(config.canvas, 'compInsts');
   return {
     app: omit(config, 'canvas'),
@@ -9,7 +9,7 @@ const getDeconstruction = (config: AutoDV.AppConfig, id: number) => {
     components:
       config.canvas.compInsts?.reduce(
         (prev, curr) => ({ ...prev, [curr.code]: { ...curr, id } }),
-        {} as { [key: string]: AutoDV.Comp & { id: number } }
+        {} as { [key: string]: JuggleDV.Comp & { id: number } }
       ) || {},
   };
 };

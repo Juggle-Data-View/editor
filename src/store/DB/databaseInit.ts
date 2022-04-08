@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { IDBPDatabase, openDB } from 'idb';
 
 export const DB_NAME = 'DB_NAME';
@@ -8,10 +8,10 @@ export const CANVAS_STORE = 'CANVAS_STORE';
 export const APPINFO_STORE = 'APPINFO_STORE';
 
 export default class Database {
-  dbIns: Promise<IDBPDatabase<AutoDV.AppConfig>>;
+  dbIns: Promise<IDBPDatabase<JuggleDV.AppConfig>>;
 
   constructor() {
-    const db = openDB<AutoDV.AppConfig>(DB_NAME, DB_VERSION, {
+    const db = openDB<JuggleDV.AppConfig>(DB_NAME, DB_VERSION, {
       upgrade(db) {
         const compStore = db.createObjectStore(COMP_STORE, {
           keyPath: ['id', 'code'],

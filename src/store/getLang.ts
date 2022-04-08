@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 const zh: ALang = {
   createComp: '新建组件',
   deleteComp: '删除组件',
@@ -81,7 +81,7 @@ const en: ALang = {
   import: 'import',
 };
 
-const getLang = (lang: AutoDV.Editor['lang']) => {
+const getLang = (lang: JuggleDV.Editor['lang']) => {
   switch (lang) {
     case 'zh':
       return zh;

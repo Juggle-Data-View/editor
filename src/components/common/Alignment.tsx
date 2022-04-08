@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { appAction } from 'store/features/appSlice';
@@ -22,7 +22,7 @@ const AlignmentWrap = styled.div`
 `;
 
 const MiniButton: React.FC<{
-  align: AutoDV.AlignType;
+  align: JuggleDV.AlignType;
   tooltip: string;
 }> = (props) => {
   const { align, tooltip } = props;

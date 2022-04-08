@@ -7,8 +7,8 @@ import { get, has, isFunction } from 'lodash';
 import { nodeMapping } from './fields';
 import { useDebounce } from 'ahooks';
 import ErrorBoundary from 'components/base/ErrorBoundary';
-import { INodeParams } from 'auto-dv-type/src/form';
-import { FormComps } from 'auto-dv-type/src/fieldComponents';
+import { INodeParams } from '@juggle-data-view/types/src/form';
+import { FormComps } from '@juggle-data-view/types/src/fieldComponents';
 
 /**
  * 表单触发修改时自动提交表单

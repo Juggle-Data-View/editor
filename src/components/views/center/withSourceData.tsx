@@ -6,22 +6,22 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { fetchAPIData, fetchCSVData } from 'helpers/fetchData';
 import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 
 import { DataSourceType } from 'config/const';
 
 export interface HOCProps {
-  comps?: AutoDV.Comp[];
+  comps?: JuggleDV.Comp[];
   isSubComp?: boolean;
   parentCode?: string;
   dispatch?: (code: string, sourceData: any) => void;
-  datasource?: AutoDV.MixinDatasource;
+  datasource?: JuggleDV.MixinDatasource;
 }
 
-const withSourceData = (WrappedComponent: React.ComponentType<AutoDV.CompIndex>) => {
-  return (props: Omit<AutoDV.CompIndex, 'sourceData'> & HOCProps) => {
+const withSourceData = (WrappedComponent: React.ComponentType<JuggleDV.CompIndex>) => {
+  return (props: Omit<JuggleDV.CompIndex, 'sourceData'> & HOCProps) => {
     const { comps, isSubComp, datasource, ...rest } = props;
     const { compData } = rest; // 包裹组件需要用到的props
     const { code, dataConfig } = compData;

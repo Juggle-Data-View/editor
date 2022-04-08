@@ -1,5 +1,5 @@
 import React, { FocusEventHandler, useState } from 'react';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import { isDev } from 'utils';
@@ -7,7 +7,7 @@ import { Chip, TextField, Button } from '@mui/material';
 import { showContextMenu, hideContextMenu } from 'helpers/contextMenu';
 import { ItemStyled } from './style';
 import classNames from 'classnames';
-import AutoDVIcon from 'components/common/AutoDVIcon';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
 import { selectKeyPress } from 'store/selectors';
 import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
@@ -18,7 +18,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface IListItem {
-  item: AutoDV.Comp;
+  item: JuggleDV.Comp;
   index: number;
   isGhosting: boolean;
   isSelected: boolean;
@@ -39,14 +39,14 @@ const ListItem = (props: IListItem) => {
 
   const onSelect = (e: React.SyntheticEvent) => {
     hideContextMenu();
-    const pressKey = (['meta', 'control', 'shift'] as AutoDV.ModifierKey[]).includes(key);
+    const pressKey = (['meta', 'control', 'shift'] as JuggleDV.ModifierKey[]).includes(key);
     if (!isSelected || selectedCount !== 1 || pressKey) {
       dispatch(appAction.selectComp({ code }));
     }
     e.stopPropagation(); // 外层容器点击空白可以取消选中，所以这里需要阻止冒泡
   };
 
-  const onToggleStatus = (status: keyof AutoDV.ICompOwnStatus) => {
+  const onToggleStatus = (status: keyof JuggleDV.ICompOwnStatus) => {
     dispatch(appAction.toggleCompStatus({ code, status }));
   };
 
@@ -120,7 +120,7 @@ const ListItem = (props: IListItem) => {
                 })}
               >
                 {small ? (
-                  <AutoDVIcon className="thumb-icon" icon="autoDV-flip-horizontal" size={13} />
+                  <JuggleDVIcon className="thumb-icon" icon="autoDV-flip-horizontal" size={13} />
                 ) : (
                   <img src={DEFAULT_THUMBNAIL} onError={(e) => (e.currentTarget.src = DEFAULT_THUMBNAIL)} alt="" />
                 )}

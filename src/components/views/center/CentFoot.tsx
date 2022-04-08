@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AutoDVIcon from 'components/common/AutoDVIcon';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
 import { Button, Slider, Tooltip, TextField, InputAdornment } from '@mui/material';
 import { MIN_CANVAS_RATIO, MAX_CANVAS_RATIO } from 'config/const';
 import { CentFootStyled } from './style';
@@ -53,14 +53,14 @@ const CentFoot: React.FC = () => {
           <Button onClick={() => dispatch(editorAction.zoomCanvas(1))}>
             <Tooltip placement="top" title="实际大小">
               <span>
-                <AutoDVIcon icon="autoDV-native" size={18} />
+                <JuggleDVIcon icon="autoDV-native" size={18} />
               </span>
             </Tooltip>
           </Button>
           <Button onClick={() => dispatch(editorAction.zoomCanvas('auto'))}>
             <Tooltip placement="top" title="自适应">
               <span>
-                <AutoDVIcon icon="autoDV-suitable" size={18} />
+                <JuggleDVIcon icon="autoDV-suitable" size={18} />
               </span>
             </Tooltip>
           </Button>

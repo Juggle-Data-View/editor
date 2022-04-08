@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { CompInstEditReqData } from 'utils/request';
 import Database, { COMP_STORE } from './databaseInit';
 
@@ -63,7 +63,7 @@ class Components extends Database {
     } catch (error) {}
   };
 
-  addComponents = async (payload: AutoDV.Comp[], appId: number) => {
+  addComponents = async (payload: JuggleDV.Comp[], appId: number) => {
     try {
       const db = await this.dbIns;
       const createTime = Date.now();

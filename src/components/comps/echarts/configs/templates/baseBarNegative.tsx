@@ -1,6 +1,6 @@
 import axisLabel from '../common/axisLabel';
 import tooltip from '../common/tooltip';
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import { resolveName } from 'components/recursion/utils';
 import xAxisDictionary from '../common/axis';

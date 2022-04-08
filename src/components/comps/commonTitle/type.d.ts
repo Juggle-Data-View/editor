@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 export interface Config {
   title: string;
   style: React.CSSProperties;
@@ -16,6 +16,6 @@ export interface Data {
   value: string;
 }
 
-export type IIndex = AutoDV.CompIndex<Config, Data[]>;
+export type IIndex = JuggleDV.CompIndex<Config, Data[]>;
 
-export type IConfig = AutoDV.CompConfig<Config>;
+export type IConfig = JuggleDV.CompConfig<Config>;

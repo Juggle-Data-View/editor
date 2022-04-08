@@ -10,7 +10,7 @@ import components from './DB/components';
 import canvas from './DB/canvas';
 import app from './DB/appConfig';
 import global from 'utils/global';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { CompInstEditReqData, CompInstReqData } from 'utils/request';
 
 const differ = require('deep-diff');
@@ -118,12 +118,12 @@ const setupWatch = () => {
             }
           });
           // 请求新增组件，返回添加成功的组件实例信息
-          await addComponents(payload as AutoDV.Comp[], Number(global.appId));
+          await addComponents(payload as JuggleDV.Comp[], Number(global.appId));
 
           // 创建分组组件和粘贴已经分组的组件需要排序
           if (
-            (payload.length === 1 && (payload[0] as AutoDV.Comp).compCode === 'group') ||
-            (payload[0] as AutoDV.Comp).config.groupCode
+            (payload.length === 1 && (payload[0] as JuggleDV.Comp).compCode === 'group') ||
+            (payload[0] as JuggleDV.Comp).config.groupCode
           ) {
             await sortComponents(store.getState().autoDV.present.compCodes, Number(global.appId));
           }
@@ -141,7 +141,7 @@ const setupWatch = () => {
           // eslint-disable-next-line no-loop-func
           datas.forEach((data, index) => {
             const code = codes[index];
-            (Object.keys(data) as (keyof AutoDV.Comp)[]).forEach((key) => {
+            (Object.keys(data) as (keyof JuggleDV.Comp)[]).forEach((key) => {
               payload.push({
                 code,
                 key,

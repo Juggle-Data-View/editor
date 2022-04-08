@@ -1,5 +1,5 @@
-import { AutoDV } from 'auto-dv-type';
-const config: AutoDV.CompConfig<any> = {
+import { JuggleDV } from '@juggle-data-view/types';
+const config: JuggleDV.CompConfig<any> = {
   version: '1.0.0',
   tab: {
     config: true,

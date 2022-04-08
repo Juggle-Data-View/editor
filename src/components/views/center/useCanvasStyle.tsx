@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useSelector } from 'react-redux';
 import global from 'utils/global';
 import { selectEditor } from 'store/selectors';
 
 // 根据缩放方式设置样式
-const getZoomStyle = (canvas: AutoDV.Canvas) => {
+const getZoomStyle = (canvas: JuggleDV.Canvas) => {
   const { zoomType } = canvas;
   const { clientWidth, clientHeight } = document.documentElement;
   const scaleX = clientWidth / canvas.width;
@@ -63,7 +63,7 @@ const getZoomStyle = (canvas: AutoDV.Canvas) => {
   return zoomStyle;
 };
 
-const useCanvasStyle = (canvas: AutoDV.Canvas, isInEditor: boolean) => {
+const useCanvasStyle = (canvas: JuggleDV.Canvas, isInEditor: boolean) => {
   const [zoom, setZoom] = useState<React.CSSProperties>({});
   const { canvasRatio } = useSelector(selectEditor);
 

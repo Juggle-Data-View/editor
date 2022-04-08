@@ -1,7 +1,7 @@
 import axisTick from './axisTick';
 import axisLabel from './axisLabel';
 import lineStyle from './lineStyle';
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 const xAxisDictionary: INodeConfig[] = [
   {

@@ -1,4 +1,4 @@
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import { borderStyle } from 'config/form/style';
 
 const lineStyle: INodeConfig[] = [

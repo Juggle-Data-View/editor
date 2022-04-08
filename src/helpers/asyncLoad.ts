@@ -2,7 +2,7 @@
  * 异步加载组件or数据
  */
 import notice from 'utils/notice';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 /**
  * 异步加载本地静态数据
@@ -36,7 +36,7 @@ const getConfigName = (version: string) => {
 /**
  * 异步加载组件配置
  */
-export const asyncLoadCompConfig = async (compCode: string, version: string): Promise<AutoDV.CompConfig> => {
+export const asyncLoadCompConfig = async (compCode: string, version: string): Promise<JuggleDV.CompConfig> => {
   try {
     const name = getConfigName(version);
     const { default: config } = await import(`components/comps/${compCode}/${name}`);

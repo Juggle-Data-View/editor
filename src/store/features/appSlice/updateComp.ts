@@ -1,6 +1,6 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const updateComp: AutoDV.ReducerCaseWithPrepare<{ code: string; comp: AutoDV.Comp }> = {
+const updateComp: JuggleDV.ReducerCaseWithPrepare<{ code: string; comp: JuggleDV.Comp }> = {
   reducer(state, action) {
     const { code, comp } = action.payload;
     state.compDatas[code] = comp;

@@ -1,6 +1,6 @@
 import { ArrayHelpers, FieldConfig, FormikContextType, FormikConfig } from 'formik';
 
-import { IBaseNodeConfig, IBaseNodeConfigProps, INodeConfig, INodeParams } from 'auto-dv-type/src/form';
+import { IBaseNodeConfig, IBaseNodeConfigProps, INodeConfig, INodeParams } from '@juggle-data-view/types/src/form';
 
 /**
  * 系统内部节点组件的props

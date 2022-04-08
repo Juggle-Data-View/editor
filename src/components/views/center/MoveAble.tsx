@@ -7,10 +7,10 @@ import Selecto from 'react-selecto';
 import { flatten, uniq } from 'lodash';
 import emitter, { eventName } from 'utils/events';
 import getAllChildren, { getAllParentGroup } from 'utils/getAllChildren';
-import { selectAutoDV, selectEditor, selectGuideLines, selectKeyPress, selectIsSelecto } from 'store/selectors';
+import { selectJuggleDV, selectEditor, selectGuideLines, selectKeyPress, selectIsSelecto } from 'store/selectors';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const MoveableStyled = styled(Moveable)<DimensionViewableProps>`
   &.--move {
@@ -85,7 +85,7 @@ interface Props {
 
 const MoveAble: React.FC<Props> = ({ scrollContainer }) => {
   const { canvasRatio } = useSelector(selectEditor);
-  const { canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectAutoDV);
+  const { canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectJuggleDV);
   const isSelecto = useSelector(selectIsSelecto);
   const guideLines = useSelector(selectGuideLines);
   const pressKey = useSelector(selectKeyPress);
@@ -320,7 +320,7 @@ function elements2codes(elements: (Element | null)[]) {
   return elements.map((el) => (el ? el.id : '')).filter((code) => code);
 }
 
-function getOffset(endType: AbleEndEvent, event: OnEndEvent, ratio: number): AutoDV.Rect | null {
+function getOffset(endType: AbleEndEvent, event: OnEndEvent, ratio: number): JuggleDV.Rect | null {
   const { lastEvent } = event;
   if (!lastEvent) return null;
   const { dist, drag } = lastEvent;

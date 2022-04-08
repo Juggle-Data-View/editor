@@ -12,10 +12,10 @@ import { showContextMenu } from 'helpers/contextMenu';
 import { appAction } from 'store/features/appSlice';
 import { editorAction } from 'store/features/editorSlice';
 import { RootState } from 'store';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface Props {
-  compData: AutoDV.Comp;
+  compData: JuggleDV.Comp;
   index: number;
   isInEditor: boolean;
   isSelected?: boolean;

@@ -1,11 +1,11 @@
 import components from './components';
 import global from 'utils/global';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { omit } from 'lodash';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import AppConfig from './default.conf';
 
-export const defaultRect: AutoDV.Rect = {
+export const defaultRect: JuggleDV.Rect = {
   left: 0,
   top: 0,
   width: 0,
@@ -13,7 +13,7 @@ export const defaultRect: AutoDV.Rect = {
 };
 
 class DB extends Database {
-  initDB = async (config: AutoDV.AppConfig) => {
+  initDB = async (config: JuggleDV.AppConfig) => {
     const db = await this.dbIns;
     const { canvas: initCanvas } = config;
     const appInfo = omit(config, 'canvas');
@@ -23,14 +23,14 @@ class DB extends Database {
       appId: appInfo.id,
     };
 
-    const normalizeComps: AutoDV.Comp<AutoDV.Config>[] = initCanvas.compInsts || [];
+    const normalizeComps: JuggleDV.Comp<JuggleDV.Config>[] = initCanvas.compInsts || [];
     await db.add(APPINFO_STORE, appInfo);
     await db.add(CANVAS_STORE, canvas);
     await components.addComponents(normalizeComps, Number(appInfo.id));
   };
 
-  needInitDB = async (config: AutoDV.AppConfig) => {
-    const appInfos = await this.getConfig<Omit<AutoDV.AppConfig, 'canvas'>[]>(
+  needInitDB = async (config: JuggleDV.AppConfig) => {
+    const appInfos = await this.getConfig<Omit<JuggleDV.AppConfig, 'canvas'>[]>(
       APPINFO_STORE,
       'appId',
       Number(config.id),
@@ -64,12 +64,12 @@ class DB extends Database {
     }
   };
 
-  getConfigByAPPID = async (appId: number): Promise<AutoDV.AppConfig | undefined> => {
+  getConfigByAPPID = async (appId: number): Promise<JuggleDV.AppConfig | undefined> => {
     try {
-      const app = await this.getConfig<AutoDV.AppConfig>(APPINFO_STORE, 'appId', appId, 'get');
-      const canvas = await this.getConfig<AutoDV.AppConfig['canvas']>(CANVAS_STORE, 'appId', appId, 'get');
+      const app = await this.getConfig<JuggleDV.AppConfig>(APPINFO_STORE, 'appId', appId, 'get');
+      const canvas = await this.getConfig<JuggleDV.AppConfig['canvas']>(CANVAS_STORE, 'appId', appId, 'get');
 
-      const compInsts = (await this.getConfig<AutoDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
+      const compInsts = (await this.getConfig<JuggleDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
         (prev, next) => -1 * (next.createTime - prev.createTime)
       );
       global.appId = app.id;
@@ -86,7 +86,7 @@ class DB extends Database {
     }
   };
 
-  getDefaultConfig = async (): Promise<AutoDV.AppConfig | undefined> => {
+  getDefaultConfig = async (): Promise<JuggleDV.AppConfig | undefined> => {
     const app = omit(AppConfig, 'canvas');
     const { canvas } = AppConfig;
     global.appId = app.id;

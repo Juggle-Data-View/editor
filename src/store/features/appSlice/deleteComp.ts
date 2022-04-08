@@ -1,7 +1,7 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 
-const deleteComp: AutoDV.ReducerCaseWithPrepare = {
+const deleteComp: JuggleDV.ReducerCaseWithPrepare = {
   reducer(state) {
     const { selectedCompCodes, compCodes, compDatas } = state;
     if (selectedCompCodes.length === compCodes.length) {

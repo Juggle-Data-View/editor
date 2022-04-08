@@ -1,11 +1,11 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
 
-const useOriginData = (comps: AutoDV.Comp[]) => {
+const useOriginData = (comps: JuggleDV.Comp[]) => {
   const dataConfigs = useMemo(
-    () => comps.map((item) => item.dataConfig).filter((item) => item) as AutoDV.CompDataConfig[],
+    () => comps.map((item) => item.dataConfig).filter((item) => item) as JuggleDV.CompDataConfig[],
     [comps]
   );
   const datasources = useSelector(selectDatasources);

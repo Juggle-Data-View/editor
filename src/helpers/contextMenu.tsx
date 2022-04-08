@@ -1,5 +1,5 @@
-import AutoDVIcon from 'components/common/AutoDVIcon';
-import { getAutoDV } from 'utils';
+import JuggleDVIcon from 'components/common/JuggleDVIcon';
+import { getJuggleDV } from 'utils';
 import store from 'store/index';
 import { actionStatusSelector, selectedRectSelector } from 'helpers/selectors';
 import { COPY_COMP, DELETE_COMP, ADD_GROUP_COMP } from 'components/base/BaseActions';
@@ -14,7 +14,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOffIcon from '@mui/icons-material/FolderOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import ReactDOM from 'react-dom';
 interface extraItem {
   name: string;
@@ -32,7 +32,7 @@ interface ContextMenuItemOption {
 
 interface ContextMenuItemProps extends ContextMenuItemOption {
   status: ReturnType<typeof actionStatusSelector>;
-  autoDVState: AutoDV.State;
+  autoDVState: JuggleDV.State;
 }
 
 const ContextMenuItem: React.FC<ContextMenuItemProps> = ({ status, icon, onClick, text, shortcutkey, autoDVState }) => {
@@ -70,34 +70,34 @@ const contextMenuOptions: ContextMenuItemOption[] = [
   },
   {
     text: '向下一层',
-    icon: <AutoDVIcon size={16} icon="autoDV-down" />,
+    icon: <JuggleDVIcon size={16} icon="autoDV-down" />,
     onClick: () => store.dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: false })),
   },
   {
     text: '向上一层',
-    icon: <AutoDVIcon size={16} icon="autoDV-up" />,
+    icon: <JuggleDVIcon size={16} icon="autoDV-up" />,
     onClick: () => store.dispatch(appAction.moveComp({ direction: 'UP', isEnd: false })),
   },
   {
     text: '置于底层',
-    icon: <AutoDVIcon size={16} icon="autoDV-bottom" />,
+    icon: <JuggleDVIcon size={16} icon="autoDV-bottom" />,
     onClick: () => store.dispatch(appAction.moveComp({ direction: 'UP', isEnd: true })),
   },
   {
     text: '置于顶层',
-    icon: <AutoDVIcon size={16} icon="autoDV-top" />,
+    icon: <JuggleDVIcon size={16} icon="autoDV-top" />,
     onClick: () => store.dispatch(appAction.moveComp({ direction: 'DOWN', isEnd: true })),
   },
   {
     text: '分组',
     icon: <FolderIcon />,
-    onClick: (autoDVState: AutoDV.State) =>
+    onClick: (autoDVState: JuggleDV.State) =>
       ADD_GROUP_COMP((selectedRectSelector as any)(autoDVState), autoDVState.selectedCompCodes),
   },
   {
     text: '取消分组',
     icon: <FolderOffIcon />,
-    onClick: (autoDVState: AutoDV.State) =>
+    onClick: (autoDVState: JuggleDV.State) =>
       store.dispatch(appAction.cancelGroup({ code: autoDVState.selectedCompCodes[0] })),
   },
   {
@@ -110,7 +110,7 @@ const contextMenuOptions: ContextMenuItemOption[] = [
 const ContextMenu: React.FC<{
   contextMenuOptions: ContextMenuItemOption[];
 }> = ({ contextMenuOptions }) => {
-  const autoDVState = getAutoDV();
+  const autoDVState = getJuggleDV();
   const status = actionStatusSelector(autoDVState);
   const renderMenuItem = () => {
     return contextMenuOptions.map((item) => {

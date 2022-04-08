@@ -14,16 +14,16 @@
  */
 
 import notice from './notice';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 /**
  * get component decoration that is first matched
  * @param code component code
  * @param type 装饰器类型
  */
-const getDecoration = (comps: AutoDV.Comp[], code: string) => {
+const getDecoration = (comps: JuggleDV.Comp[], code: string) => {
   const codes = comps.map((comp) => comp.code);
-  const datas = comps.reduce((acc: { [code: string]: AutoDV.Comp }, comp) => {
+  const datas = comps.reduce((acc: { [code: string]: JuggleDV.Comp }, comp) => {
     acc[comp.code] = comp;
     return acc;
   }, {});
@@ -31,7 +31,7 @@ const getDecoration = (comps: AutoDV.Comp[], code: string) => {
     .filter((code) => code.indexOf('decoration') === 0)
     .find((_code) => (datas[_code].config as any).connectionIds.includes(code));
 
-  const decoration: AutoDV.Comp<any> | undefined = decorationId ? datas[decorationId] : undefined;
+  const decoration: JuggleDV.Comp<any> | undefined = decorationId ? datas[decorationId] : undefined;
   const handle = decoration ? decoration.config.handle : undefined;
 
   return handle && decoration

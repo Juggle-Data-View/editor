@@ -9,12 +9,12 @@ export const injectCDNScript = () => {
   document.body.appendChild(oScript);
 };
 
-// export const isAutoDVIcon = (iconName: string) => {
+// export const isJuggleDVIcon = (iconName: string) => {
 //   return (iconName as string).search(/^autoDV/) !== -1;
 // };
 
 // 使用`autoDV-`开头的命名规则
-export type AutoDVIconName =
+export type JuggleDVIconName =
   | 'autoDV-save'
   | 'autoDV-up'
   | 'autoDV-down'
@@ -37,15 +37,15 @@ export type AutoDVIconName =
   | 'autoDV-SQL'
   | 'autoDV-offline';
 
-export interface IAutoDVIconProps extends Omit<SvgIconProps, 'icon'> {
-  icon: AutoDVIconName;
+export interface IJuggleDVIconProps extends Omit<SvgIconProps, 'icon'> {
+  icon: JuggleDVIconName;
   flipX?: boolean;
   flipY?: boolean;
   size?: number;
   className?: string;
 }
 
-const AutoDVIcon: React.FC<IAutoDVIconProps> = (props) => {
+const JuggleDVIcon: React.FC<IJuggleDVIconProps> = (props) => {
   const { icon, flipX, flipY, size, className, color } = props;
   const _size = size || '1em';
 
@@ -64,7 +64,7 @@ const AutoDVIcon: React.FC<IAutoDVIconProps> = (props) => {
   );
 };
 
-export default AutoDVIcon;
+export default JuggleDVIcon;
 
 interface LoadingIconProp extends SvgIconProps {
   duration?: number; // 动画持续时间，单位：秒

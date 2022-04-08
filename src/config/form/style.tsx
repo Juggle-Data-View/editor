@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import DropDown, { IDropDown } from 'components/common/DropDown';
 import { IBorderStyleItem, borderStyle as items } from 'config/style';
 

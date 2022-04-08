@@ -1,6 +1,6 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const selectComp: AutoDV.ReducerCase<{ code: string | string[]; isAreaSelect?: boolean }> = (state, action) => {
+const selectComp: JuggleDV.ReducerCase<{ code: string | string[]; isAreaSelect?: boolean }> = (state, action) => {
   const { code, isAreaSelect } = action.payload;
   const { compCodes, selectedCompCodes, compDatas, keyPressed } = state;
 

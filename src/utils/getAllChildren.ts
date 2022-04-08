@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 /**
  * 获取所有分组子组件的code
  * @param groupCode 要查找的分组code
@@ -6,7 +6,7 @@ import { AutoDV } from 'auto-dv-type';
  * @param compDatas 所有的分组数据
  * @returns 所有的子组件
  */
-const getAllChildren = (groupCode: string, compCodes: string[], compDatas: AutoDV.State['compDatas']) => {
+const getAllChildren = (groupCode: string, compCodes: string[], compDatas: JuggleDV.State['compDatas']) => {
   const result: string[] = [];
   const groupIndex = compCodes.indexOf(groupCode);
   let groupCache: string[] = [groupCode];
@@ -49,7 +49,7 @@ const getAllChildren = (groupCode: string, compCodes: string[], compDatas: AutoD
 };
 export default getAllChildren;
 
-export const getAllParentGroup = (code: string, compDatas: AutoDV.State['compDatas']) => {
+export const getAllParentGroup = (code: string, compDatas: JuggleDV.State['compDatas']) => {
   const searchGroup = (code: string, result: string[] = []): string[] => {
     const hasGroup = compDatas[code] && compDatas[code].config.groupCode;
     if (hasGroup) {
@@ -66,7 +66,7 @@ export const getAllParentGroup = (code: string, compDatas: AutoDV.State['compDat
  * 获取所有被选中组件，包括其子组件
  * @param codes 有序的被选中组件的code
  */
-export const getAllSelectedComps = (codes: string[], compDatas: AutoDV.State['compDatas'], compCodes: string[]) => {
+export const getAllSelectedComps = (codes: string[], compDatas: JuggleDV.State['compDatas'], compCodes: string[]) => {
   let result: string[] = [];
   codes.forEach((item) => {
     result.push(item);

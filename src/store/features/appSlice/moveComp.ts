@@ -1,8 +1,8 @@
 import { getParentGroup } from 'helpers/groupHandle';
 import getAllChildren, { getAllSelectedComps } from 'utils/getAllChildren';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const moveComp: AutoDV.ReducerCaseWithPrepare<{ direction: 'UP' | 'DOWN'; isEnd: boolean }> = {
+const moveComp: JuggleDV.ReducerCaseWithPrepare<{ direction: 'UP' | 'DOWN'; isEnd: boolean }> = {
   reducer(state, action) {
     const { compCodes, selectedCompCodes, compDatas } = state;
     const { direction, isEnd } = action.payload;

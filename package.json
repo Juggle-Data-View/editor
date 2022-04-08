@@ -1,5 +1,5 @@
 {
-  "name": "auto-dV",
+  "name": "@juggle-data-view/editor",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
@@ -10,6 +10,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
+    "@juggle-data-view/types": "^1.0.0",
     "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.67",
     "@mui/material": "^5.2.1",
@@ -74,7 +75,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd -e development -r ./scripts/.env-cmdrc.js react-scripts start -FAST_REFRESH=true  --max_old_space_size=8192 start",
+    "start": "env-cmd -e development -r ./scripts/.env-cmdrc.js react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build": "node ./scripts/build.js",
@@ -139,8 +140,7 @@
     "prettier": "^2.1.2",
     "redux-devtools-extension": "^2.13.8",
     "sass": "^1.49.7",
-    "source-map-explorer": "^2.5.1",
-    "auto-dv-type": "1.0.0"
+    "source-map-explorer": "^2.5.1"
   },
   "husky": {
     "hooks": {

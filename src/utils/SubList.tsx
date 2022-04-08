@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 export interface AssistStruct {
   code: string;
   children?: AssistStruct[];
@@ -11,10 +11,10 @@ interface GroupStack {
   offsetNumber: number;
 }
 
-const { REACT_APP_AutoDV_ENV } = process.env;
+const { REACT_APP_JuggleDV_ENV } = process.env;
 
 // dev/test 环境
-export const isDev = REACT_APP_AutoDV_ENV === 'development';
+export const isDev = REACT_APP_JuggleDV_ENV === 'development';
 
 /**
  * 将一维数组转成多层结构
@@ -22,7 +22,7 @@ export const isDev = REACT_APP_AutoDV_ENV === 'development';
  * @param compDatas 所有组件的数据
  * @returns 返回和code相关的嵌套结构、
  */
-const subList = (compCodes: string[], compDatas: AutoDV.State['compDatas']): AssistStruct[] => {
+const subList = (compCodes: string[], compDatas: JuggleDV.State['compDatas']): AssistStruct[] => {
   let groupStack: GroupStack[] = [];
   const resultData: AssistStruct[] = [];
 

@@ -5,12 +5,12 @@ import CompWrapper from './CompWrapper';
 import { CANVAS_ID } from 'config/const';
 import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface ICanvas {
   isInEditor: boolean;
-  comps: AutoDV.Comp[];
-  canvas: AutoDV.Canvas;
+  comps: JuggleDV.Comp[];
+  canvas: JuggleDV.Canvas;
   selectedCompCodes?: string[];
 }
 

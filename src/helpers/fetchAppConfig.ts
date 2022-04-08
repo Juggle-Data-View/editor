@@ -1,7 +1,7 @@
 import { qs, getViewStatus, qsDynamic } from 'utils/index';
 import * as Api from 'utils/api';
 import global, { fakeIFrameVars } from 'utils/global';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 // 请求页面配置
 const fetchAppConfig = async (url?: string) => {
@@ -31,7 +31,7 @@ const fetchAppConfig = async (url?: string) => {
 
     // 第一次创建的大屏页面时是没有画布信息的，需要初始化画布
     if (!isRelease && !appConfig.canvas) {
-      const canvas: AutoDV.Canvas = {
+      const canvas: JuggleDV.Canvas = {
         id: null,
         appId: appConfig.id,
         backgroundColor: '#0D2A41',

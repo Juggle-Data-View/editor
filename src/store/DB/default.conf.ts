@@ -1,6 +1,6 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 const appId = Date.now();
-const AppConfig: AutoDV.AppConfig = {
+const AppConfig: JuggleDV.AppConfig = {
   createTime: 0,
   createUser: '',
   id: appId,

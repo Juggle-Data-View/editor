@@ -1,4 +1,4 @@
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import axis from '../common/axis';
 import toolip from '../common/tooltip';

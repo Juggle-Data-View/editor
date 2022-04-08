@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 export interface CompBinaryTreeNode {
   code: string;
   groupItem: CompBinaryTreeNode | null; // group item
@@ -30,7 +30,7 @@ interface GroupConfigStruct {
  * @param compDatas 所有组件的数据
  * @param compCodes 所有组件的code
  */
-const getGroup = (compData: AutoDV.Comp, compDatas: AutoDV.State['compDatas'], compCodes: string[]) => {
+const getGroup = (compData: JuggleDV.Comp, compDatas: JuggleDV.State['compDatas'], compCodes: string[]) => {
   const { code } = compData;
   const groupCodes = compCodes.filter((item) => item.includes('group'));
   const belongToGroupCode = groupCodes.find((item) => {
@@ -46,7 +46,7 @@ const compIsGroup = (code: string): boolean => {
   return code.includes('group');
 };
 
-export const compBinaryTree = (compCodes: string[], compDatas: AutoDV.State['compDatas']): any => {
+export const compBinaryTree = (compCodes: string[], compDatas: JuggleDV.State['compDatas']): any => {
   const groupDictionary: GroupDictionary = {};
   const groupItemDictionary: GroupItemDictionary = {};
   const groupCodes: string[] = compCodes.filter((item) => item.includes('group'));
@@ -55,7 +55,7 @@ export const compBinaryTree = (compCodes: string[], compDatas: AutoDV.State['com
 
   // 生成辅助结构，分组字典
   groupCodes.forEach((group) => {
-    const { config } = compDatas[group] as AutoDV.Comp<{ groupItemCode: string[] }>;
+    const { config } = compDatas[group] as JuggleDV.Comp<{ groupItemCode: string[] }>;
     //过滤掉分组本身
     // const groupItemCode = config.groupItemCode;
     const groupItemCode = config.groupItemCode[0] === group ? config.groupItemCode.slice(1) : config.groupItemCode;
@@ -67,7 +67,7 @@ export const compBinaryTree = (compCodes: string[], compDatas: AutoDV.State['com
   codeArrayOfCompInGroup.forEach((code) => {
     const groupCode = getGroup(compDatas[code], compDatas, compCodes);
     if (groupCode) {
-      const { config } = compDatas[groupCode] as AutoDV.Comp<{ groupItemCode: string[] }>;
+      const { config } = compDatas[groupCode] as JuggleDV.Comp<{ groupItemCode: string[] }>;
       const groupItemCode =
         config.groupItemCode[0] === groupCode ? config.groupItemCode.slice(1) : config.groupItemCode;
       // const groupItemCode = config.groupItemCode;

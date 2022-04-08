@@ -1,8 +1,8 @@
 import { DataSourceType as DT, HttpMethod } from 'config/const';
 import { nanocode } from 'utils';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const getDefaultValues = (options?: AutoDV.MixinDatasource) => {
+const getDefaultValues = (options?: JuggleDV.MixinDatasource) => {
   if (!options) {
     return {
       dataSourceType: DT.Static,
@@ -25,7 +25,7 @@ const getDefaultValues = (options?: AutoDV.MixinDatasource) => {
           },
         ],
         dataSourceType: DT.API,
-      } as AutoDV.APIDatasourceInstance;
+      } as JuggleDV.APIDatasourceInstance;
 
     case DT.CSV:
       return {
@@ -33,14 +33,14 @@ const getDefaultValues = (options?: AutoDV.MixinDatasource) => {
         dataSourceType: DT.CSV,
         url: '',
         body: '',
-      } as AutoDV.ExeclDatasourceInstance;
+      } as JuggleDV.ExeclDatasourceInstance;
 
     default:
       return {
         ...options,
         dataSourceType: DT.Static,
         body: '',
-      } as AutoDV.StaticDatasourceInstance;
+      } as JuggleDV.StaticDatasourceInstance;
   }
 };
 

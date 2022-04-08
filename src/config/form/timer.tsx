@@ -1,4 +1,4 @@
-import { INodeConfig } from 'auto-dv-type/src/form';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import * as style from 'config/style';
 
 export const type: INodeConfig = {

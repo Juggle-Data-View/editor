@@ -8,12 +8,12 @@
  */
 
 import { createSelector } from '@reduxjs/toolkit';
-import { getAutoDV } from 'utils';
-import { AutoDV } from 'auto-dv-type';
+import { getJuggleDV } from 'utils';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const getCompCodes = (state: AutoDV.State) => state.compCodes;
-const getCompDatas = (state: AutoDV.State) => state.compDatas;
-const getSelectedCompCodes = (state: AutoDV.State) => state.selectedCompCodes;
+const getCompCodes = (state: JuggleDV.State) => state.compCodes;
+const getCompDatas = (state: JuggleDV.State) => state.compDatas;
+const getSelectedCompCodes = (state: JuggleDV.State) => state.selectedCompCodes;
 
 /**
  * 组件按钮状态，一般在左侧组件列表上下位置的按钮中。
@@ -131,6 +131,6 @@ export const groupRectSelector = (scodes: string[]) =>
   });
 
 export const getSelectedRect = () => {
-  const autoDVState = getAutoDV();
+  const autoDVState = getJuggleDV();
   return selectedRectSelector(autoDVState);
 };

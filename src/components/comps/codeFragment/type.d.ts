@@ -1,4 +1,4 @@
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 /**
  * 组件属性类型
  * 1. 定义所有模板配置的类型
@@ -11,7 +11,7 @@ import { AutoDV } from 'auto-dv-type';
 /**
  * Step1: 声明组件模板配置的类型
  */
-export interface Config extends AutoDV.Config {
+export interface Config extends JuggleDV.Config {
   style: React.CSSProperties;
   option: {
     html: string;
@@ -24,7 +24,7 @@ export interface Config extends AutoDV.Config {
 }
 
 // for Index.tsx
-export type IIndex = AutoDV.CompIndex<Config>;
+export type IIndex = JuggleDV.CompIndex<Config>;
 
 // for temps/{config}.ts
-export type IConfig = AutoDV.CompConfig<Config>;
+export type IConfig = JuggleDV.CompConfig<Config>;

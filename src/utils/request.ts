@@ -7,23 +7,23 @@ import history from 'helpers/history';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'; // 兼容守护工具(chrome v61)
 import { HttpMethod, ContentType } from 'config/const';
 import { merge } from 'lodash';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
-export interface AutoDVErrorInfo {
+export interface JuggleDVErrorInfo {
   /** 请求状态码 */
   code: number;
   /** 错误信息 */
   message: string;
 }
 
-export interface AutoDVRes<T> {
+export interface JuggleDVRes<T> {
   code: number;
   message: string;
   data?: T;
 }
 
 export interface UpdateCanvasPayload {
-  key: keyof AutoDV.Canvas;
+  key: keyof JuggleDV.Canvas;
   value: unknown;
 }
 
@@ -35,12 +35,12 @@ export interface UpdateCanvasPayload {
 
 export interface CompInstEditReqData {
   code: string;
-  key: keyof AutoDV.Comp | 'staticData';
+  key: keyof JuggleDV.Comp | 'staticData';
   value: any;
 }
 
 /** 增、删、改的集合 */
-export type CompInstReqData = (AutoDV.Comp | string | CompInstEditReqData)[];
+export type CompInstReqData = (JuggleDV.Comp | string | CompInstEditReqData)[];
 
 /**
  * ---------------------------------

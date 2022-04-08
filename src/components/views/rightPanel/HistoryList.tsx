@@ -5,7 +5,7 @@ import { selectUndo, selectEditorPanel } from 'store/selectors';
 import { Divider, MenuItem, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { editorAction } from 'store/features/editorSlice';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const DEFAULT_ACTION = 'DEFAULT_ACTION';
 
@@ -25,7 +25,7 @@ const HistoryList: React.FC = () => {
       <Divider />
       <div className="panel-body">
         <div style={{ background: 'transparent' }}>
-          {past.map((step: AutoDV.State, index: number) => {
+          {past.map((step: JuggleDV.State, index: number) => {
             return (
               <MenuItem
                 className="undo-past"
@@ -44,7 +44,7 @@ const HistoryList: React.FC = () => {
               {_latestUnfiltered.actionAlias || DEFAULT_ACTION}
             </MenuItem>
           ) : null}
-          {future.map((step: AutoDV.State, index: number) => {
+          {future.map((step: JuggleDV.State, index: number) => {
             return (
               <MenuItem
                 className="undo-future"

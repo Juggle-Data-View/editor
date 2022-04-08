@@ -1,12 +1,12 @@
 import { AddCircle, Delete, Edit } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
-import AutoDVIcon, { AutoDVIconName } from 'components/common/AutoDVIcon';
+import JuggleDVIcon, { JuggleDVIconName } from 'components/common/JuggleDVIcon';
 import SearchSelect, { Item } from 'components/common/SearchSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { appAction } from 'store/features/appSlice';
 import { selectDatasources, selectEditorPanel } from 'store/selectors';
 import dataCreator from './DataCreator';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { DatasourceListContainer } from './style';
 
 const DatasourceList: React.FC = () => {
@@ -20,7 +20,7 @@ const DatasourceList: React.FC = () => {
   const panel = useSelector(selectEditorPanel);
   const datasourceList = useSelector(selectDatasources) || [];
 
-  const getDatasourceIcon = (type: AutoDV.DataSourceType): AutoDVIconName => {
+  const getDatasourceIcon = (type: JuggleDV.DataSourceType): JuggleDVIconName => {
     switch (type) {
       case 1:
         return 'autoDV-API';
@@ -39,7 +39,7 @@ const DatasourceList: React.FC = () => {
         <div className="listItem" key={key}>
           <div className="label">
             <IconButton>
-              <AutoDVIcon icon={getDatasourceIcon(dataSourceType)} />
+              <JuggleDVIcon icon={getDatasourceIcon(dataSourceType)} />
             </IconButton>
             {name || key}
           </div>

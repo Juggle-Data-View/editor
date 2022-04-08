@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Canvas from 'components/views/center/Canvas';
 import PageLoading from 'components/common/PageLoading';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 import { appAction } from 'store/features/appSlice';
 import { qs } from 'utils';
 
@@ -13,7 +13,7 @@ import { qs } from 'utils';
  */
 
 const View = () => {
-  const [canvas, setCanvas] = useState<AutoDV.AppConfig['canvas']>();
+  const [canvas, setCanvas] = useState<JuggleDV.AppConfig['canvas']>();
   const dispatch = useDispatch();
 
   const getConfigFromIndexedDB = async () => {

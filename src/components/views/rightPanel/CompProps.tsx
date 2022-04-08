@@ -16,7 +16,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DataPanel from './DataPanel';
-import { AutoDV } from 'auto-dv-type';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -31,10 +31,10 @@ const Loader = () => (
   </LoaderContainer>
 );
 
-const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
+const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon } = props;
   const { code, compCode, version, alias, dataConfig } = compData;
-  const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
+  const [config, setConfig] = useState<JuggleDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState('config');
   const dispatch = useDispatch();
