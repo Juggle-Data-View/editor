@@ -16,6 +16,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DataPanel from './DataPanel';
+import { JuggleDV } from '@juggle-data-view/types';
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -30,17 +31,17 @@ const Loader = () => (
   </LoaderContainer>
 );
 
-const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
-  const { compData, noNeedPropsCommon, parentName } = props;
-  const { code, compCode, compTempCode, alias, dataConfig } = compData;
-  const [config, setConfig] = useState<AutoDV.CompConfig | null>(null);
+const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
+  const { compData, noNeedPropsCommon } = props;
+  const { code, compCode, version, alias, dataConfig } = compData;
+  const [config, setConfig] = useState<JuggleDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState('config');
   const dispatch = useDispatch();
 
   const loadConfig = async () => {
     try {
-      const config = await asyncLoadCompConfig(compCode, compTempCode);
+      const config = await asyncLoadCompConfig(compCode, version);
       setConfig(config);
     } catch (error: any) {
       notice.error(error.message || '加载组件配置文件失败');
@@ -58,7 +59,7 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
     return <Loader />;
   }
 
-  const { version, tab, template, extraTab } = config;
+  const { tab, template, extraTab } = config;
 
   return (
     <CompErrorBoundary compData={compData} isInEditor={true}>
@@ -66,7 +67,6 @@ const CompProps: React.FC<AutoDV.PropsCompProps> = (props) => {
         values={compData}
         config={config.forms}
         defaultValues={template}
-        parentName={parentName}
         onSubmit={(values) => {
           const diffs = getDiffPayload(compData, values);
           if (diffs) {

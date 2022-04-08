@@ -1,3 +1,4 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { IconButton, Collapse, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
@@ -16,13 +17,13 @@ import FolderIcon from '@mui/icons-material/Folder';
 interface IProps {
   compCodes: string[];
   selectedCompCodes: string[];
-  compDatas: AutoDV.State['compDatas'];
+  compDatas: JuggleDV.State['compDatas'];
   code: string;
   draggingId: string | null;
   indent: number;
   isSelected: boolean;
   isGhosting: boolean;
-  item: AutoDV.Comp;
+  item: JuggleDV.Comp;
 }
 
 const GroupDropItem: React.FC<IProps> = (props) => {
@@ -42,7 +43,7 @@ const GroupDropItem: React.FC<IProps> = (props) => {
   const onSelect = (e: React.SyntheticEvent) => {
     e.stopPropagation();
     hideContextMenu();
-    const pressKey = (['meta', 'control', 'shift'] as AutoDV.ModifierKey[]).includes(key);
+    const pressKey = (['meta', 'control', 'shift'] as JuggleDV.ModifierKey[]).includes(key);
     if (!isSelected || selectedCount !== 1 || pressKey) {
       dispatch(appAction.selectComp({ code }));
     }

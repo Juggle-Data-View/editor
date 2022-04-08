@@ -129,11 +129,6 @@ const config: IConfig = {
       },
     ],
   },
-  staticData: [
-    {
-      content: '',
-    },
-  ],
 };
 
 export default config;

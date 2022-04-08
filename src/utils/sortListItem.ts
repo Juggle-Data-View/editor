@@ -1,3 +1,5 @@
+import { JuggleDV } from '@juggle-data-view/types';
+
 export interface GroupConfigStruct {
   groupItemCode: string[];
 }
@@ -14,7 +16,7 @@ interface groupMapValueStruct {
  * @param compCodes 所有组件的code
  * @param compDatas 所有组件的数据
  */
-const sortListItem = (compCodes: string[], compDatas: AutoDV.State['compDatas']) => {
+const sortListItem = (compCodes: string[], compDatas: JuggleDV.State['compDatas']) => {
   const groupCodeCache = new Map<string, groupMapValueStruct>();
   const result: string[] = [];
 

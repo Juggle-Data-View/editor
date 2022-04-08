@@ -1,4 +1,5 @@
-import { INodeConfig } from 'components/recursion';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
+
 import axis from '../common/axis';
 import toolip from '../common/tooltip';
 import chartTitle from '../common/chartTitle';

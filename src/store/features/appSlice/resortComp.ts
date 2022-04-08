@@ -1,8 +1,9 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { groupResort, updateGroupSize } from 'helpers/groupHandle';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 import sortListItem from 'utils/sortListItem';
 
-const resortComp: AutoDV.ReducerCaseWithPrepare<{ source: number; destination: number }> = {
+const resortComp: JuggleDV.ReducerCaseWithPrepare<{ source: number; destination: number }> = {
   reducer(state, action) {
     const { compCodes, selectedCompCodes, compDatas } = state;
     const { source, destination } = action.payload;

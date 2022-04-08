@@ -5,8 +5,9 @@ import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
 import { DataConfigStyled } from '../style';
 import JsonToTable from './JsonToTable';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const DataPanel: React.FC<AutoDV.CompDataConfig> = (props) => {
+const DataPanel: React.FC<JuggleDV.CompDataConfig> = (props) => {
   const { fieldMap, dataSourceId } = props;
 
   const datasources = useSelector(selectDatasources);

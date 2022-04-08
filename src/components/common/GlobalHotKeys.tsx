@@ -2,6 +2,7 @@
  * 全局热键组件
  */
 
+import { JuggleDV } from '@juggle-data-view/types';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, DialogTitle, IconButton, useMediaQuery, useTheme } from '@mui/material';
@@ -9,7 +10,7 @@ import { useKeyPress } from 'ahooks';
 import { COPY_COMP, DELETE_COMP } from 'components/base/BaseActions';
 import { MIN_CANVAS_RATIO, MAX_CANVAS_RATIO } from 'config/const';
 import { GlobalHotKeys, configure } from 'react-hotkeys';
-import { getAutoDV } from 'utils';
+import { getJuggleDV } from 'utils';
 import { defaultRect } from 'config/defaults';
 import { editorAction } from 'store/features/editorSlice';
 import { appAction } from 'store/features/appSlice';
@@ -45,7 +46,7 @@ const keyMap = {
   COMP_MOVE: ['up', 'down', 'left', 'right'],
 };
 
-export default function AutoDVGlobalHotKeys() {
+export default function JuggleDVGlobalHotKeys() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { canvasRatio } = useSelector(selectEditor);
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ export default function AutoDVGlobalHotKeys() {
   };
 
   useKeyPress(
-    ['alt', 'control', 'meta', 'shift'] as Exclude<AutoDV.ModifierKey, null>[],
+    ['alt', 'control', 'meta', 'shift'] as Exclude<JuggleDV.ModifierKey, null>[],
     (e) => {
       if (e.type === 'keydown') {
         dispatch(appAction.setKeypress(e.key.toLowerCase()));
@@ -126,12 +127,12 @@ export default function AutoDVGlobalHotKeys() {
         },
         COMP_MOVE: (e) => {
           e?.preventDefault();
-          const { selectedCompCodes } = getAutoDV();
+          const { selectedCompCodes } = getJuggleDV();
           if (!e || !selectedCompCodes.length) return;
           const step = e.shiftKey ? 10 : 1;
-          const direction: keyof AutoDV.Rect = e.code === 'ArrowUp' || e.code === 'ArrowDown' ? 'top' : 'left';
+          const direction: keyof JuggleDV.Rect = e.code === 'ArrowUp' || e.code === 'ArrowDown' ? 'top' : 'left';
           const positive = e.code === 'ArrowDown' || e.code === 'ArrowRight' ? 1 : -1;
-          const offset: AutoDV.Rect = { ...defaultRect };
+          const offset: JuggleDV.Rect = { ...defaultRect };
           offset[direction] = step * positive;
           dispatch(appAction.updateCompRect({ offset }));
         },

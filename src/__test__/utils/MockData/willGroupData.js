@@ -14,7 +14,7 @@ export const compData = {
     attr: { top: 55, left: 90, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_f698a3',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -50,7 +50,7 @@ export const compData = {
     attr: { top: 75, left: 110, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_ed6e20',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -85,7 +85,7 @@ export const compData = {
     attr: { top: 115, left: 150, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_675b47',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -121,7 +121,7 @@ export const compData = {
     attr: { top: 155, left: 190, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_0268f0',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -156,7 +156,7 @@ export const compData = {
     attr: { top: 95, left: 130, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_67f82d',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -192,7 +192,7 @@ export const compData = {
     attr: { top: 135, left: 170, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_c13c4a',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -227,7 +227,7 @@ export const compData = {
     attr: { top: 175, left: 210, width: 300, angle: 0, scale: [1, 1], lock: false, opacity: 1, height: 72 },
     code: 'commonTitle_8a4743',
     compCode: 'commonTitle',
-    compTempCode: 'index',
+    version: 'index',
     config: {
       link: { isBlank: false, url: '' },
       style: {
@@ -259,7 +259,7 @@ export const compData = {
   },
   group_cb1409: {
     code: 'group_cb1409',
-    compTempCode: 'index',
+    version: 'index',
     compCode: 'group',
     alias: '分组',
     locked: false,

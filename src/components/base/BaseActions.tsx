@@ -2,7 +2,8 @@
  * 封装action中的通用逻辑
  */
 
-import { getAutoDV, nanocode } from 'utils';
+import { JuggleDV } from '@juggle-data-view/types';
+import { getJuggleDV, nanocode } from 'utils';
 import notice from 'utils/notice';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
@@ -17,15 +18,15 @@ import { getAllSelectedComps } from 'utils/getAllChildren';
 // 复制组件
 // undo会影响复制后的数据，如果触发了undo，需在undo后重新执行复制操作。
 export const COPY_COMP = () => {
-  const { selectedCompCodes, compDatas, app, compCodes } = getAutoDV();
+  const { selectedCompCodes, compDatas, app, compCodes } = getJuggleDV();
   if (!selectedCompCodes.length) {
     notice.warn('请选择组件');
     return;
   }
-  const copyContent: AutoDV.ExportContent = {
+  const copyContent: JuggleDV.ExportContent = {
     name: app.name,
     exportTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-    spaceId: app.spaceId,
+    userId: app.userId,
     components: getAllSelectedComps(selectedCompCodes, compDatas, compCodes).map((code) => compDatas[code]),
   };
   copy(`${COPY_KEY}${JSON.stringify(copyContent)}`);
@@ -34,7 +35,7 @@ export const COPY_COMP = () => {
 
 // 删除组件
 export const DELETE_COMP = () => {
-  const { selectedCompCodes } = getAutoDV();
+  const { selectedCompCodes } = getJuggleDV();
   const Len = selectedCompCodes.length;
   if (!Len) {
     return;
@@ -51,7 +52,7 @@ export const DELETE_COMP = () => {
   });
 };
 
-const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['datasources']) => {
+const getStaticData = async (compCode: string, datasources: JuggleDV.AppConfig['datasources']) => {
   if (compCode in datasources) {
     return datasources[compCode].body || [];
   } else {
@@ -63,19 +64,19 @@ const getStaticData = async (compCode: string, datasources: AutoDV.AppConfig['da
 
 /**
  * 添加组件到画布中
- * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/compTempCode}
+ * @param compId 组件id，在组件菜单中的可以，组成为 {compCode/version}
  */
 export const ADD_COMP = async (compId: string, alias: string) => {
   try {
-    const [compCode, compTempCode] = compId.split('/');
-    if (!compCode || !compTempCode) {
+    const [compCode, version] = compId.split('/');
+    if (!compCode || !version) {
       throw new Error('缺少组件类型或组件模板！');
     }
-    const { template } = await asyncLoadCompConfig(compCode, compTempCode);
+    const { template } = await asyncLoadCompConfig(compCode, version);
 
-    const selfComp: Partial<AutoDV.AddCompParams> = {
+    const selfComp: Partial<JuggleDV.AddCompParams> = {
       code: nanocode(compCode),
-      compTempCode,
+      version,
       compCode,
       alias,
       locked: false,
@@ -83,7 +84,7 @@ export const ADD_COMP = async (compId: string, alias: string) => {
       attr: Object.assign({}, template.attr, {
         left: random(20, 200),
         top: random(20, 200),
-      }) as AutoDV.Attr,
+      }) as JuggleDV.Attr,
       title: '',
       staticData: await getStaticData(compCode, store.getState().autoDV.present.app.datasources),
       config: {},
@@ -106,14 +107,14 @@ export const ADD_COMP = async (compId: string, alias: string) => {
   }
 };
 
-export const ADD_GROUP_COMP = (attr: AutoDV.Attr, selectedCompCodes: string[]) => {
-  const { compCodes } = getAutoDV();
+export const ADD_GROUP_COMP = (attr: JuggleDV.Attr, selectedCompCodes: string[]) => {
+  const { compCodes } = getJuggleDV();
   const resortSelectCodes = selectedCompCodes.slice().sort((a, b) => {
     return compCodes.indexOf(a) - compCodes.indexOf(b);
   });
   const defaultCompTemp = {
     code: nanocode('group'),
-    compTempCode: 'index',
+    version: 'index',
     compCode: 'group',
     alias: '分组',
     locked: false,

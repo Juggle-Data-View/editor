@@ -1,6 +1,7 @@
 import { saveAs } from 'file-saver';
 import { ButtonGroup, Tooltip, Button } from '@mui/material';
-import { getAutoDV } from 'utils';
+import { getJuggleDV } from 'utils';
+import { JuggleDV } from '@juggle-data-view/types';
 import notice from 'utils/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';
@@ -22,7 +23,7 @@ import useLang from 'components/base/useLang';
 
 const exportComps = (isAll: boolean) => {
   try {
-    const { app, canvas, compCodes, selectedCompCodes, compDatas } = getAutoDV();
+    const { app, canvas, compCodes, selectedCompCodes, compDatas } = getJuggleDV();
 
     if (!compCodes.length) {
       throw new Error('请先添加组件');
@@ -36,17 +37,17 @@ const exportComps = (isAll: boolean) => {
 
     const createFileName = () => {
       if (isAll) {
-        return `AutoDV-${app.name}-all.json`;
+        return `JuggleDV-${app.name}-all.json`;
       }
       if (codes.length > 1) {
-        return `AutoDV-${app.name}-multi.json`;
+        return `JuggleDV-${app.name}-multi.json`;
       }
       return `${exports[0].alias}-${exports[0].title || '无标题'}.json`;
     };
 
-    const exportContent: AutoDV.ExportContent = {
+    const exportContent: JuggleDV.ExportContent = {
       name: app.name,
-      spaceId: app.spaceId,
+      userId: app.userId,
       components: exports,
       exportTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     };
@@ -100,8 +101,8 @@ const importComps = (file: File) => {
   const reader = new FileReader();
   reader.onload = function (e: any) {
     try {
-      const state = getAutoDV();
-      const content: AutoDV.ExportContent = JSON.parse(e.target.result);
+      const state = getJuggleDV();
+      const content: JuggleDV.ExportContent = JSON.parse(e.target.result);
       const appValider = validApp(content);
 
       if (appValider.error) {
@@ -113,9 +114,9 @@ const importComps = (file: File) => {
         throw new Error('没有找到组件配置');
       }
 
-      const isSameSpace = !!(content.spaceId === state.app.spaceId);
+      const isSameSpace = !!(content.userId === state.app.userId);
 
-      const doImport = (content: AutoDV.ExportContent) => {
+      const doImport = (content: JuggleDV.ExportContent) => {
         store.dispatch(appAction.importJSON({ content: transContent(content) }));
       };
 
@@ -143,7 +144,7 @@ const importComps = (file: File) => {
 };
 
 const handlePreview = () => {
-  const { app } = getAutoDV();
+  const { app } = getJuggleDV();
   const openURL = QS.stringifyUrl({ url: './view', query: { id: app.id } });
   window.open(openURL, openURL);
 };

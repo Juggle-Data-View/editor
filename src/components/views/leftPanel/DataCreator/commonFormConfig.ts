@@ -1,5 +1,6 @@
-import { INodeConfig } from 'components/recursion';
-import { DataSourceType } from 'config/const';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
+
+import { DataSourceType, HttpMethod } from 'config/const';
 
 const APIFormConfig: INodeConfig[] = [
   {
@@ -16,6 +17,30 @@ const APIFormConfig: INodeConfig[] = [
     name: 'method',
     type: 'select',
     label: 'Request Method',
+    props: {
+      options: [
+        {
+          value: HttpMethod.GET,
+          label: 'GET',
+        },
+        {
+          value: HttpMethod.PATCH,
+          label: 'PATCH',
+        },
+        {
+          value: HttpMethod.POST,
+          label: 'POST',
+        },
+        {
+          value: HttpMethod.PUT,
+          label: 'PUT',
+        },
+        {
+          value: HttpMethod.DELETE,
+          label: 'DELETE',
+        },
+      ],
+    },
   },
   {
     name: 'header[]',
@@ -85,7 +110,6 @@ const commonFormConfig: INodeConfig[] = [
     type: 'fragment',
     children: APIFormConfig,
     show: ({ parentValue }) => {
-      console.log(parentValue, parentValue.dataSourceType === DataSourceType.API);
       return parentValue.dataSourceType === DataSourceType.API;
     },
   },

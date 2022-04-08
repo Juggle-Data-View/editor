@@ -1,7 +1,8 @@
-export const fetchDataInEditor = async (code: string, dataConfig: AutoDV.DataConfig) => {
+import { JuggleDV } from '@juggle-data-view/types';
+export const fetchCSVData = async (code: string, dataConfig: JuggleDV.CompDataConfig) => {
   return [];
 };
 
-export const fetchDataInView = (code: string, dynamicParams: AutoDV.DataParam[], layerCode?: string) => {
+export const fetchAPIData = async (code: string, dataConfig: JuggleDV.CompDataConfig) => {
   return [];
 };

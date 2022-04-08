@@ -1,4 +1,4 @@
-import { INodeConfig } from 'components/recursion/types';
+import { INodeConfig } from '@juggle-data-view/types/src/form';
 import * as style from 'config/style';
 
 export const type: INodeConfig = {

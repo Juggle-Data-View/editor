@@ -3,8 +3,9 @@ import Alignment from 'components/common/Alignment';
 import { Row, Col } from 'react-simple-flex-grid';
 import FieldSize from 'components/common/FieldSize';
 import { FieldLabel, Control, Field } from 'components/form/index';
+import { JuggleDV } from '@juggle-data-view/types';
 
-const CompPropsAttr: React.FC<AutoDV.PropsCompProps> = () => {
+const CompPropsAttr: React.FC<JuggleDV.PropsCompProps> = () => {
   const labelProps = {
     width: 80,
   };

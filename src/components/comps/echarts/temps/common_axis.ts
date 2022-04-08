@@ -11,7 +11,7 @@ export const xAxis = (name = 'x') => {
       },
     },
     nameTextStyle: {
-      color: '#fff',
+      color: '#222',
       fontWeight: 'normal',
       fontFamily: 'FZLTTHJW',
       fontSize: 12,
@@ -20,7 +20,7 @@ export const xAxis = (name = 'x') => {
     axisLabel: {
       show: true,
       rotate: 0,
-      color: '#D8D8D8',
+      color: '#222',
       fontSize: 12,
       fontFamily: 'FZLTTHJW',
       fontWeight: 'bold',
@@ -41,7 +41,7 @@ return data;
       show: false,
       lineStyle: {
         width: 1,
-        color: '#fff',
+        color: '#222',
         type: 'solid',
       },
     },
@@ -66,7 +66,7 @@ export const yAxis = (name = 'y') => {
       },
     },
     nameTextStyle: {
-      color: '#fff',
+      color: '#222',
       fontWeight: 'normal',
       fontFamily: 'FZLTTHJW',
       fontSize: 12,
@@ -81,7 +81,7 @@ export const yAxis = (name = 'y') => {
     axisLabel: {
       show: true,
       rotate: 0,
-      color: '#D8D8D8',
+      color: '#222',
       fontSize: 12,
       fontFamily: 'FZLTTHJW',
       fontWeight: 'bold',
@@ -93,7 +93,7 @@ return data;
       show: false,
       lineStyle: {
         width: 1,
-        color: '#fff',
+        color: '#222',
         type: 'solid',
       },
     },

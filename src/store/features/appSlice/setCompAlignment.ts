@@ -1,8 +1,9 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import { updateGroupSize } from 'helpers/groupHandle';
 import { selectedRectSelector } from 'helpers/selectors';
 import { getAllSelectedComps } from 'utils/getAllChildren';
 
-const setCompAlignment: AutoDV.ReducerCaseWithPrepare<{ alignType: AutoDV.AlignType }> = {
+const setCompAlignment: JuggleDV.ReducerCaseWithPrepare<{ alignType: JuggleDV.AlignType }> = {
   reducer(state, action) {
     const { alignType } = action.payload;
     const { canvas, selectedCompCodes, compDatas, compCodes } = state;
@@ -35,8 +36,8 @@ const setCompAlignment: AutoDV.ReducerCaseWithPrepare<{ alignType: AutoDV.AlignT
     // 更新分组尺寸
     updateGroupSize(selectedCompCodes, compCodes, compDatas, state);
   },
-  prepare(payload: { alignType: AutoDV.AlignType }) {
-    const alignMap: Record<AutoDV.AlignType, string> = {
+  prepare(payload: { alignType: JuggleDV.AlignType }) {
+    const alignMap: Record<JuggleDV.AlignType, string> = {
       left: '左对齐',
       horizontalCenter: '横向居中',
       right: '右对齐',

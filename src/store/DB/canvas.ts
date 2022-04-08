@@ -1,6 +1,7 @@
-import { DB, CANVAS_STORE } from '.';
+import { UpdateCanvasPayload } from 'utils/request';
+import Database, { CANVAS_STORE } from './databaseInit';
 
-class Canvas extends DB {
+class Canvas extends Database {
   updateCanvas = async (payload: UpdateCanvasPayload[], canvasId: number) => {
     try {
       const db = await this.dbIns;

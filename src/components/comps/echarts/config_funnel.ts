@@ -1,6 +1,7 @@
+import { JuggleDV } from '@juggle-data-view/types';
 import funnel from './configs/templates/funnel';
 
-const componentConfig: AutoDV.CompConfig = {
+const componentConfig: JuggleDV.CompConfig = {
   version: '1.0.0',
   tab: {
     config: true,

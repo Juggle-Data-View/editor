@@ -1,4 +1,5 @@
-const config: AutoDV.CompConfig<any> = {
+import { JuggleDV } from '@juggle-data-view/types';
+const config: JuggleDV.CompConfig<any> = {
   version: '1.0.0',
   tab: {
     config: true,
@@ -28,12 +29,6 @@ const config: AutoDV.CompConfig<any> = {
     name: 'config',
     type: 'fragment',
   },
-
-  staticData: [
-    {
-      url: '',
-    },
-  ],
 };
 
 export default config;

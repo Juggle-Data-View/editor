@@ -1,5 +1,6 @@
 import { groupRectSelector } from 'helpers/selectors';
 import getAllChildren from 'utils/getAllChildren';
+import { JuggleDV } from '@juggle-data-view/types';
 
 interface Result {
   [code: string]: { oldGroup?: string; newGroup?: string };
@@ -16,7 +17,7 @@ interface Result {
 export const groupResort = (
   compCodes: string[],
   selectedCompCodes: string[],
-  compDatas: AutoDV.State['compDatas'],
+  compDatas: JuggleDV.State['compDatas'],
   destination: number
 ): Result => {
   const isToplest = destination === 0;
@@ -60,7 +61,11 @@ export const groupResort = (
  * @param compDatas 组件数据
  * @param group 要创建的分组
  */
-export const groupCreate = (selectCompCodes: string[], compDatas: AutoDV.State['compDatas'], group: AutoDV.Comp) => {
+export const groupCreate = (
+  selectCompCodes: string[],
+  compDatas: JuggleDV.State['compDatas'],
+  group: JuggleDV.Comp
+) => {
   const firstCompPrev = compDatas[selectCompCodes[0]].config.groupCode;
   group.config.groupCode = firstCompPrev;
   selectCompCodes.forEach((item) => {
@@ -84,8 +89,8 @@ export const groupCreate = (selectCompCodes: string[], compDatas: AutoDV.State['
 export const updateGroupSize = (
   selectedCompCodes: string[],
   compCodes: string[],
-  compDatas: AutoDV.State['compDatas'],
-  state: AutoDV.State,
+  compDatas: JuggleDV.State['compDatas'],
+  state: JuggleDV.State,
   groupMap?: Result
 ) => {
   // const hasGroups = selectedCompCodes.filter((item) => compDatas[item].config.groupCode).reverse();
@@ -158,9 +163,9 @@ export const updateGroupSize = (
  */
 export const updateAllChildrenRect = (
   selectedCompCodes: string[],
-  compDatas: AutoDV.State['compDatas'],
+  compDatas: JuggleDV.State['compDatas'],
   compCodes: string[],
-  offset: AutoDV.Rect
+  offset: JuggleDV.Rect
 ) => {
   const result: string[] = [];
 
@@ -180,7 +185,7 @@ export const updateAllChildrenRect = (
   };
   recrusivePushResult(selectedCompCodes);
   result.forEach((item) => {
-    (Object.keys(offset) as []).forEach((k: keyof Omit<AutoDV.Rect, 'rotation'>) => {
+    (Object.keys(offset) as []).forEach((k: keyof Omit<JuggleDV.Rect, 'rotation'>) => {
       compDatas[item].attr[k] += Math.round(offset[k]);
     });
   });
@@ -197,7 +202,7 @@ export const getParentGroup = (
   groupCode: string | undefined,
   parentCode: string | undefined,
   compCodes: string[],
-  compDatas: AutoDV.State['compDatas']
+  compDatas: JuggleDV.State['compDatas']
 ): string[] => {
   if (!groupCode) {
     return compCodes;
