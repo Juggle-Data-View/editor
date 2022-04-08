@@ -66,7 +66,7 @@ export class CommonErrorBoundy extends React.Component<{
       return <ErrorComp />;
     }
 
-    return <> this.props.children</>;
+    return <> {this.props.children}</>;
   }
 }
 //fix ts

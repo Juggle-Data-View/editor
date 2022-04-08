@@ -8,13 +8,14 @@ import { HistoryStyled } from './style';
 import { editorAction } from 'store/features/editorSlice';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo } from 'store/selectors';
-import Language from 'constant/content';
+import useLang from 'components/base/useLang';
 
 const History: React.FC = () => {
   // TODO: any -> RootState
   const { past, future } = useSelector(selectUndo);
   const [isActive, setIsActive] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const Language = useLang();
   return (
     <HistoryStyled>
       <ButtonGroup>
@@ -25,7 +26,7 @@ const History: React.FC = () => {
             dispatch(ActionCreators.undo());
           }}
         >
-          <Tooltip title={Language.back} placement="bottom" arrow>
+          <Tooltip title={Language.undo} placement="bottom" arrow>
             <FastRewindIcon fontSize="large" />
           </Tooltip>
         </IconButton>
