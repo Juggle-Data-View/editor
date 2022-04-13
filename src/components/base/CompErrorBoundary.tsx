@@ -69,8 +69,6 @@ export class CommonErrorBoundy extends React.Component<{
     return <> {this.props.children}</>;
   }
 }
-//fix ts
-const ErrorBoundy: any = CommonErrorBoundy;
 
 const ErrorCatcher: React.FC<IProps> = ({ compData, children }) => {
   const handleCatch: HandleCatch = (err, info) => {
@@ -79,12 +77,12 @@ const ErrorCatcher: React.FC<IProps> = ({ compData, children }) => {
   };
 
   return (
-    <ErrorBoundy
+    <CommonErrorBoundy
       handleCatch={handleCatch}
       LowerComponent={() => <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。 </ErrorMessage>}
     >
       {children}
-    </ErrorBoundy>
+    </CommonErrorBoundy>
   );
 };
 

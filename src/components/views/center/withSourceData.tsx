@@ -4,7 +4,7 @@
  * @author longchan
  */
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 
 import { JuggleDV } from '@juggle-data-view/types';
 import { fetchAPIData, fetchCSVData } from 'helpers/fetchData';
@@ -28,6 +28,16 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
 
     const [originData, setOriginData] = useState<any[]>([]);
 
+    const [isAutoFresh, updateFreq] = useMemo(() => {
+      if (!dataConfig && !datasource) {
+        return [false, -1];
+      }
+      if (!dataConfig && datasource) {
+        return [!!datasource.frequency, datasource.frequency ? datasource.frequency : -1];
+      }
+      return [dataConfig?.autoRefresh, dataConfig?.frequency];
+    }, [dataConfig, datasource]);
+
     const getOriginData = useCallback(async (): Promise<any[]> => {
       switch (datasource?.dataSourceType) {
         case DataSourceType.Static:
@@ -36,7 +46,7 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
           if (!dataConfig) {
             throw new Error('API datasource configuration error');
           }
-          return await fetchAPIData(code, dataConfig);
+          return await fetchAPIData(dataConfig, datasource);
         }
         case DataSourceType.CSV: {
           if (!dataConfig) {
@@ -49,11 +59,11 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
       }
     }, [datasource, code, dataConfig]);
 
-    useEffect(() => {
-      getOriginData().then((data) => {
-        setOriginData(data);
-      });
-    }, [getOriginData]);
+    // useEffect(() => {
+    //   getOriginData().then((data) => {
+    //     setOriginData(data);
+    //   });
+    // }, [getOriginData]);
 
     const sourceData = useMemo<any[]>(() => {
       try {
@@ -67,6 +77,18 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
         return [];
       }
     }, [originData, dataConfig]);
+
+    const timer = useMemo(() => {
+      if (!isAutoFresh) {
+        // clearInterval(timer);
+        getOriginData().then((data) => setOriginData(data));
+        return NaN;
+      }
+      if (timer) {
+        clearInterval(timer);
+      }
+      return setInterval(() => getOriginData().then((data) => setOriginData(data)), updateFreq);
+    }, [getOriginData, updateFreq, isAutoFresh]);
 
     return (
       <WrappedComponent

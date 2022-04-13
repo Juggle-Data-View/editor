@@ -7,6 +7,7 @@ export const RightPanelStyled = styled.section<{ visible: boolean }>`
   will-change: transform;
   color: #222;
   margin-right: ${(props) => (props.visible ? 0 : '-300px')};
+  min-width: 300px;
   box-shadow: -1px 6px 5px rgba(34, 34, 34, 0.25);
   .panel-form {
     position: relative;

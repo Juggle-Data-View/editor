@@ -222,34 +222,36 @@ const CustomPaginationActionsTable: React.FC<{
         }}
         component={Paper}
       >
-        <Table sx={{ maxWidth: 350 }} aria-label="custom pagination table">
-          {renderTableHeader(rows)}
-          <TableBody>
-            {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map(
-              renderTableRow
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[10, 20, 50, { label: 'All', value: -1 }]}
-                colSpan={colSpan}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
+        {rows && rows.length > 0 && rows[0] ? (
+          <Table sx={{ maxWidth: 350 }} aria-label="custom pagination table">
+            {renderTableHeader(rows)}
+            <TableBody>
+              {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map(
+                renderTableRow
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[10, 20, 50, { label: 'All', value: -1 }]}
+                  colSpan={colSpan}
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        ) : null}
       </TableContainer>
     </div>
   );
