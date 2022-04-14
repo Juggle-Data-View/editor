@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider } from '@mui/material';
 import useLang from 'components/base/useLang';
 import React, { useMemo, useState } from 'react';
-import ReactDOM from 'react-dom';
 import Providers from 'components/base/Providers';
 import { useDispatch, useSelector } from 'react-redux';
 import { appAction } from 'store/features/appSlice';
@@ -14,6 +13,7 @@ import getFormatBody from './getFormatBody';
 import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from 'config/const';
 import { JuggleDV } from '@juggle-data-view/types';
+import { createRoot } from 'react-dom/client';
 
 interface Props {
   containerDiv: HTMLDivElement;
@@ -124,13 +124,13 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
 
 const dataCreator = (options?: JuggleDV.MixinDatasource) => {
   const tempDiv = document.createElement('div');
-  ReactDOM.render(
+  const container = createRoot(tempDiv);
+  container.render(
     <Providers>
       <ThemeConfig>
         <Container containerDiv={tempDiv} options={options} />
       </ThemeConfig>
-    </Providers>,
-    tempDiv
+    </Providers>
   );
   document.body.appendChild(tempDiv);
 };

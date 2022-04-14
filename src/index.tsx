@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { injectCDNScript } from 'components/common/JuggleDVIcon';
 import PageLoading from 'components/common/PageLoading';
@@ -40,4 +40,7 @@ const Index = () => {
   );
 };
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+//`as Element` to resolve type could be null;
+const root = document.getElementById('root') as Element;
+const container = createRoot(root);
+container.render(<Index />);

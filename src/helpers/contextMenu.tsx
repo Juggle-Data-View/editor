@@ -15,7 +15,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import FolderOffIcon from '@mui/icons-material/FolderOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { JuggleDV } from '@juggle-data-view/types';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 interface extraItem {
   name: string;
   icon: string | JSX.Element;
@@ -167,7 +167,9 @@ export const showContextMenu = (e: React.MouseEvent, extraConfig?: extraItem[]) 
   menuBack.addEventListener('contextmenu', hideContext);
   menuBack.appendChild(menuContainer);
   document.body.appendChild(menuBack);
-  ReactDOM.render(<ContextMenu contextMenuOptions={options} />, menuContainer);
+
+  const container = createRoot(menuContainer);
+  container.render(<ContextMenu contextMenuOptions={options} />);
 };
 
 export const hideContextMenu = () => {
