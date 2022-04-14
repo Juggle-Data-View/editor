@@ -1,8 +1,8 @@
 import React, { useState, SyntheticEvent, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import Alert, { AlertColor } from '@mui/material/Alert';
 import Snackbar, { SnackbarProps } from '@mui/material/Snackbar';
 import { Button } from '@mui/material';
+import { createRoot } from 'react-dom/client';
 
 interface CustomAlertEvent {
   onOpening(node: HTMLElement): void;
@@ -106,6 +106,7 @@ const alert: AlertCallback = (content, options) => {
   const tempDiv: HTMLElement = document.createElement('div');
   tempDiv.id = `alert-${+new Date()}`;
   document.body.appendChild(tempDiv);
+  const container = createRoot(tempDiv);
 
   const alertProps: CustomAlertProps = {
     portalContainer: tempDiv,
@@ -116,7 +117,7 @@ const alert: AlertCallback = (content, options) => {
     ...options,
   };
 
-  ReactDOM.render(<CustomAlert {...alertProps}>{content || ''}</CustomAlert>, tempDiv);
+  container.render(<CustomAlert {...alertProps}>{content || ''}</CustomAlert>);
 };
 
 export default alert;
