@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2 # 第一步，下载代码仓库
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '17'
           cache: npm
           cache-dependency-path: package.json
       - run: npm install yarn -g
