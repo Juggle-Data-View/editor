@@ -1543,10 +1543,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@juggle-data-view/types@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@juggle-data-view/types/-/types-1.0.2.tgz#8ff6078a78d46dca67c969008ee22039265b16cb"
-  integrity sha512-OR8o443Bviqs9ivJeTtjahuujdhmkje98aaWHIUpq9tOMLRl0+mPmnYfWEchJLaxdeze767XInmZt7OntbeO7w==
+"@juggle-data-view/types@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@juggle-data-view/types/-/types-1.0.4.tgz#994f50c5cee35531c4bc523802caf47564ca9f11"
+  integrity sha512-IpzR7X46hcfjgQlg5X5ZXeE3pTazHX7PJ3yneoWmOdMi4gq1psYFDEGUAFcyA34U8mDUuv6L51M/C3gRbnUL/w==
   dependencies:
     "@mui/material" "*"
     "@reduxjs/toolkit" "*"

@@ -39,6 +39,9 @@ const DataPanel: React.FC<JuggleDV.CompDataConfig> = (props) => {
         name="dataConfig.dataSourceId"
         options={options}
         label={<Box sx={{ typography: 'h5' }}>选择数据源</Box>}
+        labelProps={{
+          width: 120,
+        }}
       />
       <div className="bottomContainer">
         <JsonToTable data={tableData} fieldMap={fieldMap} />

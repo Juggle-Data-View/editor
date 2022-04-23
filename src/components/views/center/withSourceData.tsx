@@ -1,16 +1,9 @@
-/**
- * 高阶组件
- * 会向包裹的组件传递 sourceData
- * @author longchan
- */
-
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { JuggleDV } from '@juggle-data-view/types';
-import { fetchAPIData, fetchCSVData } from 'helpers/fetchData';
 import dataTranslate, { decorateData2array } from 'utils/dataTranslate';
 
-import { DataSourceType } from 'config/const';
+import getOriginData from 'utils/getOriginData';
 
 export interface HOCProps {
   comps?: JuggleDV.Comp[];
@@ -24,7 +17,7 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
   return (props: Omit<JuggleDV.CompIndex, 'sourceData'> & HOCProps) => {
     const { comps, isSubComp, datasource, ...rest } = props;
     const { compData } = rest; // 包裹组件需要用到的props
-    const { code, dataConfig } = compData;
+    const { dataConfig } = compData;
 
     const [originData, setOriginData] = useState<any[]>([]);
 
@@ -37,33 +30,6 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
       }
       return [dataConfig?.autoRefresh, dataConfig?.frequency];
     }, [dataConfig, datasource]);
-
-    const getOriginData = useCallback(async (): Promise<any[]> => {
-      switch (datasource?.dataSourceType) {
-        case DataSourceType.Static:
-          return datasource.body;
-        case DataSourceType.API: {
-          if (!dataConfig) {
-            throw new Error('API datasource configuration error');
-          }
-          return await fetchAPIData(dataConfig, datasource);
-        }
-        case DataSourceType.CSV: {
-          if (!dataConfig) {
-            throw new Error('CSV datasource configuration error');
-          }
-          return await fetchCSVData(code, dataConfig);
-        }
-        default:
-          throw new Error('Datasource bound error');
-      }
-    }, [datasource, code, dataConfig]);
-
-    // useEffect(() => {
-    //   getOriginData().then((data) => {
-    //     setOriginData(data);
-    //   });
-    // }, [getOriginData]);
 
     const sourceData = useMemo<any[]>(() => {
       try {
@@ -81,14 +47,14 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
     const timer = useMemo(() => {
       if (!isAutoFresh) {
         // clearInterval(timer);
-        getOriginData().then((data) => setOriginData(data));
+        getOriginData(datasource, dataConfig).then((data) => setOriginData(data));
         return NaN;
       }
       if (timer) {
         clearInterval(timer);
       }
-      return setInterval(() => getOriginData().then((data) => setOriginData(data)), updateFreq);
-    }, [getOriginData, updateFreq, isAutoFresh]);
+      return setInterval(() => getOriginData(datasource, dataConfig).then((data) => setOriginData(data)), updateFreq);
+    }, [isAutoFresh, updateFreq, dataConfig, datasource]);
 
     return (
       <WrappedComponent

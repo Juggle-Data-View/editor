@@ -18,9 +18,13 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import TableHead from '@mui/material/TableHead';
 import { Button, Divider, MenuItem, Popover } from '@mui/material';
 
-export interface Data {
-  [key: string]: string | null | number;
-}
+export type Data =
+  | {
+      [key: string]: string | null | number;
+    }
+  | string
+  | number;
+
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -156,24 +160,33 @@ const CustomPaginationActionsTable: React.FC<{
     }
   };
 
-  const renderTableRow = (row: Data, index: number) => {
-    const column = Object.keys(row);
-    const firstKey = column[0];
+  const renderTableRow = (row: Data | string | number, index: number) => {
+    if (typeof row === 'object') {
+      const column = Object.keys(row);
+      const firstKey = column[0];
 
-    return (
-      <TableRow key={row[firstKey]}>
-        <TableCell component="th" scope="row">
-          {index}
-        </TableCell>
-        {column.map((key) => {
-          return (
-            <TableCell key={key} align="right">
-              {getCellContent(row[key])}
-            </TableCell>
-          );
-        })}
-      </TableRow>
-    );
+      return (
+        <TableRow key={row[firstKey]}>
+          <TableCell component="th" scope="row">
+            {index}
+          </TableCell>
+          {column.map((key) => {
+            return (
+              <TableCell key={key} align="right">
+                {getCellContent(row[key])}
+              </TableCell>
+            );
+          })}
+        </TableRow>
+      );
+    } else {
+      return (
+        <TableRow key={row + '_' + index}>
+          <TableCell>{index}</TableCell>
+          <TableCell>{row}</TableCell>
+        </TableRow>
+      );
+    }
   };
 
   const compField = React.useMemo(() => {

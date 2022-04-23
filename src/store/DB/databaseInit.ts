@@ -2,7 +2,7 @@ import { JuggleDV } from '@juggle-data-view/types';
 import { IDBPDatabase, openDB } from 'idb';
 
 export const DB_NAME = 'DB_NAME';
-export const DB_VERSION = 3;
+export const DB_VERSION = 4;
 export const COMP_STORE = 'COMP_STORE';
 export const CANVAS_STORE = 'CANVAS_STORE';
 export const APPINFO_STORE = 'APPINFO_STORE';

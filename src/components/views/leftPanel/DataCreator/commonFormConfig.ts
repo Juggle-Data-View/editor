@@ -104,7 +104,17 @@ const commonFormConfig: INodeConfig[] = [
       ],
     },
   },
-
+  {
+    name: 'isProxy',
+    type: 'switch',
+    label: 'server proxy',
+    labelProps: {
+      help: 'It will be pass our serve if swith is opened',
+    },
+    show: ({ parentValue }) => {
+      return parentValue.dataSourceType === DataSourceType.API;
+    },
+  },
   {
     name: '',
     type: 'fragment',

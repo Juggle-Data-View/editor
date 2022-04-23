@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider } from '@mui/material';
 import useLang from 'components/base/useLang';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Providers from 'components/base/Providers';
 import { useDispatch, useSelector } from 'react-redux';
 import { appAction } from 'store/features/appSlice';
@@ -14,6 +14,7 @@ import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from 'config/const';
 import { JuggleDV } from '@juggle-data-view/types';
 import { createRoot } from 'react-dom/client';
+import getOriginData from 'utils/getOriginData';
 
 interface Props {
   containerDiv: HTMLDivElement;
@@ -39,6 +40,7 @@ const defaultDatasourceConfig = {
     },
   ],
   body: '',
+  isProxy: false,
   frequency: 1000,
   operator: ['normal'],
 };
@@ -50,7 +52,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
 
   const defualtValues = useMemo(() => options || (defaultDatasourceConfig as any), [options]);
 
-  const [, setSourceContent] = useState(defualtValues);
+  const [sourceContent, setSourceContent] = useState(defualtValues);
 
   const dispatch = useDispatch();
 
@@ -84,6 +86,19 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     }
   };
 
+  useEffect(() => {
+    if (sourceContent.type === DataSourceType.Static || !sourceContent.url) {
+      return;
+    }
+    console.log(sourceContent);
+    getOriginData(sourceContent, {} as any).then((body) => {
+      setSourceContent({
+        ...sourceContent,
+        body,
+      });
+    });
+    // reset datasource config while `source.url` is changed
+  }, [sourceContent.url]); //eslint-disable-line
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle id="alert-dialog-title">
@@ -94,7 +109,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
       <DialogContent>
         <CommonErrorBoundy handleCatch={handleCatch}>
           <Generator
-            values={defualtValues}
+            values={sourceContent}
             config={commonFormConfig}
             defaultValues={defualtValues}
             onVaildate={setVaild}
