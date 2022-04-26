@@ -81,8 +81,6 @@
     "lint:fix": "node ./node_modules/.bin/eslint --fix ./src",
     "cc": "node ./scripts/create.js",
     "analyze": "node ./scripts/analyze.js",
-    "debug": "env-cmd -e debugOnline -r ./scripts/.env-cmdrc.js react-scripts start",
-    "autoDeploy:prerelease": "env-cmd -e prerelease -r ./scripts/.env-cmdrc.js react-scripts build --colors",
     "autoDeploy:release": "env-cmd -e production -r ./scripts/.env-cmdrc.js react-scripts build &&cp nginx.conf build"
   },
   "browserslist": {

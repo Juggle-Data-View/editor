@@ -90,7 +90,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     if (sourceContent.type === DataSourceType.Static || !sourceContent.url) {
       return;
     }
-    console.log(sourceContent);
+
     getOriginData(sourceContent, {} as any).then((body) => {
       setSourceContent({
         ...sourceContent,

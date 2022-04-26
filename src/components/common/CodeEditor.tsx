@@ -185,7 +185,7 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
   const editorRef = useRef<any>(null);
   const ref = useRef<any>(null);
   const isHovering = useHover(ref);
-
+  const [isReadOnly, setReadOnly] = useState(true);
   const defaultOptions = {
     mode: 'javascript' as ModeName,
     theme: 'default',
@@ -202,12 +202,13 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
     options: {
       ...defaultOptions,
       ...rest.options,
+      readOnly: isReadOnly,
     },
   };
 
-  const { lint, readOnly } = ce_props.options;
+  const { lint } = ce_props.options;
 
-  if (lint && !readOnly) {
+  if (lint && !isReadOnly) {
     ce_props.options.gutters.unshift('CodeMirror-lint-markers');
   }
 
@@ -226,7 +227,13 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
         <Editor ref={editorRef} {...ce_props} />
         {isHovering && zoomIn && (
           <div className="actions">
-            <Button size="small" onClick={() => setOpen(true)}>
+            <Button
+              size="small"
+              onClick={() => {
+                setOpen(true);
+                setReadOnly(false);
+              }}
+            >
               <Tooltip title="放大">
                 <ZoomInIcon />
               </Tooltip>
@@ -234,7 +241,14 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
           </div>
         )}
       </EditorStyled>
-      <Dialog open={open} fullScreen={fullScreen} onClose={() => setOpen(false)}>
+      <Dialog
+        open={open}
+        fullScreen={fullScreen}
+        onClose={() => {
+          setReadOnly(true);
+          setOpen(false);
+        }}
+      >
         <DialogTitle style={{ padding: '5px 10px' }} id="responsive-dialog-title">
           <div
             style={{
@@ -243,7 +257,15 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
             }}
           >
             代码编辑区
-            <IconButton edge="start" color="inherit" onClick={() => setOpen(false)} aria-label="close">
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => {
+                setReadOnly(true);
+                setOpen(false);
+              }}
+              aria-label="close"
+            >
               <CloseIcon />
             </IconButton>
           </div>
