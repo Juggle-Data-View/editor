@@ -1,43 +1,34 @@
 import { Box } from '@mui/material';
 import { Field } from 'components/form';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { selectDatasources } from 'store/selectors';
+
 import { DataConfigStyled } from '../style';
 import JsonToTable from './JsonToTable';
 import { JuggleDV } from '@juggle-data-view/types';
 
-const DataPanel: React.FC<JuggleDV.CompDataConfig> = (props) => {
-  const { fieldMap, dataSourceId } = props;
+export interface DataPanelProps extends JuggleDV.CompDataConfig {
+  body: any;
+  datasourcesList: {
+    label: string;
+    value: JuggleDV.DataSourceId;
+  }[];
+}
 
-  const datasources = useSelector(selectDatasources);
-
-  const options = useMemo(() => {
-    return Object.keys(datasources).map((code) => {
-      const { name, dataSourceId } = datasources[code];
-      return {
-        label: String(name || dataSourceId),
-        value: dataSourceId,
-      };
-    });
-  }, [datasources]);
+const DataPanel: React.FC<DataPanelProps> = (props) => {
+  const { fieldMap, datasourcesList, body } = props;
 
   const tableData = useMemo(() => {
-    const datasource = datasources[dataSourceId];
-    if (!datasource) {
-      return [];
+    if (!Array.isArray(body)) {
+      return [body];
     }
-    if (!Array.isArray(datasource.body)) {
-      return [datasource.body];
-    }
-    return datasource.body;
-  }, [datasources, dataSourceId]);
+    return body;
+  }, [body]);
 
   return (
     <DataConfigStyled>
       <Field.Select
         name="dataConfig.dataSourceId"
-        options={options}
+        options={datasourcesList}
         label={<Box sx={{ typography: 'h5' }}>选择数据源</Box>}
         labelProps={{
           width: 120,

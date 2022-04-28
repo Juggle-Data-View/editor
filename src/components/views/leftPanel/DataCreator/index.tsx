@@ -21,7 +21,7 @@ interface Props {
   options?: JuggleDV.MixinDatasource;
 }
 
-const defaultDatasourceConfig = {
+const defaultDatasourceConfig = () => ({
   name: 'default name',
   dataSourceId: nanocode('default'),
   dataSourceType: DataSourceType.Static,
@@ -43,14 +43,14 @@ const defaultDatasourceConfig = {
   isProxy: false,
   frequency: 1000,
   operator: ['normal'],
-};
+});
 
 const Container: React.FC<Props> = ({ containerDiv, options }) => {
   const [isOpen, setOpen] = useState(true);
   const [isVaild, setVaild] = useState(false);
   const lang = useLang();
 
-  const defualtValues = useMemo(() => options || (defaultDatasourceConfig as any), [options]);
+  const defualtValues = useMemo(() => options || (defaultDatasourceConfig() as any), [options]);
 
   const [sourceContent, setSourceContent] = useState(defualtValues);
 
@@ -90,7 +90,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     if (sourceContent.type === DataSourceType.Static || !sourceContent.url) {
       return;
     }
-    console.log(sourceContent);
+
     getOriginData(sourceContent, {} as any).then((body) => {
       setSourceContent({
         ...sourceContent,

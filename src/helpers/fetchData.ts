@@ -9,7 +9,9 @@ const getUrl = (isPost: boolean, url: string, params: JuggleDV.APIDatasourceInst
   return isPost
     ? url
     : `${url}?${(params as JuggleDV.DataParam[])?.reduce((a, b, index) => {
-        return `${a}${index > 0 ? '&' : ''}${b.name}=${b.value}`;
+        if (b.name) {
+          return `${a}${index > 0 ? '&' : ''}${b.name}=${b.value}`;
+        } else return a;
       }, '')}`;
 };
 
@@ -19,10 +21,9 @@ const getResponse = async (datasource: JuggleDV.APIDatasourceInstance): Promise<
   const isPost = method === 'POST';
 
   if (isProxy) {
-    const requestURL = getUrl(isPost, baseURL + '/api/proxy', dataParams);
-    return await fetch(requestURL, {
+    return fetch(baseURL + 'api/proxy', {
       body: JSON.stringify({
-        proxyUrl: url,
+        proxyUrl: getUrl(isPost, url, dataParams),
       }),
       credentials: 'include',
       method: 'post',
@@ -33,15 +34,24 @@ const getResponse = async (datasource: JuggleDV.APIDatasourceInstance): Promise<
   } else {
     const requestURL = getUrl(isPost, url, dataParams);
     const params: any = isPost ? { body: dataParams as string } : {};
-    return await fetch(requestURL, {
+    const option = {
       ...params,
-      headers: header?.reduce((a, b) => {
-        return {
-          ...a,
-          [b.key]: b.value,
-        };
-      }, {}),
-    });
+      method,
+      headers: header?.reduce(
+        (a, b) => {
+          if (b.key) {
+            return {
+              ...a,
+              [b.key]: b.value,
+            };
+          } else {
+            return a;
+          }
+        },
+        { 'Content-type': 'application/json;charset=UTF-8' }
+      ),
+    };
+    return fetch(requestURL, option);
   }
 };
 export const fetchAPIData = async (datasource: JuggleDV.APIDatasourceInstance) => {

@@ -6,6 +6,9 @@ const getOriginData = async (
   datasource?: JuggleDV.MixinDatasource,
   dataConfig?: JuggleDV.CompDataConfig
 ): Promise<any[]> => {
+  if (!datasource || !dataConfig) {
+    return [];
+  }
   switch (datasource?.dataSourceType) {
     case DataSourceType.Static:
       return datasource.body;

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CompPropsAttr from 'components/views/rightPanel/CompPropsAttr';
 import { sleep } from 'utils';
@@ -15,8 +15,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import DataPanel from './DataPanel';
+import DataPanel, { DataPanelProps } from './DataPanel';
 import { JuggleDV } from '@juggle-data-view/types';
+import { selectDatasources } from 'store/selectors';
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -33,11 +34,31 @@ const Loader = () => (
 
 const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
   const { compData, noNeedPropsCommon } = props;
+  const datasources = useSelector(selectDatasources);
   const { code, compCode, version, alias, dataConfig } = compData;
   const [config, setConfig] = useState<JuggleDV.CompConfig | null>(null);
   const [refresh, setRefresh] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState('config');
   const dispatch = useDispatch();
+
+  const dataPanelProps = useMemo<DataPanelProps | undefined>(() => {
+    if (!dataConfig) {
+      return;
+    }
+    const datasource = datasources[dataConfig.dataSourceId];
+
+    return {
+      ...dataConfig,
+      body: datasource?.body || null,
+      datasourcesList: Object.keys(datasources).map((code) => {
+        const { name, dataSourceId } = datasources[code];
+        return {
+          label: String(name || dataSourceId),
+          value: dataSourceId,
+        };
+      }),
+    };
+  }, [dataConfig, datasources]);
 
   const loadConfig = async () => {
     try {
@@ -126,9 +147,9 @@ const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
                   {ConfigPanel}
                 </TabPanel>
               )}
-              {tab.dataset && dataConfig && (
+              {tab.dataset && dataPanelProps && (
                 <TabPanel id="dataset" value="dataset">
-                  <DataPanel {...dataConfig} />
+                  <DataPanel {...dataPanelProps} />
                 </TabPanel>
               )}
               {extraTab
