@@ -69,8 +69,7 @@
     "three": "^0.122.0",
     "tinycolor2": "^1.4.1",
     "typescript": "^4.5.1-rc",
-    "web-vitals": "^0.2.4",
-    "yup": "^0.32.11"
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "env-cmd -e development -r ./scripts/.env-cmdrc.js react-scripts start",

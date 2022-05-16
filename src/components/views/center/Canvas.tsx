@@ -6,6 +6,7 @@ import { CANVAS_ID } from 'config/const';
 import { useSelector } from 'react-redux';
 import { selectDatasources } from 'store/selectors';
 import { JuggleDV } from '@juggle-data-view/types';
+import InteractiverProvider from 'components/base/InteractiveContext';
 
 interface ICanvas {
   isInEditor: boolean;
@@ -20,18 +21,20 @@ const Canvas = ({ isInEditor, comps, canvas, selectedCompCodes }: ICanvas) => {
   const datasources = useSelector(selectDatasources);
 
   return (
-    <div ref={ref} id={CANVAS_ID} className="autoDV-canvas" style={canvasStyle}>
-      {comps.map((comp, index) => {
-        const { code, dataConfig } = comp;
-        const isSelected = selectedCompCodes ? selectedCompCodes.includes(code) : false;
-        const datasource = dataConfig ? datasources[dataConfig.dataSourceId] : undefined;
-        return (
-          <CompWrapper key={code} isInEditor={isInEditor} isSelected={isSelected} compData={comp} index={index}>
-            <EnhancedComp compData={comp} isSelected={isSelected} isInEditor={isInEditor} datasource={datasource} />
-          </CompWrapper>
-        );
-      })}
-    </div>
+    <InteractiverProvider>
+      <div ref={ref} id={CANVAS_ID} className="autoDV-canvas" style={canvasStyle}>
+        {comps.map((comp, index) => {
+          const { code, dataConfig } = comp;
+          const isSelected = selectedCompCodes ? selectedCompCodes.includes(code) : false;
+          const datasource = dataConfig ? datasources[dataConfig.dataSourceId] : undefined;
+          return (
+            <CompWrapper key={code} isInEditor={isInEditor} isSelected={isSelected} compData={comp} index={index}>
+              <EnhancedComp compData={comp} isSelected={isSelected} isInEditor={isInEditor} datasource={datasource} />
+            </CompWrapper>
+          );
+        })}
+      </div>
+    </InteractiverProvider>
   );
 };
 
