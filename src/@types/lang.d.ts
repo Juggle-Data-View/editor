@@ -44,4 +44,5 @@ declare interface ALang {
   //UI label
   layerList: string;
   datasourcesList: string;
+  user: string;
 }

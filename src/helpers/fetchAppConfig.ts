@@ -1,5 +1,5 @@
 import { qs, getViewStatus, qsDynamic } from 'utils/index';
-import * as Api from 'utils/api';
+import * as Api from 'api';
 import global, { fakeIFrameVars } from 'utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
 

@@ -5,8 +5,8 @@ const initialState: JuggleDV.Editor = {
   canvasRatio: 1,
   canvasPadding: 50,
   panel: {
-    compList: true,
-    compProps: true,
+    compList: false,
+    compProps: false,
     history: false,
   },
   theme: 'dark',

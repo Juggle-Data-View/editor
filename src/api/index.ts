@@ -1,4 +1,4 @@
-import * as API_URL from 'utils/api-url';
+import * as API_URL from 'api/url';
 import request from 'utils/request';
 import {
   // qs,

@@ -81,7 +81,7 @@ const Editor = () => {
       <section className="main">
         <LeftPannle />
         <div style={{ flex: 1, display: 'flex' }}>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '100%', backgroundColor: '#fff', height: '100%' }}>
             <Header />
             <CenterPannle />
           </div>

@@ -23,12 +23,15 @@ console.error =
     : oldError;
 
 const Index = () => {
+  const Editor = lazy(() => import('components/page/editor'));
   return (
     <Providers>
       <BrowserRouter>
         <Suspense fallback={<PageLoading />}>
           <Switch>
-            <Route exact path="/" component={lazy(() => import('components/page/editor'))} />
+            <Route path="/editor">
+              <Editor />
+            </Route>
             <Route path="/view" component={lazy(() => import('components/page/view'))} />
             <Route path="/authoriz" component={lazy(() => import('components/page/Authoriz'))} />
             <Route path="/loading" component={lazy(() => import('components/common/PageLoading'))} />
