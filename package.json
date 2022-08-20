@@ -76,12 +76,12 @@
     "start": "env-cmd -e development -r ./scripts/.env-cmdrc.js react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "node ./scripts/build.js",
+    "build": "node ./scripts_coustom/build.js",
     "lint": "node ./node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx src --color --max-warnings=0",
     "lint:fix": "node ./node_modules/.bin/eslint --fix ./src",
-    "cc": "node ./scripts/create.js",
-    "analyze": "node ./scripts/analyze.js",
-    "autoDeploy:release": "env-cmd -e production -r ./scripts/.env-cmdrc.js react-scripts build &&cp nginx.conf build"
+    "cc": "node ./scripts_coustom/create.js",
+    "analyze": "node ./scripts_coustom/analyze.js",
+    "autoDeploy:release": "env-cmd -e production -r ./scripts_coustom/.env-cmdrc.js react-scripts build &&cp nginx.conf build"
   },
   "browserslist": {
     "production": [
