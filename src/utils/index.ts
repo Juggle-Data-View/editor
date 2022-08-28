@@ -1,5 +1,5 @@
 import QS from 'query-string';
-import store from 'store/index';
+import store from '@store/index';
 import numeral from 'numeral';
 import { nanoid as _nanoid } from '@reduxjs/toolkit';
 import { JuggleDV } from '@juggle-data-view/types';

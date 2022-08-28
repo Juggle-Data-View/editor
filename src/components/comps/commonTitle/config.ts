@@ -1,7 +1,7 @@
 /**
  * 组件配置信息
  */
-import * as font from 'config/form/font';
+import * as font from '@configurableComponents/form/font';
 import { IConfig } from './type';
 
 const config: IConfig = {

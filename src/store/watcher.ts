@@ -3,15 +3,15 @@ import store from './index';
 import watch from 'redux-watch';
 import objectPath from 'object-path';
 import { debounce } from 'lodash';
-import notice from 'utils/notice';
+import notice from '@utils/notice';
 import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';
 import canvas from './DB/canvas';
 import app from './DB/appConfig';
-import global from 'utils/global';
+import global from '@utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
-import { CompInstEditReqData, CompInstReqData } from 'utils/request';
+import { CompInstEditReqData, CompInstReqData } from '@utils/request';
 
 const differ = require('deep-diff');
 

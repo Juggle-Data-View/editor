@@ -6,7 +6,7 @@ import * as React from 'react';
 import { JuggleDV } from '@juggle-data-view/types';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { appAction } from 'store/features/appSlice';
+import { appAction } from '@store/features/appSlice';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import AlignVerticalTopIcon from '@mui/icons-material/AlignVerticalTop';

@@ -2,13 +2,13 @@ import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import tooltip from '../common/tooltip';
 import axisLabel from '../common/axisLabel';
-import * as font from 'config/form/font';
+import * as font from '@configurableComponents/form/font';
 // import * as echartsConfig from 'config/echarts';
 import classNames from 'classnames';
 
 import { ReactSVG } from 'react-svg';
 import svgs, { svgItems, SVGDropDownStyled, IItem } from '../common/icons/icons';
-import DropDown from 'components/common/DropDown';
+import DropDown from '@components/common/DropDown';
 
 const options = [
   { label: '实线', value: 'solid' },

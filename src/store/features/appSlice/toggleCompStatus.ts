@@ -1,6 +1,6 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { actionStatusSelector } from 'helpers/selectors';
-import { getAllSelectedComps } from 'utils/getAllChildren';
+import { getAllSelectedComps } from '@utils/getAllChildren';
 
 const toggleCompStatus: JuggleDV.ReducerCaseWithPrepare<{ code?: string; status: keyof JuggleDV.ICompOwnStatus }> = {
   reducer(state, action) {

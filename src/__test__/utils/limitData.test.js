@@ -1,5 +1,5 @@
 import { state as data } from './MockData/limitNotificationState';
-import { getRealValue, getTriggerCondition, getNotificationContent } from '../../utils/limitNotification';
+import { getRealValue, getTriggerCondition, getNotificationContent } from '../../@utils/limitNotification';
 import {
   getRealValueAccessData,
   getRealValueFailureData,

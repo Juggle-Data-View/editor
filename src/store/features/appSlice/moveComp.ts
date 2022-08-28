@@ -1,5 +1,5 @@
 import { getParentGroup } from 'helpers/groupHandle';
-import getAllChildren, { getAllSelectedComps } from 'utils/getAllChildren';
+import getAllChildren, { getAllSelectedComps } from '@utils/getAllChildren';
 import { JuggleDV } from '@juggle-data-view/types';
 
 const moveComp: JuggleDV.ReducerCaseWithPrepare<{ direction: 'UP' | 'DOWN'; isEnd: boolean }> = {

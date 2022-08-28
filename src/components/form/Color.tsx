@@ -4,7 +4,7 @@ import { SketchPicker } from 'react-color';
 import styled from 'styled-components';
 import tinycolor from 'tinycolor2';
 import { GradientPicker, AnglePicker } from 'react-linear-gradient-picker';
-import { getGradientCSS } from 'utils/index';
+import { getGradientCSS } from '@utils/index';
 import { withField } from './withField';
 import { Popover, Switch } from '@mui/material';
 

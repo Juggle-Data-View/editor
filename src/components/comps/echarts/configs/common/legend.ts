@@ -1,6 +1,6 @@
 import { INodeConfig } from '@juggle-data-view/types/src/form';
 
-import * as font from 'config/form/font';
+import * as font from '@configurableComponents/form/font';
 
 const legend: INodeConfig = {
   name: 'legend',

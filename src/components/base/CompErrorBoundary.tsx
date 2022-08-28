@@ -3,9 +3,9 @@ import React, { ErrorInfo } from 'react';
 import styled from 'styled-components';
 import merge from 'lodash/merge';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
-import { defaultCompData } from 'config/defaults';
-import store from 'store/index';
-import { appAction } from 'store/features/appSlice';
+import { defaultCompData } from '@configurableComponents/defaults';
+import store from '@store/index';
+import { appAction } from '@store/features/appSlice';
 
 export const mergeCompData = async (compData: JuggleDV.Comp) => {
   try {

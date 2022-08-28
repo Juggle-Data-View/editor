@@ -2,7 +2,7 @@ import { JuggleDV } from '@juggle-data-view/types';
 import { MenuItem, MenuList, Popover, IconButton } from '@mui/material';
 import { ArrayHelpers } from 'formik';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import notice from 'utils/notice';
+import notice from '@utils/notice';
 import { useRef, useState } from 'react';
 
 interface SeriesItem {

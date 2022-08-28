@@ -4,14 +4,14 @@
  * @LastEditTime: 2021-09-02 16:57:05
  * @LastEditors: your name
  * @Description:
- * @FilePath: /autoDV5-react/src/components/comps/echarts/configs/common/markPoint.tsx
+ * @FilePath: /autoDV5-react/src/@components/comps/echarts/configs/common/markPoint.tsx
  * 可以输入预定的版权声明、个性签名、空行等
  */
 
-import DropZone from 'components/common/DropZone';
+import DropZone from '@components/common/DropZone';
 import { INodeConfig } from '@juggle-data-view/types/src/form';
 
-import * as style from 'config/style';
+import * as style from '@configurableComponents/style';
 const markPoint: INodeConfig[] = [
   {
     type: 'select',

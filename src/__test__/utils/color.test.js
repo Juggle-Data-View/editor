@@ -1,4 +1,4 @@
-import color, { gradientColors } from '../../utils/color';
+import color, { gradientColors } from '../../@utils/color';
 import { state as data } from './MockData/color';
 import {
   getDarkenColorAccessData,

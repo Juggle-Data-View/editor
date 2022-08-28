@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import classNames from 'classnames';
-import DropDown, { IDropDown } from 'components/common/DropDown';
+import DropDown, { IDropDown } from '@components/common/DropDown';
 
 const Container = styled.div`
   position: relative;

@@ -173,8 +173,8 @@ module.exports = function (webpackEnv) {
     }
     return loaders;
   };
-
-  return {
+  debugger;
+  const result = {
     target: ['browserslist'],
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -698,5 +698,7 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
+    stats: { errorDetails: true },
   };
+  return result;
 };

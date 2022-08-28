@@ -50,13 +50,18 @@ function getAdditionalModulePaths(options = {}) {
 }
 
 /**
+ *
+ * @typedef {object} Options
+ * @property {string} options.baseUrl
+ * @property {{
+ *    [key: string]: string[]
+ *  }} options.paths
  * Get webpack aliases based on the baseUrl of a compilerOptions object.
  *
- * @param {*} options
+ * @param {Options} options
  */
 function getWebpackAliases(options = {}) {
-  const baseUrl = options.baseUrl;
-
+  const { baseUrl, paths: aliasPath } = options;
   if (!baseUrl) {
     return {};
   }
@@ -67,6 +72,16 @@ function getWebpackAliases(options = {}) {
     return {
       src: paths.appSrc,
     };
+  }
+  const aliasPathKeys = Object.keys(aliasPath);
+  if (aliasPathKeys.length) {
+    return aliasPathKeys.reduce((prev, curr) => {
+      const aliasPathArr = aliasPath[curr];
+      return {
+        ...prev,
+        [curr.replace('/*', '')]: path.resolve(paths.appSrc, aliasPathArr[0].replace('/*', '')),
+      };
+    }, {});
   }
 }
 
@@ -122,13 +137,13 @@ function getModules() {
   const options = config.compilerOptions || {};
 
   const additionalModulePaths = getAdditionalModulePaths(options);
-
-  return {
+  const result = {
     additionalModulePaths: additionalModulePaths,
     webpackAliases: getWebpackAliases(options),
     jestAliases: getJestAliases(options),
     hasTsConfig,
   };
+  return result;
 }
 
 module.exports = getModules();

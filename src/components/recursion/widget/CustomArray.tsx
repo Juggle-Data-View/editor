@@ -3,10 +3,10 @@ import { useField, ArrayHelpers } from 'formik';
 import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { get } from 'lodash';
 import { withNode } from '../fields';
-import { Collapse } from 'components/form/Collapse';
+import { Collapse } from '@components/form/Collapse';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import JuggleDVIcon from 'components/common/JuggleDVIcon';
+import JuggleDVIcon from '@components/common/JuggleDVIcon';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 interface ItemProps {

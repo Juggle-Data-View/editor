@@ -1,5 +1,5 @@
 import { groupRectSelector } from 'helpers/selectors';
-import getAllChildren from 'utils/getAllChildren';
+import getAllChildren from '@utils/getAllChildren';
 import { JuggleDV } from '@juggle-data-view/types';
 
 interface Result {

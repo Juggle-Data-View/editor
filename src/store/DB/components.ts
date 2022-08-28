@@ -1,5 +1,5 @@
 import { JuggleDV } from '@juggle-data-view/types';
-import { CompInstEditReqData } from 'utils/request';
+import { CompInstEditReqData } from '@utils/request';
 import Database, { COMP_STORE } from './databaseInit';
 
 class Components extends Database {

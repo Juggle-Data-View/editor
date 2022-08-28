@@ -2,7 +2,7 @@ import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import axisLabel from '../common/axisLabel';
 import tooltip from '../common/tooltip';
-import * as font from 'config/form/font';
+import * as font from '@configurableComponents/form/font';
 
 const funnel: INodeConfig[] = [
   ...tooltip,

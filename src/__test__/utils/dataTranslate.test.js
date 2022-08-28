@@ -1,4 +1,4 @@
-import dataTranslater from '../../utils/dataTranslate';
+import dataTranslater from '../../@utils/dataTranslate';
 import { state as data } from './MockData/dataTranslate';
 import { dataTranslateAccessData, dataTranslateFailureData } from './MockData/expectData';
 

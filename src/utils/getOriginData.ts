@@ -1,5 +1,5 @@
 import { JuggleDV } from '@juggle-data-view/types';
-import { DataSourceType } from 'config/const';
+import { DataSourceType } from '@configurableComponents/const';
 import { fetchAPIData, fetchCSVData } from 'helpers/fetchData';
 
 const getOriginData = async (

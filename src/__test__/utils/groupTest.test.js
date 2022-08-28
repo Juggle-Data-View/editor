@@ -7,10 +7,10 @@ import {
   getAllChildrenfailureata,
   sortListItemfailureata,
 } from './MockData/expectData';
-import sublist from '../../utils/SubList';
-import getAllChildren from '../../utils/getAllChildren';
+import sublist from '../../@utils/SubList';
+import getAllChildren from '../../@utils/getAllChildren';
 import { compCode as willCompCodes, compData as willCompData } from './MockData/willGroupData';
-import sortListItem from '../../utils/sortListItem';
+import sortListItem from '../../@utils/sortListItem';
 
 test('it has error when convert components mapping to nest group struct', () => {
   expect(sublist(data.compCodes, data.compDatas)).not.toEqual(SublistFailureData);

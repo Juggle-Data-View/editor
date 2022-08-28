@@ -1,6 +1,6 @@
 import { INodeConfig } from '@juggle-data-view/types/src/form';
 
-import { withNode } from 'components/recursion/fields';
+import { withNode } from '@components/recursion/fields';
 import { ArrayHelpers, FormikContextType, useField, useFormikContext } from 'formik';
 
 import styled from 'styled-components';

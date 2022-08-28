@@ -4,7 +4,7 @@ import areaStyle from './areaStyle';
 import axisLabel from './axisLabel';
 
 import classNames from 'classnames';
-import DropDown from 'components/common/DropDown';
+import DropDown from '@components/common/DropDown';
 import { ReactSVG } from 'react-svg';
 import svgs, { svgItems, SVGDropDownStyled, IItem } from './icons/icons';
 import markPoint from './markPoint';

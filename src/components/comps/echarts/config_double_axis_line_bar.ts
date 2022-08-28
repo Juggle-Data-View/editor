@@ -2,7 +2,7 @@
  * 组件配置信息
  */
 // import * as font from 'config/form/font';
-// import Tabs from 'components/recursion/widget/Tabs';
+// import Tabs from '@components/recursion/widget/Tabs';
 import doubleAxisLineBarForm from './configs/templates/doubleAxisLineBarForm';
 import doubleAxisLineBar from './temps/double_axis_line_bar';
 import { JuggleDV } from '@juggle-data-view/types';

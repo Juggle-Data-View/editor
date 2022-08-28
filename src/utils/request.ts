@@ -5,7 +5,7 @@ import NProgress from 'nprogress';
 import queryString from 'query-string';
 import history from 'helpers/history';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'; // 兼容守护工具(chrome v61)
-import { HttpMethod, ContentType } from 'config/const';
+import { HttpMethod, ContentType } from '@configurableComponents/const';
 import { merge } from 'lodash';
 import { JuggleDV } from '@juggle-data-view/types';
 

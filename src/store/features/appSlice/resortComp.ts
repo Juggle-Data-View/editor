@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { groupResort, updateGroupSize } from 'helpers/groupHandle';
-import { getAllSelectedComps } from 'utils/getAllChildren';
-import sortListItem from 'utils/sortListItem';
+import { getAllSelectedComps } from '@utils/getAllChildren';
+import sortListItem from '@utils/sortListItem';
 
 const resortComp: JuggleDV.ReducerCaseWithPrepare<{ source: number; destination: number }> = {
   reducer(state, action) {

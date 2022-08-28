@@ -1,10 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { injectCDNScript } from 'components/common/JuggleDVIcon';
-import PageLoading from 'components/common/PageLoading';
-import Providers from 'components/base/Providers';
-import 'assets/style/index.scss';
+import { injectCDNScript } from '@components/common/JuggleDVIcon';
+import PageLoading from '@components/common/PageLoading';
+import Providers from '@components/base/Providers';
+import '@assets/style/index.scss';
 
 injectCDNScript();
 
@@ -28,11 +28,11 @@ const Index = () => {
       <BrowserRouter>
         <Suspense fallback={<PageLoading />}>
           <Switch>
-            <Route exact path="/" component={lazy(() => import('components/page/editor'))} />
-            <Route path="/view" component={lazy(() => import('components/page/view'))} />
-            <Route path="/authoriz" component={lazy(() => import('components/page/Authoriz'))} />
-            <Route path="/loading" component={lazy(() => import('components/common/PageLoading'))} />
-            <Route component={lazy(() => import('components/page/404'))} />
+            <Route exact path="/" component={lazy(() => import('@page/editor'))} />
+            <Route path="/view" component={lazy(() => import('@page/view'))} />
+            <Route path="/authoriz" component={lazy(() => import('@page/Authoriz'))} />
+            <Route path="/loading" component={lazy(() => import('@components/common/PageLoading'))} />
+            <Route component={lazy(() => import('@page/404'))} />
           </Switch>
         </Suspense>
       </BrowserRouter>

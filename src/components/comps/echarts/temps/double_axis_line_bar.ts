@@ -2,12 +2,12 @@
  * 组件属性
  */
 
-import { title } from 'process';
 import legend from './common_legend';
 import tooltip from './common_tooltip';
 import { xAxis, yAxis } from './common_axis';
 import grid from './common_grid';
 import { lineSeries } from './common_series';
+import title from './common_title';
 
 // let now = Date.now();
 const doubleAxisLineBar = {

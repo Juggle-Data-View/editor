@@ -1,4 +1,4 @@
-import { UpdateCanvasPayload } from 'utils/request';
+import { UpdateCanvasPayload } from '@utils/request';
 import Database, { CANVAS_STORE } from './databaseInit';
 
 class Canvas extends Database {

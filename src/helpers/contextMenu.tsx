@@ -1,9 +1,9 @@
-import JuggleDVIcon from 'components/common/JuggleDVIcon';
+import JuggleDVIcon from '@components/common/JuggleDVIcon';
 import { getJuggleDV } from 'utils';
-import store from 'store/index';
+import store from '@store/index';
 import { actionStatusSelector, selectedRectSelector } from 'helpers/selectors';
-import { COPY_COMP, DELETE_COMP, ADD_GROUP_COMP } from 'components/base/BaseActions';
-import { appAction } from 'store/features/appSlice';
+import { COPY_COMP, DELETE_COMP, ADD_GROUP_COMP } from '@components/base/BaseActions';
+import { appAction } from '@store/features/appSlice';
 import { ListItemIcon, ListItemText, MenuItem, MenuList, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import React from 'react';

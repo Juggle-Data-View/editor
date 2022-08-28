@@ -1,6 +1,6 @@
-import { qs, getViewStatus, qsDynamic } from 'utils/index';
-import * as Api from 'utils/api';
-import global, { fakeIFrameVars } from 'utils/global';
+import { qs, getViewStatus, qsDynamic } from '@utils/index';
+import * as Api from '@utils/api';
+import global, { fakeIFrameVars } from '@utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
 
 // 请求页面配置

@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useCallback, Fragment, useRef } from 'react';
 import { Formik, useFormikContext, FieldArray as TypeFieldArray, FieldArrayConfig } from 'formik';
-import { FieldLabel, validateMerge } from 'components/form';
+import { FieldLabel, validateMerge } from '@components/form';
 import { INodeProps, IFormikStatus, IGenerator, INodeLabel, ChildProps } from './types';
 import { c2n, resolveName } from './utils';
 import { get, has, isFunction } from 'lodash';
 import { nodeMapping } from './fields';
 import { useDebounce } from 'ahooks';
-import ErrorBoundary from 'components/base/ErrorBoundary';
+import ErrorBoundary from '@components/base/ErrorBoundary';
 import { INodeParams } from '@juggle-data-view/types/src/form';
 import { FormComps } from '@juggle-data-view/types/src/fieldComponents';
 

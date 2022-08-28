@@ -1,6 +1,6 @@
 import day from 'dayjs';
 import numeral from 'numeral';
-import notice from 'utils/notice';
+import notice from '@utils/notice';
 
 const getFormatter = (formatter: string) => {
   try {

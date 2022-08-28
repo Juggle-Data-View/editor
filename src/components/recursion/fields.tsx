@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { INodeCompProps } from './types';
-import { Control } from 'components/form/index';
-import CustomArray from 'components/recursion/widget/CustomArray';
-import DynamicMultiField from 'components/recursion/widget/DynamicMultiField';
-import DropZone from 'components/common/DropZone';
+import { Control } from '@components/form/index';
+import CustomArray from '@components/recursion/widget/CustomArray';
+import DynamicMultiField from '@components/recursion/widget/DynamicMultiField';
+import DropZone from '@components/common/DropZone';
 
 /**
  * 使用高阶函数包裹自定义组件

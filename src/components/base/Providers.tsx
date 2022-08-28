@@ -2,7 +2,7 @@
  * 合并多个 Provider，防止多层嵌套
  */
 
-import store from 'store/index';
+import store from '@store/index';
 import { Provider } from 'react-redux';
 
 const Composer: React.FC<{ providers: Array<React.JSXElementConstructor<React.PropsWithChildren<any>>> }> = ({

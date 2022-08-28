@@ -1,6 +1,6 @@
 import { INodeConfig } from '@juggle-data-view/types/src/form';
 
-import { resolveName } from 'components/recursion/utils';
+import { resolveName } from '@components/recursion/utils';
 
 const multiBarSeries: INodeConfig = {
   name: 'series[0]',

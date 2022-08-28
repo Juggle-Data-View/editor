@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { TextField, Chip, InputBaseComponentProps } from '@mui/material';
 import { withField } from './withField';
-import { validator, validateMerge } from 'components/form/fieldValidator';
+import { validator, validateMerge } from '@components/form/fieldValidator';
 import { debounce, isUndefined } from 'lodash';
 
 import styled from 'styled-components';

@@ -4,16 +4,16 @@
 
 import { JuggleDV } from '@juggle-data-view/types';
 import { getJuggleDV, nanocode } from 'utils';
-import notice from 'utils/notice';
+import notice from '@utils/notice';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
-import { defaultCompData } from 'config/defaults';
-import store from 'store/index';
-import { appAction } from 'store/features/appSlice';
+import { defaultCompData } from '@configurableComponents/defaults';
+import store from '@store/index';
+import { appAction } from '@store/features/appSlice';
 import copy from 'copy-to-clipboard';
-import { COPY_KEY } from 'config/const';
+import { COPY_KEY } from '@configurableComponents/const';
 import dayjs from 'dayjs';
-import { getAllSelectedComps } from 'utils/getAllChildren';
+import { getAllSelectedComps } from '@utils/getAllChildren';
 
 // 复制组件
 // undo会影响复制后的数据，如果触发了undo，需在undo后重新执行复制操作。

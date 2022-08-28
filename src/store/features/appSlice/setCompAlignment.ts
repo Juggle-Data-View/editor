@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { updateGroupSize } from 'helpers/groupHandle';
 import { selectedRectSelector } from 'helpers/selectors';
-import { getAllSelectedComps } from 'utils/getAllChildren';
+import { getAllSelectedComps } from '@utils/getAllChildren';
 
 const setCompAlignment: JuggleDV.ReducerCaseWithPrepare<{ alignType: JuggleDV.AlignType }> = {
   reducer(state, action) {

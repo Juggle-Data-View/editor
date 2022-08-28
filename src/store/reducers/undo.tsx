@@ -6,9 +6,9 @@
  */
 
 import { createNextState as produce } from '@reduxjs/toolkit';
-import { UNDO_RESTORE } from 'config/const';
+import { UNDO_RESTORE } from '@configurableComponents/const';
 import { AnyAction } from '@reduxjs/toolkit';
-import { appAction, appSlice } from 'store/features/appSlice';
+import { appAction, appSlice } from '@store/features/appSlice';
 import { JuggleDV } from '@juggle-data-view/types';
 
 const isAlias = (action: AnyAction) => {

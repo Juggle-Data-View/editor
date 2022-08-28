@@ -31,7 +31,7 @@ require('codemirror/addon/fold/brace-fold');
 require('codemirror/addon/fold/indent-fold');
 require('codemirror/addon/fold/foldgutter.css');
 
-require('utils/codemirror-formatting');
+require('@utils/codemirror-formatting');
 
 (window as any).jsonlint = jsonlint;
 

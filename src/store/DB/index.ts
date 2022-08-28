@@ -1,5 +1,5 @@
 import components from './components';
-import global from 'utils/global';
+import global from '@utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
 import { omit } from 'lodash';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';

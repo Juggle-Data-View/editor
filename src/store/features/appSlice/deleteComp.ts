@@ -1,5 +1,5 @@
 import { JuggleDV } from '@juggle-data-view/types';
-import { getAllSelectedComps } from 'utils/getAllChildren';
+import { getAllSelectedComps } from '@utils/getAllChildren';
 
 const deleteComp: JuggleDV.ReducerCaseWithPrepare = {
   reducer(state) {

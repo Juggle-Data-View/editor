@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectDatasources } from 'store/selectors';
+import { selectDatasources } from '@store/selectors';
 
 const useOriginData = (comps: JuggleDV.Comp[]) => {
   const dataConfigs = useMemo(

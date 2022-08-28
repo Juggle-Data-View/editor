@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-09-02 15:28:45
  * @LastEditors: your name
  * @Description:
- * @FilePath: /autoDV5-react/src/utils/getDecoration.ts
+ * @FilePath: /autoDV5-react/src/@utils/getDecoration.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 /**

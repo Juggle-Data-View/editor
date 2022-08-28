@@ -1,5 +1,5 @@
 import { JuggleDV } from '@juggle-data-view/types';
-import { baseURL } from 'utils/request';
+import { baseURL } from '@utils/request';
 
 export const fetchCSVData = async (datasource: JuggleDV.ExeclDatasourceInstance) => {
   return [];

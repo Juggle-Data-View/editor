@@ -2,7 +2,7 @@
  * 组件配置信息
  */
 import { IConfig } from './type';
-import * as font from 'config/form/font';
+import * as font from '@configurableComponents/form/font';
 
 const config: IConfig = {
   version: '1.0.0',

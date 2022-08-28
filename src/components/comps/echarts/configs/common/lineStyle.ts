@@ -1,5 +1,5 @@
 import { INodeConfig } from '@juggle-data-view/types/src/form';
-import { borderStyle } from 'config/form/style';
+import { borderStyle } from '@configurableComponents/form/style';
 
 const lineStyle: INodeConfig[] = [
   {

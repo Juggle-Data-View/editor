@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import JuggleDVIcon from 'components/common/JuggleDVIcon';
+import JuggleDVIcon from '@components/common/JuggleDVIcon';
 import { useField } from 'formik';
 import { Button } from '@mui/material';
 

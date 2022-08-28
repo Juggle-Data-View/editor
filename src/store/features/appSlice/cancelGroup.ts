@@ -1,5 +1,5 @@
 import { JuggleDV } from '@juggle-data-view/types';
-import getAllChildren from 'utils/getAllChildren';
+import getAllChildren from '@utils/getAllChildren';
 
 const cancelGroup: JuggleDV.ReducerCaseWithPrepare<{ code: string }> = {
   reducer(state, action) {

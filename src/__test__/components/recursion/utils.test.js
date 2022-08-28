@@ -1,5 +1,5 @@
 import { state as data } from './MockData/utilsState';
-import { resolveName, c2n } from '../../../components/recursion/utils';
+import { resolveName, c2n } from '../../../@components/recursion/utils';
 import { utilsAccessData, utilsFailureData, configAccessData, configFailureData } from './MockData/expectData';
 
 /**

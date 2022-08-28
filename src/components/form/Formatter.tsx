@@ -1,5 +1,5 @@
 import { withField } from './withField';
-import CodeEditor, { ModeName } from 'components/common/CodeEditor';
+import CodeEditor, { ModeName } from '@components/common/CodeEditor';
 
 export interface IFormatter {
   codeType: ModeName;

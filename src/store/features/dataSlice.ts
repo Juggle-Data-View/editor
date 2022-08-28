@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { decorateData2array } from 'utils/dataTranslate';
-import type { Menu } from 'config/menu';
-import menu from 'config/menu';
+import { decorateData2array } from '@utils/dataTranslate';
+import type { Menu } from '@configurableComponents/menu';
+import menu from '@configurableComponents/menu';
 
 export const asyncLoadMenu = createAsyncThunk('menu/load', async () => {
   try {
-    const res = await import('config/menu');
+    const res = await import('@configurableComponents/menu');
     return res.default;
   } catch (error) {
     console.log(error);

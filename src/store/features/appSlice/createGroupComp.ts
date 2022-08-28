@@ -1,6 +1,6 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { groupCreate } from 'helpers/groupHandle';
-import sortListItem from 'utils/sortListItem';
+import sortListItem from '@utils/sortListItem';
 
 const createGroupComp: JuggleDV.ReducerCaseWithPrepare<{ group: JuggleDV.Comp; insertIndex: number }> = {
   reducer(state, action) {

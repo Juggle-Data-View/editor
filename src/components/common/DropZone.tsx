@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { TextField } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 import { FieldConfig, useField, useFormikContext } from 'formik';
-import notice from 'utils/notice';
+import notice from '@utils/notice';
 
 const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }>`
   .dropzone {

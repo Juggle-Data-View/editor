@@ -1,10 +1,10 @@
-import * as API_URL from 'utils/api-url';
-import request from 'utils/request';
+import * as API_URL from '@utils/api-url';
+import request from '@utils/request';
 import {
   // qs,
   getParentURL,
 } from 'utils';
-import { HttpMethod } from 'config/const';
+import { HttpMethod } from '@configurableComponents/const';
 import { JuggleDV } from '@juggle-data-view/types';
 
 // const { release } = qs.query;

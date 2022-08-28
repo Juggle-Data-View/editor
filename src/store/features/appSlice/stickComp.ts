@@ -1,9 +1,9 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { cloneDeep } from 'lodash';
 import { nanocode } from 'utils';
-import { getAllSelectedComps } from 'utils/getAllChildren';
-import sortListItem from 'utils/sortListItem';
-import subList from 'utils/SubList';
+import { getAllSelectedComps } from '@utils/getAllChildren';
+import sortListItem from '@utils/sortListItem';
+import subList from '@utils/SubList';
 
 export const pasteComp: JuggleDV.ReducerCaseWithPrepare = {
   reducer(state) {

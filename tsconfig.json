@@ -16,7 +16,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@page/*": ["page/*"],
+      "@configurableComponents/*": ["configurableComponents/*"],
+      "@store/*": ["store/*"],
+      "@service/*": ["service/*"],
+      "@helper/*": ["helper/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"]
+    }
   },
   "include": ["src"]
 }

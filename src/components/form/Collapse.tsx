@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import TextTip from 'components/common/TextTip';
+import TextTip from '@components/common/TextTip';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Collapse as MuiCollapse, CollapseProps } from '@mui/material';
 const CLASS_NAME = 'field-collapse';
