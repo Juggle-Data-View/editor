@@ -19,9 +19,9 @@ jobs:
           node-version: '17'
           cache: npm
           cache-dependency-path: package.json
-      - run: npm install yarn -g
-      - run: yarn
-      - run: yarn autoDeploy:release
+      - run: npm install pnpm -g
+      - run: pnpm i
+      - run: pnpm autoDeploy:release
       - name: Deploy to Server # 第二步，rsync推文件
         uses: AEnterprise/rsync-deploy@v1.0 # 使用别人包装好的步骤镜像
         env:
