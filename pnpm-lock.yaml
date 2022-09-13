@@ -25,6 +25,7 @@ specifiers:
   '@types/nprogress': ^0.2.0
   '@types/numeral': ^0.0.26
   '@types/object-path': ^0.11.0
+  '@types/parse': ^2.18.18
   '@types/react': 17.0.43
   '@types/react-beautiful-dnd': ^13.0.0
   '@types/react-color': ^3.0.4
@@ -95,6 +96,7 @@ specifiers:
   numeral: ^2.0.6
   object-path: ^0.11.5
   ora: ^5.4.0
+  parse: ^3.4.4
   postcss: ^8.4.4
   postcss-flexbugs-fixes: ^5.0.2
   postcss-loader: ^6.2.1
@@ -165,6 +167,7 @@ dependencies:
   '@testing-library/jest-dom': 5.16.4
   '@testing-library/react': 12.1.4_zpnidt7m3osuk7shl3s4oenomq
   '@testing-library/user-event': 12.8.3
+  '@types/parse': 2.18.18
   abortcontroller-polyfill: 1.7.3
   ahooks: 2.10.14_react@18.0.0
   ajv: 6.12.6
@@ -212,6 +215,7 @@ dependencies:
   nprogress: 0.2.0
   numeral: 2.0.6
   object-path: 0.11.8
+  parse: 3.4.4
   postcss: 8.4.12
   postcss-flexbugs-fixes: 5.0.2_postcss@8.4.12
   postcss-loader: 6.2.1_ophkbroklgd6jdvupnp5h6xq4i
@@ -1609,6 +1613,14 @@ packages:
       - supports-color
     dev: false
 
+  /@babel/runtime-corejs3/7.17.8:
+    resolution: {integrity: sha512-ZbYSUvoSF6dXZmMl/CYTMOvzIFnbGfv4W3SEHYgMvNsFTeLaF2gkGAF4K2ddmtSK4Emej+0aYcnSC6N5dPCXUQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      core-js-pure: 3.21.1
+      regenerator-runtime: 0.13.9
+    dev: false
+
   /@babel/runtime-corejs3/7.17.9:
     resolution: {integrity: sha512-WxYHHUWF2uZ7Hp1K+D1xQgbgkGUfA+5UPOegEXGt2Y5SMog/rYCVaifLZDbw8UkNXozEqqrZTy6bglL7xTaCOw==}
     engines: {node: '>=6.9.0'}
@@ -1622,6 +1634,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
+
+  /@babel/runtime/7.18.0:
+    resolution: {integrity: sha512-YMQvx/6nKEaucl0MY56mwIG483xk8SDNdlUwb2Ts6FUpr7fm85DxEmsY18LXBNhcTz6tO6JwZV8w1W06v8UKeg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: false
 
   /@babel/template/7.16.7:
     resolution: {integrity: sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==}
@@ -3354,6 +3373,12 @@ packages:
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
 
+  /@types/parse/2.18.18:
+    resolution: {integrity: sha512-uAkXKOnZfKcWt22Akjt0W0ikWhqfIHi3wu/gCaL3m5Dq4/YFnvZX8zOnwxq8AKb/+MjDDQjsK2LKuY0heb5L3w==}
+    dependencies:
+      '@types/node': 17.0.23
+    dev: false
+
   /@types/prettier/2.4.4:
     resolution: {integrity: sha512-ReVR2rLTV1kvtlWFyuot+d1pkpG2Fw/XKE3PDAdj57rbM97ttSp9JZ2UsP+2EHTylra9cUf6JA7tGwW1INzUrA==}
     dev: false
@@ -4916,6 +4941,12 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
@@ -7155,6 +7186,12 @@ packages:
       postcss: 8.4.12
     dev: false
 
+  /idb-keyval/6.0.3:
+    resolution: {integrity: sha512-yh8V7CnE6EQMu9YDwQXhRxwZh4nv+8xm/HV4ZqK4IiYFJBWYGjJuykADJbSP+F/GDXUBwCSSNn/14IpGL81TuA==}
+    dependencies:
+      safari-14-idb-fix: 3.0.0
+    dev: false
+
   /idb/6.1.5:
     resolution: {integrity: sha512-IJtugpKkiVXQn5Y+LteyBCNk1N8xpGV3wWZk9EVtZWH8DYkjBn0bX1XnGP9RkyZF0sAcywa6unHqSWKe7q4LGw==}
     dev: false
@@ -8510,7 +8547,7 @@ packages:
       prop-types: ^15.0.0
       react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@babel/runtime': 7.17.9
+      '@babel/runtime': 7.18.0
       prop-types: 15.8.1
       react: 18.0.0
       tiny-warning: 1.0.3
@@ -8938,6 +8975,23 @@ packages:
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
+
+  /parse/3.4.4:
+    resolution: {integrity: sha512-6mnFGD3FroQtCYImRXOFF9+BohGWGwaOIo7htD0HxGVooMR1Iyb69eYj+AoLr+o3sBBGCCGmNmjNjmvUIOnSaw==}
+    dependencies:
+      '@babel/runtime': 7.18.0
+      '@babel/runtime-corejs3': 7.17.8
+      idb-keyval: 6.0.3
+      react-native-crypto-js: 1.0.0
+      uuid: 3.4.0
+      ws: 8.6.0
+      xmlhttprequest: 1.8.0
+    optionalDependencies:
+      crypto-js: 4.1.1
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
 
   /parse5/6.0.1:
     resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
@@ -9983,7 +10037,7 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.17.9
+      '@babel/runtime': 7.18.0
       classnames: 2.3.1
       dom-align: 1.12.2
       lodash: 4.17.21
@@ -9999,7 +10053,7 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.17.9
+      '@babel/runtime': 7.18.0
       classnames: 2.3.1
       rc-util: 5.19.6_zpnidt7m3osuk7shl3s4oenomq
       react: 18.0.0
@@ -10262,6 +10316,10 @@ packages:
       react-css-styled: 1.0.3
     dev: false
 
+  /react-native-crypto-js/1.0.0:
+    resolution: {integrity: sha512-FNbLuG/HAdapQoybeZSoes1PWdOj0w242gb+e1R0hicf3Gyj/Mf8M9NaED2AnXVOX01b2FXomwUiw1xP1K+8sA==}
+    dev: false
+
   /react-redux/7.2.8_zpnidt7m3osuk7shl3s4oenomq:
     resolution: {integrity: sha512-6+uDjhs3PSIclqoCk0kd6iX74gzrGc3W5zcAjbrFgEdIjRSQObdIwfx80unTkVUYvbQ95Y8Av3OvFHq1w5EOUw==}
     peerDependencies:
@@ -10487,7 +10545,7 @@ packages:
   /regenerator-transform/0.15.0:
     resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==}
     dependencies:
-      '@babel/runtime': 7.17.9
+      '@babel/runtime': 7.18.0
     dev: false
 
   /regex-parser/2.2.11:
@@ -10711,6 +10769,10 @@ packages:
     dependencies:
       tslib: 2.3.1
     dev: true
+
+  /safari-14-idb-fix/3.0.0:
+    resolution: {integrity: sha512-eBNFLob4PMq8JA1dGyFn6G97q3/WzNtFK4RnzT1fnLq+9RyrGknzYiM/9B12MnKAxuj1IXr7UKYtTNtjyKMBog==}
+    dev: false
 
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
@@ -11872,6 +11934,12 @@ packages:
       base64-arraybuffer: 1.0.2
     dev: false
 
+  /uuid/3.4.0:
+    resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
+    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+    hasBin: true
+    dev: false
+
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -12403,6 +12471,19 @@ packages:
         optional: true
     dev: false
 
+  /ws/8.6.0:
+    resolution: {integrity: sha512-AzmM3aH3gk0aX7/rZLYvjdvZooofDu3fFOzGqcSnQ1tOcTWwhM/o+q++E8mAyVVIyUdajrkzWUGftaVSDLn1bw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
   /xml-name-validator/3.0.0:
     resolution: {integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==}
     dev: false
@@ -12413,6 +12494,11 @@ packages:
 
   /xmlhttprequest-ssl/1.6.3:
     resolution: {integrity: sha512-3XfeQE/wNkvrIktn2Kf0869fC0BN6UpydVasGIeSm2B1Llihf7/0UfZM+eCkOw3P7bP4+qPgqhm7ZoxuJtFU0Q==}
+    engines: {node: '>=0.4.0'}
+    dev: false
+
+  /xmlhttprequest/1.8.0:
+    resolution: {integrity: sha512-58Im/U0mlVBLM38NdZjHyhuMtCqa61469k2YP/AaPbvCoV9aQGUpbJBj1QRm2ytRiVQBD/fsw7L2bJGDVQswBA==}
     engines: {node: '>=0.4.0'}
     dev: false
 

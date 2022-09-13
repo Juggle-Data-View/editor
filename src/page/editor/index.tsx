@@ -3,10 +3,10 @@ import setupWatch from '@store/watcher';
 import { EditorGlobalStyle } from 'assets/style';
 import fetchAppConfig from 'helpers/fetchAppConfig';
 import { appAction } from '@store/features/appSlice';
-import Header from '@page/editor/header';
-import LeftPannle from '@page/editor/leftPanel';
+import Header from '@page/editor/Header';
+import LeftPannle from '@page/editor/LeftPanel';
 import CenterPannle from '@page/canvas';
-import RightPannle from '@page/editor/rightPanel';
+import RightPannle from '@page/editor/RightPanel';
 import GlobalHotKeys from '@components/common/GlobalHotKeys';
 import { CANVAS_ID, COPY_KEY } from '@configurableComponents/const';
 import notice from '@utils/notice';
@@ -15,9 +15,14 @@ import DB from '@store/DB';
 import { qs } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
+import { Route, Switch, useParams } from 'react-router-dom';
 
 const Editor = () => {
   const dispatch = useDispatch();
+
+  const { page } = useParams<{
+    page: 'canvas' | 'user';
+  }>();
 
   const getConfigFromIndexedDB = async () => {
     try {
@@ -30,7 +35,30 @@ const Editor = () => {
     }
   };
 
+  const handlePaste = (event: ClipboardEvent) => {
+    try {
+      if (!document.getElementById(CANVAS_ID)) {
+        throw new Error('没有找到画布元素');
+      }
+      const paste: string = (event.clipboardData || (window as any).clipboardData).getData('text');
+
+      if (typeof paste === 'string' && paste.indexOf(COPY_KEY) === 0) {
+        event.preventDefault();
+        const str = paste.substr(COPY_KEY.length);
+        try {
+          const content = transContent(JSON.parse(str), { offset: 20 });
+          dispatch(appAction.addComp({ comps: content.components }));
+        } catch (error) {
+          throw error;
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) notice.error(error.message);
+    }
+  };
+
   const initApp = async () => {
+    //TODO: Not request when app info is same
     if (!window.navigator.onLine) {
       await getConfigFromIndexedDB();
     }
@@ -52,40 +80,33 @@ const Editor = () => {
   };
 
   useEffect(() => {
-    initApp();
-    document.addEventListener('paste', (event: any) => {
-      try {
-        if (!document.getElementById(CANVAS_ID)) {
-          throw new Error('没有找到画布元素');
-        }
-        const paste: string = (event.clipboardData || (window as any).clipboardData).getData('text');
-
-        if (typeof paste === 'string' && paste.indexOf(COPY_KEY) === 0) {
-          event.preventDefault();
-          const str = paste.substr(COPY_KEY.length);
-          try {
-            const content = transContent(JSON.parse(str), { offset: 20 });
-            dispatch(appAction.addComp({ comps: content.components }));
-          } catch (error) {
-            throw error;
-          }
-        }
-      } catch (error) {
-        if (error instanceof Error) notice.error(error.message);
-      }
-    });
-  }, []); // eslint-disable-line
+    if (page === 'canvas') {
+      document.removeEventListener('paste', handlePaste);
+      initApp();
+      document.addEventListener('paste', handlePaste);
+    } else {
+    }
+  }, [page]); // eslint-disable-line
 
   return (
     <ThemeConfig>
       <section className="main">
         <LeftPannle />
         <div style={{ flex: 1, display: 'flex' }}>
-          <div style={{ width: '100%' }}>
-            <Header />
-            <CenterPannle />
-          </div>
-          <RightPannle />
+          <Switch>
+            <Route path="/editor/canvas">
+              <>
+                <div style={{ width: '100%' }}>
+                  <Header />
+                  <CenterPannle />
+                </div>
+                <RightPannle />
+              </>
+            </Route>
+            <Route path="/editor/user">
+              <div style={{ width: '100%' }}>user</div>
+            </Route>
+          </Switch>
         </div>
       </section>
       <GlobalHotKeys />

@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { injectCDNScript } from '@components/common/JuggleDVIcon';
 import PageLoading from '@components/common/PageLoading';
 import Providers from '@components/base/Providers';
+import '@service/initialize';
 import '@assets/style/index.scss';
 
 injectCDNScript();
@@ -28,7 +29,7 @@ const Index = () => {
       <BrowserRouter>
         <Suspense fallback={<PageLoading />}>
           <Switch>
-            <Route exact path="/" component={lazy(() => import('@page/editor'))} />
+            <Route exact path="/editor/:page" component={lazy(() => import('@page/editor'))} />
             <Route path="/view" component={lazy(() => import('@page/view'))} />
             <Route path="/authoriz" component={lazy(() => import('@page/Authoriz'))} />
             <Route path="/loading" component={lazy(() => import('@components/common/PageLoading'))} />
