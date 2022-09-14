@@ -19,7 +19,7 @@ export const signUp = async (params: UserInfo) => {
     user.set(key, params[key]);
   });
   try {
-    await user.signUp();
+    return user.signUp();
   } catch (error) {
     console.log(error);
   }
@@ -29,7 +29,7 @@ export const login = async (params: UserInfo) => {
   const { username, password } = params;
 
   try {
-    await User.logIn(username, password);
+    return User.logIn(username, password);
   } catch (error) {
     console.log(error);
   }

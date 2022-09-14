@@ -27,7 +27,7 @@ const LeftPanel: React.FC = () => {
   const panel = useSelector(selectEditorPanel);
 
   const lang = useLang();
-
+  // TODO: add user tab to switch route
   return (
     <LeftPannelContainer visible={panel.compList}>
       <TabContext value={activeKey}>

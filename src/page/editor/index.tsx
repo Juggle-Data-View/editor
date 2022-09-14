@@ -16,6 +16,8 @@ import { qs } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
 import { Route, Switch, useParams } from 'react-router-dom';
+import { Auth } from './User';
+import Container from './User/Container';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -104,7 +106,9 @@ const Editor = () => {
               </>
             </Route>
             <Route path="/editor/user">
-              <div style={{ width: '100%' }}>user</div>
+              <Container>
+                <Auth />
+              </Container>
             </Route>
           </Switch>
         </div>
