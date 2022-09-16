@@ -15,16 +15,26 @@ import DB from '@store/DB';
 import { qs } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
-import { Route, Switch, useParams } from 'react-router-dom';
-import { Auth } from './User';
-import Container from './User/Container';
+import { Route, Switch, useHistory, useParams } from 'react-router-dom';
+import User from './User';
+import { User as UserInstance } from 'parse';
 
 const Editor = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { page } = useParams<{
     page: 'canvas' | 'user';
   }>();
+
+  const handleAutoAuth = () => {
+    const currentUser = UserInstance.current();
+    if (currentUser) {
+      history.push('/editor/canvas');
+    } else {
+      history.push('/editor/user/auth');
+    }
+  };
 
   const getConfigFromIndexedDB = async () => {
     try {
@@ -87,6 +97,7 @@ const Editor = () => {
       initApp();
       document.addEventListener('paste', handlePaste);
     } else {
+      handleAutoAuth();
     }
   }, [page]); // eslint-disable-line
 
@@ -96,7 +107,7 @@ const Editor = () => {
         <LeftPannle />
         <div style={{ flex: 1, display: 'flex' }}>
           <Switch>
-            <Route path="/editor/canvas">
+            <Route path="/editor/canvas/">
               <>
                 <div style={{ width: '100%' }}>
                   <Header />
@@ -105,10 +116,8 @@ const Editor = () => {
                 <RightPannle />
               </>
             </Route>
-            <Route path="/editor/user">
-              <Container>
-                <Auth />
-              </Container>
+            <Route path="/editor/user/:userPage">
+              <User />
             </Route>
           </Switch>
         </div>

@@ -210,16 +210,20 @@ export const LeftPannelContainer = styled.div<{ visible: boolean }>`
       padding: 9px 0px;
       min-width: 65px;
     }
-    .operations {
-      width: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 44px;
-      border-radius: 8px;
-      background-color: ${({ theme }) => {
-        return theme.palette.background.paper;
-      }};
+    .operation-container {
+      .operations {
+        cursor: pointer;
+        margin: 5px 0px;
+        width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        border-radius: 8px;
+        background-color: ${({ theme }) => {
+          return theme.palette.background.paper;
+        }};
+      }
     }
   }
 `;

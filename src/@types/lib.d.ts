@@ -12,3 +12,8 @@ interface Array<T> {
    */
   getSourceDataValue(key: keyof T, subValue?: any): any;
 }
+
+interface RouterParams {
+  userPage: 'auth' | 'profile';
+  page: 'user' | 'canvas';
+}

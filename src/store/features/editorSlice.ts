@@ -37,6 +37,12 @@ const systemSlice = createSlice({
       const name = action.payload; // 面板名称
       state.panel[name] = !state.panel[name];
     },
+    controlPanel(state, action: PayloadAction<Partial<JuggleDV.Editor['panel']>>) {
+      state.panel = {
+        ...state.panel,
+        ...action.payload,
+      };
+    },
     compHover(state, action: PayloadAction<number[]>) {
       state.hoverIndex = action.payload;
     },
