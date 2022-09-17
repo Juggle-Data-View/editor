@@ -1,4 +1,5 @@
-import { User } from 'parse';
+import { JuggleDV } from '@juggle-data-view/types';
+import { Attributes, Object as ObjectInst, Query, User } from 'parse';
 
 export enum UserRole {
   admin = 0,
@@ -33,4 +34,33 @@ export const login = async (params: UserInfo) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const queryUserInfo = () => {
+  try {
+    const user = User.current();
+    if (!user) {
+      throw new Error('get user fail');
+    }
+    return {
+      username: user.getUsername(),
+      email: user.getEmail(),
+      id: user.id,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      username: 'non-name',
+      email: 'non-email',
+    };
+  }
+};
+
+export const getUserApps = async () => {
+  const applications = ObjectInst.extend('Applications');
+  const user = User.current();
+  const query = new Query(applications);
+  query.equalTo('user', user);
+  const result = await query.find();
+  return result;
 };

@@ -22,6 +22,7 @@ import { User as UserInstance } from 'parse';
 const Editor = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { userPage } = useParams<RouterParams>();
 
   const { page } = useParams<{
     page: 'canvas' | 'user';
@@ -29,6 +30,11 @@ const Editor = () => {
 
   const handleAutoAuth = () => {
     const currentUser = UserInstance.current();
+
+    if (userPage !== 'auth') {
+      return;
+    }
+
     if (currentUser) {
       history.push('/editor/canvas');
     } else {

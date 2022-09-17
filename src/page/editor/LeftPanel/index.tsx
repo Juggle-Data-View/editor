@@ -23,7 +23,7 @@ import { User } from 'parse';
 const LeftPanel: React.FC = () => {
   const [activeKey, setActiveKey] = useState('create');
   const lang = useLang();
-  const { userPage } = useParams<RouterParams>();
+  const { userPage, page } = useParams<RouterParams>();
   const dispatch = useDispatch();
   const panel = useSelector(selectEditorPanel);
   const history = useHistory();
@@ -45,20 +45,26 @@ const LeftPanel: React.FC = () => {
   };
 
   useEffect(() => {
-    if (userPage === 'auth' && !isLogin) {
+    if (page === 'user') {
       setActiveKey('user');
     } else {
-      setActiveKey('create');
+      isLogin && setActiveKey('create');
     }
-  }, [isLogin, userPage]);
+  }, [isLogin, page]);
 
   useEffect(() => {
+    const isShowUser = activeKey === 'user';
     dispatch(
       editorAction.controlPanel({
-        compList: activeKey !== 'user',
+        compList: !isShowUser,
       })
     );
   }, [activeKey, dispatch, userPage]);
+
+  useEffect(() => {
+    const isShowUser = activeKey === 'user';
+    !isShowUser && history.push('/editor/canvas');
+  }, [activeKey]);
 
   return (
     <LeftPannelContainer visible={panel.compList}>
@@ -68,7 +74,12 @@ const LeftPanel: React.FC = () => {
             <Tab disabled={isUser} label={lang.createComp} value="create" icon={<AddCircle />} />
             <Tab disabled={isUser} label={lang.layerList} value="layer" icon={<LayersIcon />} />
             <Tab disabled={isUser} label={lang.datasourcesList} value="datasource" icon={<StorageIcon />} />
-            <Tab label={lang.user} value="user" icon={<AccountCircleIcon />} />
+            <Tab
+              label={lang.user}
+              value="user"
+              onClick={() => isLogin && history.push('/editor/user/profile')}
+              icon={<AccountCircleIcon />}
+            />
           </TabList>
           <div className="operation-container">
             <div

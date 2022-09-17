@@ -37,28 +37,3 @@ export const Container = styled.div`
     }
   }
 `;
-
-export const ProfileContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  padding: 0px 10px;
-  .user-info {
-    width: 100%;
-    height: 30%;
-    display: flex;
-    justify-content: flex-start;
-    .avatar {
-      height: 64px;
-      width: 64px;
-      border-radius: 32px;
-      box-shadow: 0px 0px 1px rgba(34, 34, 34, 1);
-    }
-    .info {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .app-list {
-    width: 100%;
-  }
-`;

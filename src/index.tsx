@@ -34,7 +34,7 @@ const Index = () => {
             <Route path="/authoriz" component={lazy(() => import('@page/Authoriz'))} />
             <Route path="/loading" component={lazy(() => import('@components/common/PageLoading'))} />
             <Route component={lazy(() => import('@page/404'))} />
-            <Redirect to="editor/user/auth" />
+            <Redirect to="/editor/user/auth" />
           </Switch>
         </Suspense>
       </BrowserRouter>

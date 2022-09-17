@@ -15,11 +15,13 @@ import { transContent } from 'helpers/importHelper';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import BackupIcon from '@mui/icons-material/Backup';
 import { Settings } from '@mui/icons-material';
 import { editorAction } from '@store/features/editorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectRightPannelType } from '@store/selectors';
 import useLang from '@components/base/useLang';
+import { createNewApps } from '@service/apps';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -152,12 +154,17 @@ const handlePreview = () => {
 const HeadRight: React.FC = () => {
   const rightPannelType = useSelector(selectRightPannelType);
   const dispatch = useDispatch();
+
   const handleSetting = () => {
     if (rightPannelType === 'global') {
       dispatch(editorAction.setRightPannelType('hidden'));
     } else {
       dispatch(editorAction.setRightPannelType('global'));
     }
+  };
+
+  const handleSave = async () => {
+    createNewApps(store.getState().autoDV.present);
   };
 
   const lang = useLang();
@@ -200,6 +207,11 @@ const HeadRight: React.FC = () => {
         >
           <Tooltip title={lang.globalSetting} placement="bottom">
             <Settings />
+          </Tooltip>
+        </Button>
+        <Button color="primary" onClick={handleSave} variant="contained">
+          <Tooltip title={'save to remote'} placement="bottom">
+            <BackupIcon />
           </Tooltip>
         </Button>
       </ButtonGroup>
