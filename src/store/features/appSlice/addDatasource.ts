@@ -1,5 +1,8 @@
 import { JuggleDV } from '@juggle-data-view/types';
 export const handleAdd = (datasources: JuggleDV.AppConfig['datasources'], datasource: JuggleDV.MixinDatasource) => {
+  if (!datasource) {
+    return;
+  }
   const { dataSourceId } = datasource;
   if (dataSourceId in datasource) {
     return;

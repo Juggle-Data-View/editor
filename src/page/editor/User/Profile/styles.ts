@@ -4,6 +4,8 @@ export const ProfileContainer = styled.div`
   height: 100%;
   width: 100%;
   padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
   .user-info {
     width: 100%;
     height: 30%;
@@ -28,8 +30,15 @@ export const ProfileContainer = styled.div`
     }
   }
   .app-list {
+    flex: 1;
     width: 100%;
   }
 `;
 
-export const AppsContainer = styled.div``;
+export const AppsContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+`;

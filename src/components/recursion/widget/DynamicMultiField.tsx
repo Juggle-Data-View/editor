@@ -143,7 +143,9 @@ const DynamicMultiField = withNode<DynamicMultiFieldProps>((props) => {
 
   return (
     <Container>
-      <div>{fieldsName || ''}</div>
+      <div>
+        <>{fieldsName || ''}</>
+      </div>
       {operations ? (
         <ButtonGroup size="small" sx={{ marginLeft: '5px' }}>
           {renderOperations(operations)}

@@ -10,6 +10,7 @@ import { UNDO_RESTORE } from '@configurableComponents/const';
 import { AnyAction } from '@reduxjs/toolkit';
 import { appAction, appSlice } from '@store/features/appSlice';
 import { JuggleDV } from '@juggle-data-view/types';
+import { localStorageKey } from '@helpers/fetchAppConfig';
 
 const isAlias = (action: AnyAction) => {
   return action.payload && action.payload._alias;
@@ -34,6 +35,27 @@ const aliasReducer = produce((draft: JuggleDV.UndoState, action: AnyAction) => {
 });
 
 type JuggleDVReducer = (state: JuggleDV.UndoState, action: AnyAction) => JuggleDV.UndoState;
+
+const updateLocalVersion = (newState: JuggleDV.UndoState) => {
+  const remoteVersion = Number(localStorage.getItem(localStorageKey.REMOTE_VERSION));
+  if (!newState.present) {
+    return newState;
+  }
+  if (isNaN(remoteVersion)) {
+    return newState;
+  }
+  if (newState.present.version > remoteVersion) {
+    return newState;
+  }
+
+  return {
+    ...newState,
+    present: {
+      ...newState.present,
+      version: remoteVersion + 1,
+    },
+  };
+};
 
 /**
  * 保存最后一次的历史记录的`state`。
@@ -70,6 +92,6 @@ export default function undoReducer(reducer: JuggleDVReducer) {
       }
     }
 
-    return nextState;
+    return updateLocalVersion(nextState);
   };
 }

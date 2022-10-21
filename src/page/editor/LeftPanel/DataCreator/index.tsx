@@ -120,7 +120,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
             {({ render, formik }) => {
               return (
                 <>
-                  {render()}
+                  {render}
                   <DialogActions>
                     <Button onClick={() => handleSubmit(formik.values)} type="submit">
                       confirm

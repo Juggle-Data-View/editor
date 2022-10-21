@@ -1,8 +1,8 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { cloneDeep, omit } from 'lodash';
-import { Object as ObjectInst, User } from 'parse';
+import { Object as ObjectInst, Query, User } from 'parse';
 
-type OverrideCanvas = Omit<JuggleDV.Canvas, 'id' | 'appId'>;
+type OverrideCanvas = Omit<JuggleDV.Canvas, 'appId'>;
 type OverrideAppConfig = Omit<JuggleDV.AppConfig, 'id' | 'canvas'>;
 type OverrideComps = Omit<JuggleDV.Comp, 'id'>;
 
@@ -13,9 +13,9 @@ export interface FormatAppConfig extends OverrideAppConfig {
 }
 
 const formatAppConfig = (state: JuggleDV.State): FormatAppConfig => {
-  const { compDatas, app, canvas } = state;
+  const { compDatas, app, canvas, version } = state;
   const newApp = omit(cloneDeep(app), 'id');
-  const newCanvas = omit(cloneDeep(canvas), 'id', 'appId');
+  const newCanvas = omit(cloneDeep(canvas), 'appId');
   const { datasources } = newApp;
   for (const key in datasources) {
     const item = datasources[key];
@@ -28,6 +28,7 @@ const formatAppConfig = (state: JuggleDV.State): FormatAppConfig => {
     return omit(item, 'id');
   });
   return {
+    version,
     ...newApp,
     canvas: {
       ...newCanvas,
@@ -36,11 +37,33 @@ const formatAppConfig = (state: JuggleDV.State): FormatAppConfig => {
   };
 };
 
-export const createNewApps = (params: JuggleDV.State) => {
+export const createNewApps = (params: JuggleDV.State): Promise<ObjectInst<Parse.Attributes>> => {
   const Applications = ObjectInst.extend('Applications');
   const user = User.current();
   const applications = new Applications();
   applications.set(formatAppConfig(params));
   applications.set('user', user);
   return applications.save();
+};
+
+export const queryAppByID = async (id: string) => {
+  const Applications = ObjectInst.extend('Applications');
+  const user = User.current();
+  const applications = new Applications();
+  const query = new Query(applications);
+  return query.equalTo('objectId', id).equalTo('user', user).first();
+};
+
+export const queryAppByIDWithoutUser = async (id: string) => {
+  const Applications = ObjectInst.extend('Applications');
+  const applications = new Applications();
+  const query = new Query(applications);
+  return query.equalTo('objectId', id).first();
+};
+
+export const updateApp = (obj: ObjectInst<Parse.Attributes>, data: JuggleDV.State) => {
+  const user = User.current();
+  obj.set(formatAppConfig(data));
+  obj.set('user', user);
+  return obj.save();
 };

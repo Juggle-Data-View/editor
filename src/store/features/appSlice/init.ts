@@ -5,9 +5,8 @@ const init: JuggleDV.ReducerCaseWithPrepare<{ app: JuggleDV.AppConfig }> = {
   reducer(state, action) {
     const { app } = action.payload;
     const { compInsts } = app.canvas;
-
     state.app = omit(app, 'canvas');
-    state.canvas = omit(pick(app, 'canvas').canvas, 'compInsts');
+    state.canvas = { ...omit(pick(app, 'canvas').canvas, 'compInsts'), appId: app.id, id: app.id };
     if (compInsts) {
       compInsts.forEach((comp) => {
         state.compCodes.push(comp.code);

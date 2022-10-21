@@ -1,6 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 const appId = Date.now();
 const AppConfig: JuggleDV.AppConfig = {
+  version: 0,
   createTime: 0,
   createUser: '',
   id: appId,

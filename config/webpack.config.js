@@ -173,7 +173,6 @@ module.exports = function (webpackEnv) {
     }
     return loaders;
   };
-  debugger;
   const result = {
     target: ['browserslist'],
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
@@ -700,5 +699,6 @@ module.exports = function (webpackEnv) {
     performance: false,
     stats: { errorDetails: true },
   };
+  debugger;
   return result;
 };

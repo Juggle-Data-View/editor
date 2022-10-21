@@ -1,8 +1,10 @@
 import { Control } from '@components/form';
 import { ButtonGroup, Button } from '@mui/material';
 import { login, signUp, UserInfo, UserRole } from '@service/userInfo';
+import { editorAction } from '@store/features/editorSlice';
 import { Formik, FormikState } from 'formik';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { object, ref, string } from 'yup';
 import { Container } from './styles';
@@ -23,7 +25,7 @@ const signUpValidationSchema = {
 
 export const Auth: React.FunctionComponent = () => {
   const [isSignUp, setSignUp] = useState(false);
-
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleAuthSuccess = () => {
@@ -43,7 +45,9 @@ export const Auth: React.FunctionComponent = () => {
     if (isSignUp) {
       return signUp(param);
     } else {
-      return login(param);
+      return login(param).then(() => {
+        dispatch(editorAction.setUserRole('User'));
+      });
     }
   };
 
@@ -122,6 +126,7 @@ export const Auth: React.FunctionComponent = () => {
                     <Button onClick={() => handleCancel(resetForm)()} disabled={isSubmitting}>
                       {isSignUp ? 'cancel' : 'Sign Up'}
                     </Button>
+                    <Button onClick={() => history.push('/editor/canvas')}>as guest</Button>
                   </ButtonGroup>
                 </>
               );

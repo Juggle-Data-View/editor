@@ -20,6 +20,7 @@ const initialState: JuggleDV.Editor = {
   isSelecto: false,
   rightPannelType: 'hidden',
   lang: 'en',
+  user: 'Guest',
 };
 
 const systemSlice = createSlice({
@@ -60,6 +61,9 @@ const systemSlice = createSlice({
     },
     setRightPannelType(state, action: PayloadAction<JuggleDV.Editor['rightPannelType']>) {
       state.rightPannelType = action.payload;
+    },
+    setUserRole(state, action: PayloadAction<JuggleDV.Editor['user']>) {
+      state.user = action.payload;
     },
   },
 });

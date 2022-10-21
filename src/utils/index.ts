@@ -3,6 +3,11 @@ import store from '@store/index';
 import numeral from 'numeral';
 import { nanoid as _nanoid } from '@reduxjs/toolkit';
 import { JuggleDV } from '@juggle-data-view/types';
+import DB from '@store/DB';
+import fetchAppConfig, { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
+import app from '@store/DB/appConfig';
+
+export { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
 
 export const qs = QS.parseUrl(window.location.href);
 
@@ -200,4 +205,49 @@ export const getParentURL = () => {
     }
   }
   return url;
+};
+
+export const getConfigFromServer = async () => {
+  if (!window.navigator.onLine) {
+    throw new Error('network error: user is offline');
+  }
+  try {
+    const data = await fetchAppConfig();
+
+    const version = await app.getAppConfigVersion();
+
+    localStorage.setItem(localStorageKey.REMOTE_VERSION, data.version);
+    if (version && Number(version) > Number(data.version)) {
+      throw new Error('should use local config');
+    }
+
+    return { ...data, id: data.objectId || data.id };
+  } catch (error) {
+    throw new Error('get app has error');
+  }
+};
+
+export const getConfigFromIndexedDB = async (
+  isInEditor: boolean,
+  id?: string
+): Promise<JuggleDV.AppConfig | undefined> => {
+  try {
+    const appId = getAppID() || id;
+
+    const urlAppId = qs.query.id as string;
+    if (!appId && isInEditor) {
+      // need to init app
+      throw new Error('Local storage is empty');
+    }
+    if (!appId) {
+      return DB.getDefaultConfig();
+    }
+    if (urlAppId) {
+      return getConfigFromIndexedDB(false, urlAppId);
+    }
+    return DB.getConfigByAPPID(appId);
+  } catch (error) {
+    error instanceof Error && console.log(error.message);
+    return DB.getDefaultConfig();
+  }
 };

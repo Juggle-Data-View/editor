@@ -1,5 +1,4 @@
-import { JuggleDV } from '@juggle-data-view/types';
-import { Attributes, Object as ObjectInst, Query, User } from 'parse';
+import { Object as ObjectInst, Query, User } from 'parse';
 
 export enum UserRole {
   admin = 0,
@@ -63,4 +62,8 @@ export const getUserApps = async () => {
   query.equalTo('user', user);
   const result = await query.find();
   return result;
+};
+
+export const logout = async () => {
+  return User.logOut();
 };

@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import setupWatch from '@store/watcher';
 import { EditorGlobalStyle } from 'assets/style';
-import fetchAppConfig from 'helpers/fetchAppConfig';
 import { appAction } from '@store/features/appSlice';
 import Header from '@page/editor/Header';
 import LeftPannle from '@page/editor/LeftPanel';
@@ -11,47 +10,22 @@ import GlobalHotKeys from '@components/common/GlobalHotKeys';
 import { CANVAS_ID, COPY_KEY } from '@configurableComponents/const';
 import notice from '@utils/notice';
 import { transContent } from 'helpers/importHelper';
-import DB from '@store/DB';
-import { qs } from 'utils';
+import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
-import { Route, Switch, useHistory, useParams } from 'react-router-dom';
+import { Route, Switch, useParams } from 'react-router-dom';
 import User from './User';
-import { User as UserInstance } from 'parse';
+import store from '@store/index';
+import { isEmpty } from 'lodash';
+import { JuggleDV } from '@juggle-data-view/types';
+import { getStaticData } from '@components/base/BaseActions';
 
 const Editor = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { userPage } = useParams<RouterParams>();
 
   const { page } = useParams<{
     page: 'canvas' | 'user';
   }>();
-
-  const handleAutoAuth = () => {
-    const currentUser = UserInstance.current();
-
-    if (userPage !== 'auth') {
-      return;
-    }
-
-    if (currentUser) {
-      history.push('/editor/canvas');
-    } else {
-      history.push('/editor/user/auth');
-    }
-  };
-
-  const getConfigFromIndexedDB = async () => {
-    try {
-      const app = await DB.getConfigByAPPID(Number(qs.query.id));
-      dispatch(appAction.init({ app }));
-    } catch (error) {
-      console.log(error);
-      const app = await DB.getDefaultConfig();
-      dispatch(appAction.init({ app }));
-    }
-  };
 
   const handlePaste = (event: ClipboardEvent) => {
     try {
@@ -75,37 +49,71 @@ const Editor = () => {
     }
   };
 
+  const preloadComponentsStaticData = async (app: JuggleDV.AppConfig) => {
+    const { compInsts } = app.canvas;
+    if (!compInsts) {
+      return;
+    }
+    const state = store.getState();
+    const { datasources } = state.autoDV.present.app;
+    const result = {} as JuggleDV.MixinDatasource;
+    for await (const { compCode, dataConfig } of compInsts) {
+      if (compCode in datasources) {
+        continue;
+      }
+      result[compCode as keyof JuggleDV.MixinDatasource] = {
+        ...dataConfig,
+        body: await getStaticData(compCode, datasources),
+      };
+    }
+    return result;
+  };
+
   const initApp = async () => {
     //TODO: Not request when app info is same
-    if (!window.navigator.onLine) {
-      await getConfigFromIndexedDB();
-    }
     try {
-      const app = await fetchAppConfig();
-      const isInit = await DB.needInitDB(app);
-      if (isInit) {
-        dispatch(appAction.init({ app }));
-        await DB.initDB(app);
-      } else {
-        await getConfigFromIndexedDB();
-      }
+      const app = await getConfigFromServer();
+      dispatch(
+        appAction.init({
+          app: {
+            ...app,
+            datasources: await preloadComponentsStaticData(app),
+          },
+        })
+      );
     } catch (error) {
-      notice.alert('On offline mode');
-      await getConfigFromIndexedDB();
-    }
+      error instanceof Error && console.log(error.message);
+      const app = await getConfigFromIndexedDB(true);
 
-    setupWatch();
+      dispatch(
+        appAction.init({
+          app: {
+            ...app,
+            datasources: app && (await preloadComponentsStaticData(app)),
+          },
+        })
+      );
+    } finally {
+      setupWatch();
+    }
+  };
+
+  const handleInit = () => {
+    if (page === 'canvas') {
+      const state = store.getState();
+      document.removeEventListener('paste', handlePaste);
+      const isInitApp =
+        isEmpty(state.autoDV.past) && isEmpty(state.autoDV.future) && isEmpty(state.autoDV.present.compDatas);
+
+      isInitApp && initApp();
+
+      document.addEventListener('paste', handlePaste);
+    }
   };
 
   useEffect(() => {
-    if (page === 'canvas') {
-      document.removeEventListener('paste', handlePaste);
-      initApp();
-      document.addEventListener('paste', handlePaste);
-    } else {
-      handleAutoAuth();
-    }
-  }, [page]); // eslint-disable-line
+    handleInit();
+  }, []); // eslint-disable-line
 
   return (
     <ThemeConfig>

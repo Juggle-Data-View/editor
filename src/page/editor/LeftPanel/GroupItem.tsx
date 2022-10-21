@@ -26,7 +26,7 @@ interface IProps {
   item: JuggleDV.Comp;
 }
 
-const GroupDropItem: React.FC<IProps> = (props) => {
+const GroupDropItem: React.FC<React.PropsWithChildren<IProps>> = (props) => {
   const { compCodes, isSelected, selectedCompCodes, children, code, indent, item } = props;
   const selectedCount = selectedCompCodes.length;
   const [isOpen, setOpen] = useState<boolean>(true);

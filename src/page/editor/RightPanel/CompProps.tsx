@@ -127,7 +127,7 @@ const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
                   {refresh ? <Loader /> : <CompPropsAttr {...props} />}
                 </>
               ) : null}
-              {!refresh ? render() : null}
+              {!refresh ? render : null}
             </>
           );
 

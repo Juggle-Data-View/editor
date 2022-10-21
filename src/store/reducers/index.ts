@@ -13,10 +13,11 @@ const compWithUndoReducer = undoReducer(
     ignoreInitialState: true,
     filter: undoFilter,
   })
-) as Reducer<JuggleDV.UndoState, AnyAction>;
+);
 
 export default combineReducers({
-  autoDV: compWithUndoReducer,
+  autoDV: compWithUndoReducer as Reducer<JuggleDV.UndoState, AnyAction>,
+  // autoDV: updateLocalVersion(compWithUndoReducer) as Reducer<JuggleDV.UndoState, AnyAction>,
   editor: editorReducer,
   data: dataReducer,
 });

@@ -5,10 +5,9 @@
 import store from '@store/index';
 import { Provider } from 'react-redux';
 
-const Composer: React.FC<{ providers: Array<React.JSXElementConstructor<React.PropsWithChildren<any>>> }> = ({
-  providers,
-  children,
-}) => {
+const Composer: React.FC<
+  React.PropsWithChildren<{ providers: Array<React.JSXElementConstructor<React.PropsWithChildren<any>>> }>
+> = ({ providers, children }) => {
   return (
     <>
       {providers.reduceRight(
@@ -21,11 +20,11 @@ const Composer: React.FC<{ providers: Array<React.JSXElementConstructor<React.Pr
   );
 };
 
-const ReduxProvider: React.FC = (props) => {
+const ReduxProvider: React.FC<React.PropsWithChildren> = (props) => {
   return <Provider store={store}>{props.children as any}</Provider>;
 };
 
-const Providers: React.FC = (props) => {
+const Providers: React.FC<React.PropsWithChildren> = (props) => {
   return <Composer providers={[ReduxProvider]}>{props.children}</Composer>;
 };
 

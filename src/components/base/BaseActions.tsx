@@ -52,12 +52,12 @@ export const DELETE_COMP = () => {
   });
 };
 
-const getStaticData = async (compCode: string, datasources: JuggleDV.AppConfig['datasources']) => {
+export const getStaticData = async (compCode: string, datasources: JuggleDV.AppConfig['datasources']) => {
   if (compCode in datasources) {
     return datasources[compCode].body || [];
   } else {
-    const staticDatas = await import(`../comps/staticData`);
-    const result = staticDatas[compCode as keyof typeof staticDatas];
+    const staticDatas = (await import(`@components/comps/${compCode}/staticData`)).default;
+    const result = staticDatas;
     return result || [];
   }
 };

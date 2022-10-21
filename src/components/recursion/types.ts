@@ -42,7 +42,7 @@ type M2N<K, T> = K extends keyof T
 type Expand<T> = M2N<keyof T, T>;
 
 export interface ChildProps {
-  render: () => React.ReactNode;
+  render: React.ReactNode;
   formik: FormikContextType<any>;
 }
 

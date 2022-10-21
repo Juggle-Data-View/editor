@@ -42,7 +42,7 @@ export const AutoSubmit: React.FC<{
   return null;
 };
 
-const NodeLabel: React.FC<INodeLabel> = (props) => {
+const NodeLabel: React.FC<React.PropsWithChildren<INodeLabel>> = (props) => {
   const { node, params, i18n } = props;
   const label = isFunction(node.label) ? node.label(params) : node.label;
   if (!label) {
@@ -104,7 +104,7 @@ const Node: React.FC<INodeProps> = (props) => {
   const oldValue = useRef(nodeValue);
 
   const getValue = useCallback(
-    (name, path) => {
+    (name: string, path?: string) => {
       const _name = resolveName(name, path || '');
       return _name ? get(values, _name) : values;
     },
@@ -199,7 +199,7 @@ export const Generator: React.FC<IGenerator> = (props) => {
     >
       {(formik) => {
         const _props: ChildProps = {
-          render: () => (
+          render: (
             <>
               {autoSubmit ? <AutoSubmit onValidate={onVaildate} /> : null}
               <Node i18n={i18n} parentName={parentName || ''} node={c2n(props.config)} />

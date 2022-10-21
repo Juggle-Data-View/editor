@@ -9,9 +9,9 @@ import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';
 import canvas from './DB/canvas';
 import app from './DB/appConfig';
-import global from '@utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
 import { CompInstEditReqData, CompInstReqData } from '@utils/request';
+import { getAppID } from '@utils/index';
 
 const differ = require('deep-diff');
 
@@ -50,10 +50,15 @@ const setupWatch = () => {
         objectPath.set(obj[kind], path, {});
       });
 
+      if (newVal.appId !== oldVal.appId) {
+        return await canvas.addCanvas(newVal);
+      }
+
       // for of每次迭代都会触发一种请求
       for (const kind of Object.keys(obj)) {
         const payload: any = []; // request data
         const newValKey = Object.keys(obj[kind]);
+
         if (kind !== 'E' && !newValKey.includes('mountComp')) {
           throw new Error(`listener error: ${kind}`);
         }
@@ -64,7 +69,7 @@ const setupWatch = () => {
           });
         });
 
-        await canvas.updateCanvas(payload, Number(global.canvasId));
+        await canvas.updateCanvas(payload, newVal.id);
       }
     } catch (error: any) {
       notice.error(`更新画布失败: ${error.message}`);
@@ -98,7 +103,7 @@ const setupWatch = () => {
           objectPath.set(obj['E'], path, {});
         }
       });
-
+      const appId = getAppID();
       // obj = {N: {}, D: {}, E: {}, A: {}}
       for (const kind of Object.keys(obj)) {
         const payload: CompInstReqData = []; // request data
@@ -118,14 +123,14 @@ const setupWatch = () => {
             }
           });
           // 请求新增组件，返回添加成功的组件实例信息
-          await addComponents(payload as JuggleDV.Comp[], Number(global.appId));
+          await addComponents(payload as JuggleDV.Comp[], appId);
 
           // 创建分组组件和粘贴已经分组的组件需要排序
           if (
             (payload.length === 1 && (payload[0] as JuggleDV.Comp).compCode === 'group') ||
             (payload[0] as JuggleDV.Comp).config.groupCode
           ) {
-            await sortComponents(store.getState().autoDV.present.compCodes, Number(global.appId));
+            await sortComponents(store.getState().autoDV.present.compCodes, appId);
           }
         }
 
@@ -133,7 +138,7 @@ const setupWatch = () => {
           // 删除组件
           codes.forEach((code) => payload.push(code));
 
-          await deleteComponet(codes, Number(global.appId));
+          await deleteComponet(codes, appId);
         }
 
         if (kind === 'E') {
@@ -149,8 +154,9 @@ const setupWatch = () => {
               });
             });
           });
+          console.log(store.getState());
           // 发起请求
-          await updateComponets(payload as CompInstEditReqData[], Number(global.appId));
+          await updateComponets(payload as CompInstEditReqData[], appId);
         }
       }
     } catch (error: any) {
@@ -168,17 +174,31 @@ const setupWatch = () => {
     try {
       // 有diff数据，且上次和这次的数组长度一致，才会触发排序请求
       const { sortComponents } = components;
+      const appId = getAppID();
       if (diffs.length && oldVal.length === newVal.length) {
-        await sortComponents(newVal, Number(global.appId));
+        await sortComponents(newVal, appId);
       }
+      // app.updateAppConfigVersion(appId, store.getState().autoDV.present.version);
     } catch (error: any) {
       const errMsg = error.message ? error.message : '请求错误';
       notice.error(`排序失败: ${errMsg}`);
     }
   });
 
-  listen('autoDV.present.app', async (newVal: any) => {
-    await app.updateAppConfig(newVal, Number(global.appId));
+  listen('autoDV.present.app', (newVal: any, oldVal: any) => {
+    const { id: newId } = newVal;
+    const { id: oldId } = oldVal;
+
+    const appId = getAppID();
+    if (newId === oldId) {
+      app.updateAppConfig(newVal, appId);
+    } else {
+      app.cloneAppConfig(newId, oldId);
+    }
+  });
+  listen('autoDV.present', (newVal: any) => {
+    const appId = getAppID();
+    app.updateAppConfigVersion(appId, newVal.version);
   });
 };
 
