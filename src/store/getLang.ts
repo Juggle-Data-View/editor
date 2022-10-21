@@ -38,6 +38,7 @@ const zh: ALang = {
   layerList: '图层列表',
   datasourcesList: '数据源',
   import: '导入',
+  user: '用户',
 };
 
 const en: ALang = {
@@ -79,6 +80,7 @@ const en: ALang = {
   layerList: 'Layer List',
   datasourcesList: 'data list',
   import: 'import',
+  user: 'user',
 };
 
 const getLang = (lang: JuggleDV.Editor['lang']) => {

@@ -10,7 +10,6 @@ import { handleAdd as handleSourceDataAdd } from './addDatasource';
  */
 const handleDataConfig = (state: JuggleDV.State, comp: JuggleDV.AddCompParams) => {
   const { dataConfig, compCode, staticData } = comp;
-  console.log(comp);
 
   if (!dataConfig) {
     //The component haven't data

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import TextTip, { ITextTip } from '@components/common/TextTip';
+import React from 'react';
 
 const Container = styled.div.attrs<Partial<IFieldLabel>>(({ vertical }) => {
   return {
@@ -52,7 +53,7 @@ export interface IFieldLabel {
   tipWidth?: React.CSSProperties['width'];
 }
 
-export const FieldLabel: React.FC<IFieldLabel> = (props) => {
+export const FieldLabel: React.FC<React.PropsWithChildren<IFieldLabel>> = (props) => {
   const { label, vertical, help, width, children, className, tipWidth } = props;
   return (
     <Container className={className} vertical={!!vertical}>
@@ -79,7 +80,9 @@ interface IField {
  * @param P `Comp`组件的`props`
  * @param IField `FieldLabelProps`
  */
-export function withFieldLabel<P>(Comp: React.FC<P>): React.FC<P & IField> {
+export function withFieldLabel<P>(
+  Comp: React.FunctionComponent<React.PropsWithChildren<P>>
+): React.FC<React.PropsWithChildren<P & IField>> {
   return (props) => {
     const { label, labelProps, ...controlProps } = props;
     return (

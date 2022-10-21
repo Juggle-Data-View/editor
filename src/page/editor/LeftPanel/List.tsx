@@ -70,52 +70,48 @@ const List: React.FC<IList> = ({ small }) => {
       });
     }
   }, [selectedCompCodes, compCodes]); //eslint-disable-line
+  const renderItem = (level: number, snapshot: any, codes?: AssistStruct[]) => {
+    if (!codes) {
+      return null;
+    }
+    return codes.map((item) => {
+      const code = item.code;
+      const isSelected = selectedCompCodes.includes(code);
+      const isGhosting = isSelected && Boolean(draggingId) && draggingId !== code;
 
-  const renderItem = useCallback(
-    (level: number, snapshot: any, codes?: AssistStruct[]) => {
-      if (!codes) {
-        return null;
+      if (!item.children) {
+        return (
+          <ListItem
+            key={code}
+            small={small}
+            index={compCodes.indexOf(code)}
+            item={compDatas[code]}
+            isGhosting={isGhosting}
+            isSelected={isSelected}
+            isDraggingOver={snapshot.isDraggingOver}
+            selectedCount={selectedCount}
+          />
+        );
+      } else {
+        return (
+          <GroupDropItem
+            key={code}
+            isGhosting={isGhosting}
+            isSelected={isSelected}
+            indent={level + 1}
+            draggingId={draggingId}
+            item={compDatas[code]}
+            code={code}
+            compDatas={compDatas}
+            compCodes={compCodes}
+            selectedCompCodes={selectedCompCodes}
+          >
+            {renderItem(level + 1, snapshot, item.children)}
+          </GroupDropItem>
+        );
       }
-      return codes.map((item) => {
-        const code = item.code;
-        const isSelected = selectedCompCodes.includes(code);
-        const isGhosting = isSelected && Boolean(draggingId) && draggingId !== code;
-
-        if (!item.children) {
-          return (
-            <ListItem
-              key={code}
-              small={small}
-              index={compCodes.indexOf(code)}
-              item={compDatas[code]}
-              isGhosting={isGhosting}
-              isSelected={isSelected}
-              isDraggingOver={snapshot.isDraggingOver}
-              selectedCount={selectedCount}
-            />
-          );
-        } else {
-          return (
-            <GroupDropItem
-              key={code}
-              isGhosting={isGhosting}
-              isSelected={isSelected}
-              indent={level + 1}
-              draggingId={draggingId}
-              item={compDatas[code]}
-              code={code}
-              compDatas={compDatas}
-              compCodes={compCodes}
-              selectedCompCodes={selectedCompCodes}
-            >
-              {renderItem(level + 1, snapshot, item.children)}
-            </GroupDropItem>
-          );
-        }
-      });
-    },
-    [compCodes, selectedCompCodes, draggingId, small, compDatas] //eslint-disable-line
-  );
+    });
+  };
 
   useEffect(() => {
     handleAutoScorll();

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import CompPropsAttr from '@page/editor/rightPanel/CompPropsAttr';
+import CompPropsAttr from '@page/editor/RightPanel/CompPropsAttr';
 import { sleep } from 'utils';
 import { asyncLoadCompConfig } from 'helpers/asyncLoad';
 import notice from '@utils/notice';
@@ -127,7 +127,7 @@ const CompProps: React.FC<JuggleDV.PropsCompProps> = (props) => {
                   {refresh ? <Loader /> : <CompPropsAttr {...props} />}
                 </>
               ) : null}
-              {!refresh ? render() : null}
+              {!refresh ? render : null}
             </>
           );
 

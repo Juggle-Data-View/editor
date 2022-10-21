@@ -1,9 +1,9 @@
 import components from './components';
-import global from '@utils/global';
 import { JuggleDV } from '@juggle-data-view/types';
 import { omit } from 'lodash';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import AppConfig from './default.conf';
+import { localStorageKey } from '@helpers/fetchAppConfig';
 
 export const defaultRect: JuggleDV.Rect = {
   left: 0,
@@ -17,7 +17,7 @@ class DB extends Database {
     const db = await this.dbIns;
     const { canvas: initCanvas } = config;
     const appInfo = omit(config, 'canvas');
-
+    localStorage.setItem(localStorageKey.CURRENT_APP_ID, appInfo.id + '');
     const canvas = {
       ...omit(initCanvas, 'compInsts'),
       appId: appInfo.id,
@@ -29,42 +29,20 @@ class DB extends Database {
     await components.addComponents(normalizeComps, Number(appInfo.id));
   };
 
-  needInitDB = async (config: JuggleDV.AppConfig) => {
+  needInitDB = async (id: string | number) => {
+    const appId = isNaN(Number(id)) ? (id as unknown as string) : Number(id);
+
     const appInfos = await this.getConfig<Omit<JuggleDV.AppConfig, 'canvas'>[]>(
       APPINFO_STORE,
       'appId',
-      Number(config.id),
+      appId,
       'getAll'
     );
 
-    return (
-      !appInfos.length ||
-      !appInfos.every(
-        ({ modifyTime, modifyUser }) => config.modifyTime === modifyTime && modifyUser === config.modifyUser
-      )
-    );
+    return !appInfos.length;
   };
 
-  getConfig = async <T = any>(
-    storeName: string,
-    indexName: string,
-    primaryKey?: number,
-    operation: 'getAll' | 'get' = 'get'
-  ): Promise<T> => {
-    const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
-    const existedKeys = await index.getAllKeys();
-    if (existedKeys.length > 0 || operation === 'get') {
-      const isExist = existedKeys.includes(primaryKey as any);
-      const searchKey = Array.isArray(existedKeys[0]) ? existedKeys[0][0] : existedKeys[0];
-      const keyrange = IDBKeyRange.only(isExist ? primaryKey : searchKey);
-      const result = await index[operation](keyrange);
-      return result;
-    } else {
-      return (await index.getAll()) as any;
-    }
-  };
-
-  getConfigByAPPID = async (appId: number): Promise<JuggleDV.AppConfig | undefined> => {
+  getConfigByAPPID = async (appId: number | string): Promise<JuggleDV.AppConfig | undefined> => {
     try {
       const app = await this.getConfig<JuggleDV.AppConfig>(APPINFO_STORE, 'appId', appId, 'get');
       const canvas = await this.getConfig<JuggleDV.AppConfig['canvas']>(CANVAS_STORE, 'appId', appId, 'get');
@@ -72,8 +50,6 @@ class DB extends Database {
       const compInsts = (await this.getConfig<JuggleDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
         (prev, next) => -1 * (next.createTime - prev.createTime)
       );
-      global.appId = app.id;
-      global.canvasId = canvas.id;
       return {
         ...app,
         canvas: {
@@ -89,8 +65,6 @@ class DB extends Database {
   getDefaultConfig = async (): Promise<JuggleDV.AppConfig | undefined> => {
     const app = omit(AppConfig, 'canvas');
     const { canvas } = AppConfig;
-    global.appId = app.id;
-    global.canvasId = canvas.id;
     await this.initDB(AppConfig);
     return {
       ...app,

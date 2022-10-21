@@ -3,7 +3,7 @@ import { CompInstEditReqData } from '@utils/request';
 import Database, { COMP_STORE } from './databaseInit';
 
 class Components extends Database {
-  updateComponets = async (payload: CompInstEditReqData[], appId: number) => {
+  updateComponets = async (payload: CompInstEditReqData[], appId: number | string) => {
     // console.log('update');
     try {
       const db = await this.dbIns;
@@ -25,7 +25,7 @@ class Components extends Database {
     }
   };
 
-  sortComponents = async (payload: string[], appId: number) => {
+  sortComponents = async (payload: string[], appId: number | string) => {
     try {
       const db = await this.dbIns;
       const createTime = Date.now();
@@ -48,7 +48,7 @@ class Components extends Database {
     }
   };
 
-  deleteComponet = async (codes: string[], appId: number) => {
+  deleteComponet = async (codes: string[], appId: number | string) => {
     try {
       const db = await this.dbIns;
       for await (const code of codes) {
@@ -63,9 +63,10 @@ class Components extends Database {
     } catch (error) {}
   };
 
-  addComponents = async (payload: JuggleDV.Comp[], appId: number) => {
+  addComponents = async (payload: JuggleDV.Comp[], appId: number | string) => {
     try {
       const db = await this.dbIns;
+      // set component order flag
       const createTime = Date.now();
       return Promise.all(
         payload.map(async (item, index) => {

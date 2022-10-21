@@ -36,11 +36,24 @@ export default class Database {
         });
 
         compStore.createIndex('appId', 'id');
-        canvasStore.createIndex('appId', 'appId');
+        canvasStore.createIndex('appId', 'appId', {
+          multiEntry: true,
+        });
         appInfoStore.createIndex('appId', 'id');
       },
     });
     this.dbIns = db;
     return this;
   }
+
+  getConfig = async <T = any>(
+    storeName: string,
+    indexName: string,
+    primaryKey: number | string,
+    operation: 'getAll' | 'get' = 'get'
+  ): Promise<T> => {
+    const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
+    const keyrange = IDBKeyRange.only(primaryKey);
+    return index[operation](keyrange);
+  };
 }

@@ -37,6 +37,7 @@ const ErrorMessage = styled.div`
 interface IProps {
   compData: JuggleDV.Comp;
   isInEditor?: boolean;
+  children?: React.ReactNode;
 }
 
 export type HandleCatch = (error: Error, info: ErrorInfo) => void;
@@ -45,6 +46,7 @@ export class CommonErrorBoundy extends React.Component<{
   handleCatch: HandleCatch;
   LowerComponent?: () => JSX.Element;
   message?: string;
+  children?: React.ReactNode;
 }> {
   state = {
     hasError: false,

@@ -11,6 +11,7 @@
     "@babel/core": "^7.16.0",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
+    "@juggle-data-view/types": "1.0.5",
     "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.67",
     "@mui/material": "^5.2.1",
@@ -20,6 +21,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/parse": "^2.18.18",
     "abortcontroller-polyfill": "^1.7.1",
     "ahooks": "^2.10.9",
     "ajv": "^6.12.6",
@@ -67,6 +69,7 @@
     "nprogress": "^0.2.0",
     "numeral": "^2.0.6",
     "object-path": "^0.11.5",
+    "parse": "^3.4.4",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -121,7 +124,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd -e development -r ./scripts_coustom/.env-cmdrc.js node scripts/start.js",
+    "start": "env-cmd -e development -f .env -r ./scripts_coustom/.env-cmdrc.js node scripts/start.js",
     "test": "node scripts/test.js",
     "build": "node ./scripts_coustom/build.js",
     "lint": "node ./node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx src --color --max-warnings=0",
@@ -143,7 +146,6 @@
     ]
   },
   "devDependencies": {
-    "@juggle-data-view/types": "^1.0.4",
     "@types/classnames": "^2.2.11",
     "@types/d3": "^6.0.0",
     "@types/deep-diff": "^1.0.0",
@@ -155,10 +157,10 @@
     "@types/nprogress": "^0.2.0",
     "@types/numeral": "^0.0.26",
     "@types/object-path": "^0.11.0",
-    "@types/react": "17.0.43",
+    "@types/react": "18.0.21",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-color": "^3.0.4",
-    "@types/react-dom": "^18.0.0",
+    "@types/react-dom": "18.0.6",
     "@types/react-redux": "^7.1.11",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-slick": "^0.23.5",

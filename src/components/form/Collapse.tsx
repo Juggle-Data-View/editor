@@ -92,7 +92,7 @@ export interface ICollapse {
   collapseProps?: CollapseProps;
 }
 
-export const Collapse: React.FC<ICollapse> = (props) => {
+export const Collapse: React.FC<React.PropsWithChildren<ICollapse>> = (props) => {
   const { help, label, extra, collapseProps } = props;
   const [isOpen, setIsOpen] = useState(props.isOpen || false);
 

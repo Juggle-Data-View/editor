@@ -19,7 +19,7 @@
  *  当二次封装的表单控件被应用于大型表单中时，会出现多次无效 rerender，为了避免性能消耗，才使用 FastField。
  */
 
-import React, { ComponentType, FC } from 'react';
+import React, { ComponentClass, FC, FunctionComponent, PropsWithChildren } from 'react';
 import { FastField, Field, FieldProps, FieldConfig } from 'formik';
 
 export type InjectProps = Pick<FieldConfig, 'name' | 'validate'> & {
@@ -39,7 +39,7 @@ type OtherFieldProps<P = any> = ((props: P) => Other) | Other;
 
 const has = (v: any) => typeof v !== 'undefined';
 
-export function withField<P>(
+export function withField<P, S = any>(
   /**
    * 关于 Omit<FieldProps, 'meta'>
    * Field/FastField 组件向下传递的props中均没有meta,所以这里忽略掉
@@ -49,9 +49,11 @@ export function withField<P>(
    * const meta = form.getFieldMeta(field.name);
    * ```
    */
-  Comp: ComponentType<P & Omit<FieldProps, 'meta'>>,
-  otherProps?: OtherFieldProps<InjectProps & P>
-): FC<InjectProps & P> {
+  Comp:
+    | ComponentClass<PropsWithChildren<P & Omit<FieldProps, 'meta'>>, S>
+    | FunctionComponent<PropsWithChildren<P & Omit<FieldProps, 'meta'>>>,
+  otherProps?: OtherFieldProps<React.PropsWithChildren<InjectProps & P>>
+): FC<React.PropsWithChildren<InjectProps & P>> {
   return (props) => {
     const other = typeof otherProps === 'function' ? otherProps(props) : otherProps;
     const { useFastField = true, ...rest } = props;

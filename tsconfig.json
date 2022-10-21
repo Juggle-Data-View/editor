@@ -23,7 +23,7 @@
       "@configurableComponents/*": ["configurableComponents/*"],
       "@store/*": ["store/*"],
       "@service/*": ["service/*"],
-      "@helper/*": ["helper/*"],
+      "@helpers/*": ["helpers/*"],
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"]
     }

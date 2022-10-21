@@ -40,6 +40,8 @@ export const selectRightPannelType = (state: RootState) => state.editor.rightPan
 
 export const selectLang = (state: RootState) => state.editor.lang;
 
+export const selectUserRole = (state: RootState) => state.editor.user;
+
 /** data */
 
 export const selectOriginDatas = (state: RootState) => state.data.originDatas;

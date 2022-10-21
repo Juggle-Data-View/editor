@@ -7,6 +7,7 @@ interface IState {
 
 interface IProps {
   errorMessage?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default class ErrorBoundary extends React.Component<IProps, IState> {
@@ -28,7 +29,11 @@ export default class ErrorBoundary extends React.Component<IProps, IState> {
     const { errorMessage } = this.props;
     if (this.state.hasError) {
       // 你可以自定义降级后的 UI 并渲染
-      return <div>{errorMessage ? errorMessage : '组件发生错误'} </div>;
+      return (
+        <div>
+          <> {errorMessage ? errorMessage : '组件发生错误'} </>
+        </div>
+      );
     }
 
     return <>{this.props.children}</>;

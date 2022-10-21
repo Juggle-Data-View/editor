@@ -20,6 +20,7 @@ const initialState: JuggleDV.Editor = {
   isSelecto: false,
   rightPannelType: 'hidden',
   lang: 'en',
+  user: 'Guest',
 };
 
 const systemSlice = createSlice({
@@ -36,6 +37,12 @@ const systemSlice = createSlice({
     togglePanel(state, action: PayloadAction<keyof JuggleDV.Editor['panel']>) {
       const name = action.payload; // 面板名称
       state.panel[name] = !state.panel[name];
+    },
+    controlPanel(state, action: PayloadAction<Partial<JuggleDV.Editor['panel']>>) {
+      state.panel = {
+        ...state.panel,
+        ...action.payload,
+      };
     },
     compHover(state, action: PayloadAction<number[]>) {
       state.hoverIndex = action.payload;
@@ -54,6 +61,9 @@ const systemSlice = createSlice({
     },
     setRightPannelType(state, action: PayloadAction<JuggleDV.Editor['rightPannelType']>) {
       state.rightPannelType = action.payload;
+    },
+    setUserRole(state, action: PayloadAction<JuggleDV.Editor['user']>) {
+      state.user = action.payload;
     },
   },
 });

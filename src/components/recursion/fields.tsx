@@ -21,12 +21,18 @@ const Fragment = (node: INodeCompProps) => {
   return <>{node.children}</>;
 };
 
-const CustomComponent = withNode<{
-  render: React.ReactNode | ((props: INodeCompProps) => React.ReactNode);
-}>((node) => {
+const Node: React.FC<
+  React.PropsWithChildren<
+    INodeCompProps & {
+      render: React.ReactNode | ((props: INodeCompProps) => React.ReactNode);
+    }
+  >
+> = (node) => {
   const { render, ...nodeCompProps } = node;
-  return typeof node.render === 'function' ? node.render(nodeCompProps) : node.render;
-});
+  return <>{typeof node.render === 'function' ? node.render(nodeCompProps) : node.render}</>;
+};
+
+const CustomComponent = withNode(Node);
 
 export const nodeMapping = {
   text: withNode(Control.InputText),

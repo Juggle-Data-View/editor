@@ -1,11 +1,10 @@
 import { saveAs } from 'file-saver';
 import { ButtonGroup, Tooltip, Button } from '@mui/material';
-import { getJuggleDV } from 'utils';
+import { getJuggleDV, localStorageKey } from 'utils';
 import { JuggleDV } from '@juggle-data-view/types';
 import notice from '@utils/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';
-import QS from 'query-string';
 import { ErrorObject } from 'ajv';
 import dayjs from 'dayjs';
 import { getAllSelectedComps } from '@utils/getAllChildren';
@@ -15,11 +14,14 @@ import { transContent } from 'helpers/importHelper';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import BackupIcon from '@mui/icons-material/Backup';
 import { Settings } from '@mui/icons-material';
 import { editorAction } from '@store/features/editorSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRightPannelType } from '@store/selectors';
+import { selectRightPannelType, selectUserRole } from '@store/selectors';
 import useLang from '@components/base/useLang';
+import { createNewApps, queryAppByID, updateApp } from '@service/apps';
+import { useHistory } from 'react-router-dom';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -143,20 +145,42 @@ const importComps = (file: File) => {
   reader.readAsText(file);
 };
 
-const handlePreview = () => {
-  const { app } = getJuggleDV();
-  const openURL = QS.stringifyUrl({ url: './view', query: { id: app.id } });
-  window.open(openURL, openURL);
-};
-
 const HeadRight: React.FC = () => {
+  const userRole = useSelector(selectUserRole);
   const rightPannelType = useSelector(selectRightPannelType);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const handlePreview = () => {
+    history.push('/view');
+  };
+
   const handleSetting = () => {
     if (rightPannelType === 'global') {
       dispatch(editorAction.setRightPannelType('hidden'));
     } else {
       dispatch(editorAction.setRightPannelType('global'));
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      const state = getJuggleDV();
+      if (!state.app.id) {
+        throw new Error('app id is invalid');
+      }
+      const data = await queryAppByID(state.app.id + '');
+      const isExist = !!data;
+      if (!isExist) {
+        const result = await createNewApps(store.getState().autoDV.present);
+        dispatch(
+          appAction.updateAppInfo({
+            targetId: result.id,
+          })
+        );
+        localStorage.setItem(localStorageKey.CURRENT_APP_ID, result.id);
+      } else updateApp(data, state);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -202,6 +226,13 @@ const HeadRight: React.FC = () => {
             <Settings />
           </Tooltip>
         </Button>
+        {userRole !== 'Guest' ? (
+          <Button color="primary" onClick={handleSave} variant="contained">
+            <Tooltip title={'save to remote'} placement="bottom">
+              <BackupIcon />
+            </Tooltip>
+          </Button>
+        ) : null}
       </ButtonGroup>
     </div>
   );

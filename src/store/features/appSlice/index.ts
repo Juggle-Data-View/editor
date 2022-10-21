@@ -19,8 +19,10 @@ import updateComp from './updateComp';
 import { addDatasource } from './addDatasource';
 import deleteDatasource from './deleteDatasource';
 import updateDatasource from './updateDatasource';
+import updateAppInfo from './updateAppInfo';
 
 const initialState: JuggleDV.State = {
+  version: 0,
   app: {
     createTime: 0,
     createUser: '',
@@ -73,6 +75,7 @@ export const appSlice = createSlice({
     addDatasource,
     deleteDatasource,
     updateDatasource,
+    updateAppInfo,
     setKeypress(state, action) {
       state.keyPressed = action.payload;
     },

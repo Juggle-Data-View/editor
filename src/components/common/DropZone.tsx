@@ -5,6 +5,7 @@ import { TextField } from '@mui/material';
 import { CircularProgress } from '@mui/material';
 import { FieldConfig, useField, useFormikContext } from 'formik';
 import notice from '@utils/notice';
+import { omit } from 'lodash';
 
 const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }>`
   .dropzone {
@@ -52,7 +53,7 @@ const DropZoneStyled = styled.section<{ hasUrl: boolean; isDragActive: boolean }
 type IDropZone = FieldConfig;
 
 const DropZone: React.FC<IDropZone> = (props) => {
-  const [{ name, value }] = useField(props);
+  const [{ name, value }] = useField(omit(props, 'children'));
   const form = useFormikContext();
   const [url, setUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
