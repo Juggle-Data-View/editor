@@ -20,7 +20,7 @@ jobs:
           cache: npm
           cache-dependency-path: package.json
       - run: npm install pnpm -g
-      - env:
+        env:
           REACT_APP_PARSE_ID: ${{ secrets.PARSEID }}
           REACT_APP_PARSE_KEY: ${{ secrets.PARSEKEY }}
           REACT_APP_PARSE_SERVER_URL: ${{ secrets.SERVERURL }}
