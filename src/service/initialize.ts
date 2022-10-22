@@ -4,6 +4,7 @@ import { PARSE_ID, PARSE_KEY, PARSE_MASTER_KET, PARSE_SERVER_URL } from './const
 const main = () => {
   Parse.initialize(PARSE_ID, PARSE_KEY, PARSE_MASTER_KET);
   (Parse as any).serverURL = PARSE_SERVER_URL;
+  return Parse;
 };
 
-export default main;
+export default main();

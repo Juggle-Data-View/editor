@@ -1,6 +1,8 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import { cloneDeep, omit } from 'lodash';
-import { Object as ObjectInst, Query, User } from 'parse';
+import ParseInst from '@service/initialize';
+
+const { Object: ObjectInst, Query, User } = ParseInst;
 
 type OverrideCanvas = Omit<JuggleDV.Canvas, 'appId'>;
 type OverrideAppConfig = Omit<JuggleDV.AppConfig, 'id' | 'canvas'>;
@@ -37,7 +39,7 @@ const formatAppConfig = (state: JuggleDV.State): FormatAppConfig => {
   };
 };
 
-export const createNewApps = (params: JuggleDV.State): Promise<ObjectInst<Parse.Attributes>> => {
+export const createNewApps = (params: JuggleDV.State): Promise<Parse.Object<Parse.Attributes>> => {
   const Applications = ObjectInst.extend('Applications');
   const user = User.current();
   const applications = new Applications();
@@ -61,7 +63,7 @@ export const queryAppByIDWithoutUser = async (id: string) => {
   return query.equalTo('objectId', id).first();
 };
 
-export const updateApp = (obj: ObjectInst<Parse.Attributes>, data: JuggleDV.State) => {
+export const updateApp = (obj: Parse.Object<Parse.Attributes>, data: JuggleDV.State) => {
   const user = User.current();
   obj.set(formatAppConfig(data));
   obj.set('user', user);

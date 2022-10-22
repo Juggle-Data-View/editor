@@ -4,10 +4,8 @@ import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { injectCDNScript } from '@components/common/JuggleDVIcon';
 import PageLoading from '@components/common/PageLoading';
 import Providers from '@components/base/Providers';
-import initial from '@service/initialize';
 import '@assets/style/index.scss';
 
-initial();
 injectCDNScript();
 
 //Disable MUI error .'Cause MUI debug source map was losed
