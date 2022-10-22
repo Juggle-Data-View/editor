@@ -7,6 +7,7 @@ import Providers from '@components/base/Providers';
 import initial from '@service/initialize';
 import '@assets/style/index.scss';
 
+initial();
 injectCDNScript();
 
 //Disable MUI error .'Cause MUI debug source map was losed
@@ -24,9 +25,6 @@ console.error =
     : oldError;
 
 const Index = () => {
-  useEffect(() => {
-    initial();
-  }, []);
   return (
     <Providers>
       <BrowserRouter>
