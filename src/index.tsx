@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { injectCDNScript } from '@components/common/JuggleDVIcon';
