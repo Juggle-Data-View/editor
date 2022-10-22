@@ -33,7 +33,6 @@ const LeftPanel: React.FC = () => {
   const userRole = useSelector(selectUserRole);
   const history = useHistory();
   const isLogin = !!User.current();
-  const isNoUser = activeKey === 'user' && !isLogin;
   const [isShowPopper, setShowPopper] = useState(!isLogin && page !== 'user');
   const popperRef = useRef<HTMLDivElement>(null);
   const handleChange = (event: React.SyntheticEvent, val: string) => {
@@ -104,9 +103,9 @@ const LeftPanel: React.FC = () => {
       <TabContext value={activeKey}>
         <div className="dashbroadController">
           <TabList orientation="vertical" onChange={handleChange}>
-            <Tab disabled={isNoUser} label={lang.createComp} value="create" icon={<AddCircle />} />
-            <Tab disabled={isNoUser} label={lang.layerList} value="layer" icon={<LayersIcon />} />
-            <Tab disabled={isNoUser} label={lang.datasourcesList} value="datasource" icon={<StorageIcon />} />
+            <Tab label={lang.createComp} value="create" icon={<AddCircle />} />
+            <Tab label={lang.layerList} value="layer" icon={<LayersIcon />} />
+            <Tab label={lang.datasourcesList} value="datasource" icon={<StorageIcon />} />
             {userRole !== 'Guest' ? (
               <Tab
                 label={lang.user}

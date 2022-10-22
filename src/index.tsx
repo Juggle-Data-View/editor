@@ -32,8 +32,8 @@ const Index = () => {
             <Route path="/view" component={lazy(() => import('@page/view'))} />
             <Route path="/authoriz" component={lazy(() => import('@page/Authoriz'))} />
             <Route path="/loading" component={lazy(() => import('@components/common/PageLoading'))} />
+            <Redirect to="/editor/canvas" />
             <Route component={lazy(() => import('@page/404'))} />
-            <Redirect to="/editor/user/auth" />
           </Switch>
         </Suspense>
       </BrowserRouter>
