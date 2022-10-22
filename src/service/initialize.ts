@@ -6,4 +6,4 @@ const main = () => {
   (Parse as any).serverURL = PARSE_SERVER_URL;
 };
 
-export default main();
+export default main;

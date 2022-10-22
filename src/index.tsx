@@ -1,10 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { injectCDNScript } from '@components/common/JuggleDVIcon';
 import PageLoading from '@components/common/PageLoading';
 import Providers from '@components/base/Providers';
-import '@service/initialize';
+import initial from '@service/initialize';
 import '@assets/style/index.scss';
 
 injectCDNScript();
@@ -24,6 +24,9 @@ console.error =
     : oldError;
 
 const Index = () => {
+  useEffect(() => {
+    initial();
+  }, []);
   return (
     <Providers>
       <BrowserRouter>
