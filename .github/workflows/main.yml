@@ -21,12 +21,12 @@ jobs:
           cache-dependency-path: package.json
       - run: npm install pnpm -g
       - run: pnpm i
+      - run: pnpm autoDeploy:release
         env:
           REACT_APP_PARSE_ID: ${{ secrets.PARSEID }}
           REACT_APP_PARSE_KEY: ${{ secrets.PARSEKEY }}
           REACT_APP_PARSE_SERVER_URL: ${{ secrets.SERVERURL }}
           REACT_APP_PARSE_MASTER_KET: ${{ secrets.MASTERKEY }}
-      - run: pnpm autoDeploy:release
       - name: Deploy to Server # 第二步，rsync推文件
         uses: AEnterprise/rsync-deploy@v1.0 # 使用别人包装好的步骤镜像
         env:
