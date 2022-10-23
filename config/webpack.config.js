@@ -693,14 +693,6 @@ module.exports = function (webpackEnv) {
             },
           },
         }),
-      new webpack.DefinePlugin({
-        'process.env': {
-          REACT_APP_PARSE_ID: JSON.stringify(process.env.REACT_APP_PARSE_ID),
-          REACT_APP_PARSE_KEY: JSON.stringify(process.env.REACT_APP_PARSE_KEY),
-          REACT_APP_PARSE_SERVER_URL: JSON.stringify(process.env.REACT_APP_PARSE_SERVER_URL),
-          REACT_APP_PARSE_MASTER_KET: JSON.stringify(process.env.REACT_APP_PARSE_MASTER_KET),
-        },
-      }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter

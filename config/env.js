@@ -88,10 +88,18 @@ function getClientEnvironment(publicUrl) {
     );
   // Stringify all values so we can feed into webpack DefinePlugin
   const stringified = {
-    'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]);
-      return env;
-    }, {}),
+    'process.env': Object.keys(raw).reduce(
+      (env, key) => {
+        env[key] = JSON.stringify(raw[key]);
+        return env;
+      },
+      {
+        REACT_APP_PARSE_ID: JSON.stringify(process.env.REACT_APP_PARSE_ID),
+        REACT_APP_PARSE_KEY: JSON.stringify(process.env.REACT_APP_PARSE_KEY),
+        REACT_APP_PARSE_SERVER_URL: JSON.stringify(process.env.REACT_APP_PARSE_SERVER_URL),
+        REACT_APP_PARSE_MASTER_KET: JSON.stringify(process.env.REACT_APP_PARSE_MASTER_KET),
+      }
+    ),
   };
 
   return { raw, stringified };
