@@ -131,7 +131,7 @@
     "lint:fix": "node ./node_modules/.bin/eslint --fix ./src",
     "cc": "node ./scripts_coustom/create.js",
     "analyze": "node ./scripts_coustom/analyze.js",
-    "autoDeploy:release": "env-cmd -e production -r ./scripts_coustom/.env-cmdrc.js node scripts/build.js &&cp nginx.conf build"
+    "autoDeploy:release": "node scripts/build.js &&cp nginx.conf build"
   },
   "browserslist": {
     "production": [
