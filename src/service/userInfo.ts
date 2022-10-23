@@ -1,5 +1,4 @@
-import ParseInst from '@service/initialize';
-const { Object: ObjectInst, Query, User } = ParseInst;
+import { Object as ObjectInst, Query, User } from 'parse';
 
 export enum UserRole {
   admin = 0,
