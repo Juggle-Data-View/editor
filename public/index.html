@@ -13,6 +13,13 @@
     href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="/asset-manifest.json" />
   <title>JuggleDV</title>
+  <script
+    src="https://unpkg.com/parse@3.4.4/dist/parse.min.js"></script>
+  <script>
+    Parse.initialize('%REACT_APP_PARSE_ID%', '%REACT_APP_PARSE_KEY%', ' %REACT_APP_PARSE_MASTER_KET%')
+    Parse.enableLocalDatastore();
+    Parse.serverURL = '%REACT_APP_PARSE_SERVER_URL%';
+  </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async
     src="https://www.googletagmanager.com/gtag/js?id=G-ZNMRRPE0YD"></script>
