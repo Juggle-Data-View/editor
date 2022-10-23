@@ -8,6 +8,7 @@ specifiers:
   '@mui/icons-material': ^5.2.0
   '@mui/lab': ^5.0.0-alpha.67
   '@mui/material': ^5.2.1
+  '@parse/react': 0.0.1-alpha.18
   '@pmmmwh/react-refresh-webpack-plugin': ^0.5.3
   '@reduxjs/toolkit': ^1.6.1
   '@svgr/webpack': ^5.5.0
@@ -162,6 +163,7 @@ dependencies:
   '@mui/icons-material': 5.6.0_dean3n5nustfsmnimlbr7okcge
   '@mui/lab': 5.0.0-alpha.76_5rkeebfsgpa4vpribi5kkctvta
   '@mui/material': 5.6.0_bki5vjs22tb2f3uk3rntm4wfxi
+  '@parse/react': 0.0.1-alpha.18
   '@pmmmwh/react-refresh-webpack-plugin': 0.5.5_ohpnsd6f6gl65tfld4byfz5evi
   '@reduxjs/toolkit': 1.8.1_djbutysle3tuaf27zytfdcypsm
   '@svgr/webpack': 5.5.0
@@ -2551,6 +2553,18 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+
+  /@parse/react-base/0.0.1-alpha.18:
+    resolution: {integrity: sha512-4I4/+WfaZYahcQabi/8LKJXPoFPZpgTjPMwFdOxnIhD/30VlVbFZAjIcaYpjOSzD521TMbC9zOsZb+IeRtb8sg==}
+    dependencies:
+      tslib: 2.3.1
+    dev: false
+
+  /@parse/react/0.0.1-alpha.18:
+    resolution: {integrity: sha512-d+GigQ2TTsIyjqtBakVlwOGuAXAAR3J0QaeRsSmwuYQ6ImWOP6pPSfom7iWxeuz7zD4nv76nRrDL5VI/IIezeQ==}
+    dependencies:
+      '@parse/react-base': 0.0.1-alpha.18
+    dev: false
 
   /@pmmmwh/react-refresh-webpack-plugin/0.5.5_ohpnsd6f6gl65tfld4byfz5evi:
     resolution: {integrity: sha512-RbG7h6TuP6nFFYKJwbcToA1rjC1FyPg25NR2noAZ0vKI+la01KTSRPkuVPE+U88jXv7javx2JHglUcL1MHcshQ==}

@@ -5,12 +5,10 @@ import { injectCDNScript } from '@components/common/JuggleDVIcon';
 import PageLoading from '@components/common/PageLoading';
 import Providers from '@components/base/Providers';
 import '@assets/style/index.scss';
-import Parse from 'parse';
-import { PARSE_ID, PARSE_KEY, PARSE_MASTER_KET, PARSE_SERVER_URL } from '@service/constant';
+import { initializeParse } from '@parse/react';
+import { PARSE_ID, PARSE_KEY, PARSE_SERVER_URL } from '@service/constant';
 
-Parse.initialize(PARSE_ID, PARSE_KEY, PARSE_MASTER_KET);
-Parse.enableLocalDatastore();
-(Parse as any).serverURL = PARSE_SERVER_URL;
+initializeParse(PARSE_SERVER_URL, PARSE_ID, PARSE_KEY);
 
 injectCDNScript();
 
