@@ -133,6 +133,7 @@ const LeftPanel: React.FC = () => {
               }}
               open={isShowPopper}
               anchorEl={popperRef.current}
+              onClose={() => setShowPopper(false)}
             >
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
