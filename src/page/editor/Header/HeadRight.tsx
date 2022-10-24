@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectRightPannelType, selectUserRole } from '@store/selectors';
 import useLang from '@components/base/useLang';
 import { createNewApps, queryAppByID, updateApp } from '@service/apps';
-import { useHistory } from 'react-router-dom';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -149,9 +148,8 @@ const HeadRight: React.FC = () => {
   const userRole = useSelector(selectUserRole);
   const rightPannelType = useSelector(selectRightPannelType);
   const dispatch = useDispatch();
-  const history = useHistory();
   const handlePreview = () => {
-    history.push('/view');
+    window.open('/view');
   };
 
   const handleSetting = () => {

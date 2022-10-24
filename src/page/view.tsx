@@ -4,7 +4,7 @@ import Canvas from '@page/canvas/Canvas';
 import PageLoading from '@components/common/PageLoading';
 import { JuggleDV } from '@juggle-data-view/types';
 import { appAction } from '@store/features/appSlice';
-import { getConfigFromIndexedDB } from 'utils';
+import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 
 /**
  * ----------------------------
@@ -16,12 +16,19 @@ const View = () => {
   const [canvas, setCanvas] = useState<JuggleDV.AppConfig['canvas']>();
   const dispatch = useDispatch();
 
+  const getAppConfig = async () => {
+    const app = await getConfigFromIndexedDB(false);
+    if (!app) {
+      return await getConfigFromServer();
+    }
+    return app;
+  };
+
   const setApp = async () => {
     try {
-      const app = await getConfigFromIndexedDB(false);
+      const app = await getAppConfig();
       if (!app) {
-        //Get empty app config
-        return;
+        throw new Error('get empty config');
       }
       dispatch(appAction.init({ app }));
       setCanvas(app.canvas);
