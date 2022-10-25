@@ -2,7 +2,7 @@
 Easy to display your Data. ([preview](https://dataview.ashesborn.cloud/));
 
 - [Deploy front end in local](#Deploy-front-end-in-local)
-- [Deyploy server side in local](#Deploy-server-side-in-local)
+- [Deploy server side in local](#Deploy-server-side-in-local)
 - [Directory struct ](#Directory-struct )
 
 ## Deploy front end in local
@@ -25,7 +25,7 @@ pnpm link --global @juggle-data-view/types
 pnpm i
 ```
 
-## Deyploy server side in local
+## Deploy server side in local
 Start [parse-server](https://github.com/parse-community/parse-server) server in docker.(ref:https://github.com/parse-community/parse-server#using-docker);
 
 Create `.env` file in editor folder
