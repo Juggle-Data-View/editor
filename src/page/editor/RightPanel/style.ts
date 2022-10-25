@@ -95,6 +95,19 @@ export const HistoryPanelStyled = styled.section<{ visible: boolean }>`
   }
 `;
 
+export const HistoryItem = styled.div<{ select?: boolean; isPast?: boolean }>`
+
+    padding: 6px 16px;
+    width: 100%;
+    height：18px;
+    cursor:pointer;
+    color: ${({ isPast, theme }) => {
+      return isPast ? theme.palette.secondary.dark : theme.palette.grey['600'];
+    }}};
+    background-color: ${({ theme, select }) => (select ? theme.palette.primary.main : '')};
+  
+`;
+
 export const DataConfigStyled = styled.div`
   max-width: 350px;
   .bottomContainer {

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { HistoryPanelStyled } from './style';
+import { HistoryItem, HistoryPanelStyled } from './style';
 import { ActionCreators } from 'assets/lib/redux-undo';
 import { selectUndo, selectEditorPanel } from '@store/selectors';
-import { Divider, MenuItem, IconButton } from '@mui/material';
+import { Divider, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { editorAction } from '@store/features/editorSlice';
 import { JuggleDV } from '@juggle-data-view/types';
@@ -27,7 +27,8 @@ const HistoryList: React.FC = () => {
         <div style={{ background: 'transparent' }}>
           {past.map((step: JuggleDV.State, index: number) => {
             return (
-              <MenuItem
+              <HistoryItem
+                isPast
                 className="undo-past"
                 onClick={() => {
                   dispatch(ActionCreators.jumpToPast(index));
@@ -36,17 +37,17 @@ const HistoryList: React.FC = () => {
                 color="secondary"
               >
                 {step.actionAlias || DEFAULT_ACTION}
-              </MenuItem>
+              </HistoryItem>
             );
           })}
           {_latestUnfiltered ? (
-            <MenuItem key="undo-present" selected className="undo-present" style={{ color: '#fff' }}>
+            <HistoryItem select key="undo-present" className="present-item" style={{ color: '#fff' }}>
               {_latestUnfiltered.actionAlias || DEFAULT_ACTION}
-            </MenuItem>
+            </HistoryItem>
           ) : null}
           {future.map((step: JuggleDV.State, index: number) => {
             return (
-              <MenuItem
+              <HistoryItem
                 className="undo-future"
                 key={index}
                 onClick={() => {
@@ -54,7 +55,7 @@ const HistoryList: React.FC = () => {
                 }}
               >
                 {step.actionAlias}
-              </MenuItem>
+              </HistoryItem>
             );
           })}
         </div>

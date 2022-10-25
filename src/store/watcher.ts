@@ -154,7 +154,6 @@ const setupWatch = () => {
               });
             });
           });
-          console.log(store.getState());
           // 发起请求
           await updateComponets(payload as CompInstEditReqData[], appId);
         }

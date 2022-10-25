@@ -4,7 +4,7 @@ import { Button, Card, CardActions, CardContent, Popover, Tab, Typography } from
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ComponentsLayers from './ComponentsLayers';
 import { LeftPannelContainer } from './style';
 import SkipPreviousOutlinedIcon from '@mui/icons-material/SkipPreviousOutlined';
@@ -33,7 +33,7 @@ const LeftPanel: React.FC = () => {
   const history = useHistory();
   const isLogin = !!User.current();
   const [isShowPopper, setShowPopper] = useState(!isLogin && page !== 'user');
-  const popperRef = useRef<HTMLDivElement>(null);
+
   const handleChange = (event: React.SyntheticEvent, val: string) => {
     setActiveKey(val);
     if (val !== 'user') {
@@ -131,16 +131,17 @@ const LeftPanel: React.FC = () => {
             >
               <GitHubIcon />
             </div>
-            <div title="log out" className="operations" onClick={handleLogOut} ref={popperRef}>
+            <div title="log out" className="operations" onClick={handleLogOut}>
               {isLogin ? <LogoutIcon /> : <AccountBoxIcon />}
             </div>
+
             <Popover
-              anchorOrigin={{
-                horizontal: 'right',
-                vertical: 'bottom',
+              anchorPosition={{
+                left: document.body.clientWidth - 200,
+                top: document.body.clientWidth - 100,
               }}
+              anchorReference="anchorPosition"
               open={isShowPopper}
-              anchorEl={popperRef.current}
               onClose={() => setShowPopper(false)}
             >
               <Card sx={{ minWidth: 275 }}>
