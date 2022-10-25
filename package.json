@@ -124,7 +124,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd -e development -f .env node scripts/start.js",
+    "start": "node scripts/start.js",
     "test": "node scripts/test.js",
     "lint": "node ./node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx src --color --max-warnings=0",
     "lint:fix": "node ./node_modules/.bin/eslint --fix ./src",

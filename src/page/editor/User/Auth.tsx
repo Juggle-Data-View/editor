@@ -131,7 +131,7 @@ export const Auth: React.FunctionComponent = () => {
                         history.push('/editor/canvas');
                         dispatch(
                           editorAction.controlPanel({
-                            compList: false,
+                            compList: true,
                           })
                         );
                       }}
