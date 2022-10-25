@@ -126,7 +126,18 @@ export const Auth: React.FunctionComponent = () => {
                     <Button onClick={() => handleCancel(resetForm)()} disabled={isSubmitting}>
                       {isSignUp ? 'cancel' : 'Sign Up'}
                     </Button>
-                    <Button onClick={() => history.push('/editor/canvas')}>as guest</Button>
+                    <Button
+                      onClick={() => {
+                        history.push('/editor/canvas');
+                        dispatch(
+                          editorAction.controlPanel({
+                            compList: false,
+                          })
+                        );
+                      }}
+                    >
+                      as guest
+                    </Button>
                   </ButtonGroup>
                 </>
               );

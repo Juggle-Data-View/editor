@@ -21,6 +21,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { User } from 'parse';
 import { logout } from '@service/userInfo';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const LeftPanel: React.FC = () => {
   const lang = useLang();
@@ -122,6 +123,13 @@ const LeftPanel: React.FC = () => {
               onClick={() => activeKey === 'user' && dispatch(editorAction.togglePanel('compList'))}
             >
               <SkipPreviousOutlinedIcon />
+            </div>
+            <div
+              title="pick up"
+              className="operations"
+              onClick={() => window.open('https://github.com/Juggle-Data-View/editor')}
+            >
+              <GitHubIcon />
             </div>
             <div title="log out" className="operations" onClick={handleLogOut} ref={popperRef}>
               {isLogin ? <LogoutIcon /> : <AccountBoxIcon />}
