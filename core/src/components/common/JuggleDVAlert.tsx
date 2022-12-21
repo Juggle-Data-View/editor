@@ -120,4 +120,37 @@ const alert: AlertCallback = (content, options) => {
   container.render(<CustomAlert {...alertProps}>{content || ''}</CustomAlert>);
 };
 
-export default alert;
+const topAlert = (message: React.ReactNode, props?: CustomAlertProps) => {
+  return alert(message, {
+    ...props,
+    anchorOrigin: {
+      vertical: 'top',
+      horizontal: 'center',
+    },
+  });
+};
+
+const notice = {
+  alert: topAlert,
+  error(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
+      intent: 'error',
+      ...props,
+    });
+  },
+  warn(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
+      intent: 'warning',
+      ...props,
+    });
+  },
+  success(message: React.ReactNode, props?: CustomAlertProps) {
+    topAlert(message, {
+      intent: 'success',
+
+      ...props,
+    });
+  },
+};
+
+export default notice;
