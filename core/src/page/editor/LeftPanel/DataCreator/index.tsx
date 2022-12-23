@@ -8,7 +8,7 @@ import { selectDatasources } from '@store/selectors';
 import { Generator } from '@components/recursion';
 import commonFormConfig from './commonFormConfig';
 import { CommonErrorBoundy, HandleCatch } from '@components/base/CompErrorBoundary';
-import ThemeConfig from '@configurableComponents/theme';
+import ThemeConfig from '../../common/theme';
 import getFormatBody from './getFormatBody';
 import { nanocode } from 'utils';
 import { DataSourceType, HttpMethod } from '@configurableComponents/const';

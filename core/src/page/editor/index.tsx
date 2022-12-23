@@ -12,7 +12,7 @@ import notice from '@utils/notice';
 import { transContent } from 'helpers/importHelper';
 import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 import { useEffect } from 'react';
-import ThemeConfig from '@configurableComponents/theme';
+import ThemeConfig from '../../common/theme';
 import { Route, Switch, useParams } from 'react-router-dom';
 import User from './User';
 import store from '@store/index';

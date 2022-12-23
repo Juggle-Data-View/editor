@@ -1,5 +1,5 @@
 import 'styled-components';
-import { theme } from '@configurableComponents/theme';
+import { theme } from '../../common/theme';
 
 type DefaultThemeOverrider = typeof theme;
 
