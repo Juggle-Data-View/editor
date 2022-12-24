@@ -92,30 +92,6 @@ export const num2ThousandOrDecimal = (num: number, isThousand = true, isDecimal 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * 将渐变色组件的值转换为 background
- * @param gradient 渐变色组件向外输出的值
- */
-export const getGradientCSS = (color: string | JuggleDV.ColorResult): string => {
-  if (typeof color === 'string') {
-    return color;
-  }
-  const { type, colorStops, angle } = color;
-  if (!colorStops.length) {
-    return 'none';
-  }
-  const steps = colorStops.map(({ color, offset }) => `${color} ${offset * 100 + '%'}`).join(',');
-  switch (type) {
-    case 'linear':
-      return `linear-gradient(${angle}deg, ${steps})`;
-    case 'radial':
-      return `radial-gradient(circle at center,${steps})`;
-    default:
-      console.error('gradient css type error');
-      return 'none';
-  }
-};
-
-/**
  * 角度转矩阵
  * @param angle 旋转角度
  *

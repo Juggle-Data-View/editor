@@ -5,7 +5,7 @@
 const generateInjectionParam = (option: Record<string, any>) => {
 	// simulate cjs basic env
 
-	const optionKeys = ["module", "export"].concat(Object.keys(option));
+	const optionKeys = ["module", "exports"].concat(Object.keys(option));
 	return [optionKeys, optionKeys.map((key) => option[key])];
 };
 
@@ -19,7 +19,7 @@ const dynamicImport = async (url: string, option: Record<string, any>) => {
 		//simulate cjs require env
 		const sandbox = {
 			module: {
-				export: null,
+				exports: null,
 			},
 		};
 		const [params, paramValue] = generateInjectionParam(option);
@@ -35,7 +35,7 @@ const dynamicImport = async (url: string, option: Record<string, any>) => {
 			throw new Error("module was empty");
 		}
 		const module = new Function(...params, funcBody);
-		return module(sandbox.module, sandbox.module.export, ...paramValue);
+		return module(sandbox.module, sandbox.module.exports, ...paramValue);
 	} catch (error) {
 		error instanceof Error && console.error("module not found", error.message);
 		return null;
