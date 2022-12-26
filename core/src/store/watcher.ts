@@ -3,7 +3,7 @@ import store from './index';
 import watch from 'redux-watch';
 import objectPath from 'object-path';
 import { debounce } from 'lodash';
-import notice from '@utils/notice';
+import notice from '@juggle-data-view/notice';
 import { Diff, DiffNew } from 'deep-diff';
 import { validComp } from 'helpers/jsonValider';
 import components from './DB/components';

@@ -1,8 +1,11 @@
 {
 	"name": "@juggle-data-view/code-editor",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "",
 	"main": "src/index.tsx",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "webpack -c webpack.config.js"

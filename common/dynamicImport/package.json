@@ -1,6 +1,9 @@
 {
 	"name": "@juggle-data-view/dynamicimport",
-	"version": "1.0.0",
+	"version": "0.0.1",
+	"publishConfig": {
+		"access": "public"
+	},
 	"description": "",
 	"main": "src/index.ts",
 	"scripts": {

@@ -3,7 +3,7 @@ import CustomPaginationActionsTable, { Data, OperationFieldMap } from '@componen
 import { useState } from 'react';
 import LinkIcon from '@mui/icons-material/Link';
 import { useFormikContext } from 'formik';
-import { AutoSubmit } from '@components/form';
+import { AutoSubmit } from '@juggle-data-view/recursion-form/src/forms';
 import { JuggleDV } from '@juggle-data-view/types';
 
 interface Props {

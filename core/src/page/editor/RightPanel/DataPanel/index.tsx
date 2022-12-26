@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Field } from '@components/form';
+import { Field } from '@juggle-data-view/recursion-form/src/forms';
 import { useMemo } from 'react';
 
 import { DataConfigStyled } from '../style';

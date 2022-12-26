@@ -1,4 +1,4 @@
-import { Control } from '@components/form';
+import { Control } from '@juggle-data-view/recursion-form/src/forms';
 import { ButtonGroup, Button } from '@mui/material';
 import { login, signUp, UserInfo, UserRole } from '@service/userInfo';
 import { editorAction } from '@store/features/editorSlice';

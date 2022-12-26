@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TextTip, { ITextTip } from "../TextTip";
+import TextTip, { ITextTip } from "../components/TextTip";
 import React from "react";
 
 const Container = styled.div.attrs<Partial<IFieldLabel>>(({ vertical }) => {

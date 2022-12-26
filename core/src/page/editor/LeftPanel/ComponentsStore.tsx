@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { ADD_COMP } from '@components/base/BaseActions';
-import { Control } from '@components/form';
+import { Control } from '@juggle-data-view/recursion-form/src/forms';
 import { DEFAULT_THUMBNAIL } from '@configurableComponents/const';
 import menu, { Category, GroupChildren, MenuItemKey } from '@configurableComponents/menu';
 import { useState } from 'react';

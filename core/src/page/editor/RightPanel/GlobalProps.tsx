@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import { FieldLabel, AutoSubmit, Field } from '@components/form/index';
+import { FieldLabel, AutoSubmit, Field } from '@juggle-data-view/recursion-form/src/forms';
 import DropZone from '@components/common/DropZone';
 import { ZOOM_TYPE } from '@configurableComponents/const';
 import FieldSize from '@components/common/FieldSize';

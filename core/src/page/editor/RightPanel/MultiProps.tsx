@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { TextField } from '@mui/material';
 import Alignment from '@components/common/Alignment';
 import { selectedRectSelector } from 'helpers/selectors';
-import { FieldLabel } from '@components/form';
+import { FieldLabel } from '@juggle-data-view/recursion-form/src/forms';
 import { appAction } from '@store/features/appSlice';
 import { selectJuggleDV } from '@store/selectors';
 import { JuggleDV } from '@juggle-data-view/types';

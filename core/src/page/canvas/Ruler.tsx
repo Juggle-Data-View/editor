@@ -8,7 +8,7 @@ import { selectEditor, selectCanvas } from '@store/selectors';
 import useResize from '@components/base/useResize';
 import { selectGuideLines } from '@store/selectors';
 import { editorAction } from '@store/features/editorSlice';
-import notice from '@utils/notice';
+import notice from '@juggle-data-view/notice';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 

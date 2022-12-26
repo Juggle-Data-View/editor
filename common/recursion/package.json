@@ -1,17 +1,23 @@
 {
 	"name": "@juggle-data-view/recursion-form",
-	"version": "1.0.0",
-	"main": "src/index.ts",
+	"version": "0.0.2",
+	"main": "src/index.tsx",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@juggle-data-view/code-editor": "*",
+		"@juggle-data-view/notice": "*",
 		"@juggle-data-view/types": "^1.0.5",
 		"@mui/icons-material": "^5.11.0",
 		"@mui/material": "^5.11.1",
 		"@types/lodash": "^4.14.191",
+		"@types/numeral": "^2.0.2",
 		"@types/styled-components": "^5.1.26",
 		"@types/tinycolor2": "^1.4.3",
 		"dayjs": "^1.11.7",
@@ -22,6 +28,7 @@
 		"react": "^18.2.0",
 		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
+		"react-dropzone": "^14.2.3",
 		"react-linear-gradient-picker": "^3.0.1",
 		"styled-components": "^5.3.6",
 		"tinycolor2": "^1.5.1",

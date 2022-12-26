@@ -8,17 +8,17 @@ import CenterPannle from '@page/canvas';
 import RightPannle from '@page/editor/RightPanel';
 import GlobalHotKeys from '@components/common/GlobalHotKeys';
 import { CANVAS_ID, COPY_KEY } from '@configurableComponents/const';
-import notice from '@utils/notice';
+import notice from '@juggle-data-view/notice';
 import { transContent } from 'helpers/importHelper';
 import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 import { useEffect } from 'react';
-import ThemeConfig from '../../common/theme';
 import { Route, Switch, useParams } from 'react-router-dom';
 import User from './User';
 import store from '@store/index';
 import { isEmpty } from 'lodash';
 import { JuggleDV } from '@juggle-data-view/types';
 import { getStaticData } from '@components/base/BaseActions';
+import ThemeConfig from '@juggle-data-view/ui-theme';
 
 const Editor = () => {
   const dispatch = useDispatch();

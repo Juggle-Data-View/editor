@@ -1,0 +1,409 @@
+
+> @juggle-data-view/editor@0.1.0 start /home/ashes/open-source/auto-dv/core
+> node scripts/start.js
+
+Starting the development server...
+
+Failed to compile.
+
+Module not found: Error: Can't resolve '@components/comps' in '/home/ashes/open-source/auto-dv/core/src/components/base'
+assets by path static/js/*.js 9.47 MiB
+  assets by chunk 3.97 MiB (id hint: vendors)
+    asset static/js/vendors-node_modules_pnpm_mui_icons-material_5_6_0_dean3n5nustfsmnimlbr7okcge_node_modules_mu-11a6d2.chunk.js 3.63 MiB [emitted] (id hint: vendors) 1 related asset
+    asset static/js/vendors-node_modules_pnpm_mui_icons-material_5_6_0_dean3n5nustfsmnimlbr7okcge_node_modules_mu-ae17a1.chunk.js 348 KiB [emitted] (id hint: vendors) 1 related asset
+  asset static/js/bundle.js 4.81 MiB [emitted] (name: main) 1 related asset
+  asset static/js/src_page_editor_index_tsx.chunk.js 585 KiB [emitted] 1 related asset
+  asset static/js/src_page_canvas_Canvas_tsx.chunk.js 110 KiB [emitted] 1 related asset
+  asset static/js/src_page_view_tsx.chunk.js 5.49 KiB [emitted] 1 related asset
+  asset static/js/src_page_Authoriz_tsx.chunk.js 3.56 KiB [emitted] 1 related asset
+  asset static/js/src_page_404_tsx.chunk.js 3.5 KiB [emitted] 1 related asset
+asset asset-manifest.json 2.06 KiB [emitted]
+asset index.html 983 bytes [emitted]
+cached modules 13.5 MiB [cached] 12569 modules
+runtime modules 31.8 KiB 16 modules
+javascript modules 111 KiB
+  modules with errors 69.7 KiB [errors]
+    modules by path ../common/recursion/src/forms/ 48.7 KiB 15 modules
+    modules by path ../common/recursion/src/*.ts 6.68 KiB 2 modules
+    + 3 modules
+  code generated modules 41.7 KiB [code generated]
+    modules by path ./src/page/ 26.8 KiB
+      ./src/page/editor/index.tsx 7.53 KiB [built] [code generated]
+      + 2 modules
+    ./src/store/watcher.ts 6.85 KiB [built] [code generated]
+    ./src/helpers/asyncLoad.ts 2.24 KiB [built] [code generated]
+    ./src/components/common/DropZone.tsx 5.82 KiB [built] [code generated]
+
+WARNING in ./src/helpers/asyncLoad.ts 16:22-78
+Module not found: Error: Can't resolve '@components/comps' in '/home/ashes/open-source/auto-dv/core/src/helpers'
+ @ ./src/components/base/CompErrorBoundary.tsx 7:0-56 22:14-33
+ @ ./src/page/canvas/Comp.tsx 7:0-67 27:30-47
+ @ ./src/page/canvas/Canvas.tsx 8:0-34 44:39-51
+ @ ./src/page/view.tsx 8:0-41 59:64-70
+ @ ./src/index.tsx 36:47-67
+
+WARNING in ./src/helpers/asyncLoad.ts 49:14-61
+Module not found: Error: Can't resolve '@components/comps' in '/home/ashes/open-source/auto-dv/core/src/helpers'
+ @ ./src/components/base/CompErrorBoundary.tsx 7:0-56 22:14-33
+ @ ./src/page/canvas/Comp.tsx 7:0-67 27:30-47
+ @ ./src/page/canvas/Canvas.tsx 8:0-34 44:39-51
+ @ ./src/page/view.tsx 8:0-41 59:64-70
+ @ ./src/index.tsx 36:47-67
+
+ERROR in ./src/components/base/BaseActions.tsx 80:31-81
+Module not found: Error: Can't resolve '@components/comps' in '/home/ashes/open-source/auto-dv/core/src/components/base'
+ @ ./src/page/editor/index.tsx 24:0-61 89:20-33
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ./src/page/canvas/Comp.tsx 25:35-80
+Module not found: Error: Can't resolve '@components/comps' in '/home/ashes/open-source/auto-dv/core/src/page/canvas'
+ @ ./src/page/canvas/Canvas.tsx 8:0-34 44:39-51
+ @ ./src/page/view.tsx 8:0-41 59:64-70
+ @ ./src/index.tsx 36:47-67
+
+ERROR in ../common/notice/src/index.tsx 9:0
+Module parse failed: The keyword 'interface' is reserved (9:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import { createRoot } from 'react-dom/client';
+| 
+> interface CustomAlertEvent {
+|   onOpening(node: HTMLElement): void;
+|   onConfirm(evt?: SyntheticEvent<HTMLElement>): void;
+ @ ./src/page/editor/index.tsx 16:0-46 61:34-46
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/core.tsx 16:34
+Module parse failed: Unexpected token (16:34)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import ErrorBoundary from "ErrorBoundary";
+| 
+> const FieldArray = TypeFieldArray as React.FC<FieldArrayConfig>;
+| 
+| /**
+ @ ../common/recursion/src/index.tsx 3:0-23 3:0-23
+ @ ./src/page/editor/RightPanel/CompProps.tsx 13:0-61 121:35-44
+ @ ./src/page/editor/RightPanel/index.tsx 9:0-36 66:113-122
+ @ ./src/page/editor/index.tsx 13:0-50 165:45-56
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Angle.tsx 18:0
+Module parse failed: The keyword 'interface' is reserved (18:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> interface IAngle {
+| 	size?: number;
+| 	withInput?: boolean;
+ @ ../common/recursion/src/forms/Control.tsx 15:0-24 15:0-24
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/AutoSubmit.tsx 7:0
+Module parse failed: The keyword 'interface' is reserved (7:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import useDebounce from "hooks/useDebounce";
+| 
+> interface IProps {
+| 	/** debounce 时间，单位：毫秒 */
+| 	debounceMs?: number;
+ @ ../common/recursion/src/forms/index.tsx 8:0-29 8:0-29
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Collapse.tsx 89:7
+Module parse failed: Unexpected token (89:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> export interface ICollapse {
+| 	label: React.ReactNode;
+| 	help?: JSX.Element | string;
+ @ ../common/recursion/src/forms/Control.tsx 16:0-27 16:0-27
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Color.tsx 16:36
+Module parse failed: Unexpected token (16:36)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+|  * @param gradient 渐变色组件向外输出的值
+|  */
+> export const getGradientCSS = (color: string | JuggleDV.ColorResult): string => {
+| 	if (typeof color === "string") {
+| 		return color;
+ @ ../common/recursion/src/forms/Control.tsx 13:0-24 13:0-24
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/DatePicker.tsx 15:0
+Module parse failed: The keyword 'interface' is reserved (15:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| const Container = styled.div``;
+| 
+> interface DataPickerProps {
+|   /** 值的类型是否使用时间戳 */
+|   timeStamp?: boolean;
+ @ ../common/recursion/src/forms/Control.tsx 18:0-29 18:0-29
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/FieldLabel.tsx 49:7
+Module parse failed: Unexpected token (49:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> export interface IFieldLabel {
+| 	label: React.ReactNode;
+| 	vertical?: boolean; // 是否上下布局，默认左右
+ @ ../common/recursion/src/forms/index.tsx 7:0-29 7:0-29
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Formatter.tsx 6:7
+Module parse failed: Unexpected token (6:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import CodeEditor, { ModeName } from "@juggle-data-view/code-editor";
+| 
+> export interface IFormatter {
+| 	codeType: ModeName;
+| 	onSubmit?: (value: string) => void;
+ @ ../common/recursion/src/forms/Control.tsx 17:0-28 17:0-28
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/InputNumber.tsx 26:0
+Module parse failed: The keyword 'interface' is reserved (26:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> interface MuiProps extends InputBaseComponentProps {
+| 	placeholder?: string;
+| }
+ @ ./src/components/common/FieldSize.tsx 11:0-86 78:37-49 159:37-49
+ @ ./src/page/editor/RightPanel/GlobalProps.tsx 11:0-53 56:43-52
+ @ ./src/page/editor/RightPanel/index.tsx 10:0-40 62:69-80
+ @ ./src/page/editor/index.tsx 13:0-50 165:45-56
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/InputText.tsx 16:7
+Module parse failed: Unexpected token (16:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> export interface IText<T> {
+|   muiProps?: T & TextareaAutosizeProps & InputBaseComponentProps;
+|   useMeta?: boolean;
+ @ ../common/recursion/src/forms/Control.tsx 7:0-28 7:0-28
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/MultiText.tsx 7:0
+Module parse failed: The keyword 'interface' is reserved (7:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import Cancel from '@mui/icons-material/CancelSharp';
+| import React, { useState } from 'react';
+> interface MultiTextProps {
+|   muiProps?: InputBaseComponentProps;
+| }
+ @ ../common/recursion/src/forms/Control.tsx 19:0-28 19:0-28
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Radio.tsx 6:7
+Module parse failed: Unexpected token (6:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import { withField } from './withField';
+| import { Radio as MuiRadio, RadioGroup, RadioGroupProps, FormControlLabel, FormControl } from '@mui/material';
+> export interface IRadio {
+|   options?: any;
+|   radioGroupProps?: Omit<RadioGroupProps, 'onChange' | 'options'>;
+ @ ../common/recursion/src/forms/Control.tsx 10:0-24 10:0-24
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Range.tsx 28:0
+Module parse failed: The keyword 'interface' is reserved (28:0)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| `;
+| 
+> interface IRange {
+|   range: [number, number];
+|   sliderProps?: Omit<Partial<SliderProps>, 'value' | 'onChange' | 'onRelease' | 'min' | 'max'>;
+ @ ../common/recursion/src/forms/Control.tsx 14:0-24 14:0-24
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Select.tsx 8:7
+Module parse failed: Unexpected token (8:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import { withField } from './withField';
+| 
+> export interface ISelect {
+|   options?: { label: string; value: any }[];
+|   children?: React.ReactNode;
+ @ ../common/recursion/src/forms/Control.tsx 11:0-25 11:0-25
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/Switch.tsx 6:7
+Module parse failed: Unexpected token (6:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| import { withField } from './withField';
+| 
+> export interface ISwitch {
+|   muiProps?: Omit<SwitchProps, 'onChange' | 'checked' | 'value'>;
+|   /** 使用 checkbox 组件 */
+ @ ../common/recursion/src/forms/Control.tsx 9:0-25 9:0-25
+ @ ../common/recursion/src/forms/index.tsx 3:0-37 3:0-37
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/forms/fieldValidator.ts 11:14
+Module parse failed: Unexpected token (11:14)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| 
+| export const validator = {
+>   required: (v: any) => (v && v.length ? undefined : '字段不能为空'),
+|   positive: (v: number) => (v < 0 ? '数字不能为负数' : undefined),
+|   isColor: (v: string) => (tinycolor(v).isValid() ? undefined : `${v}必须是个颜色值`),
+ @ ../common/recursion/src/forms/index.tsx 5:0-33 5:0-33
+ @ ./src/page/editor/LeftPanel/ComponentsStore.tsx 9:0-69 126:34-50 145:34-50
+ @ ./src/page/editor/LeftPanel/index.tsx 20:0-48 297:39-54
+ @ ./src/page/editor/index.tsx 11:0-48 135:38-48
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/types.ts 10:7
+Module parse failed: Unexpected token (10:7)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+|  * 系统内部节点组件的props
+|  */
+> export interface INodeProps {
+| 	node: INodeConfig;
+| 	parentName: string;
+ @ ../common/recursion/src/index.tsx 4:0-24 4:0-24
+ @ ./src/page/editor/RightPanel/CompProps.tsx 13:0-61 121:35-44
+ @ ./src/page/editor/RightPanel/index.tsx 9:0-36 66:113-122
+ @ ./src/page/editor/index.tsx 13:0-50 165:45-56
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/recursion/src/utils.ts 19:32
+Module parse failed: Unexpected token (19:32)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+|  *  resolveName('a.b.c', '../../');     // "a"
+|  */
+> export const resolveName = (name: string, path: string): string => {
+|   const arrPath = path.split('/');
+|   const newPath = toPath(name); // name是一串用 "." 分隔的路径
+ @ ../common/recursion/src/index.tsx 5:0-33 5:0-33
+ @ ./src/page/editor/RightPanel/CompProps.tsx 13:0-61 121:35-44
+ @ ./src/page/editor/RightPanel/index.tsx 9:0-36 66:113-122
+ @ ./src/page/editor/index.tsx 13:0-50 165:45-56
+ @ ./src/index.tsx 29:47-69
+
+ERROR in ../common/theme/src/index.tsx 19:17
+Module parse failed: Unexpected token (19:17)
+File was processed with these loaders:
+ * ./node_modules/.pnpm/@pmmmwh+react-refresh-webpack-plugin@0.5.5_ohpnsd6f6gl65tfld4byfz5evi/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+ * ./node_modules/.pnpm/source-map-loader@3.0.1_webpack@5.72.0/node_modules/source-map-loader/dist/cjs.js
+You may need an additional loader to handle the result of these loaders.
+| });
+| 
+> const ThemeConfig: React.FC<any> = ({ children }) => {
+|   return (
+|     <StyledEngineProvider injectFirst>
+ @ ./src/page/editor/index.tsx 25:0-53 132:30-41
+ @ ./src/index.tsx 29:47-69
+
+webpack 5.72.0 compiled with 22 errors and 2 warnings in 7252 ms

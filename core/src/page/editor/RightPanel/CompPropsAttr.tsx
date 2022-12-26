@@ -2,7 +2,7 @@ import Alignment from '@components/common/Alignment';
 // import AttrScale from '@components/common/AttrScale';
 import { Row, Col } from 'react-simple-flex-grid';
 import FieldSize from '@components/common/FieldSize';
-import { FieldLabel, Control, Field } from '@components/form/index';
+import { FieldLabel, Control, Field } from '@juggle-data-view/recursion-form/src/forms';
 import { JuggleDV } from '@juggle-data-view/types';
 
 const CompPropsAttr: React.FC<JuggleDV.PropsCompProps> = () => {

@@ -1,7 +1,7 @@
 /**
  * 异步加载组件or数据
  */
-import notice from '@utils/notice';
+import notice from '@juggle-data-view/notice';
 import { JuggleDV } from '@juggle-data-view/types';
 
 /**

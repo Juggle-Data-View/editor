@@ -2,7 +2,7 @@
  * 全局样式配置
  */
 
-import { OptionProps } from '@components/form/utils';
+import { OptionProps } from '@juggle-data-view/recursion-form/src/forms/utils';
 
 export const fontFamily: OptionProps[] = [{ label: '微软雅黑', value: 'Microsoft YaHei' }];
 

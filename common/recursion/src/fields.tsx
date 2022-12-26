@@ -3,7 +3,7 @@ import { INodeCompProps } from "./types";
 import { Control } from "@forms/index";
 import CustomArray from "./widget/CustomArray";
 import DynamicMultiField from "./widget/DynamicMultiField";
-import DropZone from "@components/common/DropZone";
+import DropZone from "components/DropZone";
 
 /**
  * 使用高阶函数包裹自定义组件

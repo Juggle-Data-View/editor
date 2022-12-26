@@ -3,9 +3,9 @@
  */
 
 import { JuggleDV } from '@juggle-data-view/types';
-import { getJuggleDV, nanocode } from 'utils';
-import notice from '@utils/notice';
-import { asyncLoadCompConfig } from 'helpers/asyncLoad';
+import { getJuggleDV, nanocode } from '@utils/index';
+import notice from '@juggle-data-view/notice';
+import { asyncLoadCompConfig } from '@helpers/asyncLoad';
 import { merge, cloneDeep, random } from 'lodash';
 import { defaultCompData } from '@configurableComponents/defaults';
 import store from '@store/index';

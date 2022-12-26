@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import { ButtonGroup, Tooltip, Button } from '@mui/material';
 import { getJuggleDV, localStorageKey } from 'utils';
 import { JuggleDV } from '@juggle-data-view/types';
-import notice from '@utils/notice';
+import notice from '@juggle-data-view/notice';
 import HistoryButton from './HistoryButton';
 import { validApp } from 'helpers/jsonValider';
 import { ErrorObject } from 'ajv';
