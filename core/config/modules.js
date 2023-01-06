@@ -5,6 +5,7 @@ const path = require('path');
 const paths = require('./paths');
 const chalk = require('react-dev-utils/chalk');
 const resolve = require('resolve');
+const { getWebpackAliases } = require('./getValidCompilerPaths');
 
 /**
  * Get additional module paths based on the baseUrl of a compilerOptions object.
@@ -47,42 +48,6 @@ function getAdditionalModulePaths(options = {}) {
         ' Create React App does not support other values at this time.'
     )
   );
-}
-
-/**
- *
- * @typedef {object} Options
- * @property {string} options.baseUrl
- * @property {{
- *    [key: string]: string[]
- *  }} options.paths
- * Get webpack aliases based on the baseUrl of a compilerOptions object.
- *
- * @param {Options} options
- */
-function getWebpackAliases(options = {}) {
-  const { baseUrl, paths: aliasPath } = options;
-  if (!baseUrl) {
-    return {};
-  }
-
-  const baseUrlResolved = path.resolve(paths.appPath, baseUrl);
-
-  if (path.relative(paths.appPath, baseUrlResolved) === '') {
-    return {
-      src: paths.appSrc,
-    };
-  }
-  const aliasPathKeys = Object.keys(aliasPath);
-  if (aliasPathKeys.length) {
-    return aliasPathKeys.reduce((prev, curr) => {
-      const aliasPathArr = aliasPath[curr];
-      return {
-        ...prev,
-        [curr.replace('/*', '')]: path.resolve(paths.appSrc, aliasPathArr[0].replace('/*', '')),
-      };
-    }, {});
-  }
 }
 
 /**

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TextField, InputBaseComponentProps } from "@mui/material";
 import { AnglePicker } from "react-linear-gradient-picker";
 import { withField } from "./withField";
-import useDebounce from "hooks/useDebounce";
+import useDebounce from "../hooks/useDebounce";
 
 const Container = styled.div`
 	display: flex;

@@ -7,9 +7,9 @@ import { get, has, isFunction } from "lodash";
 import { nodeMapping } from "./fields";
 import { INodeParams } from "@juggle-data-view/types/src/form";
 import { FormComps } from "@juggle-data-view/types/src/fieldComponents";
-import useDebounce from "hooks/useDebounce";
+import useDebounce from "./hooks/useDebounce";
 import { FieldLabel } from "@forms/FieldLabel";
-import ErrorBoundary from "ErrorBoundary";
+import ErrorBoundary from "./ErrorBoundary";
 
 const FieldArray = TypeFieldArray as React.FC<FieldArrayConfig>;
 

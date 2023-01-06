@@ -56,7 +56,8 @@ export const getStaticData = async (compCode: string, datasources: JuggleDV.AppC
   if (compCode in datasources) {
     return datasources[compCode].body || [];
   } else {
-    const staticDatas = (await import(`@components/comps/${compCode}/staticData`)).default;
+    // const staticDatas = (await import(`@components/comps/${compCode}/staticData`)).default;
+    const staticDatas: any[] = [];
     const result = staticDatas;
     return result || [];
   }

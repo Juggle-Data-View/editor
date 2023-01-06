@@ -12,26 +12,26 @@ import CloseIcon from "@mui/icons-material/Close";
 
 (window as any).CodeMirror = require("codemirror");
 
-require("codemirror/lib/codemirror.css");
-require("codemirror/theme/material.css");
+// require("codemirror/lib/codemirror.css");
+// require("codemirror/theme/material.css");
 
-require("codemirror/mode/javascript/javascript.js");
-require("codemirror/mode/htmlmixed/htmlmixed.js");
-require("codemirror/mode/css/css.js");
+// require("codemirror/mode/javascript/javascript.js");
+// require("codemirror/mode/htmlmixed/htmlmixed.js");
+// require("codemirror/mode/css/css.js");
 
-require("codemirror/addon/lint/lint");
-require("codemirror/addon/lint/javascript-lint");
-require("codemirror/addon/lint/json-lint");
-require("codemirror/addon/lint/css-lint");
-require("codemirror/addon/lint/lint.css");
+// require("codemirror/addon/lint/lint");
+// require("codemirror/addon/lint/javascript-lint");
+// require("codemirror/addon/lint/json-lint");
+// require("codemirror/addon/lint/css-lint");
+// require("codemirror/addon/lint/lint.css");
 
-require("codemirror/addon/fold/foldcode");
-require("codemirror/addon/fold/foldgutter");
-require("codemirror/addon/fold/brace-fold");
-require("codemirror/addon/fold/indent-fold");
-require("codemirror/addon/fold/foldgutter.css");
+// require("codemirror/addon/fold/foldcode");
+// require("codemirror/addon/fold/foldgutter");
+// require("codemirror/addon/fold/brace-fold");
+// require("codemirror/addon/fold/indent-fold");
+// require("codemirror/addon/fold/foldgutter.css");
 
-require("@utils/codemirror-formatting");
+// require("@utils/codemirror-formatting");
 
 (window as any).jsonlint = jsonlint;
 

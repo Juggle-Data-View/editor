@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Collapse as MuiCollapse, CollapseProps } from "@mui/material";
-import TextTip from "TextTip";
+import TextTip from "../components/TextTip";
 const CLASS_NAME = "field-collapse";
 
 const Container = styled.div.attrs(() => {

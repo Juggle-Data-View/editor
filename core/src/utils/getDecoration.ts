@@ -13,7 +13,7 @@
  * description: Getting component decoration,if the component have a decoration
  */
 
-import notice from './notice';
+import notice from '@juggle-data-view/notice';
 import { JuggleDV } from '@juggle-data-view/types';
 
 /**

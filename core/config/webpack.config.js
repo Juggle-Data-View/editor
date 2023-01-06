@@ -25,6 +25,8 @@ const ForkTsCheckerWebpackPlugin =
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
+const { resolveAppsSrc } = require('./resolveAppsPath');
+const { getValidCompilerPaths, getValidCompilerModulesPath, getTypeCheckPaths } = require('./getValidCompilerPaths');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -274,7 +276,9 @@ module.exports = function (webpackEnv) {
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
+      modules: getValidCompilerModulesPath(
+        ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || [])
+      ),
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:
@@ -293,7 +297,7 @@ module.exports = function (webpackEnv) {
           'react-dom$': 'react-dom/profiling',
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
-        ...(modules.webpackAliases || {}),
+        ...(getValidCompilerPaths(modules.webpackAliases) || {}),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -380,7 +384,7 @@ module.exports = function (webpackEnv) {
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: isEnvDevelopment ? resolveAppsSrc(paths.appSrc) : paths.appSrc,
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve('babel-preset-react-app/webpack-overrides'),
@@ -645,6 +649,7 @@ module.exports = function (webpackEnv) {
                 noEmit: true,
                 incremental: true,
                 tsBuildInfoFile: paths.appTsBuildInfoFile,
+                references: getTypeCheckPaths(),
               },
             },
             context: paths.appPath,
@@ -700,5 +705,6 @@ module.exports = function (webpackEnv) {
     stats: { errorDetails: true },
   };
   debugger;
+
   return result;
 };

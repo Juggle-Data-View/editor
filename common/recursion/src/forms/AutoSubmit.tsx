@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useFormikContext } from "formik";
-import useDebounce from "hooks/useDebounce";
+import useDebounce from "../hooks/useDebounce";
 
 interface IProps {
 	/** debounce 时间，单位：毫秒 */
