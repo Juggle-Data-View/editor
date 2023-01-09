@@ -25,9 +25,7 @@
 		"lodash": "^4.17.21",
 		"numeral": "^2.0.6",
 		"rc-picker": "^3.1.4",
-		"react": "^18.2.0",
 		"react-color": "^2.19.3",
-		"react-dom": "^18.2.0",
 		"react-dropzone": "^14.2.3",
 		"react-linear-gradient-picker": "^3.0.1",
 		"styled-components": "^5.3.6",
@@ -38,7 +36,15 @@
 	"devDependencies": {
 		"@types/react": "^18.0.26",
 		"@types/react-color": "^3.0.6",
-		"@types/react-dom": "^18.0.9"
+		"@types/react-dom": "^18.0.9",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-is": "^18.2.0"
 	},
-	"description": ""
+	"description": "",
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-is": "^18.2.0"
+	}
 }

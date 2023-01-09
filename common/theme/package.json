@@ -13,11 +13,16 @@
 	"license": "ISC",
 	"dependencies": {
 		"@mui/material": "*",
-		"react": "*",
 		"styled-components": "*"
 	},
 	"devDependencies": {
 		"@types/react": "*",
-		"@types/styled-components": "*"
+		"@types/styled-components": "*",
+		"react": "*",
+		"react-dom": "^18.2.0"
+	},
+	"peerDependencies": {
+		"react": "*",
+		"react-dom": "^18.2.0"
 	}
 }

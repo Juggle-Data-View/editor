@@ -112,9 +112,9 @@ const getValidCompilerModulesPath = (mainModulesPath) => {
 
 const getTypeCheckPaths = () => {
   const appsRoot = resolveAppsRoot();
-  const formatPaths = (paths, appRoot) => {
-    return Object.keys(paths).reduce((curr, next) => {
-      const item = paths[next];
+  const formatPaths = (aliasPath, appRoot) => {
+    return Object.keys(aliasPath).reduce((curr, next) => {
+      const item = aliasPath[next];
       return {
         ...curr,
         [next]: path.join(appRoot, item[0]),
@@ -123,13 +123,13 @@ const getTypeCheckPaths = () => {
   };
 
   const result = appsRoot.reduce((curr, next) => {
-    const paths = getTSOption(next).paths;
-    if (isEmpty(paths)) {
+    const { paths: aliasPath } = getTSOption(next);
+    if (isEmpty(aliasPath)) {
       return curr;
     } else {
-      return { ...curr, ...formatPaths(paths, next) };
+      return { ...curr, ...formatPaths(aliasPath, next) };
     }
-  });
+  }, {});
   return result;
 };
 
@@ -138,5 +138,4 @@ module.exports = {
   getValidCompilerPaths,
   getValidCompilerModulesPath,
   getTypeCheckPaths,
-  getIncludesPaths,
 };

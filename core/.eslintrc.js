@@ -18,7 +18,7 @@ module.exports = {
      */
     'plugin:prettier/recommended',
   ],
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint'],
   rules: {
     // 有一些 react-redux-form 的组件应用了A.b的规则，所以这里禁用掉
     'react/jsx-pascal-case': 'off',

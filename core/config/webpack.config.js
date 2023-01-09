@@ -298,6 +298,11 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(getValidCompilerPaths(modules.webpackAliases) || {}),
+        react: path.resolve('../node_modules/react'),
+        'react-dom': path.resolve('../node_modules/react-dom'),
+        formik: path.resolve('../node_modules/formik'),
+        '@mui/material': path.resolve('../node_modules/@mui/material'),
+        'styled-components': path.resolve('../node_modules/styled-components'),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -305,14 +310,17 @@ module.exports = function (webpackEnv) {
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
-        new ModuleScopePlugin(paths.appSrc, [
-          paths.appPackageJson,
-          reactRefreshRuntimeEntry,
-          reactRefreshWebpackPluginRuntimeEntry,
-          babelRuntimeEntry,
-          babelRuntimeEntryHelpers,
-          babelRuntimeRegenerator,
-        ]),
+        new ModuleScopePlugin(
+          [paths.appSrc, path.resolve('../')],
+          [
+            paths.appPackageJson,
+            reactRefreshRuntimeEntry,
+            reactRefreshWebpackPluginRuntimeEntry,
+            babelRuntimeEntry,
+            babelRuntimeEntryHelpers,
+            babelRuntimeRegenerator,
+          ]
+        ),
       ],
     },
     module: {
@@ -704,7 +712,6 @@ module.exports = function (webpackEnv) {
     performance: false,
     stats: { errorDetails: true },
   };
-  debugger;
 
   return result;
 };

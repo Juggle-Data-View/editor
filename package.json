@@ -1,5 +1,35 @@
 {
+	"name": "auto-dv",
+	"description": "Easy to display your Data. ([preview](https://dataview.ashesborn.cloud/));",
+	"version": "1.0.0",
+	"main": "index.js",
+	"directories": {
+		"doc": "doc"
+	},
+	"dependencies": {
+		"@mui/material": "^5.11.4",
+		"formik": "^2.2.9",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"styled-components": "^5.3.6"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Juggle-Data-View/editor.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Juggle-Data-View/editor/issues"
+	},
+	"homepage": "https://github.com/Juggle-Data-View/editor#readme",
 	"devDependencies": {
-		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.10"
+		"react-is": "^18.2.0"
+	},
+	"peerDependencies": {
+		"react-is": "^18.2.0"
 	}
 }
