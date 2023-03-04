@@ -34,21 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { readdir } from "fs/promises";
-import { resolve } from "path";
-var COMP_DIR = ["../../common", "../../dataComp"];
-var getDirInternalFiles = function (dirname) {
-    return readdir(resolve(dirname));
-};
-var generateIndex = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Promise.all(COMP_DIR.map(getDirInternalFiles))];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
-// const app = express();
+import generateIndex from "./generateIndex";
 var main = function () { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     return __generator(this, function (_c) {

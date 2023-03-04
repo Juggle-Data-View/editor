@@ -48,3 +48,4 @@ var generateIndex = function () { return __awaiter(void 0, void 0, void 0, funct
         }
     });
 }); };
+export default generateIndex;

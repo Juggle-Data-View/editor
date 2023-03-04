@@ -10,3 +10,5 @@ const getDirInternalFiles = (dirname: string) => {
 const generateIndex = async () => {
 	return await Promise.all(COMP_DIR.map(getDirInternalFiles));
 };
+
+export default generateIndex;
