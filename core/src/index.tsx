@@ -8,6 +8,7 @@ import '@assets/style/index.scss';
 import initialServer from '@service/initialize';
 initialServer();
 injectCDNScript();
+(window as any).echartsUrl = 'http://localhost:3001';
 
 const Index = () => {
   return (

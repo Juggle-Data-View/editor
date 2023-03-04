@@ -23,6 +23,8 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 const { resolveAppsSrc } = require('./resolveAppsPath');
@@ -559,6 +561,17 @@ module.exports = function (webpackEnv) {
             : undefined
         )
       ),
+      new webpack.container.ModuleFederationPlugin({
+        name: 'host',
+        remotes: {
+          echarts_comp: 'echarts_comp@[echartsUrl]/entry.js',
+        },
+        shared: ['react', 'react-dom'],
+      }),
+      new ExternalTemplateRemotesPlugin(),
+      new LiveReloadPlugin({
+        port: 35729,
+      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
