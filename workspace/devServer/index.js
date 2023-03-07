@@ -1,4 +1,4 @@
-import generateIndex from "./generateIndex";
+const generateIndex = require("./generateIndex");
 
 const main = async () => {
 	console.log(await generateIndex());
