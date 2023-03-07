@@ -49,7 +49,6 @@ function getWebpackAliases(options = {}, extension = {}) {
       [curr.replace('/*', '')]: path.resolve(appSrc, aliasPathArr[0].replace('/*', '')),
     };
   }, {});
-  console.log(result);
   return result;
 }
 
