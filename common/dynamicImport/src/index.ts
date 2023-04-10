@@ -2,27 +2,17 @@
  * Dynamic import components and package in runtime. Support cjs.
  */
 
-const generateInjectionParam = (option: Record<string, any>) => {
-	// simulate cjs basic env
-
-	const optionKeys = ["module", "exports"].concat(Object.keys(option));
-	return [optionKeys, optionKeys.map((key) => option[key])];
-};
+import { useEffect, useState } from "react";
 
 /**
  *
  * @param url module path
  * @param option inject params
  */
-const dynamicImport = async (url: string, option: Record<string, any>) => {
+const fetchModuleFile = async (url: string) => {
 	try {
 		//simulate cjs require env
-		const sandbox = {
-			module: {
-				exports: null,
-			},
-		};
-		const [params, paramValue] = generateInjectionParam(option);
+
 		const res = await fetch(url);
 		if (!res.ok) {
 			throw new Error("load module error");
@@ -34,12 +24,23 @@ const dynamicImport = async (url: string, option: Record<string, any>) => {
 		if (!funcBody) {
 			throw new Error("module was empty");
 		}
-		const module = new Function(...params, funcBody);
-		return module(sandbox.module, sandbox.module.exports, ...paramValue);
+		return funcBody;
 	} catch (error) {
 		error instanceof Error && console.error("module not found", error.message);
 		return null;
 	}
 };
 
-export default dynamicImport;
+const useDynamicImport = (param: { url: string; option: Record<string, any>; version: string }) => {
+	const { url, version } = param;
+	const [moduleFile, setModuleFile] = useState<Function>();
+	useEffect(() => {
+		fetchModuleFile(url).then((data) => {
+			data && setModuleFile(new Function(data));
+		});
+	}, [version]);
+
+	return moduleFile;
+};
+
+export default useDynamicImport;

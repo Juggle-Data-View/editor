@@ -1,0 +1,38 @@
+{
+	"core": {
+		"port": 3000,
+		"path": "core"
+	},
+	"echarts": {
+		"port": 43000,
+		"path": "dataComp/echarts"
+	},
+	"codeFragment": {
+		"port": 43001,
+		"path": "dataComp/codeFragment"
+	},
+	"commonTitle": {
+		"port": 43002,
+		"path": "dataComp/commonTitle"
+	},
+	"table": {
+		"port": 43003,
+		"path": "dataComp/table"
+	},
+	"dynamicImport": {
+		"port": 43004,
+		"path": "common/dynamicImport"
+	},
+	"notice": {
+		"port": 43005,
+		"path": "common/notice"
+	},
+	"recursion": {
+		"port": 43006,
+		"path": "common/recursion"
+	},
+	"theme": {
+		"port": 43007,
+		"path": "common/theme"
+	}
+}

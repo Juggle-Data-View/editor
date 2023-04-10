@@ -1,8 +1,10 @@
 const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-module.exports = {
-	entry: "./src/index.tsx",
+module.exports = () => {
+  console.log('trigger');
+  return {
+	entry: path.resolve("./src/index.tsx"),
 	devtool: "source-map",
 	optimization: {
 		minimize: false,
@@ -11,7 +13,7 @@ module.exports = {
 	devServer: {
 		hot: true,
 		static: path.join(__dirname, "dist"),
-		port: 3001,
+		port: process.env.PORT || 3001,
 		liveReload: false,
 	},
 	output: {
@@ -35,8 +37,8 @@ module.exports = {
 		modules: ["node_modules"],
 		extensions: [".ts", ".js", ".tsx"],
 		alias: {
-			react: path.resolve("../node_modules/react"),
-			"react-dom": path.resolve("../node_modules/react-dom"),
+			react: path.resolve("../../node_modules/react"),
+			"react-dom": path.resolve("../../node_modules/react-dom"),
 		},
 	},
 	plugins: [
@@ -49,4 +51,4 @@ module.exports = {
 		react: "React",
 		"react-dom": "ReactDOM",
 	},
-};
+}};
