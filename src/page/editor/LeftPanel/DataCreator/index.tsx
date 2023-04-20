@@ -10,47 +10,23 @@ import commonFormConfig from './commonFormConfig';
 import { CommonErrorBoundy, HandleCatch } from '@components/base/CompErrorBoundary';
 import ThemeConfig from '@configurableComponents/theme';
 import getFormatBody from './getFormatBody';
-import { nanocode } from 'utils';
-import { DataSourceType, HttpMethod } from '@configurableComponents/const';
+import { DataSourceType } from '@configurableComponents/const';
 import { JuggleDV } from '@juggle-data-view/types';
 import { createRoot } from 'react-dom/client';
 import getOriginData from '@utils/getOriginData';
+import getDefaultValues from './getDefaultValue';
 
 interface Props {
   containerDiv: HTMLDivElement;
   options?: JuggleDV.MixinDatasource;
 }
 
-const defaultDatasourceConfig = () => ({
-  name: 'default name',
-  dataSourceId: nanocode('default'),
-  dataSourceType: DataSourceType.Static,
-  url: '',
-  method: HttpMethod.GET,
-  header: [
-    {
-      key: '',
-      value: '',
-    },
-  ],
-  dataParams: [
-    {
-      name: '',
-      value: '',
-    },
-  ],
-  body: '',
-  isProxy: false,
-  frequency: 1000,
-  operator: ['normal'],
-});
-
 const Container: React.FC<Props> = ({ containerDiv, options }) => {
   const [isOpen, setOpen] = useState(true);
   const [isVaild, setVaild] = useState(false);
   const lang = useLang();
 
-  const defualtValues = useMemo(() => options || (defaultDatasourceConfig() as any), [options]);
+  const defualtValues = useMemo(() => options || (getDefaultValues(DataSourceType.Static) as any), [options]);
 
   const [sourceContent, setSourceContent] = useState(defualtValues);
 
@@ -87,7 +63,11 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
   };
 
   useEffect(() => {
-    if (sourceContent.type === DataSourceType.Static || !sourceContent.url) {
+    setSourceContent(getDefaultValues(sourceContent.dataSourceType));
+  }, [sourceContent.dataSourceType]);
+
+  useEffect(() => {
+    if (sourceContent.dataSourceType === DataSourceType.Static || !sourceContent.url) {
       return;
     }
 
@@ -100,13 +80,16 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
     // reset datasource config while `source.url` is changed
   }, [sourceContent.url]); //eslint-disable-line
   return (
-    <Dialog open={isOpen} onClose={handleClose}>
+    <Dialog open={isOpen} onClose={handleClose} >
       <DialogTitle id="alert-dialog-title">
         {options ? lang.updateDatasource + ': ' + options.name : lang.createDatasource}
       </DialogTitle>
       <Divider />
 
-      <DialogContent>
+      <DialogContent sx={{
+        minWidth: 600,
+        minHeight: 400,
+      }}>
         <CommonErrorBoundy handleCatch={handleCatch}>
           <Generator
             values={sourceContent}
@@ -116,6 +99,7 @@ const Container: React.FC<Props> = ({ containerDiv, options }) => {
             onSubmit={(value) => {
               setSourceContent(value);
             }}
+            i18n='zh'
           >
             {({ render, formik }) => {
               return (

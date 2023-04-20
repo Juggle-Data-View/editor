@@ -47,6 +47,8 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
+require('./checkENV')();
+
 if (process.env.HOST) {
   console.log(
     chalk.cyan(

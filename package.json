@@ -126,8 +126,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "test": "node scripts/test.js",
-    "lint": "node ./node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx src --color --max-warnings=0",
-    "lint:fix": "node ./node_modules/.bin/eslint --fix ./src",
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx src --color --max-warnings=0",
+    "lint:fix": "./node_modules/.bin/eslint --fix ./src",
     "cc": "node ./scripts_coustom/create.js",
     "analyze": "node ./scripts_coustom/analyze.js",
     "autoDeploy:release": "node scripts/build.js &&cp nginx.conf build"

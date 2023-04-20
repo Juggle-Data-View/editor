@@ -46,11 +46,11 @@ export interface ChildProps {
   formik: FormikContextType<any>;
 }
 
-export interface IGenerator {
+export interface IGenerator<T=any> {
   /** 配置项 */
   config: INodeConfig | INodeConfig[];
   /** 配置项对应的数据 */
-  values: any;
+  values: T;
   /** 默认数据，区别于 values，这份数据在表单内部是不可变的 */
 
   /**
@@ -58,9 +58,9 @@ export interface IGenerator {
    * 区别于 values，这份数据在表单内部是不可变的
    * 一般情况下不需要，如果有数组组件需要做新增操作，可以使用此配置
    */
-  defaultValues?: any;
+  defaultValues?: T;
   /** 表单数据经过修改、验证通过后的回调函数 */
-  onSubmit: FormikConfig<any>['onSubmit'];
+  onSubmit: FormikConfig<T>['onSubmit'];
 
   /**
    * 自定义组件映射表
@@ -78,7 +78,7 @@ export interface IGenerator {
    * Formik表单库的其他配置
    * 这里可以覆盖 enableReinitialize
    */
-  formikProps?: FormikConfig<any>;
+  formikProps?: Partial<FormikConfig<T>>;
 
   /**
    * 自定义起始路径

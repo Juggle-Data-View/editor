@@ -1,15 +1,30 @@
 import { INodeConfig } from '@juggle-data-view/types/src/form';
 
 import { DataSourceType, HttpMethod } from '@configurableComponents/const';
+import checkCustomerData from './checkCustomerData';
+
+function isValidHttpUrl(url: string) {
+  try {
+    return !! new URL(url);
+  } catch (_) {
+    return false;
+  }
+}
 
 const APIFormConfig: INodeConfig[] = [
   {
     name: 'url',
     type: 'text',
-    label: 'Request URL',
+    label: {
+      en: 'Request URL',
+      zh: '请求地址'
+    },
     validate: (value) => {
       if (!value) {
         return 'Url is required';
+      }
+      if(!isValidHttpUrl(value)){
+        return 'Url is invalid';
       }
     },
   },
@@ -91,17 +106,20 @@ const commonFormConfig: INodeConfig[] = [
     name: 'dataSourceType',
     type: 'select',
     label: 'Datasource type',
-    props: {
-      options: [
-        {
-          label: 'Static',
-          value: 0,
-        },
-        {
-          label: 'API',
-          value: 1,
-        },
-      ],
+
+    props: () => {
+      return {
+        options: [
+          {
+            label: 'Static',
+            value: 0,
+          },
+          {
+            label: 'API',
+            value: 1,
+          },
+        ],
+      };
     },
   },
   {
@@ -135,8 +153,18 @@ const commonFormConfig: INodeConfig[] = [
     labelProps: {
       vertical: true,
     },
-    props: {
+    props: ()=>( {
       codeType: 'javascript',
+      height: 300,
+    }),
+    validate: (values) => {
+      if (values.dataSourceType === DataSourceType.Static) {
+        const err = checkCustomerData(values.body);
+        if (err) {
+          return err.msg;
+        }
+      }
+      return undefined;
     },
   },
 ];

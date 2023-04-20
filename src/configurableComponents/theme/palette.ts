@@ -114,7 +114,7 @@ const palette: Theme['palette'] = {
     focus: GREY[500_24],
     hoverOpacity: 0.08,
     disabledOpacity: 0.48,
-    selectedOpacity: 1,
+    selectedOpacity: 0,
     focusOpacity: 0.8,
     activatedOpacity: 1,
   },

@@ -4,11 +4,11 @@ import CodeEditor, { ModeName } from '@components/common/CodeEditor';
 export interface IFormatter {
   codeType: ModeName;
   onSubmit?: (value: string) => void;
+  height?: number;
 }
 
 export const Formatter = withField<IFormatter>((props) => {
-  const { field, form, codeType, onSubmit } = props;
-
+  const { field, form, codeType, onSubmit, height } = props;
   return (
     <CodeEditor
       value={field.value}
@@ -21,7 +21,7 @@ export const Formatter = withField<IFormatter>((props) => {
         form.setFieldTouched(field.name, true);
         onSubmit && onSubmit(value);
       }}
-      height={120}
+      height={height || 120 }
     />
   );
 });

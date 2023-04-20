@@ -4,11 +4,11 @@ import { Button, Dialog, DialogTitle, IconButton, Tooltip } from '@mui/material'
 import styled from 'styled-components';
 import jsonlint from 'jsonlint-mod';
 import { useInViewport, useHover } from 'ahooks';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import CodeIcon from '@mui/icons-material/Code';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 (window as any).CodeMirror = require('codemirror');
 
@@ -234,8 +234,8 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
                 setReadOnly(false);
               }}
             >
-              <Tooltip title="放大">
-                <ZoomInIcon />
+              <Tooltip title="编辑">
+                <EditIcon />
               </Tooltip>
             </Button>
           </div>
@@ -274,8 +274,8 @@ const CodeEditor: React.FC<CodeEditorProps> = (props) => {
           <Editor ref={editorRef} {...ce_props} height={document.documentElement.offsetHeight * 0.7} />
           <div className="actions">
             <Button size="small" onClick={handleFormat}>
-              <Tooltip title="格式化">
-                <CodeIcon />
+              <Tooltip title="格式化&退出">
+                <SaveAltIcon />
               </Tooltip>
             </Button>
           </div>

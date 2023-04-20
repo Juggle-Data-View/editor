@@ -7,7 +7,7 @@ import { get, has, isFunction } from 'lodash';
 import { nodeMapping } from './fields';
 import { useDebounce } from 'ahooks';
 import ErrorBoundary from '@components/base/ErrorBoundary';
-import { INodeParams } from '@juggle-data-view/types/src/form';
+import { INodeParams, IBaseNodeConfig, LangOptions } from '@juggle-data-view/types/src/form';
 import { FormComps } from '@juggle-data-view/types/src/fieldComponents';
 
 const FieldArray = TypeFieldArray as React.FC<FieldArrayConfig>;
@@ -42,17 +42,23 @@ export const AutoSubmit: React.FC<{
   return null;
 };
 
+const getFieldLabel = (label: IBaseNodeConfig['label'], i18n?: LangOptions) => {
+  if (typeof label !== 'string' && i18n && i18n in (label as any)) {
+    // TODO: update node.label type
+    return (label as any)[i18n];
+  }
+  return label
+}
+
 const NodeLabel: React.FC<React.PropsWithChildren<INodeLabel>> = (props) => {
   const { node, params, i18n } = props;
   const label = isFunction(node.label) ? node.label(params) : node.label;
   if (!label) {
     return <>{props.children}</>;
   }
-  if (typeof node === 'object' && 'en' in node && i18n) {
-    return <>{node[i18n]}</>;
-  }
+
   return (
-    <FieldLabel {...node.labelProps} label={<>{label}</>}>
+    <FieldLabel {...node.labelProps} label={<>{getFieldLabel(label,i18n)}</>}>
       {props.children}
     </FieldLabel>
   );
@@ -64,7 +70,7 @@ const NodeLabel: React.FC<React.PropsWithChildren<INodeLabel>> = (props) => {
  * @param parentName 当前节点`name`全称
  */
 const renderChildren = (props: INodeProps) => {
-  const { node, parentName } = props;
+  const { node, parentName, i18n } = props;
   const { children, labelProps } = node;
   if (!children) return null;
   return children.map((child, index) => {
@@ -75,13 +81,14 @@ const renderChildren = (props: INodeProps) => {
         // labelProps：符合传递条件时，就把当前节点的`labelProps`传递给子节点
         node={{ labelProps: passLabelProps ? labelProps : child.labelProps, ...child }}
         parentName={parentName}
+        i18n={i18n}
       />
     );
   });
 };
 
 const Node: React.FC<INodeProps> = (props) => {
-  const { parentName } = props;
+  const { parentName,i18n } = props;
   // node节点数据不会随组件更新而改变，直接缓存下来
   const node = useMemo(() => props.node, []); // eslint-disable-line
   const formik = useFormikContext();
@@ -154,12 +161,12 @@ const Node: React.FC<INodeProps> = (props) => {
   if (!shouldRender || (node.show && !node.show(params))) {
     return null;
   }
-
+  
   return (
-    <NodeLabel node={node} params={params}>
+    <NodeLabel node={node} params={params} i18n={i18n}>
       <ErrorBoundary errorMessage={`type=${node.type}的组件发生了错误`}>
         {!isArrayNode ? (
-          <C {...nodeProps}>{node.children ? renderChildren({ node, parentName: fullyName }) : null}</C>
+          <C {...nodeProps}>{node.children ? renderChildren({ node, parentName: fullyName, i18n }) : null}</C>
         ) : (
           <FieldArray name={fullyName}>
             {(arrayHelpers) => (
@@ -169,6 +176,7 @@ const Node: React.FC<INodeProps> = (props) => {
                     {renderChildren({
                       node,
                       parentName: `${fullyName}[${index}]`,
+                      i18n
                     })}
                   </Fragment>
                 ))}
@@ -181,8 +189,11 @@ const Node: React.FC<INodeProps> = (props) => {
   );
 };
 
-export const Generator: React.FC<IGenerator> = (props) => {
+type GeneratorType<T = any> = React.FC<IGenerator<T>>;
+
+export const Generator: GeneratorType = (props) => {
   const { autoSubmit = true, children, parentName, i18n, onVaildate } = props;
+  console.log(i18n);
   return (
     <Formik
       enableReinitialize
