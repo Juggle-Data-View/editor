@@ -14,7 +14,7 @@ import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
 import { Route, Switch, useParams } from 'react-router-dom';
-import User from './User';
+import User from '../User';
 import store from '@store/index';
 import { isEmpty } from 'lodash';
 import { JuggleDV } from '@juggle-data-view/types';
@@ -22,7 +22,7 @@ import { getStaticData } from '@components/base/BaseActions';
 
 const Editor = () => {
   const dispatch = useDispatch();
-
+  const currentAppID = new URLSearchParams(window.location.search).get('app_id');
   const { page } = useParams<{
     page: 'canvas' | 'user';
   }>();
@@ -112,8 +112,8 @@ const Editor = () => {
   };
 
   useEffect(() => {
-    handleInit();
-  }, []); // eslint-disable-line
+    currentAppID && handleInit();
+  }, [currentAppID]); // eslint-disable-line
 
   return (
     <ThemeConfig>

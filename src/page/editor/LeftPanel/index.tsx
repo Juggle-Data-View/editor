@@ -22,6 +22,7 @@ import { User } from 'parse';
 import { logout } from '@service/userInfo';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { getCachedAppID } from '@helpers/fetchAppConfig';
 
 const LeftPanel: React.FC = () => {
   const lang = useLang();
@@ -33,17 +34,20 @@ const LeftPanel: React.FC = () => {
   const history = useHistory();
   const isLogin = !!User.current();
   const [isShowPopper, setShowPopper] = useState(!isLogin && page !== 'user');
+  const currentAppID = new URL(window.location.href).searchParams.get('app_id')
+    || getCachedAppID();
 
   const handleChange = (event: React.SyntheticEvent, val: string) => {
     setActiveKey(val);
     if (val !== 'user') {
-      history.push('/editor/canvas');
+      history.push('/editor/canvas' + '?app_id=' + currentAppID);
       dispatch(
         editorAction.controlPanel({
           compList: true,
         })
       );
     } else {
+      history.push('/editor/user/profile');
       dispatch(
         editorAction.controlPanel({
           compList: false,
@@ -95,6 +99,16 @@ const LeftPanel: React.FC = () => {
         })
       );
     }
+
+    if (page === 'canvas') {
+      activeKey === 'user' && setActiveKey('create');
+      dispatch(
+        editorAction.controlPanel({
+          compList: true,
+        })
+      );
+    }
+
   }, [page, userPage, history, dispatch]); // eslint-disable-line
 
   return (
@@ -109,9 +123,6 @@ const LeftPanel: React.FC = () => {
               <Tab
                 label={lang.user}
                 value="user"
-                onClick={() => {
-                  history.push('/editor/user/profile');
-                }}
                 icon={<AccountCircleIcon />}
               />
             ) : null}

@@ -60,8 +60,7 @@ export const getUserApps = async () => {
   const user = User.current();
   const query = new Query(applications);
   query.equalTo('user', user);
-  const result = await query.find();
-  return result;
+  return query.find();
 };
 
 export const logout = async () => {

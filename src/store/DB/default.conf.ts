@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 const appId = Date.now();
-const AppConfig: JuggleDV.AppConfig = {
-  version: 0,
+
+export const AppInfo = {
   createTime: 0,
   createUser: '',
   id: appId,
@@ -10,15 +10,24 @@ const AppConfig: JuggleDV.AppConfig = {
   name: '',
   userId: -1,
   datasources: {},
+}
+
+export const initCanvas:JuggleDV.Canvas = {
+  id: Date.now(),
+  appId: appId,
+  thumbnail: '',
+  backgroundColor: '#cccccc',
+  backgroundImg: '',
+  width: 1920,
+  height: 1080,
+  zoomType: 0,
+}
+
+const AppConfig: JuggleDV.AppConfig = {
+  version: 0,
+  ...AppInfo,
   canvas: {
-    id: Date.now(),
-    appId: appId,
-    thumbnail: '',
-    backgroundColor: '#cccccc',
-    backgroundImg: '',
-    width: 1920,
-    height: 1080,
-    zoomType: 0,
+    ...initCanvas,
     compInsts: [],
   },
 };

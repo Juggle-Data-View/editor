@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectRightPannelType, selectUserRole } from '@store/selectors';
 import useLang from '@components/base/useLang';
 import { createNewApps, queryAppByID, updateApp } from '@service/apps';
+import { setAppID } from '@helpers/fetchAppConfig';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -175,7 +176,7 @@ const HeadRight: React.FC = () => {
             targetId: result.id,
           })
         );
-        localStorage.setItem(localStorageKey.CURRENT_APP_ID, result.id);
+        setAppID(result.id);
       } else updateApp(data, state);
     } catch (error) {
       console.log(error);

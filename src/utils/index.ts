@@ -223,7 +223,7 @@ export const getConfigFromServer = async () => {
 
     return { ...data, id: data.objectId || data.id };
   } catch (error) {
-    throw new Error('get app has error');
+    throw new Error('get app has error from server side');
   }
 };
 
@@ -233,18 +233,14 @@ export const getConfigFromIndexedDB = async (
 ): Promise<JuggleDV.AppConfig | undefined> => {
   try {
     const appId = getAppID() || id;
-
-    const urlAppId = qs.query.id as string;
     if (!appId && isInEditor) {
       // need to init app
-      throw new Error('Local storage is empty');
+      throw new Error('Cached app_id is empty');
     }
     if (!appId) {
       return DB.getDefaultConfig();
     }
-    if (urlAppId) {
-      return getConfigFromIndexedDB(false, urlAppId);
-    }
+    
     return DB.getConfigByAPPID(appId);
   } catch (error) {
     error instanceof Error && console.log(error.message);

@@ -63,9 +63,6 @@ export const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 // mock 地址，启动了 `yarn dev` 时才会生效
 export const mockURL = 'http://localhost:9000';
-
-console.log('process.env:', process.env);
-
 interface ReqConfig extends RequestInit {
   /** 与 `url` 拼接成完整的请求地址 */
   baseURL?: string;

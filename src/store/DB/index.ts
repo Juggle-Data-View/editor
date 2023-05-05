@@ -3,7 +3,7 @@ import { JuggleDV } from '@juggle-data-view/types';
 import { omit } from 'lodash';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import AppConfig from './default.conf';
-import { localStorageKey } from '@helpers/fetchAppConfig';
+import {  setAppID } from '@helpers/fetchAppConfig';
 
 export const defaultRect: JuggleDV.Rect = {
   left: 0,
@@ -17,7 +17,7 @@ class DB extends Database {
     const db = await this.dbIns;
     const { canvas: initCanvas } = config;
     const appInfo = omit(config, 'canvas');
-    localStorage.setItem(localStorageKey.CURRENT_APP_ID, appInfo.id + '');
+    setAppID(appInfo.id);
     const canvas = {
       ...omit(initCanvas, 'compInsts'),
       appId: appInfo.id,
@@ -50,6 +50,8 @@ class DB extends Database {
       const compInsts = (await this.getConfig<JuggleDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
         (prev, next) => -1 * (next.createTime - prev.createTime)
       );
+      console.log(app, canvas, compInsts);
+      
       return {
         ...app,
         canvas: {
@@ -65,6 +67,7 @@ class DB extends Database {
   getDefaultConfig = async (): Promise<JuggleDV.AppConfig | undefined> => {
     const app = omit(AppConfig, 'canvas');
     const { canvas } = AppConfig;
+    setAppID(app.id);
     await this.initDB(AppConfig);
     return {
       ...app,

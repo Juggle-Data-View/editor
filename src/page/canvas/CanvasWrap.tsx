@@ -14,7 +14,7 @@ import useResize from '@components/base/useResize';
 import { JuggleDV } from '@juggle-data-view/types';
 
 const CanvasWrap: React.FC = () => {
-  const { canvasRatio, canvasPadding: padding } = useSelector(selectEditor);
+  const { canvasRatio, canvasPadding } = useSelector(selectEditor);
   const { app, canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectJuggleDV);
   const { id } = app;
   const comps = useMemo(() => compCodes.map((code) => compDatas[code]), [compCodes, compDatas]);
@@ -23,7 +23,8 @@ const CanvasWrap: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const thick = 16;
   const dispatch = useDispatch();
-
+  const ratio = canvasRatio || 1;
+  const padding = canvasPadding || 0;
   const handleScreenClick = () => {
     if (selectedCompCodes.length) {
       // 拖拽选中组件后，如果鼠标抬起位置在画布之外，会触发取消选中
@@ -63,7 +64,7 @@ const CanvasWrap: React.FC = () => {
 
   useEffect(() => {
     const scale = getAdaptiveScale(canvas);
-    dispatch(editorAction.zoomCanvas(scale));
+    dispatch(editorAction.zoomCanvas(scale || 1));
   }, [canvas]); // eslint-disable-line
 
   // 选中元素发生变化时清空 hoverIndex
@@ -79,8 +80,8 @@ const CanvasWrap: React.FC = () => {
           <div
             className="screen-child"
             style={{
-              width: canvas.width * canvasRatio,
-              height: canvas.height * canvasRatio,
+              width: canvas.width * ratio,
+              height: canvas.height * ratio,
               padding,
               paddingTop: padding + thick,
               paddingLeft: padding + thick,

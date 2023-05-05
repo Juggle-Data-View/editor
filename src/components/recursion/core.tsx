@@ -193,7 +193,6 @@ type GeneratorType<T = any> = React.FC<IGenerator<T>>;
 
 export const Generator: GeneratorType = (props) => {
   const { autoSubmit = true, children, parentName, i18n, onVaildate } = props;
-  console.log(i18n);
   return (
     <Formik
       enableReinitialize

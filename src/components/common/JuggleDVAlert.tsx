@@ -18,6 +18,7 @@ export interface CustomAlertProps extends Partial<CustomAlertEvent>, SnackbarPro
   cancelButtonText?: string;
   confirmButtonText?: string;
   icon?: string;
+  forceClose?: boolean;
 }
 
 type AlertCallback = (content: any, options?: CustomAlertProps) => void;

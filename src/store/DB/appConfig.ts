@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import components from './components';
-import { localStorageKey } from '@helpers/fetchAppConfig';
+import { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
 
 class AppConfig extends Database {
   updateAppConfigVersion = async (appId: string | number, version: number) => {
@@ -30,7 +30,7 @@ class AppConfig extends Database {
 
   getAppConfigVersion = async () => {
     try {
-      const appId = localStorage.getItem(localStorageKey.CURRENT_APP_ID);
+      const appId = getAppID();
       if (!appId) {
         throw new Error('app id is not exit in local');
       }

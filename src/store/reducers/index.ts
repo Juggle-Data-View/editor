@@ -5,6 +5,7 @@ import appReducer from '../features/appSlice';
 import dataReducer from '../features/dataSlice';
 import undoable from 'assets/lib/redux-undo';
 import undoReducer, { undoFilter } from './undo';
+import api from '@service/index';
 
 const compWithUndoReducer = undoReducer(
   undoable(appReducer, {
@@ -20,4 +21,5 @@ export default combineReducers({
   // autoDV: updateLocalVersion(compWithUndoReducer) as Reducer<JuggleDV.UndoState, AnyAction>,
   editor: editorReducer,
   data: dataReducer,
+  [api.reducerPath]: api.reducer,
 });

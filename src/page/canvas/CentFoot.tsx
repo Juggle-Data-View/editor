@@ -44,7 +44,7 @@ const RatioInput = ({ ratio }: { ratio: number }) => {
 const CentFoot: React.FC = () => {
   const { canvasRatio } = useSelector(selectEditor);
   const dispatch = useDispatch();
-
+  const ratio = canvasRatio || 1;
   return (
     <CentFootStyled>
       <div className="left" />
@@ -67,7 +67,7 @@ const CentFoot: React.FC = () => {
         </div>
         <div className="slider">
           <Slider
-            value={canvasRatio}
+            value={ratio}
             min={MIN_CANVAS_RATIO}
             max={MAX_CANVAS_RATIO}
             step={0.01}
@@ -77,7 +77,7 @@ const CentFoot: React.FC = () => {
           />
         </div>
         <div className="action-input">
-          <RatioInput ratio={canvasRatio} />
+          <RatioInput ratio={ratio} />
         </div>
       </div>
     </CentFootStyled>
