@@ -1,29 +1,31 @@
 import { isEmpty } from 'lodash';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { AppsContainer } from './styles';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { setAppID, setCacheAppID } from '@helpers/fetchAppConfig';
+import { getAppID } from '@helpers/fetchAppConfig';
 import api from '@service/index';
 import notice from '@utils/notice';
 import { createNewApps } from '@service/apps';
-import AppConfig, { AppInfo, initCanvas } from '@store/DB/default.conf';
+import { AppInfo, initCanvas } from '@store/DB/default.conf';
 import { JuggleDV } from '@juggle-data-view/types';
-import { Add } from '@mui/icons-material';
+import { useHistory } from 'react-router-dom';
 
 const AppCard: React.FunctionComponent<{ data: Parse.Object<Parse.Attributes>; }> = ({
   data,
 }) => {
   const { refetch } = api.useGetUserAppsQuery('UserApps');
-  const { push } = useHistory()
+  const history = useHistory();
   const handleOpen = () => {
-    setAppID(data.id);
-    setCacheAppID(data.id);
-    push('/editor/canvas?app_id=' + data.id);
+    const id = getAppID();
+
+    if (id === data.id || !id) {
+      return history.push('/editor/canvas' + '?app_id=' + data.id)
+    }
+    window.open('/editor/canvas?app_id=' + data.id, '_blank')
   };
 
   const handleDelete = async () => {
@@ -64,7 +66,7 @@ const CreateNewApp: React.FunctionComponent = () => {
       keyPressed: null,
       version: 0
     }
-    const appRes = await createNewApps(newApp)
+    await createNewApps(newApp)
     val.refetch()
   };
 
@@ -108,6 +110,7 @@ const Applications: React.FunctionComponent = () => {
   const renderApps = () =>
     data?.map((item: Parse.Object<Parse.Attributes>) => {
       return <AppCard key={item.id} data={item} />;
+
     });
 
   return <AppsContainer>{isAppsEmpty ? <CreateNewApp /> : <><CreateNewApp />{renderApps()}</>}</AppsContainer>;

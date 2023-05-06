@@ -12,11 +12,12 @@ import { selectEditor, selectJuggleDV } from '@store/selectors';
 import MyRuler from './Ruler';
 import useResize from '@components/base/useResize';
 import { JuggleDV } from '@juggle-data-view/types';
+import { getAppID } from '@helpers/fetchAppConfig';
 
 const CanvasWrap: React.FC = () => {
   const { canvasRatio, canvasPadding } = useSelector(selectEditor);
-  const { app, canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectJuggleDV);
-  const { id } = app;
+  const { canvas, selectedCompCodes, compDatas, compCodes } = useSelector(selectJuggleDV);
+  const id = getAppID();
   const comps = useMemo(() => compCodes.map((code) => compDatas[code]), [compCodes, compDatas]);
   const isAppLoaded = !!id;
   const screenRef = useRef<HTMLDivElement>(null);

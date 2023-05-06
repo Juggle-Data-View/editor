@@ -1,7 +1,7 @@
 import { JuggleDV } from '@juggle-data-view/types';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import components from './components';
-import { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
+import { getAppID } from '@helpers/fetchAppConfig';
 
 class AppConfig extends Database {
   updateAppConfigVersion = async (appId: string | number, version: number) => {

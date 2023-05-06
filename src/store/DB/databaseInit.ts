@@ -2,7 +2,7 @@ import { JuggleDV } from '@juggle-data-view/types';
 import { IDBPDatabase, openDB } from 'idb';
 
 export const DB_NAME = 'DB_NAME';
-export const DB_VERSION = 4;
+export const DB_VERSION = 5;
 export const COMP_STORE = 'COMP_STORE';
 export const CANVAS_STORE = 'CANVAS_STORE';
 export const APPINFO_STORE = 'APPINFO_STORE';
@@ -53,7 +53,8 @@ export default class Database {
     operation: 'getAll' | 'get' = 'get'
   ): Promise<T> => {
     const index = (await this.dbIns).transaction([storeName], 'readonly').objectStore(storeName).index(indexName);
-    const keyrange = IDBKeyRange.only(primaryKey);
+    const validPrimaryKey =!isNaN(new Date(primaryKey).getDate()) ? (primaryKey as unknown as string) : Number(primaryKey);
+    const keyrange = IDBKeyRange.only(validPrimaryKey);
     return index[operation](keyrange);
   };
 }

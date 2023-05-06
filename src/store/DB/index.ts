@@ -15,6 +15,7 @@ export const defaultRect: JuggleDV.Rect = {
 class DB extends Database {
   initDB = async (config: JuggleDV.AppConfig) => {
     const db = await this.dbIns;
+    console.log(config);
     const { canvas: initCanvas } = config;
     const appInfo = omit(config, 'canvas');
     setAppID(appInfo.id);
@@ -50,7 +51,6 @@ class DB extends Database {
       const compInsts = (await this.getConfig<JuggleDV.Comp[]>(COMP_STORE, 'appId', appId, 'getAll')).sort(
         (prev, next) => -1 * (next.createTime - prev.createTime)
       );
-      console.log(app, canvas, compInsts);
       
       return {
         ...app,
@@ -64,16 +64,6 @@ class DB extends Database {
     }
   };
 
-  getDefaultConfig = async (): Promise<JuggleDV.AppConfig | undefined> => {
-    const app = omit(AppConfig, 'canvas');
-    const { canvas } = AppConfig;
-    setAppID(app.id);
-    await this.initDB(AppConfig);
-    return {
-      ...app,
-      canvas,
-    };
-  };
 }
 
 const dbInst = new DB();

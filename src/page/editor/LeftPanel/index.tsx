@@ -22,7 +22,7 @@ import { User } from 'parse';
 import { logout } from '@service/userInfo';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { getCachedAppID } from '@helpers/fetchAppConfig';
+import { getAppID, getCachedAppID } from '@helpers/fetchAppConfig';
 
 const LeftPanel: React.FC = () => {
   const lang = useLang();
@@ -33,6 +33,7 @@ const LeftPanel: React.FC = () => {
   const userRole = useSelector(selectUserRole);
   const history = useHistory();
   const isLogin = !!User.current();
+  const isDisable = !isLogin && !getAppID();
   const [isShowPopper, setShowPopper] = useState(!isLogin && page !== 'user');
   const currentAppID = new URL(window.location.href).searchParams.get('app_id')
     || getCachedAppID();
@@ -47,7 +48,7 @@ const LeftPanel: React.FC = () => {
         })
       );
     } else {
-      history.push('/editor/user/profile');
+      history.push('/editor/user/profile' + '?app_id=' + currentAppID);
       dispatch(
         editorAction.controlPanel({
           compList: false,
@@ -58,14 +59,18 @@ const LeftPanel: React.FC = () => {
 
   const handleLogOut = async () => {
     try {
-      await logout();
-      dispatch(editorAction.setUserRole('Guest'));
-      history.push('/editor/user/auth');
-      dispatch(
-        editorAction.controlPanel({
-          compList: false,
-        })
-      );
+      if (isLogin) {
+        await logout();
+        dispatch(editorAction.setUserRole('Guest'));
+        history.push('/editor/user/auth');
+        dispatch(
+          editorAction.controlPanel({
+            compList: false,
+          })
+        );
+      } else {
+        history.push('/editor/user/auth' + '?app_id=' + currentAppID);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -116,9 +121,9 @@ const LeftPanel: React.FC = () => {
       <TabContext value={activeKey}>
         <div className="dashbroadController">
           <TabList orientation="vertical" onChange={handleChange}>
-            <Tab label={lang.createComp} value="create" icon={<AddCircle />} />
-            <Tab label={lang.layerList} value="layer" icon={<LayersIcon />} />
-            <Tab label={lang.datasourcesList} value="datasource" icon={<StorageIcon />} />
+            <Tab label={lang.createComp} disabled={isDisable} value="create" icon={<AddCircle />} />
+            <Tab label={lang.layerList} disabled={isDisable} value="layer" icon={<LayersIcon />} />
+            <Tab label={lang.datasourcesList} disabled={isDisable} value="datasource" icon={<StorageIcon />} />
             {userRole !== 'Guest' ? (
               <Tab
                 label={lang.user}

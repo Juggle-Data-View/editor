@@ -10,7 +10,7 @@ import GlobalHotKeys from '@components/common/GlobalHotKeys';
 import { CANVAS_ID, COPY_KEY } from '@configurableComponents/const';
 import notice from '@utils/notice';
 import { transContent } from 'helpers/importHelper';
-import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
+import { getAppID, getConfigFromIndexedDB, getConfigFromServer } from 'utils';
 import { useEffect } from 'react';
 import ThemeConfig from '@configurableComponents/theme';
 import { Route, Switch, useParams } from 'react-router-dom';
@@ -19,14 +19,14 @@ import store from '@store/index';
 import { isEmpty } from 'lodash';
 import { JuggleDV } from '@juggle-data-view/types';
 import { getStaticData } from '@components/base/BaseActions';
+import DB from '@store/DB';
 
 const Editor = () => {
   const dispatch = useDispatch();
-  const currentAppID = new URLSearchParams(window.location.search).get('app_id');
   const { page } = useParams<{
     page: 'canvas' | 'user';
   }>();
-
+  const appId = getAppID();
   const handlePaste = (event: ClipboardEvent) => {
     try {
       if (!document.getElementById(CANVAS_ID)) {
@@ -73,6 +73,8 @@ const Editor = () => {
     //TODO: Not request when app info is same
     try {
       const app = await getConfigFromServer();
+      //! Error: Failed to execute 'transaction' on 'IDBDatabase': The database connection is closing.
+      await DB.initDB(app);
       dispatch(
         appAction.init({
           app: {
@@ -83,7 +85,7 @@ const Editor = () => {
       );
     } catch (error) {
       error instanceof Error && console.log(error.message);
-      const app = await getConfigFromIndexedDB(true);
+      const app = await getConfigFromIndexedDB();
 
       dispatch(
         appAction.init({
@@ -112,8 +114,9 @@ const Editor = () => {
   };
 
   useEffect(() => {
-    currentAppID && handleInit();
-  }, [currentAppID]); // eslint-disable-line
+    console.log('editor init');
+    handleInit();
+  }, [appId]); // eslint-disable-line
 
   return (
     <ThemeConfig>

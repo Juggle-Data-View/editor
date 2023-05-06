@@ -32,7 +32,7 @@ export const Auth: React.FunctionComponent = () => {
     if (isSignUp) {
       setSignUp(false);
     } else {
-      history.push('/editor/canvas');
+      history.push('editor/user/profile');
     }
   };
 

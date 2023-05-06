@@ -17,7 +17,7 @@ const View = () => {
   const dispatch = useDispatch();
 
   const getAppConfig = async () => {
-    const app = await getConfigFromIndexedDB(false);
+    const app = await getConfigFromIndexedDB();
     if (!app) {
       return await getConfigFromServer();
     }

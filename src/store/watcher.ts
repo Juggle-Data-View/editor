@@ -195,8 +195,10 @@ const setupWatch = () => {
       app.cloneAppConfig(newId, oldId);
     }
   });
-  listen('autoDV.present', (newVal: any) => {
+  listen('autoDV.present', (newVal: any,oldVal:any) => {
     const appId = getAppID();
+    console.log(oldVal);
+    
     app.updateAppConfigVersion(appId, newVal.version);
   });
 };

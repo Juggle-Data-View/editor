@@ -4,8 +4,11 @@ import numeral from 'numeral';
 import { nanoid as _nanoid } from '@reduxjs/toolkit';
 import { JuggleDV } from '@juggle-data-view/types';
 import DB from '@store/DB';
-import fetchAppConfig, { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
+import fetchAppConfig, { getAppID, localStorageKey, setAppID } from '@helpers/fetchAppConfig';
 import app from '@store/DB/appConfig';
+import { User } from 'parse';
+import { omit } from 'lodash';
+import AppConfig from '@store/DB/default.conf';
 
 export { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
 
@@ -227,23 +230,33 @@ export const getConfigFromServer = async () => {
   }
 };
 
+const getDefaultConfig =  (id: string ): Promise< JuggleDV.AppConfig| undefined> => {
+    const app = omit({...AppConfig,id}, 'canvas');
+    const { canvas } = AppConfig;
+    return {
+      ...app,
+      canvas,
+    } as any;
+  };
+
 export const getConfigFromIndexedDB = async (
-  isInEditor: boolean,
   id?: string
 ): Promise<JuggleDV.AppConfig | undefined> => {
+  const defaultAppID = Date.now() + '';
   try {
     const appId = getAppID() || id;
-    if (!appId && isInEditor) {
-      // need to init app
-      throw new Error('Cached app_id is empty');
-    }
     if (!appId) {
-      return DB.getDefaultConfig();
+      const user = User.current();
+      
+      !user && setAppID(+'');
+      const defaultConfig = getDefaultConfig(defaultAppID);
+      await DB.initDB(AppConfig);
+      return defaultConfig;
     }
     
     return DB.getConfigByAPPID(appId);
   } catch (error) {
     error instanceof Error && console.log(error.message);
-    return DB.getDefaultConfig();
+    return getDefaultConfig(defaultAppID);
   }
 };
