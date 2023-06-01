@@ -3,12 +3,19 @@ import Alert, { AlertColor } from '@mui/material/Alert';
 import Snackbar, { SnackbarProps } from '@mui/material/Snackbar';
 import { Button } from '@mui/material';
 import { createRoot } from 'react-dom/client';
+import AlertProcessor from './AlertQueue';
 
 interface CustomAlertEvent {
   onOpening(node: HTMLElement): void;
   onConfirm(evt?: SyntheticEvent<HTMLElement>): void;
   onCancel(evt?: SyntheticEvent<HTMLElement>): void;
 }
+
+const {
+  pushAlertQueue,
+  pauseAlertQueue,
+  resumeAlertQueue,
+} = new AlertProcessor();
 
 export interface CustomAlertProps extends Partial<CustomAlertEvent>, SnackbarProps {
   portalContainer?: HTMLElement;
@@ -18,7 +25,7 @@ export interface CustomAlertProps extends Partial<CustomAlertEvent>, SnackbarPro
   cancelButtonText?: string;
   confirmButtonText?: string;
   icon?: string;
-  forceClose?: boolean;
+  isAutoClose?: boolean;
 }
 
 type AlertCallback = (content: any, options?: CustomAlertProps) => void;
@@ -35,6 +42,7 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
     confirmButtonText,
     anchorOrigin,
     intent,
+    isAutoClose = true
   } = props;
 
   const bindEnter = (e: KeyboardEvent) => {
@@ -94,7 +102,9 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
 
   return (
     <div onClick={(e: SyntheticEvent) => e.stopPropagation()}>
-      <Snackbar open={isOpen} autoHideDuration={3000} anchorOrigin={anchorOrigin} onClose={handleClose}>
+      <Snackbar open={isOpen} autoHideDuration={isAutoClose ? 3000 : null} anchorOrigin={anchorOrigin} sx={{
+        top: 400,
+      }} onClose={handleClose}>
         <Alert variant="filled" severity={intent} action={getAction()}>
           {props.children}
         </Alert>
