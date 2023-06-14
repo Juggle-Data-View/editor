@@ -1,15 +1,18 @@
 type AlertCloser = () => void;
 
-interface AutoCloseAlertQueueOption {
-  autoHidenDuration: number;
-  isAutoClose: true;
+interface AutoCloseAlertQueueInternalOption {
   isRunning: boolean;
   isClosed: boolean;
   timer: ReturnType<typeof setTimeout>;
 }
 
+interface AutoCloseAlertQueueOption {
+  autoHidenDuration?: number;
+  isAutoClose: true;
+}
+
 interface ManualCloseAlertQueueOption {
-  autoHidenDuration: -1;
+  autoHidenDuration?: -1;
   isAutoClose: false;
 }
 
@@ -19,13 +22,22 @@ interface BaseAlertQueue {
 }
 
 interface AutoCloseAlertQueue extends BaseAlertQueue {
-  options: AutoCloseAlertQueueOption
+  options: AutoCloseAlertQueueOption & AutoCloseAlertQueueInternalOption
 }
 interface ManualCloseAlertQueue extends BaseAlertQueue {
   options: ManualCloseAlertQueueOption
 }
-type AlertQueue = AutoCloseAlertQueue | ManualCloseAlertQueue;
-type AlertQueueOptions = AutoCloseAlertQueueOption | ManualCloseAlertQueueOption;
+type AlertQueueParams = {
+  options: AutoCloseAlertQueueOption | ManualCloseAlertQueueOption
+} & BaseAlertQueue;
+
+interface AlertQueueReturn {
+  alert: AutoCloseAlertQueue | ManualCloseAlertQueue,
+  waitAlert: number
+}
+
+export type AlertQueueOptions = AutoCloseAlertQueueOption | ManualCloseAlertQueueOption;
+
 interface ConstructorParam {
   maxAutoAlertCount?: number, maxManualAlertCount?: number, autoHidenDuration?: number
 }
@@ -58,17 +70,14 @@ export default class AlertProcessor {
     }
   }
 
-  private getPushResult(alert: AlertQueue, waitAlert: number) {
+  private getPushResult(alert: AlertQueueParams, waitAlert: number): AlertQueueReturn {
     return {
       alert,
       waitAlert
     }
   }
 
-  public pushAlertQueue = (alertCloser: AlertCloser, options: AlertQueueOptions): {
-    alert: AlertQueue,
-    waitAlert: number
-  } => {
+  public pushAlertQueue = (alertCloser: AlertCloser, options: AlertQueueOptions): AlertQueueReturn => {
     const date = Date.now();
     //TODO fix logic
     if (!options.isAutoClose) {
@@ -79,16 +88,23 @@ export default class AlertProcessor {
       const reuslt = { alertCloser, options, date }
       const waitAlert = this.manualCloseAlertQueue.push(reuslt);
       return {
-        alert: this.manualAlertCloseHandler() as AlertQueue,
+        alert: this.manualAlertCloseHandler(),
         waitAlert
       };
     } else {
-
+      const autoOptions: AutoCloseAlertQueue['options'] = {
+        ...options,
+        ...options,
+        isRunning: false,
+        isClosed: false,
+        isAutoClose: true,
+        timer: null as any
+      }
       if (this.autoCloseAlertQueue.length >= this.maxAutoAlertCount) {
-        const reusltParams = { alertCloser, options, date }
+        const reusltParams: AutoCloseAlertQueue = { alertCloser, date, options: autoOptions }
         return this.getPushResult(reusltParams, this.overLimitAlertQueue.push(reusltParams));
       }
-      const reusltParams = { alertCloser, options, date }
+      const reusltParams = { alertCloser, options: autoOptions, date }
       this.autoCloseAlertQueue.push(reusltParams);
       const result = this.getPushResult(reusltParams, 0);
       this.autoAlertCloserHandler();

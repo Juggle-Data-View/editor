@@ -1,6 +1,5 @@
-import React, { useState, SyntheticEvent, useEffect } from 'react';
+import { useState, SyntheticEvent, useEffect, useRef } from 'react';
 import Alert, { AlertColor } from '@mui/material/Alert';
-import Snackbar, { SnackbarProps } from '@mui/material/Snackbar';
 import { Button } from '@mui/material';
 import { createRoot } from 'react-dom/client';
 import AlertProcessor from './AlertQueue';
@@ -9,6 +8,9 @@ interface CustomAlertEvent {
   onOpening(node: HTMLElement): void;
   onConfirm(evt?: SyntheticEvent<HTMLElement>): void;
   onCancel(evt?: SyntheticEvent<HTMLElement>): void;
+  onClose?(evt?: SyntheticEvent<HTMLElement> | KeyboardEvent): void;
+  onHover?(evt?: SyntheticEvent<HTMLElement>): void;
+  onLeave?(evt?: SyntheticEvent<HTMLElement>): void;
 }
 
 const {
@@ -17,7 +19,7 @@ const {
   resumeAlertQueue,
 } = new AlertProcessor();
 
-export interface CustomAlertProps extends Partial<CustomAlertEvent>, SnackbarProps {
+export interface CustomAlertProps extends Partial<CustomAlertEvent> {
   portalContainer?: HTMLElement;
   canEnterKeyConfirm?: boolean; // default true
   canEscapeKeyCancel?: boolean; // default false
@@ -30,25 +32,26 @@ export interface CustomAlertProps extends Partial<CustomAlertEvent>, SnackbarPro
 
 type AlertCallback = (content: any, options?: CustomAlertProps) => void;
 
-const CustomAlert: React.FC<CustomAlertProps> = (props) => {
+const CustomAlert: FC<CustomAlertProps> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const {
     onClose,
     onOpening,
     onCancel,
     onConfirm,
+    onHover,
+    onLeave,
     portalContainer,
     cancelButtonText,
     confirmButtonText,
-    anchorOrigin,
+    isAutoClose,
     intent,
-    isAutoClose = true
   } = props;
-
+  const alertRef = useRef<ReturnType<typeof pauseAlertQueue> | null>(null);
   const bindEnter = (e: KeyboardEvent) => {
     if (e.code === 'Enter') {
       onConfirm && onConfirm();
-      onClose && onClose(e as any, 'clickaway');
+      onClose && onClose(e);
       setIsOpen(false);
     }
   };
@@ -68,8 +71,23 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
     },
   };
 
+  const handleHover = () => {
+    alertRef.current && pauseAlertQueue(alertRef.current);
+    onHover && onHover();
+  }
+
+  const handleLeave = () => {
+    alertRef.current && resumeAlertQueue(alertRef.current);
+    onLeave && onLeave();
+  }
+
   useEffect(() => {
     if (portalContainer) newProps.onOpening(portalContainer);
+    alertRef.current = (isAutoClose ? pushAlertQueue(handleClose, {
+      isAutoClose: true,
+    }) : pushAlertQueue(handleClose, {
+      isAutoClose: false,
+    })) as unknown as ReturnType<typeof pauseAlertQueue>;
   }, []); //eslint-disable-line
 
   const getAction = () => {
@@ -101,14 +119,12 @@ const CustomAlert: React.FC<CustomAlertProps> = (props) => {
   };
 
   return (
-    <div onClick={(e: SyntheticEvent) => e.stopPropagation()}>
-      <Snackbar open={isOpen} autoHideDuration={isAutoClose ? 3000 : null} anchorOrigin={anchorOrigin} sx={{
-        top: 400,
-      }} onClose={handleClose}>
-        <Alert variant="filled" severity={intent} action={getAction()}>
-          {props.children}
-        </Alert>
-      </Snackbar>
+    <div onClick={(e: SyntheticEvent) => e.stopPropagation()} onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
+    >
+      <Alert variant="filled" onClose={handleClose} severity={intent} action={getAction()}>
+        {props.children}
+      </Alert>
     </div>
   );
 };

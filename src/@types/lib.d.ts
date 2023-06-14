@@ -17,3 +17,5 @@ interface RouterParams {
   userPage: 'auth' | 'profile';
   page: 'user' | 'canvas';
 }
+
+declare type FC<T> = React.FC<React.PropsWithChildren<T>>

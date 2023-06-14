@@ -2,15 +2,11 @@
  * notice 页面通知
  */
 
-import alert, { CustomAlertProps } from '@components/common/JuggleDVAlert';
+import alert, { CustomAlertProps } from '@components/common/Alert/JuggleDVAlert';
 
 const topAlert = (message: React.ReactNode, props?: CustomAlertProps) => {
   return alert(message, {
     ...props,
-    anchorOrigin: {
-      vertical: 'top',
-      horizontal: 'center',
-    },
   });
 };
 
