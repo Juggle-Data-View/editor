@@ -1,33 +1,49 @@
 import { isDemo } from './isDemo';
 
-const BLOCKED_HOSTS = [
-  'ashesborn.cloud',
-  'alicdn.com',
-  'googletagmanager.com',
-  'google-analytics.com',
-  'findicons.com',
-];
-
 /** The only cross-origin reads the demo may make. Exact URL, GET, no query. */
 const ALLOWED_GET = new Set([
   'https://pay.ashesborn.cloud/api/v1/telemetry',
   'https://pay.ashesborn.cloud/api/v1/datasets',
 ]);
 
+const pageURL = (explicit?: string) => explicit || (typeof window !== 'undefined' ? window.location.href : '');
+
+const isProxyOrParse = (pathname: string) =>
+  pathname.includes('/api/proxy') || pathname === '/parse' || pathname.startsWith('/parse/');
+
+const isCdnCgi = (pathname: string) => pathname === '/cdn-cgi' || pathname.startsWith('/cdn-cgi/');
+
 /**
- * Demo builds must not reach Parse, the open /api/proxy, or any other origin.
- * Same-origin static files (including /components/*) stay allowed.
- * GET https://pay.ashesborn.cloud/api/v1/telemetry and /datasets are the exception.
+ * Block demo traffic except:
+ * - same-origin GET/HEAD (whatever host the page was deployed on)
+ * - same-origin /cdn-cgi/ (Cloudflare's own beacon; any method, so it is not an uncaught error)
+ * - GET https://pay.ashesborn.cloud/api/v1/telemetry and /datasets
+ * /api/proxy and /parse stay blocked even on the page origin.
+ *
+ * `pageHref` overrides `window.location` in tests.
  */
-export function isBlockedDemoRequest(rawUrl: string, method = 'GET'): boolean {
+export function isBlockedDemoRequest(rawUrl: string, method = 'GET', pageHref?: string): boolean {
+  const base = pageURL(pageHref);
   let url: URL;
+  let pageOrigin = '';
   try {
-    url = new URL(rawUrl, window.location.href);
+    pageOrigin = new URL(base).origin;
+    url = new URL(rawUrl, base);
   } catch (error) {
-    return false;
+    return true;
   }
   if (url.protocol === 'data:' || url.protocol === 'blob:') {
     return false;
+  }
+  if (pageOrigin && url.origin === pageOrigin) {
+    if (isProxyOrParse(url.pathname)) {
+      return true;
+    }
+    if (isCdnCgi(url.pathname)) {
+      return false;
+    }
+    const verb = (method || 'GET').toUpperCase();
+    return verb !== 'GET' && verb !== 'HEAD';
   }
   const verb = (method || 'GET').toUpperCase();
   if (verb === 'GET' && !url.search && !url.hash && !url.username) {
@@ -36,17 +52,18 @@ export function isBlockedDemoRequest(rawUrl: string, method = 'GET'): boolean {
       return false;
     }
   }
-  const host = url.hostname;
-  if ((host === 'localhost' || host === '127.0.0.1') && url.port === '3002') {
-    return true;
-  }
-  if (BLOCKED_HOSTS.some((blocked) => host === blocked || host.endsWith(`.${blocked}`))) {
-    return true;
-  }
-  if (url.origin === window.location.origin) {
-    return url.pathname.includes('/api/proxy') || url.pathname === '/parse' || url.pathname.startsWith('/parse/');
-  }
   return true;
+}
+
+/** True when a blocked call is Cloudflare's own same-origin beacon and should not surface. */
+export function isQuietDemoBlock(rawUrl: string, pageHref?: string): boolean {
+  try {
+    const base = pageURL(pageHref);
+    const url = new URL(rawUrl, base);
+    return url.origin === new URL(base).origin && isCdnCgi(url.pathname);
+  } catch (error) {
+    return false;
+  }
 }
 
 type FetchInput = RequestInfo | { href?: string; url?: string; method?: string };
@@ -79,6 +96,9 @@ export function installDemoGuards(): void {
   window.fetch = ((input: RequestInfo, init?: RequestInit) => {
     const target = requestTarget(input as FetchInput, init);
     if (!target.url || isBlockedDemoRequest(target.url, target.method)) {
+      if (target.url && isQuietDemoBlock(target.url)) {
+        return Promise.resolve(new Response(null, { status: 204 }));
+      }
       return Promise.reject(new Error(`Demo mode blocked request: ${target.url || String(input)}`));
     }
     return originalFetch(input, init);
@@ -94,6 +114,9 @@ export function installDemoGuards(): void {
   ) {
     const target = requestTarget(url as unknown as FetchInput, { method });
     if (!target.url || isBlockedDemoRequest(target.url, target.method)) {
+      if (target.url && isQuietDemoBlock(target.url)) {
+        return;
+      }
       throw new Error(`Demo mode blocked request: ${target.url || String(url)}`);
     }
     return originalOpen.call(this, method, url, async === undefined ? true : async, username, password);
