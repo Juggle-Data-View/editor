@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectRightPannelType, selectUserRole } from '@store/selectors';
 import useLang from '@components/base/useLang';
 import { createNewApps, queryAppByID, updateApp } from '@service/apps';
+import { isDemo } from 'demo/isDemo';
 
 const exportComps = (isAll: boolean) => {
   try {
@@ -161,6 +162,10 @@ const HeadRight: React.FC = () => {
   };
 
   const handleSave = async () => {
+    if (isDemo) {
+      notice.success('已保存到本地');
+      return;
+    }
     try {
       const state = getJuggleDV();
       if (!state.app.id) {

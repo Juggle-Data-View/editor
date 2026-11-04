@@ -4,6 +4,8 @@ import { omit } from 'lodash';
 import Database, { APPINFO_STORE, CANVAS_STORE, COMP_STORE } from './databaseInit';
 import AppConfig from './default.conf';
 import { localStorageKey } from '@helpers/fetchAppConfig';
+import { isDemo } from 'demo/isDemo';
+import demoAppConfig from 'demo/seedApp';
 
 export const defaultRect: JuggleDV.Rect = {
   left: 0,
@@ -63,9 +65,10 @@ class DB extends Database {
   };
 
   getDefaultConfig = async (): Promise<JuggleDV.AppConfig | undefined> => {
-    const app = omit(AppConfig, 'canvas');
-    const { canvas } = AppConfig;
-    await this.initDB(AppConfig);
+    const source = isDemo ? demoAppConfig : AppConfig;
+    const app = omit(source, 'canvas');
+    const { canvas } = source;
+    await this.initDB(source);
     return {
       ...app,
       canvas,

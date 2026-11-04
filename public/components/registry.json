@@ -1,0 +1,79 @@
+{
+  "components": [
+    {
+      "name": "pie",
+      "version": "1.0.0",
+      "title": "基础饼图",
+      "category": "chart",
+      "group": "饼图",
+      "entry": "/components/pie/1.0.0/index.js",
+      "manifest": "/components/pie/1.0.0/manifest.json",
+      "shared": [
+        "react",
+        "echarts"
+      ]
+    },
+    {
+      "name": "base-bar",
+      "version": "1.0.0",
+      "title": "基础柱状图",
+      "category": "chart",
+      "group": "柱状图",
+      "entry": "/components/base-bar/1.0.0/index.js",
+      "manifest": "/components/base-bar/1.0.0/manifest.json",
+      "shared": [
+        "react",
+        "echarts"
+      ]
+    },
+    {
+      "name": "base-line",
+      "version": "1.0.0",
+      "title": "基础折线图",
+      "category": "chart",
+      "group": "折线图",
+      "entry": "/components/base-line/1.0.0/index.js",
+      "manifest": "/components/base-line/1.0.0/manifest.json",
+      "shared": [
+        "react",
+        "echarts"
+      ]
+    },
+    {
+      "name": "common-title",
+      "version": "1.0.0",
+      "title": "普通文本",
+      "category": "text",
+      "group": "文本",
+      "entry": "/components/common-title/1.0.0/index.js",
+      "manifest": "/components/common-title/1.0.0/manifest.json",
+      "shared": [
+        "react"
+      ]
+    },
+    {
+      "name": "broken-widget",
+      "version": "1.0.0",
+      "title": "异常组件",
+      "category": "sample",
+      "group": "示例",
+      "entry": "/components/broken-widget/1.0.0/index.js",
+      "manifest": "/components/broken-widget/1.0.0/manifest.json",
+      "shared": [
+        "react"
+      ]
+    },
+    {
+      "name": "broken-load",
+      "version": "1.0.0",
+      "title": "加载失败",
+      "category": "sample",
+      "group": "示例",
+      "entry": "/components/broken-load/1.0.0/index.js",
+      "manifest": "/components/broken-load/1.0.0/manifest.json",
+      "shared": [
+        "react"
+      ]
+    }
+  ]
+}

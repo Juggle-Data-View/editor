@@ -69,7 +69,7 @@ export const CANVAS_ID = 'autoDV-canvas'; // 画布dom的id
 
 export const UNDO_RESTORE = 'UNDO_RESTORE';
 
-export const DEFAULT_THUMBNAIL = 'https://findicons.com/files/icons/1579/devine/48/file.png';
+export const DEFAULT_THUMBNAIL = '/favicon.ico';
 
 /** 画布缩放最小值 */
 export const MIN_CANVAS_RATIO = 0.1;

@@ -22,6 +22,7 @@ import { User } from 'parse';
 import { logout } from '@service/userInfo';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { isDemo } from 'demo/isDemo';
 
 const LeftPanel: React.FC = () => {
   const lang = useLang();
@@ -32,7 +33,7 @@ const LeftPanel: React.FC = () => {
   const userRole = useSelector(selectUserRole);
   const history = useHistory();
   const isLogin = !!User.current();
-  const [isShowPopper, setShowPopper] = useState(!isLogin && page !== 'user');
+  const [isShowPopper, setShowPopper] = useState(!isDemo && !isLogin && page !== 'user');
 
   const handleChange = (event: React.SyntheticEvent, val: string) => {
     setActiveKey(val);
@@ -53,6 +54,9 @@ const LeftPanel: React.FC = () => {
   };
 
   const handleLogOut = async () => {
+    if (isDemo) {
+      return;
+    }
     try {
       await logout();
       dispatch(editorAction.setUserRole('Guest'));

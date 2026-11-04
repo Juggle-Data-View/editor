@@ -6,6 +6,7 @@ import { JuggleDV } from '@juggle-data-view/types';
 import DB from '@store/DB';
 import fetchAppConfig, { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
 import app from '@store/DB/appConfig';
+import { isDemo } from 'demo/isDemo';
 
 export { getAppID, localStorageKey } from '@helpers/fetchAppConfig';
 
@@ -208,6 +209,9 @@ export const getParentURL = () => {
 };
 
 export const getConfigFromServer = async () => {
+  if (isDemo) {
+    throw new Error('demo mode uses the local dashboard');
+  }
   if (!window.navigator.onLine) {
     throw new Error('network error: user is offline');
   }
