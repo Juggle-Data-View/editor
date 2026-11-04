@@ -43,10 +43,10 @@ export const asyncLoadCompConfig = async (compCode: string, version: string): Pr
     if (remote) {
       return remote as unknown as JuggleDV.CompConfig;
     }
-    const name = getConfigName(version);
-    const { default: config } = await import(`@components/comps/${compCode}/${name}`);
-    return config;
   } catch (error) {
-    throw error;
+    console.error(error);
   }
+  const name = getConfigName(version);
+  const { default: config } = await import(`@components/comps/${compCode}/${name}`);
+  return config;
 };

@@ -7,13 +7,9 @@ import Providers from '@components/base/Providers';
 import '@assets/style/index.scss';
 import initialServer from '@service/initialize';
 import { installDemoGuards } from 'demo/installDemoGuards';
-import { isDemo } from 'demo/isDemo';
-
 installDemoGuards();
 initialServer();
-if (!isDemo) {
-  injectCDNScript();
-}
+injectCDNScript();
 
 const Index = () => {
   return (

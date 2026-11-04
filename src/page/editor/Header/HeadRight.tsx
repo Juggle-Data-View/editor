@@ -229,9 +229,9 @@ const HeadRight: React.FC = () => {
             <Settings />
           </Tooltip>
         </Button>
-        {userRole !== 'Guest' ? (
+        {isDemo || userRole !== 'Guest' ? (
           <Button color="primary" onClick={handleSave} variant="contained">
-            <Tooltip title={'save to remote'} placement="bottom">
+            <Tooltip title={isDemo ? 'save locally' : 'save to remote'} placement="bottom">
               <BackupIcon />
             </Tooltip>
           </Button>

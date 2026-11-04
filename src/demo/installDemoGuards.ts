@@ -49,6 +49,27 @@ export function isBlockedDemoRequest(rawUrl: string, method = 'GET'): boolean {
   return true;
 }
 
+type FetchInput = RequestInfo | { href?: string; url?: string; method?: string };
+
+/** String, URL, and Request all become a URL string. Unreadable input stays empty so the caller blocks it. */
+export function requestTarget(input: FetchInput, init?: RequestInit): { url: string; method: string } {
+  let method = (init && init.method) || '';
+  let url = '';
+  if (typeof input === 'string') {
+    url = input;
+  } else if (typeof URL !== 'undefined' && input instanceof URL) {
+    url = input.href;
+  } else if (typeof Request !== 'undefined' && input instanceof Request) {
+    url = input.url;
+    method = method || input.method;
+  } else if (input && typeof (input as { href?: string }).href === 'string') {
+    url = (input as { href: string }).href;
+  } else if (input && typeof (input as { url?: string }).url === 'string') {
+    url = (input as { url: string }).url;
+  }
+  return { url, method: method || 'GET' };
+}
+
 export function installDemoGuards(): void {
   if (!isDemo || typeof window === 'undefined') {
     return;
@@ -56,10 +77,9 @@ export function installDemoGuards(): void {
 
   const originalFetch = window.fetch.bind(window);
   window.fetch = ((input: RequestInfo, init?: RequestInit) => {
-    const raw = typeof input === 'string' ? input : input.url;
-    const method = (init && init.method) || 'GET';
-    if (isBlockedDemoRequest(raw, method)) {
-      return Promise.reject(new Error(`Demo mode blocked request: ${raw}`));
+    const target = requestTarget(input as FetchInput, init);
+    if (!target.url || isBlockedDemoRequest(target.url, target.method)) {
+      return Promise.reject(new Error(`Demo mode blocked request: ${target.url || String(input)}`));
     }
     return originalFetch(input, init);
   }) as typeof window.fetch;
@@ -72,16 +92,18 @@ export function installDemoGuards(): void {
     username?: string | null,
     password?: string | null
   ) {
-    if (isBlockedDemoRequest(String(url), method)) {
-      throw new Error(`Demo mode blocked request: ${String(url)}`);
+    const target = requestTarget(url as unknown as FetchInput, { method });
+    if (!target.url || isBlockedDemoRequest(target.url, target.method)) {
+      throw new Error(`Demo mode blocked request: ${target.url || String(url)}`);
     }
     return originalOpen.call(this, method, url, async === undefined ? true : async, username, password);
   };
 
   const OriginalWebSocket = window.WebSocket;
   const PatchedWebSocket = function WebSocketGuard(this: WebSocket, url: string, protocols?: string | string[]) {
-    if (isBlockedDemoRequest(String(url), 'WEBSOCKET')) {
-      throw new Error(`Demo mode blocked websocket: ${String(url)}`);
+    const target = requestTarget(url as unknown as FetchInput, { method: 'WEBSOCKET' });
+    if (!target.url || isBlockedDemoRequest(target.url, target.method)) {
+      throw new Error(`Demo mode blocked websocket: ${target.url || String(url)}`);
     }
     return new OriginalWebSocket(url, protocols);
   } as unknown as typeof WebSocket;
