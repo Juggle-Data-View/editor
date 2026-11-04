@@ -236,18 +236,18 @@ export const getConfigFromIndexedDB = async (
   id?: string
 ): Promise<JuggleDV.AppConfig | undefined> => {
   try {
-    const appId = getAppID() || id;
-
-    const urlAppId = qs.query.id as string;
+    if (isDemo) {
+      await DB.ensureDemoApps();
+    }
+    const urlAppId = id ? '' : (qs.query.id as string);
+    const rawId = urlAppId || id || getAppID();
+    const appId = rawId !== '' && rawId != null && !isNaN(Number(rawId)) ? Number(rawId) : rawId;
     if (!appId && isInEditor) {
       // need to init app
       throw new Error('Local storage is empty');
     }
     if (!appId) {
       return DB.getDefaultConfig();
-    }
-    if (urlAppId) {
-      return getConfigFromIndexedDB(false, urlAppId);
     }
     return DB.getConfigByAPPID(appId);
   } catch (error) {

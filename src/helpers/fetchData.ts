@@ -6,13 +6,16 @@ export const fetchCSVData = async (datasource: JuggleDV.ExeclDatasourceInstance)
 };
 
 const getUrl = (isPost: boolean, url: string, params: JuggleDV.APIDatasourceInstance['dataParams']) => {
-  return isPost
-    ? url
-    : `${url}?${(params as JuggleDV.DataParam[])?.reduce((a, b, index) => {
-        if (b.name) {
-          return `${a}${index > 0 ? '&' : ''}${b.name}=${b.value}`;
-        } else return a;
-      }, '')}`;
+  if (isPost) {
+    return url;
+  }
+  const query = ((params as JuggleDV.DataParam[]) || []).reduce((acc, item, index) => {
+    if (!item.name) {
+      return acc;
+    }
+    return `${acc}${index > 0 && acc ? '&' : ''}${item.name}=${item.value}`;
+  }, '');
+  return query ? `${url}?${query}` : url;
 };
 
 const getResponse = async (datasource: JuggleDV.APIDatasourceInstance): Promise<Response> => {
@@ -34,22 +37,19 @@ const getResponse = async (datasource: JuggleDV.APIDatasourceInstance): Promise<
   } else {
     const requestURL = getUrl(isPost, url, dataParams);
     const params: any = isPost ? { body: dataParams as string } : {};
+    const headers = header?.reduce(
+      (acc, item) => {
+        if (item.key) {
+          return { ...acc, [item.key]: item.value };
+        }
+        return acc;
+      },
+      isPost ? { 'Content-type': 'application/json;charset=UTF-8' } : {}
+    );
     const option = {
       ...params,
       method,
-      headers: header?.reduce(
-        (a, b) => {
-          if (b.key) {
-            return {
-              ...a,
-              [b.key]: b.value,
-            };
-          } else {
-            return a;
-          }
-        },
-        { 'Content-type': 'application/json;charset=UTF-8' }
-      ),
+      headers,
     };
     return fetch(requestURL, option);
   }

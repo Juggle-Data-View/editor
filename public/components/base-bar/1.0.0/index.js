@@ -32,13 +32,90 @@ var require_mountChart = __commonJS({
   }
 });
 
+// components/lib/unavailable.jsx
+var require_unavailable = __commonJS({
+  "components/lib/unavailable.jsx"(exports2, module2) {
+    "use strict";
+    var React2 = require("react");
+    function Unavailable2({ message }) {
+      return React2.createElement(
+        "div",
+        {
+          "data-data-status": "unavailable",
+          style: {
+            boxSizing: "border-box",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#9bb0c9",
+            border: "1px dashed rgba(155,176,201,0.45)",
+            background: "rgba(8, 18, 32, 0.35)",
+            fontSize: 16
+          }
+        },
+        message || "data unavailable"
+      );
+    }
+    module2.exports = Unavailable2;
+  }
+});
+
+// components/lib/format.jsx
+var require_format = __commonJS({
+  "components/lib/format.jsx"(exports2, module2) {
+    "use strict";
+    var NETWORKS = {
+      "eip155:8453": "Base",
+      "eip155:42161": "Arbitrum One",
+      "eip155:84532": "Base Sepolia"
+    };
+    function networkLabel(value) {
+      if (value == null || value === "") return "";
+      return NETWORKS[value] || String(value);
+    }
+    function formatTime2(value) {
+      const time = Date.parse(value);
+      if (Number.isNaN(time) || String(value).indexOf("T") === -1) {
+        return value == null ? "" : String(value);
+      }
+      return new Date(time).toISOString().slice(5, 16).replace("T", " ");
+    }
+    function formatNumber(value) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric) || value === "" || value == null) {
+        return value == null ? "" : String(value);
+      }
+      if (typeof value === "string" && value.indexOf(".") !== -1) {
+        return value;
+      }
+      return numeric.toLocaleString("en-US");
+    }
+    function dataStatus2(sourceData) {
+      return sourceData && sourceData.__status || "ready";
+    }
+    module2.exports = {
+      networkLabel,
+      formatTime: formatTime2,
+      formatNumber,
+      dataStatus: dataStatus2
+    };
+  }
+});
+
 // components/base-bar/index.jsx
 var React = require("react");
 var MountChart = require_mountChart();
+var Unavailable = require_unavailable();
+var { formatTime, dataStatus } = require_format();
 function BaseBar({ compData, sourceData }) {
   const title = compData.config && compData.config.title || "\u67F1\u72B6\u56FE";
-  const rows = Array.isArray(sourceData) ? sourceData : [];
   const attr = compData.attr || {};
+  if (dataStatus(sourceData) === "error") {
+    return React.createElement(Unavailable, null);
+  }
+  const rows = (Array.isArray(sourceData) ? sourceData : []).map((row) => ({ x: row.x, y: Number(row.y) })).filter((row) => row.x != null && row.x !== "").sort((a, b) => String(a.x).localeCompare(String(b.x)));
   const option = {
     backgroundColor: "transparent",
     title: {
@@ -47,11 +124,11 @@ function BaseBar({ compData, sourceData }) {
       textStyle: { color: "#d6e4ff", fontSize: 16, fontWeight: 500 }
     },
     tooltip: { trigger: "axis" },
-    grid: { left: 48, right: 16, top: 48, bottom: 32 },
+    grid: { left: 48, right: 16, top: 48, bottom: 72 },
     xAxis: {
       type: "category",
-      data: rows.map((row) => row.x),
-      axisLabel: { color: "#9bb0c9" },
+      data: rows.map((row) => formatTime(row.x)),
+      axisLabel: { color: "#9bb0c9", rotate: 28 },
       axisLine: { lineStyle: { color: "#3d5a80" } }
     },
     yAxis: {

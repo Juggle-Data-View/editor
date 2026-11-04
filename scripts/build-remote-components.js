@@ -50,6 +50,8 @@ const catalog = [
   { dir: 'base-bar' },
   { dir: 'base-line' },
   { dir: 'common-title' },
+  { dir: 'kpi' },
+  { dir: 'data-table' },
   { dir: 'broken-widget' },
   { dir: 'broken-load', emit: 'throw' },
 ];

@@ -19,6 +19,7 @@ import store from '@store/index';
 import { isEmpty } from 'lodash';
 import { JuggleDV } from '@juggle-data-view/types';
 import { getStaticData } from '@components/base/BaseActions';
+import { DataSourceType } from '@configurableComponents/const';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -51,20 +52,25 @@ const Editor = () => {
 
   const preloadComponentsStaticData = async (app: JuggleDV.AppConfig) => {
     const { compInsts } = app.canvas;
+    const result = { ...(app.datasources || {}) } as JuggleDV.AppConfig['datasources'];
     if (!compInsts) {
-      return;
+      return result;
     }
-    const state = store.getState();
-    const { datasources } = state.autoDV.present.app;
-    const result = {} as JuggleDV.MixinDatasource;
     for await (const { compCode, dataConfig } of compInsts) {
-      if (compCode in datasources) {
+      if (!dataConfig) {
         continue;
       }
-      result[compCode as keyof JuggleDV.MixinDatasource] = {
+      const sourceId = dataConfig.dataSourceId || compCode;
+      if (sourceId in result || compCode in result || dataConfig.dataSourceType === DataSourceType.API) {
+        continue;
+      }
+      result[sourceId] = {
         ...dataConfig,
-        body: await getStaticData(compCode, datasources),
-      };
+        dataSourceId: sourceId,
+        name: compCode,
+        dataSourceType: DataSourceType.Static,
+        body: await getStaticData(compCode, result),
+      } as JuggleDV.MixinDatasource;
     }
     return result;
   };

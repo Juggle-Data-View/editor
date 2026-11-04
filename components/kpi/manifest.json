@@ -1,0 +1,30 @@
+{
+  "name": "kpi",
+  "version": "1.0.0",
+  "title": "指标卡",
+  "category": "text",
+  "group": "指标",
+  "shared": ["react"],
+  "staticData": [{ "value": 128 }],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": { "config": true, "dataset": true },
+    "template": {
+      "title": "指标卡",
+      "attr": { "left": 0, "top": 0, "width": 280, "height": 120, "angle": 0, "scale": [1, 1] },
+      "config": { "label": "指标", "prefix": "", "suffix": "" },
+      "dataConfig": {
+        "fieldMap": [{ "compFieldName": "value", "sourceFieldName": "value" }]
+      }
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": [
+        { "type": "text", "name": "label", "label": "名称" },
+        { "type": "text", "name": "prefix", "label": "前缀" },
+        { "type": "text", "name": "suffix", "label": "后缀" }
+      ]
+    }
+  }
+}

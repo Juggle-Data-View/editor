@@ -3,7 +3,7 @@ Easy to display your Data. ([preview](https://dataview.ashesborn.cloud/));
 
 ## Portfolio demo (no login, static)
 
-The demo build does not call Parse or `lowcode-backend`. Pages stay in the browser (IndexedDB). A few charts and the `componetsStore` text sample are loaded at runtime from `/components/<name>/<version>/` and evaluated in a `new Function` sandbox. Install with pnpm 7 (the lockfile is v5.4), on Node 22:
+The demo build does not call Parse or `lowcode-backend`. The seeded dashboard binds to the public x402 APIs (`https://pay.ashesborn.cloud/api/v1/telemetry` and `/datasets`) through the editor's API datasources. Charts and the `componetsStore` text sample load at runtime from `/components/<name>/<version>/` inside a `new Function` sandbox. A second page (`/editor/canvas?id=2022110402`) keeps the broken-bundle placeholders. Install with pnpm 7 (the lockfile is v5.4), on Node 22:
 
 ```shell
 corepack prepare pnpm@7.33.6 --activate

@@ -52,6 +52,30 @@
       ]
     },
     {
+      "name": "kpi",
+      "version": "1.0.0",
+      "title": "指标卡",
+      "category": "text",
+      "group": "指标",
+      "entry": "/components/kpi/1.0.0/index.js",
+      "manifest": "/components/kpi/1.0.0/manifest.json",
+      "shared": [
+        "react"
+      ]
+    },
+    {
+      "name": "data-table",
+      "version": "1.0.0",
+      "title": "数据表",
+      "category": "text",
+      "group": "表格",
+      "entry": "/components/data-table/1.0.0/index.js",
+      "manifest": "/components/data-table/1.0.0/manifest.json",
+      "shared": [
+        "react"
+      ]
+    },
+    {
       "name": "broken-widget",
       "version": "1.0.0",
       "title": "异常组件",

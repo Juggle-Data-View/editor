@@ -19,7 +19,10 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
     const { compData } = rest; // 包裹组件需要用到的props
     const { dataConfig } = compData;
 
-    const [originData, setOriginData] = useState<any[]>([]);
+    const [originData, setOriginData] = useState<any>([]);
+    const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>(
+      !dataConfig && !datasource ? 'ready' : 'loading'
+    );
 
     const [isAutoFresh, updateFreq] = useMemo(() => {
       if (!dataConfig && !datasource) {
@@ -36,24 +39,43 @@ const withSourceData = (WrappedComponent: React.FC<JuggleDV.CompIndex>) => {
         const origin = originData;
         // TODO: data tranlater second parameter is missing
         const data = dataConfig ? dataTranslate(origin, dataConfig.fieldMap) : decorateData2array(origin);
-
+        Object.defineProperty(data, '__status', { value: loadState, enumerable: false });
         return data; // sourceData的类型必须是个数组
       } catch (error) {
         console.log(error);
-        return [];
+        const empty: any[] = [];
+        Object.defineProperty(empty, '__status', { value: 'error', enumerable: false });
+        return empty;
       }
-    }, [originData, dataConfig]);
+    }, [originData, dataConfig, loadState]);
+
+    const applyOrigin = (payload: Promise<any>) => {
+      payload
+        .then((data) => {
+          setLoadState('ready');
+          setOriginData(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoadState('error');
+          setOriginData([]);
+        });
+    };
 
     const timer = useMemo(() => {
+      if (!datasource || !dataConfig) {
+        return NaN;
+      }
       if (!isAutoFresh) {
         // clearInterval(timer);
-        getOriginData(datasource, dataConfig).then((data) => setOriginData(data));
+        applyOrigin(getOriginData(datasource, dataConfig));
         return NaN;
       }
       if (timer) {
         clearInterval(timer);
       }
-      return setInterval(() => getOriginData(datasource, dataConfig).then((data) => setOriginData(data)), updateFreq);
+      applyOrigin(getOriginData(datasource, dataConfig));
+      return setInterval(() => applyOrigin(getOriginData(datasource, dataConfig)), updateFreq);
     }, [isAutoFresh, updateFreq, dataConfig, datasource]);
 
     return (

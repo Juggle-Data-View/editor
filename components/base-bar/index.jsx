@@ -1,10 +1,18 @@
 const React = require('react');
 const MountChart = require('../lib/mountChart.jsx');
+const Unavailable = require('../lib/unavailable.jsx');
+const { formatTime, dataStatus } = require('../lib/format.jsx');
 
 function BaseBar({ compData, sourceData }) {
   const title = (compData.config && compData.config.title) || '柱状图';
-  const rows = Array.isArray(sourceData) ? sourceData : [];
   const attr = compData.attr || {};
+  if (dataStatus(sourceData) === 'error') {
+    return React.createElement(Unavailable, null);
+  }
+  const rows = (Array.isArray(sourceData) ? sourceData : [])
+    .map((row) => ({ x: row.x, y: Number(row.y) }))
+    .filter((row) => row.x != null && row.x !== '')
+    .sort((a, b) => String(a.x).localeCompare(String(b.x)));
   const option = {
     backgroundColor: 'transparent',
     title: {
@@ -13,11 +21,11 @@ function BaseBar({ compData, sourceData }) {
       textStyle: { color: '#d6e4ff', fontSize: 16, fontWeight: 500 },
     },
     tooltip: { trigger: 'axis' },
-    grid: { left: 48, right: 16, top: 48, bottom: 32 },
+    grid: { left: 48, right: 16, top: 48, bottom: 72 },
     xAxis: {
       type: 'category',
-      data: rows.map((row) => row.x),
-      axisLabel: { color: '#9bb0c9' },
+      data: rows.map((row) => formatTime(row.x)),
+      axisLabel: { color: '#9bb0c9', rotate: 28 },
       axisLine: { lineStyle: { color: '#3d5a80' } },
     },
     yAxis: {
