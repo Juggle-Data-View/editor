@@ -1,0 +1,35 @@
+{
+  "name": "base-bar",
+  "version": "1.0.0",
+  "title": "基础柱状图",
+  "category": "chart",
+  "group": "柱状图",
+  "shared": ["react", "echarts"],
+  "staticData": [
+    { "brand": "海天", "order": 40, "stock": 120 },
+    { "brand": "王老吉", "order": 50, "stock": 100 },
+    { "brand": "恒源祥", "order": 50, "stock": 40 },
+    { "brand": "光明", "order": 60, "stock": 50 },
+    { "brand": "蒙牛", "order": 70, "stock": 60 }
+  ],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": { "config": true, "dataset": true },
+    "template": {
+      "title": "基础柱状图",
+      "attr": { "left": 0, "top": 0, "width": 560, "height": 320, "angle": 0, "scale": [1, 1] },
+      "config": { "title": "库存" },
+      "dataConfig": {
+        "fieldMap": [
+          { "compFieldName": "x", "sourceFieldName": "brand" },
+          { "compFieldName": "y", "sourceFieldName": "stock" }
+        ]
+      }
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": [{ "type": "text", "name": "title", "label": "标题" }]
+    }
+  }
+}

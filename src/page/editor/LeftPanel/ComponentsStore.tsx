@@ -3,10 +3,11 @@ import { ADD_COMP } from '@components/base/BaseActions';
 import { Control } from '@components/form';
 import { DEFAULT_THUMBNAIL } from '@configurableComponents/const';
 import menu, { Category, GroupChildren, MenuItemKey } from '@configurableComponents/menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEditorPanel } from '@store/selectors';
 import { ComponentsStoreContainer } from './style';
+import { loadRegistry, RemoteComponentRecord } from 'runtime/registry';
 
 const ListItem: React.FC<{
   itemData: GroupChildren;
@@ -29,6 +30,57 @@ const ListItem: React.FC<{
         <div>{name}</div>
       </div>
     </Button>
+  );
+};
+
+const RemoteSection: React.FC = () => {
+  const [items, setItems] = useState<RemoteComponentRecord[]>([]);
+  const [disabled, setDisabled] = useState('');
+
+  useEffect(() => {
+    loadRegistry()
+      .then(setItems)
+      .catch((error) => console.error(error));
+  }, []);
+
+  if (!items.length) {
+    return null;
+  }
+
+  const groups = items.reduce<Record<string, RemoteComponentRecord[]>>((acc, item) => {
+    const key = item.group || item.category || 'remote';
+    acc[key] = acc[key] || [];
+    acc[key].push(item);
+    return acc;
+  }, {});
+
+  return (
+    <Control.Collapse label="远程组件" isOpen={true}>
+      {Object.keys(groups).map((group) => (
+        <Control.Collapse key={group} label={group} isOpen={true}>
+          <div className="storeListRow">
+            {groups[group].map((item) => (
+              <Button
+                key={`${item.name}@${item.version}`}
+                disabled={disabled === item.name}
+                onClick={async () => {
+                  setDisabled(item.name);
+                  await ADD_COMP(`${item.name}/${item.version}`, item.title);
+                  setDisabled('');
+                }}
+              >
+                <div className="components">
+                  <div>
+                    <img src={DEFAULT_THUMBNAIL} title={item.title} alt={item.title} />
+                  </div>
+                  <div>{item.title}</div>
+                </div>
+              </Button>
+            ))}
+          </div>
+        </Control.Collapse>
+      ))}
+    </Control.Collapse>
   );
 };
 
@@ -74,7 +126,12 @@ const ComponentsStore: React.FC = () => {
     });
   };
 
-  return <ComponentsStoreContainer visible={panel.compList}>{renderCategoryList()}</ComponentsStoreContainer>;
+  return (
+    <ComponentsStoreContainer visible={panel.compList}>
+      <RemoteSection />
+      {renderCategoryList()}
+    </ComponentsStoreContainer>
+  );
 };
 
 export default ComponentsStore;

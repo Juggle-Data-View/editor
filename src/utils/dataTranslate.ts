@@ -20,24 +20,35 @@ Array.prototype.getSourceDataValue = function (key, defaultValue) {
   return defaultValue;
 };
 
-const fieldMap2Obj = (fieldMap: JuggleDV.Field[]) => {
-  return fieldMap.reduce((acc: any, cur) => {
-    acc[cur.compFieldName] = cur.sourceFieldName;
-    return acc;
-  }, Object.create(null));
+/** Read a field. Dotted paths use lodash get; a plain key stays a direct lookup. */
+const readField = (sourceItem: any, path: string) => {
+  if (!path) {
+    return undefined;
+  }
+  if (sourceItem && Object.prototype.hasOwnProperty.call(sourceItem, path)) {
+    return sourceItem[path];
+  }
+  return get(sourceItem, path);
 };
 
 /**
- * 以`fieldMap`为标准，重组对象
- * @param sourceItem {label: "item-1", value: 1}
- * @param fieldMap {option: "label", value: "value"}
- * @return {object}  {option: "item-1", value: 1 }
+ * `payments.recent_mainnet[].network` selects each row of that array.
+ * A plain path (`corpus.papers`) reads one field, including dotted paths.
  */
-const getFieldValue = (sourceItem: any, fieldMap: any) => {
-  return Object.keys(fieldMap).reduce((acc: any, cur: any) => {
-    acc[cur] = sourceItem[fieldMap[cur]];
-    return acc;
-  }, Object.create(null));
+const listPathOf = (fieldMap: JuggleDV.Field[]) => {
+  const marked = fieldMap.find((field) => String(field.sourceFieldName).includes('[]'));
+  if (!marked) {
+    return '';
+  }
+  return String(marked.sourceFieldName).slice(0, String(marked.sourceFieldName).indexOf('[]')).replace(/\.$/, '');
+};
+
+const fieldOnRow = (sourceFieldName: string) => {
+  const mark = sourceFieldName.indexOf('[]');
+  if (mark === -1) {
+    return sourceFieldName;
+  }
+  return sourceFieldName.slice(mark + 2).replace(/^\./, '');
 };
 
 const fieldMapFormatVerify = (fieldMap: any) => {
@@ -82,8 +93,15 @@ const dataTranslater = (data: any, fieldMap: JuggleDV.Field[]) => {
   if (!fieldMapFormatVerify(fieldMap)) {
     return [];
   }
-  return decorateData2array(data).map((item: any) => {
-    return getFieldValue(item, fieldMap2Obj(fieldMap));
+  const listPath = listPathOf(fieldMap);
+  const rows = listPath
+    ? decorateData2array(get(Array.isArray(data) ? data[0] : data, listPath))
+    : decorateData2array(data);
+  return rows.map((item: any) => {
+    return fieldMap.reduce((acc: any, field) => {
+      acc[field.compFieldName] = readField(item, fieldOnRow(field.sourceFieldName));
+      return acc;
+    }, Object.create(null));
   });
 };
 

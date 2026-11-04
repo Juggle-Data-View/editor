@@ -17,8 +17,7 @@ import { Route, Switch, useParams } from 'react-router-dom';
 import User from './User';
 import store from '@store/index';
 import { isEmpty } from 'lodash';
-import { JuggleDV } from '@juggle-data-view/types';
-import { getStaticData } from '@components/base/BaseActions';
+import { hydrateDatasources } from 'helpers/hydrateDatasources';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -49,26 +48,6 @@ const Editor = () => {
     }
   };
 
-  const preloadComponentsStaticData = async (app: JuggleDV.AppConfig) => {
-    const { compInsts } = app.canvas;
-    if (!compInsts) {
-      return;
-    }
-    const state = store.getState();
-    const { datasources } = state.autoDV.present.app;
-    const result = {} as JuggleDV.MixinDatasource;
-    for await (const { compCode, dataConfig } of compInsts) {
-      if (compCode in datasources) {
-        continue;
-      }
-      result[compCode as keyof JuggleDV.MixinDatasource] = {
-        ...dataConfig,
-        body: await getStaticData(compCode, datasources),
-      };
-    }
-    return result;
-  };
-
   const initApp = async () => {
     //TODO: Not request when app info is same
     try {
@@ -77,7 +56,7 @@ const Editor = () => {
         appAction.init({
           app: {
             ...app,
-            datasources: await preloadComponentsStaticData(app),
+            datasources: await hydrateDatasources(app),
           },
         })
       );
@@ -89,7 +68,7 @@ const Editor = () => {
         appAction.init({
           app: {
             ...app,
-            datasources: app && (await preloadComponentsStaticData(app)),
+            datasources: app && (await hydrateDatasources(app)),
           },
         })
       );

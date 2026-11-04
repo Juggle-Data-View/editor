@@ -14,6 +14,7 @@ import copy from 'copy-to-clipboard';
 import { COPY_KEY } from '@configurableComponents/const';
 import dayjs from 'dayjs';
 import { getAllSelectedComps } from '@utils/getAllChildren';
+import { loadRemoteStaticData } from 'runtime/loadRemoteComponent';
 
 // 复制组件
 // undo会影响复制后的数据，如果触发了undo，需在undo后重新执行复制操作。
@@ -55,10 +56,21 @@ export const DELETE_COMP = () => {
 export const getStaticData = async (compCode: string, datasources: JuggleDV.AppConfig['datasources']) => {
   if (compCode in datasources) {
     return datasources[compCode].body || [];
-  } else {
+  }
+  try {
+    const remote = await loadRemoteStaticData(compCode);
+    if (remote) {
+      return remote;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  try {
     const staticDatas = (await import(`@components/comps/${compCode}/staticData`)).default;
-    const result = staticDatas;
-    return result || [];
+    return staticDatas || [];
+  } catch (error) {
+    console.warn(error);
+    return [];
   }
 };
 

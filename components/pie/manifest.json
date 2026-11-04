@@ -1,0 +1,35 @@
+{
+  "name": "pie",
+  "version": "1.0.0",
+  "title": "基础饼图",
+  "category": "chart",
+  "group": "饼图",
+  "shared": ["react", "echarts"],
+  "staticData": [
+    { "brand": "海天", "order": 40, "stock": 120 },
+    { "brand": "王老吉", "order": 50, "stock": 100 },
+    { "brand": "恒源祥", "order": 50, "stock": 40 },
+    { "brand": "光明", "order": 60, "stock": 50 },
+    { "brand": "蒙牛", "order": 70, "stock": 60 }
+  ],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": { "config": true, "dataset": true },
+    "template": {
+      "title": "基础饼图",
+      "attr": { "left": 0, "top": 0, "width": 480, "height": 320, "angle": 0, "scale": [1, 1] },
+      "config": { "title": "订单占比" },
+      "dataConfig": {
+        "fieldMap": [
+          { "compFieldName": "name", "sourceFieldName": "brand" },
+          { "compFieldName": "value", "sourceFieldName": "order" }
+        ]
+      }
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": [{ "type": "text", "name": "title", "label": "标题" }]
+    }
+  }
+}

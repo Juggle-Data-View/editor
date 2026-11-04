@@ -1,6 +1,21 @@
 # Juggle Data View
 Easy to display your Data. ([preview](https://dataview.ashesborn.cloud/));
 
+## Portfolio demo (no login, static)
+
+The demo build does not call Parse or `lowcode-backend`. The seeded dashboard binds to the public x402 APIs (`https://pay.ashesborn.cloud/api/v1/telemetry` and `/datasets`) through the editor's API datasources. Charts and the `componetsStore` text sample load at runtime from `/components/<name>/<version>/` inside a `new Function` sandbox. A second page (`/editor/canvas?id=2022110402`) keeps the broken-bundle placeholders. Install with pnpm 7 (the lockfile is v5.4), on Node 22:
+
+```shell
+corepack prepare pnpm@7.33.6 --activate
+pnpm install
+npm run build:demo
+npx wrangler deploy
+```
+
+`npm run build:demo` writes the editor to `build/` and the remote bundles to `public/components/` (copied into `build/components`). `wrangler.jsonc` serves that directory as Worker static assets (`juggle-editor-demo`) with SPA fallback. No Worker script is deployed.
+
+Component sources under `components/` are vendored so this repo builds alone. They should move back to [Juggle-Data-View/componetsStore](https://github.com/Juggle-Data-View/componetsStore) and be produced by [Juggle-Data-View/cli](https://github.com/Juggle-Data-View/cli) later. The built-in ECharts set (multi-series, radar, funnel, treemap, and the rest), `commonTitle`, `group`, `codeFragment`, and `datasource` stay in the editor bundle.
+
 - [Deploy front end in local](#Deploy-front-end-in-local)
 - [Deploy server side in local](#Deploy-server-side-in-local)
 - [Directory struct ](#Directory-struct )

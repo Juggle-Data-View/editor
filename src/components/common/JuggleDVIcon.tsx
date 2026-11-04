@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import RefreshIcon from '@mui/icons-material/Refresh';
 export const injectCDNScript = () => {
-  const ICONFONT_URL = '//at.alicdn.com/t/font_1781874_8luu239vdrs.js';
+  const base = (process.env.PUBLIC_URL || '').replace(/\/$/, '');
   const oScript = document.createElement('script');
-  oScript.src = ICONFONT_URL;
-  oScript.async = true; // 没有依赖关系
+  oScript.src = `${base}/iconfont.js`;
+  oScript.async = true;
   document.body.appendChild(oScript);
 };
 

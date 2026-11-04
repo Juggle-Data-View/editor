@@ -3,6 +3,7 @@
  */
 import notice from '@utils/notice';
 import { JuggleDV } from '@juggle-data-view/types';
+import { loadRemoteCompConfig } from 'runtime/loadRemoteComponent';
 
 /**
  * 异步加载本地静态数据
@@ -38,10 +39,14 @@ const getConfigName = (version: string) => {
  */
 export const asyncLoadCompConfig = async (compCode: string, version: string): Promise<JuggleDV.CompConfig> => {
   try {
-    const name = getConfigName(version);
-    const { default: config } = await import(`@components/comps/${compCode}/${name}`);
-    return config;
+    const remote = await loadRemoteCompConfig(compCode, version);
+    if (remote) {
+      return remote as unknown as JuggleDV.CompConfig;
+    }
   } catch (error) {
-    throw error;
+    console.error(error);
   }
+  const name = getConfigName(version);
+  const { default: config } = await import(`@components/comps/${compCode}/${name}`);
+  return config;
 };

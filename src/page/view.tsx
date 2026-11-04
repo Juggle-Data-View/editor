@@ -5,6 +5,7 @@ import PageLoading from '@components/common/PageLoading';
 import { JuggleDV } from '@juggle-data-view/types';
 import { appAction } from '@store/features/appSlice';
 import { getConfigFromIndexedDB, getConfigFromServer } from 'utils';
+import { hydrateDatasources } from 'helpers/hydrateDatasources';
 
 /**
  * ----------------------------
@@ -26,10 +27,14 @@ const View = () => {
 
   const setApp = async () => {
     try {
-      const app = await getAppConfig();
-      if (!app) {
+      const stored = await getAppConfig();
+      if (!stored) {
         throw new Error('get empty config');
       }
+      const app = {
+        ...stored,
+        datasources: await hydrateDatasources(stored),
+      };
       dispatch(appAction.init({ app }));
       setCanvas(app.canvas);
     } catch (error) {

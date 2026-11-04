@@ -1,0 +1,40 @@
+{
+  "name": "common-title",
+  "version": "1.0.0",
+  "title": "普通文本",
+  "category": "text",
+  "group": "文本",
+  "shared": ["react"],
+  "staticData": [],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": { "config": true, "dataset": false },
+    "template": {
+      "title": "普通文本",
+      "attr": { "left": 0, "top": 0, "width": 420, "height": 64, "angle": 0, "scale": [1, 1] },
+      "config": {
+        "title": "默认文本",
+        "style": {
+          "display": "flex",
+          "color": "#e8f1ff",
+          "fontSize": 28,
+          "lineHeight": 1.4,
+          "fontWeight": "normal",
+          "letterSpacing": 0,
+          "justifyContent": "flex-start",
+          "alignItems": "center",
+          "textAlign": "left"
+        },
+        "link": { "url": "", "isBlank": false }
+      }
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": [
+        { "type": "textarea", "name": "title", "label": "文本内容" },
+        { "type": "text", "name": "link.url", "label": "链接" }
+      ]
+    }
+  }
+}

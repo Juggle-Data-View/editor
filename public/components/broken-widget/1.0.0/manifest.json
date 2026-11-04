@@ -1,0 +1,37 @@
+{
+  "name": "broken-widget",
+  "version": "1.0.0",
+  "title": "异常组件",
+  "main": "index.js",
+  "shared": [
+    "react"
+  ],
+  "staticData": [],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": {
+      "config": true,
+      "dataset": false
+    },
+    "template": {
+      "title": "异常组件",
+      "attr": {
+        "left": 0,
+        "top": 0,
+        "width": 360,
+        "height": 160,
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "config": {}
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": []
+    }
+  }
+}

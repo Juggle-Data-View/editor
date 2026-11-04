@@ -6,6 +6,8 @@ import PageLoading from '@components/common/PageLoading';
 import Providers from '@components/base/Providers';
 import '@assets/style/index.scss';
 import initialServer from '@service/initialize';
+import { installDemoGuards } from 'demo/installDemoGuards';
+installDemoGuards();
 initialServer();
 injectCDNScript();
 

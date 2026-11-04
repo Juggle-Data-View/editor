@@ -1,0 +1,20 @@
+{
+  "name": "broken-load",
+  "version": "1.0.0",
+  "title": "加载失败",
+  "category": "sample",
+  "group": "示例",
+  "shared": ["react"],
+  "error": "deliberately broken bundle: evaluation failed",
+  "staticData": [],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": { "config": false, "dataset": false },
+    "template": {
+      "title": "加载失败",
+      "attr": { "left": 0, "top": 0, "width": 360, "height": 160, "angle": 0, "scale": [1, 1] },
+      "config": {}
+    },
+    "forms": { "type": "fragment", "name": "config", "children": [] }
+  }
+}

@@ -26,12 +26,18 @@ export const mergeCompData = async (compData: JuggleDV.Comp) => {
 };
 
 const ErrorMessage = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   height: 100%;
+  padding: 12px;
   font-size: 14px;
+  line-height: 1.4;
+  color: #ffb020;
+  background: rgba(8, 16, 32, 0.72);
+  border: 1px dashed #ffb020;
 `;
 
 interface IProps {
@@ -81,7 +87,7 @@ const ErrorCatcher: React.FC<IProps> = ({ compData, children }) => {
   return (
     <CommonErrorBoundy
       handleCatch={handleCatch}
-      LowerComponent={() => <ErrorMessage>⚠️ 组件配置异常，请刷新页面重试。 </ErrorMessage>}
+      LowerComponent={() => <ErrorMessage data-remote-placeholder="render">组件运行异常</ErrorMessage>}
     >
       {children}
     </CommonErrorBoundy>

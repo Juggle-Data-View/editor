@@ -1,0 +1,59 @@
+{
+  "name": "data-table",
+  "version": "1.0.0",
+  "title": "数据表",
+  "main": "index.js",
+  "shared": [
+    "react"
+  ],
+  "staticData": [],
+  "compConfig": {
+    "version": "1.0.0",
+    "tab": {
+      "config": true,
+      "dataset": true
+    },
+    "template": {
+      "title": "数据表",
+      "attr": {
+        "left": 0,
+        "top": 0,
+        "width": 640,
+        "height": 320,
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "config": {
+        "title": "数据表",
+        "columns": [
+          {
+            "field": "name",
+            "label": "名称"
+          }
+        ]
+      },
+      "dataConfig": {
+        "fieldMap": [
+          {
+            "compFieldName": "name",
+            "sourceFieldName": "name"
+          }
+        ]
+      }
+    },
+    "forms": {
+      "type": "fragment",
+      "name": "config",
+      "children": [
+        {
+          "type": "text",
+          "name": "title",
+          "label": "标题"
+        }
+      ]
+    }
+  }
+}
